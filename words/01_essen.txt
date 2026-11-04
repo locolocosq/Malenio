@@ -1,0 +1,393 @@
+# Essen und Trinken
+# Format: Deutsch|Amharisch   —   @1 leicht, @2 mittel, @3 schwer
+@1
+Apfel|ፖም
+Banane|ሙዝ
+Orange|ብርቱካን
+Zitrone|ሎሚ
+Brot|ዳቦ
+Käse|አይብ
+Milch|ወተት
+Ei|እንቁላል
+Wasser|ውሃ
+Kaffee|ቡና
+Tee|ሻይ
+Reis|ሩዝ
+Nudeln|ፓስታ
+Pizza|ፒዛ
+Kuchen|ኬክ
+Eis|አይስክሬም
+Salz|ጨው
+Zucker|ስኳር
+Honig|ማር
+Butter|ቅቤ
+Fleisch|ስጋ
+Fisch|ዓሣ
+Huhn|ዶሮ
+Tomate|ቲማቲም
+Kartoffel|ድንች
+Zwiebel|ሽንኩርት
+Knoblauch|ነጭ ሽንኩርት
+Karotte|ካሮት
+Salat|ሰላጣ
+Suppe|ሾርባ
+Saft|ጭማቂ
+Traube|ወይን ፍሬ
+Erdbeere|እንጆሪ
+Kirsche|ቼሪ
+Birne|ፒር
+Mango|ማንጎ
+Ananas|አናናስ
+Wassermelone|ሐብሐብ
+Melone|ሜሎን
+Papaya|ፓፓያ
+Avocado|አቮካዶ
+Kokosnuss|ኮኮናት
+Pfirsich|ኮክ
+Pflaume|ፕለም
+Bonbon|ከረሜላ
+Schokolade|ቸኮሌት
+Keks|ብስኩት
+Sandwich|ሳንድዊች
+Hamburger|በርገር
+Pommes|ጥብስ ድንች
+Hotdog|ሆትዶግ
+Popcorn|ፋንዲሻ
+Mais|በቆሎ
+Erbse|አተር
+Bohne|ባቄላ
+Linse|ምስር
+Gurke|ኪያር
+Paprika|ቃሪያ
+Chili|በርበሬ
+Kohl|ጎመን
+Kürbis|ዱባ
+Pilz|እንጉዳይ
+Nuss|ለውዝ
+Erdnuss|ኦቾሎኒ
+Joghurt|እርጎ
+Wurst|ቋሊማ
+Toast|ቶስት
+Brötchen|ትንሽ ዳቦ
+Pfannkuchen|ፓንኬክ
+Lutscher|ሎሊፖፕ
+Limonade|ሎሚናት
+Cola|ኮካ
+Bier|ቢራ
+Wein|ወይን ጠጅ
+Fladenbrot|ቂጣ
+Injera|እንጀራ
+Spiegelei|የተጠበሰ እንቁላል
+Steak|ስቴክ
+Spieß|ሹካ ጥብስ
+Eiswürfel|በረዶ ኩብ
+Donut|ዶናት
+Muffin|ማፊን
+Croissant|ክሮሳን
+Sahne|ክሬም
+Mehl|ዱቄት
+Öl|ዘይት
+Essig|ኮምጣጤ
+Pfeffer|ቁንዶ በርበሬ
+Senf|ሰናፍጭ
+Ketchup|ኬችአፕ
+Marmelade|ማርማላታ
+Müsli|ሙስሊ
+Frühstück|ቁርስ
+Mittagessen|ምሳ
+Abendessen|እራት
+Snack|መክሰስ
+Torte|የልደት ኬክ
+Brezel|ብሬዝል
+Zuckerwatte|የጥጥ ከረሜላ
+Milchshake|ሚልክሼክ
+@2
+Spaghetti|ስፓጌቲ
+Lasagne|ላዛኛ
+Sushi|ሱሺ
+Taco|ታኮ
+Burrito|ቡሪቶ
+Döner|ዶነር
+Falafel|ፈላፈል
+Hummus|ሁሙስ
+Omelett|ኦምሌት
+Rührei|ፍርፍር እንቁላል
+Kekse backen|ብስኩት መጋገር
+Brokkoli|ብሮኮሊ
+Blumenkohl|የአበባ ጎመን
+Spinat|ቆስጣ
+Sellerie|ሴሊሪ
+Aubergine|ኤግፕላንት
+Zucchini|ዙኪኒ
+Radieschen|ቀይ ስር
+Rote Bete|ቀይ ሥር
+Ingwer|ዝንጅብል
+Zimt|ቀረፋ
+Kardamom|ኮረሪማ
+Knoblauchzehe|የነጭ ሽንኩርት ፍሬ
+Petersilie|ፓርስሊ
+Basilikum|በሶብላ
+Minze|ናና
+Rosine|ዘቢብ
+Dattel|ተምር
+Feige|በለስ
+Granatapfel|ሮማን
+Kiwi|ኪዊ
+Himbeere|ራስበሪ
+Blaubeere|ብሉቤሪ
+Brombeere|ጥቁር እንጆሪ
+Limette|ትንሽ ሎሚ
+Grapefruit|ግሬፕፍሩት
+Mandarine|መንደሪን
+Aprikose|አፕሪኮት
+Mandel|አልሞንድ
+Walnuss|ዋልኑት
+Haselnuss|ሄዝልኑት
+Kastanie|ደረት ለውዝ
+Sonnenblumenkerne|የሱፍ ፍሬ
+Sesam|ሰሊጥ
+Leinsamen|ተልባ
+Teff|ጤፍ
+Gerste|ገብስ
+Weizen|ስንዴ
+Hafer|አጃ
+Hirse|ማሽላ
+Kichererbse|ሽምብራ
+Shiro|ሽሮ
+Doro Wat|ዶሮ ወጥ
+Tibs|ጥብስ
+Kitfo|ክትፎ
+Firfir|ፍርፍር
+Genfo|ገንፎ
+Kolo|ቆሎ
+Dabo|ዳቦ ቆሎ
+Buna Zeremonie|የቡና ሥነ ሥርዓት
+Tej|ጠጅ
+Tella|ጠላ
+Ayib|የኢትዮጵያ አይብ
+Berbere|በርበሬ ቅመም
+Mitmita|ሚጥሚጣ
+Niter Kibbeh|ንጥር ቅቤ
+Popcornmaschine|የፋንዲሻ ማሽን
+Grillhähnchen|የተጠበሰ ዶሮ
+Fischstäbchen|የዓሣ ጣት
+Frikadelle|የስጋ ኳስ
+Schnitzel|ሽኒትዘል
+Kartoffelbrei|የተፈጨ ድንች
+Pommes Frites|የተጠበሰ ድንች
+Chips|ቺፕስ
+Cracker|ክራከር
+Waffel|ዋፍል
+Crêpe|ክሬፕ
+Pudding|ፑዲንግ
+Wackelpudding|ጄሊ
+Sorbet|ሶርቤ
+Eistee|በረዶ ሻይ
+Kakao|ኮኮዋ
+Smoothie|ስሙዚ
+Mineralwasser|የማዕድን ውሃ
+Sprudel|ሶዳ
+Espresso|ኤስፕሬሶ
+Cappuccino|ካፑቺኖ
+Macchiato|ማኪያቶ
+Teekanne|የሻይ ጀበና
+Jebena|ጀበና
+Gewürz|ቅመም
+Soße|መረቅ
+Dip|ማጥቀሻ
+Brühe|መረቅ ሾርባ
+Eintopf|ወጥ
+Curry|ካሪ
+Kebab|ከባብ
+Grillwurst|የተጠበሰ ቋሊማ
+Garnele|ሽሪምፕ
+Krabbe|ሸርጣን
+Hummer|ሎብስተር
+Muschel|ዛጎል
+Tintenfisch|ስኩዊድ
+Lachs|ሳልመን
+Thunfisch|ቱና
+Sardine|ሰርዲን
+Hackfleisch|የተፈጨ ስጋ
+Schinken|ካም
+Salami|ሳላሚ
+Speck|ቤከን
+Truthahn|ተርኪ ሥጋ
+Lammfleisch|የበግ ሥጋ
+Rindfleisch|የበሬ ሥጋ
+Ziegenfleisch|የፍየል ሥጋ
+Kalb|ጥጃ ሥጋ
+Leber|ጉበት
+Knochen|አጥንት
+Eigelb|የእንቁላል አስኳል
+Eiweiß|የእንቁላል ነጭ
+Quark|ቀሪ አይብ
+Mozzarella|ሞዛሬላ
+Schlagsahne|የተገረፈ ክሬም
+Brotkrümel|የዳቦ ፍርፋሪ
+Toastbrot|የቶስት ዳቦ
+Baguette|ባጌት
+Vollkornbrot|ሙሉ ስንዴ ዳቦ
+Sauerteig|እርሾ
+Hefe|እርሾ ዱቄት
+Teig|ሊጥ
+Nudelholz|መዳመጫ
+Gummibärchen|የጎማ ከረሜላ
+Kaugummi|ማስቲካ
+Karamell|ካራሜል
+Marzipan|ማርዚፓን
+Nougat|ኑጋ
+Praline|ፕራሊን
+Eiswaffel|የአይስክሬም ኮን
+Eisbecher|የአይስክሬም ጽዋ
+Schokoriegel|የቸኮሌት ባር
+Müsliriegel|የእህል ባር
+Apfelkuchen|የፖም ኬክ
+Käsekuchen|የአይብ ኬክ
+Geburtstagskuchen|የልደት ኬክ
+Hochzeitstorte|የሠርግ ኬክ
+Lebkuchen|የዝንጅብል ብስኩት
+Plätzchen|ትንሽ ብስኩት
+@3
+Ratatouille|ራታቱይ
+Paella|ፓኤላ
+Risotto|ሪዞቶ
+Gnocchi|ኞኪ
+Ravioli|ራቪዮሊ
+Fondue|ፎንዱ
+Raclette|ራክሌት
+Bruschetta|ብሩስኬታ
+Guacamole|ጓካሞሌ
+Nachos|ናቾስ
+Quesadilla|ኬሳዲያ
+Frühlingsrolle|ስፕሪንግ ሮል
+Dim Sum|ዲም ሰም
+Ramen|ራመን
+Tofu|ቶፉ
+Kimchi|ኪምቺ
+Sauerkraut|ሳወርክራውት
+Gulasch|ጉላሽ
+Rouladen|ሩላደን
+Knödel|ክኑደል
+Spätzle|ሽፐትዝሌ
+Maultaschen|ማውልታሸን
+Currywurst|ካሪቩርስት
+Bratwurst|ብራትቩርስት
+Weißwurst|ነጭ ቋሊማ
+Leberkäse|ሌበርኬዘ
+Schwarzwälder Kirschtorte|የጥቁር ደን ኬክ
+Bienenstich|ቢነንሽቲሽ
+Stollen|ሽቶለን
+Apfelstrudel|የፖም ስትሩደል
+Berliner|በርሊነር
+Kaiserschmarrn|ካይዘርሽማርን
+Zwieback|ደረቅ ዳቦ
+Pumpernickel|ጥቁር ዳቦ
+Sambusa|ሳምቡሳ
+Dulet|ዱለት
+Gored Gored|ጎረድ ጎረድ
+Tere Siga|ጥሬ ሥጋ
+Misir Wat|ምስር ወጥ
+Atkilt|አትክልት
+Gomen|ጎመን ወጥ
+Kinche|ቅንጬ
+Chechebsa|ጨጨብሳ
+Ambasha|አምባሻ
+Kocho|ቆጮ
+Bula|ቡላ
+Ensete|እንሰት
+Borde|ቦርዴ
+Areke|አረቄ
+Kategna|ቃተኛ
+Asa Tibs|የዓሣ ጥብስ
+Beyaynetu|በያይነቱ
+Fosolia|ፎሶሊያ
+Azifa|አዚፋ
+Senafich|ሰናፍጭ ወጥ
+Ful|ፉል
+Kik Alicha|ክክ አልጫ
+Tikil Gomen|ጥቅል ጎመን
+Zilzil Tibs|ዝልዝል ጥብስ
+Quanta|ቋንጣ
+Kurkufa|ኩርኩፋ
+Himbasha|ሕምባሻ
+Defo Dabo|ድፎ ዳቦ
+Dabo Kolo|ዳቦ ቆሎ
+Shai Bebuna|ሻይ በቡና
+Spinatknödel|የቆስጣ ኳስ
+Zimtschnecke|የቀረፋ ዳቦ
+Makrone|ማካሮን
+Tiramisu|ቲራሚሱ
+Panna Cotta|ፓናኮታ
+Crème brûlée|ክሬም ብሩሌ
+Mousse au Chocolat|የቸኮሌት ሙስ
+Baklava|ባቅላቫ
+Churros|ቹሮስ
+Brownie|ብራውኒ
+Cupcake|ካፕኬክ
+Bagel|ቤግል
+Hot Pot|ሆት ፖት
+Pfefferminztee|የናና ሻይ
+Kamillentee|የካሞሚል ሻይ
+Grüner Tee|አረንጓዴ ሻይ
+Ingwertee|የዝንጅብል ሻይ
+Gewürztee|የቅመም ሻይ
+Kokosmilch|የኮኮናት ወተት
+Mandelmilch|የአልሞንድ ወተት
+Sojamilch|የአኩሪ አተር ወተት
+Buttermilch|አሬራ
+Erdnussbutter|የኦቾሎኒ ቅቤ
+Nutella|ኑቴላ
+Ahornsirup|የሜፕል ሽሮፕ
+Vanille|ቫኒላ
+Muskatnuss|ገውዝ
+Nelke|ቅርንፉድ
+Kurkuma|እርድ
+Kreuzkümmel|ከሙን
+Koriander|ድምብላል
+Thymian|ጠጅ ሳር
+Rosmarin|ሮዝመሪ
+Oregano|ኦሬጋኖ
+Lorbeerblatt|የበሶ ቅጠል
+Safran|ሳፍሮን
+Olive|የወይራ ፍሬ
+Kaper|ኬፐር
+Artischocke|አርቲሾክ
+Spargel|አስፓራጉስ
+Lauch|ሊክ
+Rosenkohl|ትንሽ ጎመን
+Grünkohl|ጎመን ቅጠል
+Rucola|ሩኮላ
+Süßkartoffel|ስኳር ድንች
+Maniok|ካሳቫ
+Yamswurzel|ጎደሬ
+Okra|ባሚያ
+Pastinake|ፓርስኒፕ
+Kohlrabi|ኮልራቢ
+Rhabarber|ሩባርብ
+Stachelbeere|ጉዝቤሪ
+Johannisbeere|ከረንት
+Holunder|ኤልደርቤሪ
+Litschi|ሊቺ
+Passionsfrucht|የፓሽን ፍሬ
+Guave|ዘይቱን
+Sternfrucht|የኮከብ ፍሬ
+Drachenfrucht|የዘንዶ ፍሬ
+Kaktusfeige|በለስ ቁልቋል
+Quitte|ኩዊንስ
+Physalis|ፊዛሊስ
+Pistazie|ፒስታቺዮ
+Cashew|ካሼው
+Macadamia|ማካዳሚያ
+Paranuss|የብራዚል ለውዝ
+Pinienkerne|የጥድ ፍሬ
+Kürbiskerne|የዱባ ፍሬ
+Chiasamen|ቺያ ዘር
+Quinoa|ኪኖዋ
+Couscous|ኩስኩስ
+Bulgur|ቡልጉር
+Polenta|ፖሌንታ
+Grieß|ሰሞሊና
+Haferflocken|የአጃ ፍርፋሪ
+Cornflakes|ኮርንፍሌክስ
+Popcornschüssel|የፋንዲሻ ሳህን

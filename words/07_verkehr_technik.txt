@@ -1,0 +1,334 @@
+# Verkehr, Technik, Werkzeuge
+@1
+Auto|መኪና
+Bus|አውቶቡስ
+Zug|ባቡር
+Flugzeug|አውሮፕላን
+Schiff|መርከብ
+Boot|ጀልባ
+Fahrrad|ብስክሌት
+Motorrad|ሞተር ሳይክል
+Lastwagen|የጭነት መኪና
+Taxi|ታክሲ
+Bajaj|ባጃጅ
+Hubschrauber|ሄሊኮፕተር
+Rakete|ሮኬት
+Traktor|ትራክተር
+Krankenwagen Auto|የአምቡላንስ መኪና
+Feuerwehrauto|የእሳት አደጋ መኪና
+Polizeiauto|የፖሊስ መኪና
+Rad|ጎማ
+Reifen|ጎማ መኪና
+Lenkrad|መሪ
+Hupe|ጡሩምባ
+Motor|ሞተር
+Benzin|ቤንዚን
+Ballon|ፊኛ
+Heißluftballon|የሙቅ አየር ፊኛ
+Drachen fliegen|ካይት
+Skateboard|ስኬትቦርድ
+Roller|ስኩተር
+Kinderwagen Fahrzeug|የሕፃን መንሸራተቻ
+Schlitten|የበረዶ ተንሸራታች
+Kanu|ታንኳ
+Segelboot|የሸራ ጀልባ
+U-Boot|ሰርጓጅ መርከብ
+Anker|መልሕቅ
+Segel|ሸራ
+Ruder|መቅዘፊያ
+Fallschirm|ፓራሹት
+Ticket|ትኬት
+Pass|ፓስፖርት
+Landkarte Reise|የጉዞ ካርታ
+Straßenbahn|ትራም
+U-Bahn|የምድር ውስጥ ባቡር
+Kutsche|ሰረገላ
+Karren|ጋሪ
+Pferdekutsche|የፈረስ ጋሪ
+Gari|ጋሪ ፈረስ
+Bagger|ኤክስካቫተር
+Kran Fahrzeug|ክሬን መኪና
+Müllauto|የቆሻሻ መኪና
+Kamera|ካሜራ
+Tastatur|ኪቦርድ
+Maus Computer|ማውዝ
+Bildschirm|ስክሪን
+Tablet|ታብሌት ኮምፒውተር
+Mikrofon|ማይክሮፎን
+Lautsprecher Box|ስፒከር
+Glocke|ደወል ትልቅ
+Magnet Spielzeug|ማግኔት አሻንጉሊት
+Seil|ገመድ
+Kette Metall|ሰንሰለት
+Rad Zahnrad|ጥርስ ያለው ጎማ
+Brief|ደብዳቤ
+Paket|ጥቅል
+Briefmarke|ቴምብር
+Geld|ገንዘብ
+Münze|ሳንቲም
+Geldschein|ብር ኖት
+Kreditkarte|ክሬዲት ካርድ
+Ampel Auto|የመኪና መብራት
+Parkuhr|የመኪና ማቆሚያ ቆጣሪ
+@2
+Wohnmobil|ተንቀሳቃሽ ቤት መኪና
+Cabrio|ጣሪያ የሌለው መኪና
+Rennauto|የውድድር መኪና
+Jeep|ጂፕ
+Minibus|ሚኒባስ
+Doppeldeckerbus|ባለ ሁለት ፎቅ አውቶቡስ
+Schulbus|የትምህርት ቤት አውቶቡስ
+Abschleppwagen|ተጎታች መኪና
+Tankwagen|የነዳጅ ቦቴ
+Betonmischer|የኮንክሪት መደባለቂያ
+Planierraupe|ቡልዶዘር
+Gabelstapler|ፎርክሊፍት
+Mähdrescher|ኮምባይነር
+Dampflok|የእንፋሎት ባቡር
+Güterzug|የጭነት ባቡር
+Schnellzug|ፈጣን ባቡር
+Seilbahn Kabine|የገመድ ባቡር ክፍል
+Gondel|ጎንዶላ
+Fähre|ጀልባ መሻገሪያ
+Kreuzfahrtschiff|የመዝናኛ መርከብ
+Frachtschiff|የጭነት መርከብ
+Containerschiff|የኮንቴይነር መርከብ
+Tanker|የነዳጅ መርከብ
+Floß|ታንኳ እንጨት
+Tretboot|በእግር የሚነዳ ጀልባ
+Schlauchboot|የአየር ጀልባ
+Jetski|ጄት ስኪ
+Motorboot|የሞተር ጀልባ
+Jacht|ያክት
+Rettungsboot|ነፍስ አድን ጀልባ
+Rettungsring|ነፍስ አድን ቀለበት
+Schwimmweste|ነፍስ አድን ጃኬት
+Leuchtturm Schiff|የብርሃን ማማ መርከብ
+Kompass Schiff|የመርከብ ኮምፓስ
+Steuerrad|የመርከብ መሪ
+Mast|ምሰሶ መርከብ
+Kajüte|የመርከብ ክፍል
+Jet|ጄት
+Düsenflugzeug|ጄት አውሮፕላን
+Segelflugzeug|ሞተር አልባ አውሮፕላን
+Propeller|ፕሮፔለር
+Drohne|ድሮን
+Zeppelin|ዘፔሊን
+Raumschiff|የጠፈር መርከብ
+Mondfahrzeug|የጨረቃ መኪና
+Cockpit|የአብራሪ ክፍል
+Landebahn|ማረፊያ መንገድ
+Tower Flughafen|የቁጥጥር ማማ
+Gepäckband|የሻንጣ መውጫ
+Sicherheitsgurt|የደህንነት ቀበቶ
+Airbag|ኤርባግ
+Kofferraum|የመኪና ዕቃ ማስቀመጫ
+Motorhaube|የሞተር ሽፋን
+Scheinwerfer|የፊት መብራት
+Rücklicht|የኋላ መብራት
+Blinker|የመታጠፊያ መብራት
+Scheibenwischer|መጥረጊያ መስታወት
+Rückspiegel|የኋላ መስታወት
+Nummernschild|ታርጋ
+Auspuff|ጭስ ማውጫ መኪና
+Tank|የነዳጅ ታንክ
+Gaspedal|የነዳጅ መርገጫ
+Bremse|ፍሬን
+Kupplung|ክላች
+Schaltknüppel|ማርሽ
+Tacho|የፍጥነት መለኪያ
+Navi|ጂፒኤስ
+Wagenheber|ጃክ
+Ersatzreifen|ትርፍ ጎማ
+Luftpumpe|የአየር መንፊያ
+Fahrradklingel|የብስክሌት ደወል
+Fahrradhelm|የብስክሌት ቆብ
+Pedal|ፔዳል
+Sattel Fahrrad|የብስክሌት መቀመጫ
+Lenker|የብስክሌት መሪ
+Kette Fahrrad|የብስክሌት ሰንሰለት
+Stützräder|ረዳት ጎማዎች
+Tandem|ባለ ሁለት ሰው ብስክሌት
+Einrad|ባለ አንድ ጎማ ብስክሌት
+Dreirad|ባለ ሶስት ጎማ
+Rollerblades|ሮለር ብሌድ
+Segway|ሴግዌይ
+E-Scooter|ኤሌክትሪክ ስኩተር
+Seilwinde|የገመድ መጠቅለያ
+Flaschenzug|መዘውር
+Hebel|መሳቢያ ዘንግ
+Zahnrad|ማርሽ ጥርስ
+Feder Metall|ስፕሪንግ
+Schraubstock|መያዣ ብረት
+Amboss|የአንጥረኛ ድንጋይ
+Lötkolben|መበየጃ
+Schweißgerät|ብየዳ ማሽን
+Kettensäge|ሰንሰለት መጋዝ
+Hobel|መላጊያ
+Meißel|መሮ
+Feile|ሞረድ
+Wasserwaage|ደረጃ መለኪያ
+Zollstock|ታጣፊ ሜትር
+Taschenmesser|የኪስ ቢላ
+Lupe Werkzeug|ማጉያ
+Taschenrechner|ካልኩሌተር
+Smartphone|ስማርት ስልክ
+Smartwatch|ስማርት ሰዓት
+Festplatte|ሃርድ ዲስክ
+USB-Stick|ፍላሽ
+Speicherkarte|ሚሞሪ ካርድ
+Webcam|ዌብ ካሜራ
+Joystick|ጆይስቲክ
+Controller|የጨዋታ መቆጣጠሪያ
+Virtual Reality Brille|ቪአር መነጽር
+Roboterarm|የሮቦት ክንድ
+3D-Drucker|ባለ 3D ማተሚያ
+Solarzelle|የፀሐይ ሴል
+Akku|ባትሪ ተሞይ
+Stecker|መሰኪያ
+Glühlampe|አምፖል ብርሃን
+Leuchtstoffröhre|ፍሎረሰንት
+Funkgerät|ሬዲዮ መገናኛ
+Walkie-Talkie|ዎኪ ቶኪ
+Satellitentelefon|የሳተላይት ስልክ
+Fax|ፋክስ
+Schreibmaschine|የጽሕፈት መኪና
+Kopierer|ፎቶ ኮፒ ማሽን
+Geldautomat|ኤቲኤም
+Kasse|የገንዘብ መመዝገቢያ
+Barcode|ባርኮድ
+QR-Code|ኪውአር ኮድ
+Passwort|የይለፍ ቃል
+E-Mail|ኢሜይል
+Internet|ኢንተርኔት
+WLAN|ዋይፋይ
+Bluetooth|ብሉቱዝ
+App|መተግበሪያ
+Emoji|ኢሞጂ
+Selfie|ሰልፊ
+Videoanruf|የቪዲዮ ጥሪ
+@3
+Kühlergrill|የራዲያተር ፍርግርግ
+Getriebe|የማርሽ ሳጥን
+Vergaser|ካርቡሬተር
+Zündkerze|ስፓርክ ፕላግ
+Kolben|ፒስተን
+Kurbelwelle|ክራንክሻፍት
+Stoßdämpfer|ሾክ አብዞርበር
+Achse|ዘንግ ጎማ
+Felge|ቸርኬ
+Radkappe|የጎማ ሽፋን
+Schneekette|የበረዶ ሰንሰለት
+Anhänger|ተሳቢ
+Wohnwagen|የቤት ተሳቢ
+Pferdeanhänger|የፈረስ ተሳቢ
+Kipplaster|ገልባጭ መኪና
+Straßenwalze|መንገድ ደልዳይ
+Schneepflug|በረዶ ጠራጊ
+Kehrmaschine|መንገድ ጠራጊ መኪና
+Feuerwehrleiter|የእሳት አደጋ መሰላል
+Panzer Fahrzeug|ታንክ
+Kampfjet|የጦር አውሮፕላን
+Flugzeugträger|የአውሮፕላን ተሸካሚ መርከብ
+Torpedo|ቶርፔዶ
+Periskop|ፔሪስኮፕ
+Sonar|ሶናር
+Radar|ራዳር
+Leuchtfeuer|የምልክት እሳት
+Morsecode|የሞርስ ኮድ
+Flaschenpost|የጠርሙስ ደብዳቤ
+Brieftaube|መልእክት አድራሽ ርግብ
+Postkutsche|የፖስታ ሰረገላ
+Rikscha|ሪክሾ
+Sänfte|ተሸካሚ ወንበር
+Hundeschlitten|የውሻ ተንሸራታች
+Luftkissenboot|ሆቨርክራፍት
+Wasserflugzeug|የውሃ አውሮፕላን
+Doppeldecker|ባለ ሁለት ክንፍ አውሮፕላን
+Gleitschirm|ፓራግላይደር
+Drachenflieger|ሀንግ ግላይደር
+Raumfähre|የጠፈር መንኮራኩር
+Mondlandefähre|የጨረቃ ማረፊያ
+Marsrover|የማርስ ሮቨር
+Teleskop Weltraum|የጠፈር ቴሌስኮፕ
+Raumanzug Helm|የጠፈር ቆብ
+Startrampe|የሮኬት መነሻ
+Countdown|ቆጠራ ወደ ኋላ
+Schwerelosigkeit|ክብደት አልባነት
+Förderband|ተንቀሳቃሽ ቀበቶ
+Fließband|የምርት መስመር
+Industrieroboter|የፋብሪካ ሮቦት
+Turbine|ተርባይን
+Dampfmaschine|የእንፋሎት ሞተር
+Kompressor|ኮምፕረሰር
+Hydraulik|ሃይድሮሊክ
+Pipeline|የቧንቧ መስመር
+Strommast|የኤሌክትሪክ ምሰሶ
+Transformator|ትራንስፎርመር
+Blitzableiter|መብረቅ መከላከያ
+Glühfaden|የአምፖል ክር
+Schaltkreis|ሰርኪዩት
+Mikrochip|ማይክሮ ቺፕ
+Prozessor|ፕሮሰሰር
+Platine|ሰሌዳ ኤሌክትሮኒክ
+Lötstelle|የብየዳ ቦታ
+Oszilloskop|ኦሲሎስኮፕ
+Mikroskop|ማይክሮስኮፕ
+Reagenzglas|የሙከራ ቱቦ
+Bunsenbrenner|ቡንሰን ማቃጠያ
+Pipette|ፒፔት
+Petrischale|ፔትሪ ሳህን
+Zentrifuge|ሴንትሪፊዩጅ
+Atom|አቶም
+Molekül|ሞለኪውል
+DNA|ዲኤንኤ
+Laser|ሌዘር
+Hologramm|ሆሎግራም
+Künstliche Intelligenz|ሰው ሠራሽ አስተውሎት
+Chatbot|ቻትቦት
+Virus Computer|የኮምፒውተር ቫይረስ
+Firewall|ፋየርዎል
+Cloud|ክላውድ
+Server|ሰርቨር
+Datenbank|የመረጃ ቋት
+Algorithmus|አልጎሪዝም
+Pixel|ፒክሰል
+Cursor|ጠቋሚ
+Ladebalken|የመጫኛ አሞሌ
+Benachrichtigung|ማሳወቂያ
+Akkustand|የባትሪ መጠን
+Flugmodus|የበረራ ሁነታ
+Bildschirmschoner|የስክሪን ጠባቂ
+Hashtag|ሃሽታግ
+Livestream|ቀጥታ ስርጭት
+Podcast|ፖድካስት
+Klingelton|የስልክ ጥሪ ድምፅ
+Sprachnachricht|የድምፅ መልእክት
+Kryptowährung|ክሪፕቶ ገንዘብ
+Bitcoin|ቢትኮይን
+Navigationsgerät|የአቅጣጫ መሣሪያ
+Kilometerzähler|ኪሎሜትር ቆጣሪ
+Blitzer|የፍጥነት ካሜራ
+Strafzettel|የቅጣት ወረቀት
+Führerschein|መንጃ ፈቃድ
+Fahrschule|የመንጃ ትምህርት ቤት
+Stau|የትራፊክ መጨናነቅ
+Unfall|አደጋ
+Umleitung|አቅጣጫ መቀየሪያ
+Einbahnstraße|አንድ አቅጣጫ መንገድ
+Sackgasse|መውጫ የሌለው መንገድ
+Bahnschranke|የባቡር መከላከያ
+Gleis|የባቡር ሀዲድ
+Weiche|የሀዲድ መቀየሪያ
+Bahnsteig|የባቡር መድረክ
+Fahrplan|የጉዞ መርሐ ግብር
+Schaffner|ትኬት ተቆጣጣሪ
+Speisewagen|የምግብ ፉርጎ
+Schlafwagen|የመኝታ ፉርጎ
+Gepäckwagen|የሻንጣ ጋሪ
+Koffer mit Rollen|ባለ ጎማ ሻንጣ
+Reisepass Stempel|የፓስፖርት ማኅተም
+Bordkarte|የመሳፈሪያ ካርድ
+Zoll|ጉምሩክ
+Passkontrolle|የፓስፖርት ቁጥጥር
+Weltreise|የዓለም ጉዞ

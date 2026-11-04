@@ -1,0 +1,357 @@
+# Haus und Haushalt
+@1
+Haus|ቤት
+Tür|በር
+Fenster|መስኮት
+Dach|ጣሪያ
+Wand|ግድግዳ
+Boden|ወለል
+Treppe|ደረጃ
+Zimmer|ክፍል
+Küche|ወጥ ቤት
+Bad|መታጠቢያ ቤት
+Toilette|መጸዳጃ ቤት
+Bett|አልጋ
+Kissen|ትራስ
+Decke|ብርድ ልብስ
+Tisch|ጠረጴዛ
+Stuhl|ወንበር
+Sofa|ሶፋ
+Schrank|ቁም ሳጥን
+Regal|መደርደሪያ
+Lampe|መብራት
+Glühbirne|አምፖል
+Kerze|ሻማ
+Uhr|ሰዓት
+Spiegel|መስታወት
+Teppich|ምንጣፍ
+Vorhang|መጋረጃ
+Schlüssel|ቁልፍ
+Schloss|መቆለፊያ
+Klingel|ደወል
+Kamin|ምድጃ ቤት
+Ofen|ምድጃ
+Herd|ምድጃ ማብሰያ
+Kühlschrank|ማቀዝቀዣ
+Waschmaschine|ልብስ ማጠቢያ ማሽን
+Fernseher|ቴሌቪዥን
+Radio|ሬዲዮ
+Telefon|ስልክ
+Handy|ሞባይል
+Computer|ኮምፒውተር
+Laptop|ላፕቶፕ
+Tasse|ኩባያ
+Glas|ብርጭቆ
+Teller|ሳህን
+Schüssel|ጎድጓዳ ሳህን
+Löffel|ማንኪያ
+Gabel|ሹካ
+Messer|ቢላ
+Topf|ድስት
+Pfanne|መጥበሻ
+Flasche|ጠርሙስ
+Eimer|ባልዲ
+Besen|መጥረጊያ
+Seife|ሳሙና
+Handtuch|ፎጣ
+Zahnbürste|የጥርስ ብሩሽ
+Zahnpasta|የጥርስ ሳሙና
+Kamm|ማበጠሪያ
+Bürste|ብሩሽ
+Schere|መቀስ
+Nadel|መርፌ
+Faden|ክር
+Knopf|ቁልፍ ልብስ
+Box|ሳጥን
+Korb|ቅርጫት
+Tüte|ፌስታል
+Mülleimer|የቆሻሻ መጣያ
+Zaun|አጥር
+Garten|የአትክልት ቦታ
+Garage|ጋራዥ
+Balkon|በረንዳ
+Keller|ምድር ቤት
+Hammer|መዶሻ
+Nagel|ሚስማር
+Schraube|ብሎን
+Säge|መጋዝ
+Leiter|መሰላል
+Schaufel|አካፋ
+Taschenlampe|የእጅ ባትሪ
+Batterie|ባትሪ
+Steckdose|ሶኬት
+Kabel|ገመድ ኤሌክትሪክ
+Ventilator|ማራገቢያ
+Bild|ሥዕል
+Foto|ፎቶ
+Vase|የአበባ ማስቀመጫ
+Blumentopf|የአበባ ማሰሮ
+Wecker|ማንቂያ ሰዓት
+Briefkasten|የፖስታ ሳጥን
+Badewanne|የመታጠቢያ ገንዳ
+Dusche|ሻወር
+Waschbecken|የእጅ መታጠቢያ
+Wasserhahn|ቧንቧ
+Regenschirm|ጃንጥላ
+Koffer|ሻንጣ
+Rucksack|የጀርባ ቦርሳ
+Tasche|ቦርሳ
+Geldbeutel|የኪስ ቦርሳ
+Brille|መነጽር
+Wiege|የሕፃን አልጋ
+@2
+Kleiderbügel|የልብስ መስቀያ
+Wäscheklammer|የልብስ መቆንጠጫ
+Wäscheleine|የልብስ ማስጫ ገመድ
+Bügeleisen|ካውያ
+Bügelbrett|የካውያ ጠረጴዛ
+Staubsauger|የአቧራ መምጠጫ
+Wischmopp|መወልወያ
+Kehrschaufel|የቆሻሻ ማንሻ
+Schwamm|ስፖንጅ
+Spülmittel|የእቃ ሳሙና
+Geschirrspüler|የእቃ ማጠቢያ ማሽን
+Mikrowelle|ማይክሮዌቭ
+Toaster|ቶስተር
+Wasserkocher|ውሃ ማፍያ
+Mixer|ማቀላቀያ
+Kaffeemaschine|የቡና ማሽን
+Schneidebrett|መክተፊያ
+Reibe|መፈግፈጊያ
+Sieb|ወንፊት
+Trichter|መንቆርቆሪያ
+Kelle|ጭልፋ
+Schöpflöffel|ማውጫ ማንኪያ
+Pfannenwender|መገልበጫ
+Schneebesen|መምቻ
+Dosenöffner|የቆርቆሮ መክፈቻ
+Flaschenöffner|የጠርሙስ መክፈቻ
+Korkenzieher|የቡሽ መክፈቻ
+Thermoskanne|ቴርሞስ
+Krug|ማሰሮ
+Kanne|ጆግ
+Tablett|ትሪ
+Serviette|ናፕኪን
+Tischdecke|የጠረጴዛ ልብስ
+Strohhalm|መምጠጫ
+Zahnstocher|መጎርጎሪያ
+Stäbchen|የቻይና ዘንግ
+Untertasse|የሲኒ ማስቀመጫ
+Sini|ሲኒ
+Mesob|መሶብ
+Mortar|ሙቀጫ
+Mühle|ወፍጮ
+Reibestein|መፍጫ ድንጋይ
+Holzkohle|ከሰል
+Kohlebecken|ምድጃ ከሰል
+Streichholz|ክብሪት
+Feuerzeug|ላይተር
+Räucherstäbchen|ዕጣን
+Weihrauchgefäß|ማጨሻ
+Kommode|የመሳቢያ ሣጥን
+Schublade|መሳቢያ
+Nachttisch|የአልጋ ጠረጴዛ
+Schreibtisch|የጽሕፈት ጠረጴዛ
+Bürostuhl|የቢሮ ወንበር
+Hocker|በርጩማ
+Sessel|ሶፋ ወንበር
+Schaukelstuhl|የሚወዛወዝ ወንበር
+Hängematte|የተንጠለጠለ አልጋ
+Etagenbett|ተደራራቢ አልጋ
+Matratze|ፍራሽ
+Bettlaken|አንሶላ
+Kopfkissenbezug|የትራስ ልብስ
+Moskitonetz|የወባ ትንኝ መረብ
+Jalousie|የመስኮት መጋረጃ ተንሸራታች
+Fensterladen|የመስኮት መዝጊያ
+Türklinke|የበር እጀታ
+Türmatte|የበር ምንጣፍ
+Fußmatte|የእግር መጥረጊያ
+Garderobe|የልብስ መስቀያ ቦታ
+Schuhregal|የጫማ መደርደሪያ
+Bücherregal|የመጽሐፍ መደርደሪያ
+Kronleuchter|ሻንደሊየር
+Stehlampe|ቋሚ መብራት
+Lichtschalter|የመብራት ማብሪያ
+Rauchmelder|የጭስ ማንቂያ
+Feuerlöscher|የእሳት ማጥፊያ
+Heizung|ማሞቂያ
+Klimaanlage|አየር ማቀዝቀዣ
+Thermometer|ቴርሞሜትር
+Waage|ሚዛን
+Fernbedienung|ሪሞት
+Lautsprecher|ድምጽ ማጉያ
+Kopfhörer|የጆሮ ማዳመጫ
+Ladegerät|ቻርጀር
+Verlängerungskabel|ማራዘሚያ ገመድ
+Werkzeugkasten|የመሣሪያ ሳጥን
+Schraubenzieher|ጠመንጃ መፍቻ
+Zange|ፒንሳ
+Schraubenschlüssel|መፍቻ
+Bohrmaschine|መሰርሰሪያ
+Klebeband|ፕላስተር ቴፕ
+Kleber|ሙጫ
+Maßband|ሜትር
+Pinsel|ቡሩሽ ቀለም
+Farbeimer|የቀለም ባልዲ
+Farbrolle|የቀለም ሮለር
+Gießkanne|ውሃ ማጠጫ
+Gartenschlauch|የአትክልት ቱቦ
+Rasenmäher|ሣር ማጨጃ
+Rechen|መሰቅሰቂያ
+Harke|መንጠቆ
+Spaten|ዶማ
+Schubkarre|ጋሪ እጅ
+Hacke|ዶማ መቆፈሪያ
+Axt|መጥረቢያ
+Sichel|ማጭድ
+Pflug|ማረሻ
+Sprinkler|ውሃ ረጪ
+Vogelhaus|የወፍ ቤት ትንሽ
+Briefschlitz|የደብዳቤ ማስገቢያ
+Hausnummer|የቤት ቁጥር
+Fliegengitter|የዝንብ መከላከያ
+Dachrinne|የጣሪያ ቦይ
+Schornstein|የጭስ ማውጫ
+Antenne|አንቴና
+Satellitenschüssel|ዲሽ
+Solarpanel|የፀሐይ ፓነል
+Wassertank|የውሃ ታንከር
+Brunnen|የውሃ ጉድጓድ
+Tor|በር ትልቅ
+Hof|ግቢ
+Terrasse|ሰገነት
+Veranda|በረንዳ ፊት
+Dachboden|ሰገነት ቤት
+Flur|ኮሪደር
+Wohnzimmer|ሳሎን
+Schlafzimmer|መኝታ ቤት
+Kinderzimmer|የልጆች ክፍል
+Esszimmer|የመመገቢያ ክፍል
+Speisekammer|የምግብ ማከማቻ
+Abstellraum|መጋዘን ቤት
+Waschküche|የልብስ ማጠቢያ ክፍል
+Hütte|ጎጆ
+Tukul|ቱኩል
+Zelt|ድንኳን
+Wohnung|አፓርትመንት
+Hochhaus|ፎቅ ቤት
+Villa|ቪላ
+@3
+Abzugshaube|የጭስ መምጠጫ
+Gefriertruhe|ማቀዝቀዣ ሳጥን
+Wäschetrockner|ልብስ ማድረቂያ
+Nähmaschine|የስፌት ማሽን
+Fingerhut|የጣት መከላከያ
+Nadelkissen|የመርፌ ትራስ
+Stricknadel|የሹራብ መርፌ
+Wollknäuel|የሱፍ ክር ኳስ
+Häkelnadel|የክሮሼ መርፌ
+Webstuhl|የሸማ መሥሪያ
+Spinnrad|የፈትል መፍተያ
+Schneiderpuppe|የልብስ ሰፊ አሻንጉሊት
+Bügelfalte|የካውያ ማጠፊያ
+Kerzenständer|የሻማ ማቆሚያ
+Laterne|ፋኖስ
+Petroleumlampe|የኩራዝ መብራት
+Kuraz|ኩራዝ
+Öllampe|የዘይት መብራት
+Sanduhr|የአሸዋ ሰዓት
+Kuckucksuhr|የኩኩ ሰዓት
+Pendeluhr|የፔንዱለም ሰዓት
+Wandkalender|የግድግዳ ቀን መቁጠሪያ
+Pinnwand|የማስታወቂያ ሰሌዳ
+Bilderrahmen|የፎቶ ፍሬም
+Fotoalbum|የፎቶ አልበም
+Tresor|ካዝና
+Sparschwein|ሳንቲም ማጠራቀሚያ
+Schlüsselbund|የቁልፍ ስብስብ
+Schlüsselloch|የቁልፍ ቀዳዳ
+Vorhängeschloss|ጓንጉል ቁልፍ
+Türspion|የበር መመልከቻ
+Gegensprechanlage|ኢንተርኮም
+Überwachungskamera|የደህንነት ካሜራ
+Alarmanlage|የማስጠንቀቂያ ደወል
+Sicherungskasten|የፊውዝ ሳጥን
+Stromzähler|የኤሌክትሪክ ቆጣሪ
+Wasserzähler|የውሃ ቆጣሪ
+Generator|ጀነሬተር
+Wasserpumpe|የውሃ ፓምፕ
+Abfluss|የፍሳሽ ማስወገጃ
+Pömpel|የፍሳሽ መክፈቻ
+Klobürste|የመጸዳጃ ብሩሽ
+Toilettenpapier|የሶፍት ወረቀት
+Duschvorhang|የሻወር መጋረጃ
+Badematte|የመታጠቢያ ምንጣፍ
+Rasierer|ምላጭ
+Föhn|የፀጉር ማድረቂያ
+Lockenstab|የፀጉር ማጠፊያ
+Glätteisen|የፀጉር ማስተካከያ
+Nagelknipser|የጥፍር መቁረጫ
+Pinzette|ወረንጦ
+Wattestäbchen|የጆሮ ማጽጃ
+Parfümflasche|የሽቶ ጠርሙስ
+Seifenspender|የሳሙና ማውጫ
+Zahnseide|የጥርስ ክር
+Mundwasser|የአፍ መታጠቢያ
+Waschlappen|የፊት መታጠቢያ ጨርቅ
+Bademantel|የመታጠቢያ ቀሚስ
+Hausschuhe|የቤት ጫማ
+Wäschekorb|የልብስ ቅርጫት
+Bügelwäsche|የሚተኮስ ልብስ
+Fleckentferner|እድፍ ማስለቀቂያ
+Waschpulver|የልብስ ሳሙና ዱቄት
+Weichspüler|ልብስ ማለስለሻ
+Gummihandschuhe|የላስቲክ ጓንት
+Staubwedel|አቧራ መጥረጊያ
+Fensterputzer|መስኮት ማጽጃ
+Mausefalle|የአይጥ ወጥመድ
+Fliegenklatsche|ዝንብ መግደያ
+Insektenspray|የነፍሳት መርጫ
+Kompost|ብስባሽ
+Gewächshaus|የመስታወት ቤት
+Gartenzwerg|የአትክልት ድንክ
+Springbrunnen|ፏፏቴ ውሃ
+Vogeltränke|የወፍ ውሃ መጠጫ
+Pergola|ፔርጎላ
+Gartenbank|የአትክልት አግዳሚ
+Grill|ጥብስ ምድጃ
+Liegestuhl|የመዝናኛ ወንበር
+Sonnenschirm|የፀሐይ ጃንጥላ
+Planschbecken|የሕፃናት ገንዳ
+Trampolin|ትራምፖሊን
+Sandkasten|የአሸዋ ሳጥን
+Baumhaus|የዛፍ ላይ ቤት
+Schaukel|ዥዋዥዌ
+Rutsche|ተንሸራታች
+Wippe|ሚዛን ጨዋታ
+Klettergerüst|የመውጫ ብረት
+Wendeltreppe|ጠመዝማዛ ደረጃ
+Aufzug|ሊፍት
+Rolltreppe|ተንቀሳቃሽ ደረጃ
+Geländer|መደገፊያ
+Fliese|ሴራሚክ
+Parkett|የእንጨት ወለል
+Tapete|የግድግዳ ወረቀት
+Steckdosenleiste|ባለብዙ ሶኬት
+Glasfaser|ፋይበር ገመድ
+Router|ራውተር
+Drucker|ማተሚያ
+Scanner|ስካነር
+Beamer|ፕሮጀክተር
+Spielkonsole|የጨዋታ ኮንሶል
+Plattenspieler|የሸክላ ማጫወቻ
+Kassette|ካሴት
+Videorekorder|ቪዲዮ ማጫወቻ
+Bauklötze|የእንጨት ብሎኮች
+Puppenhaus|የአሻንጉሊት ቤት
+Schaukelpferd|የሚወዛወዝ ፈረስ
+Spieluhr|የሙዚቃ ሳጥን
+Kaleidoskop|ካሌይዶስኮፕ
+Lupe|ማጉያ መነጽር
+Fernglas|ባይኖኩላር
+Teleskop|ቴሌስኮፕ
+Globus|ሉል
+Landkarte|ካርታ
+Kompass|ኮምፓስ
+Wetterhahn|የነፋስ አቅጣጫ ጠቋሚ

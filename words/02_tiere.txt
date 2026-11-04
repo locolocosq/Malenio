@@ -1,0 +1,323 @@
+# Tiere
+@1
+Hund|ውሻ
+Katze|ድመት
+Maus|አይጥ
+Pferd|ፈረስ
+Kuh|ላም
+Schaf|በግ
+Ziege|ፍየል
+Schwein|አሳማ
+Esel|አህያ
+Kamel|ግመል
+Löwe|አንበሳ
+Tiger|ነብር
+Elefant|ዝሆን
+Giraffe|ቀጭኔ
+Zebra|የሜዳ አህያ
+Affe|ዝንጀሮ
+Bär|ድብ
+Wolf|ተኩላ
+Fuchs|ቀበሮ
+Hase|ጥንቸል
+Vogel|ወፍ
+Ente|ዳክዬ
+Gans|ዝይ
+Hahn|አውራ ዶሮ
+Küken|ጫጩት
+Fisch im Wasser|በውሃ ያለ ዓሣ
+Hai|ሻርክ
+Wal|ዓሣ ነባሪ
+Delfin|ዶልፊን
+Schildkröte|ኤሊ
+Schlange|እባብ
+Frosch|እንቁራሪት
+Krokodil|አዞ
+Spinne|ሸረሪት
+Biene|ንብ
+Ameise|ጉንዳን
+Fliege|ዝንብ
+Mücke|ትንኝ
+Schmetterling|ቢራቢሮ
+Käfer|ጥንዚዛ
+Marienkäfer|ጥንዚዛ ቀይ
+Schnecke|ቀንድ አውጣ
+Wurm|ትል
+Eule|ጉጉት
+Adler|ንስር
+Papagei|በቀቀን
+Pinguin|ፔንጉዊን
+Taube|ርግብ
+Rabe|ቁራ
+Storch|ሽመላ
+Flamingo|ፍላሚንጎ
+Strauß|ሰጎን
+Nilpferd|ጉማሬ
+Nashorn|አውራሪስ
+Känguru|ካንጋሮ
+Koala|ኮዋላ
+Panda|ፓንዳ
+Eichhörnchen|ሽኮኮ
+Igel|ጃርት
+Fledermaus|የሌሊት ወፍ
+Hirsch|አጋዘን
+Reh|ሚዳቋ
+Stier|በሬ
+Kalb|ጥጃ
+Lamm|ጠቦት
+Fohlen|ውርንጭላ
+Welpe|ቡችላ
+Kätzchen|ድመት ግልገል
+Hamster|ሃምስተር
+Meerschweinchen|ጊኒ አሳማ
+Goldfisch|ወርቃማ ዓሣ
+Krake|ኦክቶፐስ
+Qualle|ጄሊፊሽ
+Seestern|የባሕር ኮከብ
+Krebs|ሸርጣን እንስሳ
+Pfau|ጣዎስ
+Truthahn|ተርኪ
+Hyäne|ጅብ
+Gepard|አቦሸማኔ
+Leopard|ነብር ዥንጉርጉር
+Gorilla|ጎሪላ
+Schimpanse|ቺምፓንዚ
+Pavian|ዝንጀሮ ጉሬዛ
+Ratte|ትልቅ አይጥ
+Eidechse|እንሽላሊት
+Dinosaurier|ዳይኖሰር
+Drache|ዘንዶ
+Einhorn|ባለ አንድ ቀንድ ፈረስ
+Huhn im Stall|በጋጣ ያለ ዶሮ
+Kuh auf der Wiese|በሜዳ ያለች ላም
+Robbe|ማኅተም እንስሳ
+Eisbär|ነጭ ድብ
+Biber|ቢቨር
+Otter|ኦተር
+Waschbär|ራኩን
+Maulwurf|ፍልፈል
+Spatz|ድንቢጥ
+Möwe|የባሕር ወፍ
+Kolibri|ሀሚንግበርድ
+@2
+Specht|ግንድ ቆርቋሪ
+Schwan|ዳክዬ ነጭ
+Kranich|ክሬን ወፍ
+Reiher|ሽመላ ግራጫ
+Pelikan|ፔሊካን
+Geier|አሞራ
+Falke|ጭልፊት
+Habicht|ሸለምጥማጥ
+Amsel|ጥቁር ወፍ
+Kuckuck|ኩኩ ወፍ
+Wellensittich|ትንሽ በቀቀን
+Kanarienvogel|ካናሪ
+Tukan|ቱካን
+Strauß Ei|የሰጎን እንቁላል
+Wildschwein|ከርከሮ
+Warzenschwein|ከርከሮ ዋርትሆግ
+Büffel|ጎሽ
+Bison|ቢዞን
+Elch|ሙዝ አጋዘን
+Rentier|ሬንዲር
+Antilope|ሰስ
+Gazelle|ሚዳቋ ገዚል
+Gnu|ጉኑ
+Okapi|ኦካፒ
+Lama|ላማ
+Alpaka|አልፓካ
+Yak|ያክ
+Faultier|ስሎዝ
+Ameisenbär|ጉንዳን በል
+Gürteltier|አርማዲሎ
+Stachelschwein|ጃርት ትልቅ
+Erdmännchen|ሚርካት
+Mungo|ፍልፈል ሞንጉዝ
+Dachs|ባጀር
+Marder|ማርተን
+Wiesel|ዊዝል
+Luchs|ሊንክስ
+Puma|ፑማ
+Jaguar|ጃጓር
+Schakal|ቀበሮ ጃካል
+Kojote|ኮዮቴ
+Walross|ዋልረስ
+Seelöwe|የባሕር አንበሳ
+Seepferdchen|የባሕር ፈረስ
+Rochen|ሬይ ዓሣ
+Aal|ኢል
+Forelle|ትራውት
+Karpfen|ካርፕ
+Hecht|ፓይክ
+Piranha|ፒራንሃ
+Clownfisch|ክላውን ዓሣ
+Kugelfisch|ኳስ ዓሣ
+Schwertfisch|ሰይፍ ዓሣ
+Muschel am Strand|በዳርቻ ያለ ዛጎል
+Seeigel|የባሕር ጃርት
+Koralle|ኮራል
+Garnele im Meer|በባሕር ያለ ሽሪምፕ
+Hummer im Meer|በባሕር ያለ ሎብስተር
+Kröte|ጓጉንቸር
+Salamander|ሳላማንደር
+Chamäleon|እስስት
+Leguan|ኢጉዋና
+Gecko|ጌኮ
+Kobra|ኮብራ
+Python|ዘንዶ እባብ
+Klapperschlange|ጭራ ደወል እባብ
+Alligator|አሊጌተር
+Skorpion|ጊንጥ
+Heuschrecke|አንበጣ
+Grille|ፌንጣ
+Libelle|የውሃ ተርብ
+Wespe|ተርብ
+Hummel|ትልቅ ንብ
+Motte|ብል
+Raupe|አባጨጓሬ
+Kakerlake|በረሮ
+Floh|ቁንጫ
+Laus|ቅማል
+Zecke|መዥገር
+Termite|ምስጥ
+Glühwürmchen|የሌሊት ብርሃን ትል
+Tausendfüßler|ሺህ እግር
+Regenwurm|የአፈር ትል
+Nacktschnecke|ቀንድ የሌላት አውጣ
+Hornisse|ትልቅ ተርብ
+Gottesanbeterin|ጸሎተኛ ነፍሳት
+Bienenstock|የንብ ቀፎ
+Spinnennetz|የሸረሪት ድር
+Vogelnest|የወፍ ጎጆ
+Hundehütte|የውሻ ቤት
+Pferdestall|የፈረስ በረት
+Aquarium|የዓሣ ገንዳ
+Vogelkäfig|የወፍ ቤት
+Hufeisen|የፈረስ ጫማ
+Pfote|መዳፍ
+Schwanz|ጅራት
+Flügel|ክንፍ
+Feder|ላባ
+Schnabel|ምንቃር
+Kralle|ጥፍር እንስሳ
+Horn|ቀንድ
+Geweih|የአጋዘን ቀንድ
+Mähne|ጋማ
+Fell|ፀጉር እንስሳ
+Schuppe|ቅርፊት
+Flosse|ክንፍ ዓሣ
+Rüssel|ኩምቢ
+Stoßzahn|የዝሆን ጥርስ
+Panzer|ቅርፊት ኤሊ
+Höcker|ሻኛ
+Kokon|ኩኩን
+Ei im Nest|በጎጆ ያለ እንቁላል
+@3
+Gelada|ጭላዳ
+Walia Steinbock|ዋልያ
+Äthiopischer Wolf|ቀይ ቀበሮ
+Dschelada Affe|ጭላዳ ዝንጀሮ
+Mantelpavian|ሐማድሪያስ
+Colobus Affe|ጉሬዛ
+Dikdik|ድክድክ
+Kudu|አጋዘን ኩዱ
+Oryx|ሳላ
+Nyala|ኒያላ
+Klippschliefer|ሽኮኮ ድንጋይ
+Erdferkel|ጉንዳን በል አሳማ
+Schuhschnabel|ዋልያ ወፍ
+Hornrabe|ጥንብ አንሳ
+Marabu|ማራቡ
+Ibis|ኢቢስ
+Sekretär Vogel|ጸሐፊ ወፍ
+Perlhuhn|ጅግራ
+Wachtel|ድርጭት
+Fasan|ፋዛን
+Rebhuhn|ቆቅ
+Schnepfe|ስናይፕ
+Albatros|አልባትሮስ
+Kormoran|ኮርሞራንት
+Eisvogel|ንጉሥ አጥማጅ
+Wiedehopf|ጅብራ
+Nachtigall|ናይቲንጌል
+Lerche|ላርክ
+Zaunkönig|ትንሿ ወፍ
+Rotkehlchen|ሮቢን
+Elster|ማግፓይ
+Krähe|ቁራ ግራጫ
+Dohle|ጃክዶው
+Uhu|ትልቅ ጉጉት
+Kondor|ኮንዶር
+Ameisenigel|ኢኪድና
+Schnabeltier|ፕላቲፐስ
+Wombat|ዎምባት
+Tasmanischer Teufel|የታዝማኒያ ሰይጣን
+Lemur|ሌሙር
+Tarsier|ታርሲየር
+Orang-Utan|ኦራንጉታን
+Gibbon|ጊቦን
+Mandrill|ማንድሪል
+Tapir|ታፒር
+Capybara|ካፒባራ
+Chinchilla|ቺንቺላ
+Frettchen|ፌሬት
+Murmeltier|ማርሞት
+Lemming|ሌሚንግ
+Narwal|ናርዋል
+Belugawal|ቤሉጋ
+Orca|ኦርካ
+Pottwal|ስፐርም ዌል
+Seekuh|የባሕር ላም
+Hammerhai|መዶሻ ሻርክ
+Mantarochen|ማንታ ሬይ
+Barrakuda|ባራኩዳ
+Anglerfisch|አጥማጅ ዓሣ
+Muräne|ሞሬይ ኢል
+Tilapia|አሣ ቆሮ
+Nilbarsch|የአባይ ዓሣ
+Wels|ካትፊሽ
+Stör|ስተርጅን
+Hering|ሄሪንግ
+Makrele|ማኬሬል
+Kabeljau|ኮድ
+Axolotl|አክሶሎትል
+Komodowaran|ኮሞዶ ድራጎን
+Waran|ትልቅ እንሽላሊት
+Schwarze Mamba|ጥቁር ማምባ
+Viper|እፉኝት
+Boa|ቦአ
+Anakonda|አናኮንዳ
+Tausendfüßer|ሺህ እግር ትል
+Gottesanbeterin grün|አረንጓዴ ጸሎተኛ
+Stabheuschrecke|በትር ነፍሳት
+Wasserläufer|የውሃ ሯጭ
+Mistkäfer|እበት ጥንዚዛ
+Hirschkäfer|የአጋዘን ጥንዚዛ
+Seidenraupe|የሐር ትል
+Tsetsefliege|ቆንጨራ ዝንብ
+Blutegel|አልቅት
+Tintenfisch Riesen|ግዙፍ ስኩዊድ
+Nautilus|ናውቲለስ
+Seeanemone|የባሕር አበባ
+Schwamm Tier|የባሕር ስፖንጅ
+Plankton|ፕላንክተን
+Krill|ክሪል
+Kaulquappe|የእንቁራሪት ጫጩት
+Puppe Insekt|ሙሽሬ
+Herde|መንጋ
+Schwarm|መንጋ ወፎች
+Rudel|የተኩላ መንጋ
+Ameisenhaufen|የጉንዳን ኩይሳ
+Termitenhügel|የምስጥ ኩይሳ
+Fuchsbau|የቀበሮ ጉድጓድ
+Fischernetz|የዓሣ መረብ
+Vogelscheuche|ማስፈራሪያ
+Futternapf|የምግብ ሳህን እንስሳ
+Leine|የውሻ ገመድ
+Halsband|አንገት ማሰሪያ
+Sattel|ኮርቻ
+Zaumzeug|ልጓም
+Tierarzt Besuch|የእንስሳት ሐኪም ጉብኝት
+Zoo|የእንስሳት መካነ
+Safari|ሳፋሪ
+Bauernhof|እርሻ ቤት
