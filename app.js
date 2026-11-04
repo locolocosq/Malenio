@@ -11,7 +11,7 @@ const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // ohne 0/O, 1/I
 const CODE_LEN = 5;
 const MAX_PLAYERS = 8;
 const CHOOSE_TIME = 15;   // Sekunden zum Wort wählen
-const REVEAL_TIME = 6;    // Sekunden Auflösung
+const REVEAL_TIME = 8;    // Sekunden Auflösung
 const DIFF_MULT = { 1: 1, 2: 1.3, 3: 1.6 };
 const W = 800, H = 600;   // logische Canvas-Größe (für alle gleich)
 const COLORS = [
@@ -198,7 +198,10 @@ async function connectMqtt(opts) {
   }
   throw new Error('kein Broker erreichbar');
 }
-function pub(topic, obj, opts) { try { net.mq && net.mq.publish(topic, JSON.stringify(obj), opts || {}); } catch (e) {} }
+function pub(topic, obj, opts) {
+  const m = obj && obj.m; const light = m && (m.t === 'draw' || m.t === 'ping');
+  try { net.mq && net.mq.publish(topic, JSON.stringify(obj), Object.assign({ qos: light ? 0 : 1 }, opts || {})); } catch (e) {}
+}
 function every(ms, fn) { const id = setInterval(fn, ms); net.timers.push(id); }
 
 function sayBye() {
@@ -547,6 +550,7 @@ const host = {
       if (dp) { dp.score += d; gains[dp.id] = d; }
     }
     this.reveal = { wordId: this.wordId, guesserId: guesserId || null, gains };
+    if (this.wordId != null) { const gp = guesserId && this.get(guesserId); broadcast({ t: 'revealed', wordId: this.wordId, guesser: gp ? gp.name : null }); }
     this.phase = 'reveal';
     this.deadline = Date.now() + REVEAL_TIME * 1000;
     this.pushState();
@@ -593,7 +597,7 @@ const view = {
   reset() {
     releaseAwake();
     this.inRoom = false; this.state = null; this.history = []; clearInterval(this.tick); this.tick = null;
-    this.lastPhase = null; this.lastDrawer = null;
+    this.lastPhase = null; this.lastDrawer = null; this.ovKey = null; this.chosen = null;
     closeModal(); $('#chat-log').innerHTML = ''; clearBoard();
   },
   enterRoom(code) {
@@ -622,6 +626,12 @@ const view = {
         else if (msg.t === 'fill') floodFill(msg.x, msg.y, msg.c);
         else redraw(this.history);
         break;
+      case 'revealed': {
+        const other = lang === 'am' ? 'de' : 'am';
+        if (msg.guesser) addChat(esc(t('guessedChat', { name: msg.guesser })), 'good');
+        addChat(`${t('wordWas')}: <b>${esc(wordIn(msg.wordId, lang))}</b> (${esc(wordIn(msg.wordId, other))})`, 'good');
+        break;
+      }
       case 'chat': addChat(`<b style="color:${esc(msg.color)}">${esc(msg.name)}:</b> ${esc(msg.text)}`, 'msg'); break;
       case 'sys': addChat(esc(t(msg.key, { name: msg.name })), 'sys'); break;
     }
@@ -638,10 +648,6 @@ const view = {
     if (phaseChanged) {
       if (st.phase === 'choosing' && st.drawerId === net.myId) beep(880, .15);
       if (st.phase === 'reveal' && st.reveal && st.reveal.guesserId) jingle();
-      if (st.phase === 'reveal' && st.reveal && st.reveal.guesserId) {
-        const g = st.players.find((p) => p.id === st.reveal.guesserId);
-        if (g) addChat(esc(t('guessedChat', { name: g.name })), 'good');
-      }
       if (st.phase === 'end') jingle();
       closeModal();
     }
@@ -680,16 +686,27 @@ const view = {
     canvas.style.cursor = amDrawer ? 'crosshair' : 'default';
     $('#chat-in').disabled = amDrawer;
 
-    // Overlay
+    // Overlay – nur neu zeichnen, wenn sich wirklich etwas geändert hat (sonst gehen Klicks verloren)
     const ov = $('#overlay');
-    if (st.phase === 'choosing') {
+    const turnKey = st.round + '|' + st.drawerId + '|' + (st.choices || []).join(',');
+    const ovKey = JSON.stringify([lang, st.phase, turnKey, this.chosen && this.chosen.turn === turnKey ? this.chosen.i : -1, st.reveal,
+      st.phase === 'end' ? sorted.map((p) => p.id + p.score) : 0, st.phase === 'choosing' && drawer ? drawer.name : '']);
+    if (ovKey === this.ovKey) { if (phaseChanged && st.phase === 'drawing') redraw(this.history); return; }
+    this.ovKey = ovKey;
+    if (st.phase === 'choosing' && st.drawerId === net.myId && this.chosen && this.chosen.turn === turnKey) {
+      ov.classList.remove('hidden'); ov.innerHTML = '<h2>…</h2>';
+    } else if (st.phase === 'choosing') {
       ov.classList.remove('hidden');
       if (st.drawerId === net.myId && st.choices) {
         ov.innerHTML = `<h2>${t('chooseWord')}</h2><div class="choices">` + st.choices.map((id, i) => {
           const d = WORDS[id][2]; const maxPts = Math.round(300 * DIFF_MULT[d] / 5) * 5;
           return `<button class="choice" data-i="${i}">${esc(wordIn(id, lang))}<span class="stars">${'★'.repeat(d)}${'☆'.repeat(3 - d)}</span><small>${t('d' + d)} · ${t('upTo', { n: maxPts })}</small></button>`;
         }).join('') + '</div>';
-        ov.querySelectorAll('.choice').forEach((b) => b.onclick = () => { toHost({ t: 'choose', i: +b.dataset.i }); ov.innerHTML = '<h2>…</h2>'; });
+        ov.querySelectorAll('.choice').forEach((b) => b.onclick = () => {
+          this.chosen = { turn: turnKey, i: +b.dataset.i, at: Date.now() };
+          toHost({ t: 'choose', i: this.chosen.i });
+          this.ovKey = null; this.renderGame(false);
+        });
       } else {
         ov.innerHTML = `<h2>${esc(t('isChoosing', { name: drawer ? drawer.name : '?' }))}</h2>`;
       }
@@ -719,6 +736,10 @@ const view = {
   },
 
   updateTimer() {
+    const st0 = this.state, c = this.chosen;
+    if (st0 && c && st0.phase === 'choosing' && st0.drawerId === net.myId && Date.now() - c.at > 2500) {
+      c.at = Date.now(); toHost({ t: 'choose', i: c.i });
+    }
     const el = $('#info-timer');
     if (!this.state || this.state.phase === 'lobby' || this.state.phase === 'end') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
@@ -846,7 +867,7 @@ canvas.addEventListener('pointerdown', (e) => {
   drawing = { id: net.myId.slice(-6) + '-' + (++strokeCounter), c, w };
   const s = { t: 'stroke', id: drawing.id, c, w, pts: [pos] };
   view.history.push(s); drawSegment(s, [pos]);
-  pending = [pos]; flushTimer = flushTimer || setTimeout(flush, 40);
+  pending = [pos]; flushTimer = flushTimer || setTimeout(flush, 70);
 });
 canvas.addEventListener('pointermove', (e) => {
   if (!drawing) return;
@@ -860,7 +881,7 @@ canvas.addEventListener('pointermove', (e) => {
     s.pts.push(p); added.push(p); pending.push(p);
   }
   if (added.length) drawSegment(s, added);
-  if (!flushTimer) flushTimer = setTimeout(flush, 40);
+  if (!flushTimer) flushTimer = setTimeout(flush, 70);
 });
 const endStroke = () => { if (!drawing) return; clearTimeout(flushTimer); flush(); drawing = null; };
 canvas.addEventListener('pointerup', endStroke);
