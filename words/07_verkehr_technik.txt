@@ -20,7 +20,6 @@ Rad|ጎማ
 Reifen|ጎማ መኪና
 Lenkrad|መሪ
 Hupe|ጡሩምባ
-Motor|ሞተር
 Ballon|ፊኛ
 Heißluftballon|የሙቅ አየር ፊኛ
 Skateboard|ስኬትቦርድ
@@ -38,7 +37,6 @@ Reisepass|ፓስፖርት
 Straßenbahn|ትራም
 U-Bahn|የምድር ውስጥ ባቡር
 Kutsche|ሰረገላ
-Gari|ጋሪ ፈረስ
 Bagger|ኤክስካቫተር
 Müllauto|የቆሻሻ መኪና
 Kamera|ካሜራ
@@ -56,145 +54,58 @@ Geld|ገንዘብ
 Münze|ሳንቲም
 Geldschein|ብር ኖት
 Kreditkarte|ክሬዲት ካርድ
-Parkuhr|የመኪና ማቆሚያ ቆጣሪ
 @2
 Wohnmobil|ተንቀሳቃሽ ቤት መኪና
-Cabrio|ጣሪያ የሌለው መኪና
 Rennauto|የውድድር መኪና
 Jeep|ጂፕ
 Doppeldeckerbus|ባለ ሁለት ፎቅ አውቶቡስ
 Schulbus|የትምህርት ቤት አውቶቡስ
-Abschleppwagen|ተጎታች መኪና
-Tankwagen|የነዳጅ ቦቴ
 Betonmischer|የኮንክሪት መደባለቂያ
-Planierraupe|ቡልዶዘር
 Gabelstapler|ፎርክሊፍት
-Mähdrescher|ኮምባይነር
 Dampflok|የእንፋሎት ባቡር
-Güterzug|የጭነት ባቡር
-Gondel|ጎንዶላ
 Fähre|ጀልባ መሻገሪያ
-Kreuzfahrtschiff|የመዝናኛ መርከብ
-Frachtschiff|የጭነት መርከብ
-Containerschiff|የኮንቴይነር መርከብ
 Floß|ታንኳ እንጨት
-Tretboot|በእግር የሚነዳ ጀልባ
-Schlauchboot|የአየር ጀልባ
-Jetski|ጄት ስኪ
-Motorboot|የሞተር ጀልባ
-Jacht|ያክት
-Rettungsboot|ነፍስ አድን ጀልባ
 Rettungsring|ነፍስ አድን ቀለበት
 Schwimmweste|ነፍስ አድን ጃኬት
 Steuerrad|የመርከብ መሪ
-Mast|ምሰሶ መርከብ
-Düsenflugzeug|ጄት አውሮፕላን
-Segelflugzeug|ሞተር አልባ አውሮፕላን
 Propeller|ፕሮፔለር
 Drohne|ድሮን
 Zeppelin|ዘፔሊን
 Raumschiff|የጠፈር መርከብ
-Mondfahrzeug|የጨረቃ መኪና
-Cockpit|የአብራሪ ክፍል
-Landebahn|ማረፊያ መንገድ
 Sicherheitsgurt|የደህንነት ቀበቶ
 Kofferraum|የመኪና ዕቃ ማስቀመጫ
-Motorhaube|የሞተር ሽፋን
-Scheinwerfer|የፊት መብራት
-Blinker|የመታጠፊያ መብራት
 Scheibenwischer|መጥረጊያ መስታወት
-Rückspiegel|የኋላ መስታወት
 Nummernschild|ታርጋ
 Auspuff|ጭስ ማውጫ መኪና
-Gaspedal|የነዳጅ መርገጫ
-Bremse|ፍሬን
-Wagenheber|ጃክ
-Ersatzreifen|ትርፍ ጎማ
 Luftpumpe|የአየር መንፊያ
 Fahrradklingel|የብስክሌት ደወል
 Fahrradhelm|የብስክሌት ቆብ
-Pedal|ፔዳል
-Lenker|የብስክሌት መሪ
-Stützräder|ረዳት ጎማዎች
 Tandem|ባለ ሁለት ሰው ብስክሌት
 Einrad|ባለ አንድ ጎማ ብስክሌት
 Dreirad|ባለ ሶስት ጎማ
-Rollerblades|ሮለር ብሌድ
-Segway|ሴግዌይ
-E-Scooter|ኤሌክትሪክ ስኩተር
-Flaschenzug|መዘውር
 Zahnrad|ማርሽ ጥርስ
-Schraubstock|መያዣ ብረት
 Amboss|የአንጥረኛ ድንጋይ
 Kettensäge|ሰንሰለት መጋዝ
-Meißel|መሮ
-Wasserwaage|ደረጃ መለኪያ
 Taschenmesser|የኪስ ቢላ
 Taschenrechner|ካልኩሌተር
-Smartphone|ስማርት ስልክ
-Smartwatch|ስማርት ሰዓት
 USB-Stick|ፍላሽ
 Joystick|ጆይስቲክ
-Controller|የጨዋታ መቆጣጠሪያ
-VR-Brille|ቪአር መነጽር
-Roboterarm|የሮቦት ክንድ
-3D-Drucker|ባለ 3D ማተሚያ
-Solarzelle|የፀሐይ ሴል
 Stecker|መሰኪያ
 Walkie-Talkie|ዎኪ ቶኪ
 Schreibmaschine|የጽሕፈት መኪና
 Geldautomat|ኤቲኤም
 Kasse|የገንዘብ መመዝገቢያ
 Barcode|ባርኮድ
-QR-Code|ኪውአር ኮድ
-E-Mail|ኢሜይል
-WLAN|ዋይፋይ
 Emoji|ኢሞጂ
-Selfie|ሰልፊ
-Videoanruf|የቪዲዮ ጥሪ
 @3
-Schneekette|የበረዶ ሰንሰለት
-Anhänger|ተሳቢ
 Wohnwagen|የቤት ተሳቢ
-Straßenwalze|መንገድ ደልዳይ
-Schneepflug|በረዶ ጠራጊ
 Kampfpanzer|ታንክ
-Kampfjet|የጦር አውሮፕላን
-Flugzeugträger|የአውሮፕላን ተሸካሚ መርከብ
-Torpedo|ቶርፔዶ
-Periskop|ፔሪስኮፕ
-Morsecode|የሞርስ ኮድ
 Flaschenpost|የጠርሙስ ደብዳቤ
-Brieftaube|መልእክት አድራሽ ርግብ
-Rikscha|ሪክሾ
 Hundeschlitten|የውሻ ተንሸራታች
-Luftkissenboot|ሆቨርክራፍት
-Doppeldecker|ባለ ሁለት ክንፍ አውሮፕላን
-Gleitschirm|ፓራግላይደር
-Drachenflieger|ሀንግ ግላይደር
-Marsrover|የማርስ ሮቨር
-Startrampe|የሮኬት መነሻ
-Förderband|ተንቀሳቃሽ ቀበቶ
-Turbine|ተርባይን
-Dampfmaschine|የእንፋሎት ሞተር
 Strommast|የኤሌክትሪክ ምሰሶ
-Blitzableiter|መብረቅ መከላከያ
-Mikrochip|ማይክሮ ቺፕ
 Mikroskop|ማይክሮስኮፕ
 Reagenzglas|የሙከራ ቱቦ
-Bunsenbrenner|ቡንሰን ማቃጠያ
-Atom|አቶም
-DNA|ዲኤንኤ
-Laser|ሌዘር
-Ladebalken|የመጫኛ አሞሌ
-Hashtag|ሃሽታግ
-Livestream|ቀጥታ ስርጭት
-Bitcoin|ቢትኮይን
-Blitzer|የፍጥነት ካሜራ
 Führerschein|መንጃ ፈቃድ
 Stau|የትራፊክ መጨናነቅ
 Unfall|አደጋ
-Einbahnstraße|አንድ አቅጣጫ መንገድ
-Bahnschranke|የባቡር መከላከያ
 Gleis|የባቡር ሀዲድ
-Schaffner|ትኬት ተቆጣጣሪ

@@ -1,5 +1,4 @@
 # Essen und Trinken
-# Format: Deutsch|Amharisch   —   @1 leicht, @2 mittel, @3 schwer
 @1
 Apfel|ፖም
 Banane|ሙዝ
@@ -56,7 +55,6 @@ Popcorn|ፋንዲሻ
 Mais|በቆሎ
 Erbse|አተር
 Bohne|ባቄላ
-Linse|ምስር
 Gurke|ኪያር
 Paprika|ቃሪያ
 Chili|በርበሬ
@@ -75,7 +73,6 @@ Limonade|ሎሚናት
 Cola|ኮካ
 Bier|ቢራ
 Wein|ወይን ጠጅ
-Fladenbrot|ቂጣ
 Injera|እንጀራ
 Spiegelei|እንቁላል ጥብስ
 Steak|ስቴክ
@@ -83,42 +80,29 @@ Eiswürfel|በረዶ ኩብ
 Donut|ዶናት
 Muffin|ማፊን
 Croissant|ክሮሳን
-Sahne|ክሬም
 Mehl|ዱቄት
 Öl|ዘይት
 Pfeffer|ቁንዶ በርበሬ
-Senf|ሰናፍጭ
 Ketchup|ኬችአፕ
 Marmelade|ማርማላታ
 Müsli|ሙስሊ
-Frühstück|ቁርስ
 Torte|የልደት ኬክ
 Brezel|ብሬዝል
 Zuckerwatte|የጥጥ ከረሜላ
 Milchshake|ሚልክሼክ
 @2
 Spaghetti|ስፓጌቲ
-Lasagne|ላዛኛ
 Sushi|ሱሺ
-Taco|ታኮ
-Burrito|ቡሪቶ
 Döner|ዶነር
-Falafel|ፈላፈል
-Hummus|ሁሙስ
 Omelett|ኦምሌት
 Rührei|ፍርፍር እንቁላል
-Kekse backen|ብስኩት መጋገር
 Brokkoli|ብሮኮሊ
 Blumenkohl|የአበባ ጎመን
 Spinat|ቆስጣ
-Sellerie|ሴሊሪ
 Aubergine|ኤግፕላንት
 Zucchini|ዙኪኒ
 Radieschen|ቀይ ስር
-Rote Bete|ቀይ ሥር
 Ingwer|ዝንጅብል
-Zimt|ቀረፋ
-Rosine|ዘቢብ
 Dattel|ተምር
 Feige|በለስ
 Granatapfel|ሮማን
@@ -127,47 +111,28 @@ Himbeere|ራስበሪ
 Blaubeere|ብሉቤሪ
 Brombeere|ጥቁር እንጆሪ
 Mandarine|መንደሪን
-Mandel|አልሞንድ
 Walnuss|ዋልኑት
 Kastanie|ደረት ለውዝ
-Sonnenblumenkerne|የሱፍ ፍሬ
 Weizen|ስንዴ
 Shiro|ሽሮ
-Doro Wat|ዶሮ ወጥ
 Tibs|ጥብስ
 Kitfo|ክትፎ
-Firfir|ፍርፍር
-Genfo|ገንፎ
 Kolo|ቆሎ
-Kaffeezeremonie|የቡና ሥነ ሥርዓት
-Tej|ጠጅ
-Berbere|በርበሬ ቅመም
-Grillhähnchen|የተጠበሰ ዶሮ
 Fischstäbchen|የዓሣ ጣት
 Schnitzel|ሽኒትዘል
-Kartoffelbrei|የተፈጨ ድንች
 Chips|ቺፕስ
 Waffel|ዋፍል
 Pudding|ፑዲንግ
-Wackelpudding|ጄሊ
-Kakao|ኮኮዋ
-Cappuccino|ካፑቺኖ
-Macchiato|ማኪያቶ
 Teekanne|የሻይ ማንቆርቆሪያ
 Jebena|ጀበና
-Kebab|ከባብ
 Garnele|ሽሪምፕ
 Hummer|ሎብስተር
 Muschel|ዛጎል
 Tintenfisch|ስኩዊድ
 Schinken|ካም
-Speck|ቤከን
 Truthahn|ተርኪ ሥጋ
 Knochen|አጥንት
-Eigelb|የእንቁላል አስኳል
-Schlagsahne|የተገረፈ ክሬም
 Baguette|ባጌት
-Teig|ሊጥ
 Nudelholz|መዳመጫ
 Gummibärchen|የጎማ ከረሜላ
 Kaugummi|ማስቲካ
@@ -177,33 +142,12 @@ Schokoriegel|የቸኮሌት ባር
 Geburtstagskuchen|የልደት ኬክ
 Hochzeitstorte|የሠርግ ኬክ
 @3
-Ravioli|ራቪዮሊ
-Fondue|ፎንዱ
-Nachos|ናቾስ
-Frühlingsrolle|ስፕሪንግ ሮል
-Ramen|ራመን
-Knödel|ክኑደል
-Bratwurst|ብራትቩርስት
 Sambusa|ሳምቡሳ
-Misir Wat|ምስር ወጥ
-Chechebsa|ጨጨብሳ
-Beyaynetu|በያይነቱ
-Ful|ፉል
-Dabo Kolo|ዳቦ ቆሎ
-Zimtschnecke|የቀረፋ ዳቦ
-Makrone|ማካሮን
 Brownie|ብራውኒ
 Cupcake|ካፕኬክ
-Bagel|ቤግል
-Erdnussbutter|የኦቾሎኒ ቅቤ
-Nutella|ኑቴላ
 Olive|የወይራ ፍሬ
 Artischocke|አርቲሾክ
 Spargel|አስፓራጉስ
-Rosenkohl|ትንሽ ጎመን
 Süßkartoffel|ስኳር ድንች
 Guave|ዘይቱን
-Sternfrucht|የኮከብ ፍሬ
-Drachenfrucht|የዘንዶ ፍሬ
-Pistazie|ፒስታቺዮ
 Cornflakes|ኮርንፍሌክስ

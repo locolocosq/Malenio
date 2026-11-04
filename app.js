@@ -26,6 +26,22 @@ const ICE = { iceServers: [
   { urls: 'stun:stun1.l.google.com:19302' },
   { urls: 'stun:global.stun.twilio.com:3478' },
 ] };
+// Relay-Server (TURN), damit Spieler in verschiedenen Netzen (WLAN / mobile Daten) sich verbinden können.
+// Kostenlos bei Metered "Open Relay" (20 GB/Monat). Hier die Adresse mit dem eigenen API-Key eintragen:
+const TURN_CREDENTIALS_URL = '';
+let iceConfigPromise = null;
+function getIceConfig() {
+  if (!iceConfigPromise) iceConfigPromise = (async () => {
+    if (!TURN_CREDENTIALS_URL) return ICE;
+    try {
+      const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 5000);
+      const servers = await (await fetch(TURN_CREDENTIALS_URL, { signal: ctrl.signal })).json();
+      if (Array.isArray(servers) && servers.length) return { iceServers: ICE.iceServers.concat(servers) };
+    } catch (e) { console.warn('TURN nicht erreichbar, nur direkte Verbindung', e); iceConfigPromise = null; }
+    return ICE;
+  })();
+  return iceConfigPromise;
+}
 const WORDS = window.WORDS || [];
 // Geräte-ID (bleibt beim Neuladen gleich), damit man nach einem Verbindungsabbruch seine Punkte zurückbekommt
 const CLIENT_ID = (() => {
@@ -177,9 +193,10 @@ function broadcast(msg, exceptId) {
   for (const p of host.players) if (p.id !== exceptId) sendTo(p.id, msg);
 }
 
-function newPeer(id) {
+async function newPeer(id) {
+  const config = await getIceConfig();
   return new Promise((resolve, reject) => {
-    const p = id ? new Peer(id, { config: ICE, debug: 1 }) : new Peer({ config: ICE, debug: 1 });
+    const p = id ? new Peer(id, { config, debug: 1 }) : new Peer({ config, debug: 1 });
     let done = false;
     p.on('open', (pid) => { done = true; resolve(p); });
     p.on('error', (err) => { if (!done) { done = true; try { p.destroy(); } catch (e) {} reject(err); } });

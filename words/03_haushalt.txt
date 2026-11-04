@@ -4,12 +4,8 @@ Haus|ቤት
 Tür|በር
 Fenster|መስኮት
 Dach|ጣሪያ
-Wand|ግድግዳ
-Boden|ወለል
 Treppe|ደረጃ
-Zimmer|ክፍል
 Küche|ወጥ ቤት
-Bad|መታጠቢያ ቤት
 Toilette|መጸዳጃ ቤት
 Bett|አልጋ
 Kissen|ትራስ
@@ -69,7 +65,6 @@ Zaun|አጥር
 Garten|የአትክልት ቦታ
 Garage|ጋራዥ
 Balkon|በረንዳ
-Keller|ምድር ቤት
 Hammer|መዶሻ
 Nagel|ሚስማር
 Schraube|ብሎን
@@ -81,7 +76,6 @@ Batterie|ባትሪ
 Steckdose|ሶኬት
 Kabel|ገመድ ኤሌክትሪክ
 Ventilator|ማራገቢያ
-Bild|ሥዕል
 Foto|ፎቶ
 Vase|የአበባ ማስቀመጫ
 Blumentopf|የአበባ ማሰሮ
@@ -118,52 +112,34 @@ Schneidebrett|መክተፊያ
 Reibe|መፈግፈጊያ
 Sieb|ወንፊት
 Trichter|መንቆርቆሪያ
-Schöpflöffel|ማውጫ ማንኪያ
-Pfannenwender|መገልበጫ
 Schneebesen|መምቻ
-Dosenöffner|የቆርቆሮ መክፈቻ
 Flaschenöffner|የጠርሙስ መክፈቻ
-Korkenzieher|የቡሽ መክፈቻ
 Thermoskanne|ቴርሞስ
 Krug|ማሰሮ
-Kanne|ጆግ
 Tablett|ትሪ
 Serviette|ናፕኪን
 Tischdecke|የጠረጴዛ ልብስ
 Strohhalm|መምጠጫ
 Zahnstocher|መጎርጎሪያ
 Stäbchen|የቻይና ዘንግ
-Untertasse|የሲኒ ማስቀመጫ
 Sini|ሲኒ
 Mesob|መሶብ
-Mörser|ሙቀጫ
-Mühle|ወፍጮ
-Holzkohle|ከሰል
 Streichholz|ክብሪት
 Feuerzeug|ላይተር
-Räucherstäbchen|ዕጣን
-Kommode|የመሳቢያ ሣጥን
 Schublade|መሳቢያ
-Nachttisch|የአልጋ ጠረጴዛ
 Schreibtisch|የጽሕፈት ጠረጴዛ
-Bürostuhl|የቢሮ ወንበር
 Hocker|በርጩማ
 Sessel|ሶፋ ወንበር
 Schaukelstuhl|የሚወዛወዝ ወንበር
 Hängematte|የተንጠለጠለ አልጋ
 Etagenbett|ተደራራቢ አልጋ
 Matratze|ፍራሽ
-Bettlaken|አንሶላ
-Kopfkissenbezug|የትራስ ልብስ
-Moskitonetz|የወባ ትንኝ መረብ
 Türklinke|የበር እጀታ
 Fußmatte|የእግር መጥረጊያ
-Schuhregal|የጫማ መደርደሪያ
 Bücherregal|የመጽሐፍ መደርደሪያ
 Kronleuchter|ሻንደሊየር
 Stehlampe|ቋሚ መብራት
 Lichtschalter|የመብራት ማብሪያ
-Rauchmelder|የጭስ ማንቂያ
 Feuerlöscher|የእሳት ማጥፊያ
 Heizung|ማሞቂያ
 Klimaanlage|አየር ማቀዝቀዣ
@@ -182,7 +158,6 @@ Klebeband|ፕላስተር ቴፕ
 Kleber|ሙጫ
 Maßband|ሜትር
 Pinsel|ቡሩሽ ቀለም
-Farbeimer|የቀለም ባልዲ
 Farbrolle|የቀለም ሮለር
 Gießkanne|ውሃ ማጠጫ
 Gartenschlauch|የአትክልት ቱቦ
@@ -190,48 +165,28 @@ Rasenmäher|ሣር ማጨጃ
 Rechen|መሰቅሰቂያ
 Spaten|ዶማ
 Schubkarre|ጋሪ እጅ
-Hacke|ዶማ መቆፈሪያ
 Axt|መጥረቢያ
 Sichel|ማጭድ
 Pflug|ማረሻ
-Sprinkler|ውሃ ረጪ
 Vogelhaus|የወፍ ቤት ትንሽ
-Hausnummer|የቤት ቁጥር
 Schornstein|የጭስ ማውጫ
 Antenne|አንቴና
 Satellitenschüssel|ዲሽ
 Solarpanel|የፀሐይ ፓነል
-Wassertank|የውሃ ታንከር
 Brunnen|የውሃ ጉድጓድ
 Tor|በር ትልቅ
-Terrasse|ሰገነት
-Dachboden|ሰገነት ቤት
-Wohnzimmer|ሳሎን
-Schlafzimmer|መኝታ ቤት
-Kinderzimmer|የልጆች ክፍል
 Hütte|ጎጆ
 Tukul|ቱኩል
 Zelt|ድንኳን
 Hochhaus|ፎቅ ቤት
-Villa|ቪላ
 @3
-Gefriertruhe|ማቀዝቀዣ ሳጥን
-Wäschetrockner|ልብስ ማድረቂያ
 Nähmaschine|የስፌት ማሽን
 Fingerhut|የጣት መከላከያ
-Stricknadel|የሹራብ መርፌ
 Wollknäuel|የሱፍ ክር ኳስ
-Webstuhl|የሸማ መሥሪያ
-Spinnrad|የፈትል መፍተያ
-Schneiderpuppe|የልብስ ሰፊ አሻንጉሊት
-Kerzenständer|የሻማ ማቆሚያ
 Laterne|ፋኖስ
 Kuraz|ኩራዝ
-Öllampe|የዘይት መብራት
 Sanduhr|የአሸዋ ሰዓት
 Kuckucksuhr|የኩኩ ሰዓት
-Pendeluhr|የፔንዱለም ሰዓት
-Pinnwand|የማስታወቂያ ሰሌዳ
 Bilderrahmen|የፎቶ ፍሬም
 Fotoalbum|የፎቶ አልበም
 Tresor|ካዝና
@@ -240,63 +195,40 @@ Schlüsselbund|የቁልፍ ስብስብ
 Schlüsselloch|የቁልፍ ቀዳዳ
 Vorhängeschloss|ጓንጉል ቁልፍ
 Überwachungskamera|የደህንነት ካሜራ
-Alarmanlage|የማስጠንቀቂያ ደወል
-Generator|ጀነሬተር
-Wasserpumpe|የውሃ ፓምፕ
-Pömpel|የፍሳሽ መክፈቻ
 Klobürste|የመጸዳጃ ብሩሽ
 Toilettenpapier|የሶፍት ወረቀት
-Duschvorhang|የሻወር መጋረጃ
-Badematte|የመታጠቢያ ምንጣፍ
 Rasierer|ምላጭ
 Föhn|የፀጉር ማድረቂያ
-Nagelknipser|የጥፍር መቁረጫ
 Pinzette|ወረንጦ
-Wattestäbchen|የጆሮ ማጽጃ
-Parfümflasche|የሽቶ ጠርሙስ
-Seifenspender|የሳሙና ማውጫ
-Zahnseide|የጥርስ ክር
 Bademantel|የመታጠቢያ ቀሚስ
 Hausschuhe|የቤት ጫማ
 Wäschekorb|የልብስ ቅርጫት
-Gummihandschuhe|የላስቲክ ጓንት
-Staubwedel|አቧራ መጥረጊያ
 Mausefalle|የአይጥ ወጥመድ
 Fliegenklatsche|ዝንብ መግደያ
-Insektenspray|የነፍሳት መርጫ
 Gewächshaus|የመስታወት ቤት
 Gartenzwerg|የአትክልት ድንክ
 Springbrunnen|ፏፏቴ ውሃ
-Gartenbank|የአትክልት አግዳሚ
 Grill|ጥብስ ምድጃ
 Liegestuhl|የመዝናኛ ወንበር
 Sonnenschirm|የፀሐይ ጃንጥላ
-Planschbecken|የሕፃናት ገንዳ
 Trampolin|ትራምፖሊን
 Sandkasten|የአሸዋ ሳጥን
 Baumhaus|የዛፍ ላይ ቤት
 Schaukel|ዥዋዥዌ
 Rutsche|ተንሸራታች
 Wippe|ሚዛን ጨዋታ
-Klettergerüst|የመውጫ ብረት
-Wendeltreppe|ጠመዝማዛ ደረጃ
 Aufzug|ሊፍት
 Rolltreppe|ተንቀሳቃሽ ደረጃ
 Drucker|ማተሚያ
-Scanner|ስካነር
-Beamer|ፕሮጀክተር
 Spielkonsole|የጨዋታ ኮንሶል
 Plattenspieler|የሸክላ ማጫወቻ
 Kassette|ካሴት
 Bauklötze|የእንጨት ብሎኮች
 Puppenhaus|የአሻንጉሊት ቤት
 Schaukelpferd|የሚወዛወዝ ፈረስ
-Spieluhr|የሙዚቃ ሳጥን
-Kaleidoskop|ካሌይዶስኮፕ
 Lupe|ማጉያ መነጽር
 Fernglas|ባይኖኩላር
 Teleskop|ቴሌስኮፕ
 Globus|ሉል
 Landkarte|ካርታ
 Kompass|ኮምፓስ
-Wetterhahn|የነፋስ አቅጣጫ ጠቋሚ

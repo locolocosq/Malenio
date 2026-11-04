@@ -1,145 +1,28 @@
 # Feste, Gefühle, Eigenschaften, Zeit
 @1
 Weihnachten|ገና
-Ostern|ፋሲካ
 Hochzeit|ሠርግ
 Weihnachtsbaum|የገና ዛፍ
 Osterei|የፋሲካ እንቁላል
-Neujahr|አዲስ ዓመት
-Enkutatash|እንቁጣጣሽ
-Meskel|መስቀል
-Timkat|ጥምቀት
-Ramadan|ረመዳን
 Halloween|ሃሎዊን
 Kürbislaterne|የዱባ ፋኖስ
-Karneval|ካርኒቫል
-Angst|ፍርሃት
-Wut|ቁጣ
-Liebe|ፍቅር
-Müde|ድካም
-Hunger|ረሃብ
-Durst|ጥማት
-Kuss|መሳም ቃል
-Streit|ጭቅጭቅ
-Frieden|ሰላም
-Krieg|ጦርነት
-Hallo|ሰላም ሰላምታ
-Gute Nacht|ደህና እደር
-Guten Morgen|እንደምን አደርክ
 @2
-Silvester|የዓመት መጨረሻ ምሽት
-Valentinstag|የፍቅረኞች ቀን
-Muttertag|የእናቶች ቀን
-Vatertag|የአባቶች ቀን
-Kindertag|የሕፃናት ቀን
-Gebet|ጸሎት
-Taufe|ክርስትና
-Beerdigung|ቀብር
-Verlobung|ቀለበት ማሰር
-Flitterwochen|የጫጉላ ጊዜ
-Abschlussball|የምረቃ ዳንስ
-Buffet|ቡፌ
 Konfetti|ኮንፈቲ
-Luftschlange|የወረቀት ጥቅልል
-Girlande|የጌጥ ገመድ
 Lichterkette|የብርሃን ገመድ
 Wunderkerze|ብልጭልጭ ሻማ
-Geschenkpapier|የስጦታ ወረቀት
 Schleife|ሪባን ቋጠሮ
-Grußkarte|የሰላምታ ካርድ
-Einladung|ግብዣ
 Adventskranz|የምጽአት ጉንጉን
 Adventskalender|የምጽአት ቀን መቁጠሪያ
-Krippe|ግርግም
-Weihnachtsstern|የገና ኮከብ
 Christbaumkugel|የገና ዛፍ ኳስ
-Rentierschlitten|የአጋዘን ተንሸራታች
 Weihnachtsstrumpf|የገና ካልሲ
-Lebkuchenhaus|የዝንጅብል ቤት
 Osternest|የፋሲካ ጎጆ
-Eier bemalen|እንቁላል መቀባት
-Demera|ደመራ
-Umzug|ሰልፍ
-Oktoberfest|ኦክቶበርፌስት
-Verliebt|በፍቅር የወደቀ
-Wütend|የተናደደ
-Traurig|የሚያዝን
-Fröhlich|ደስተኛ
-Krank|የታመመ
-Kaputt|የተሰበረ
-Gestreift|ባለ ሽንትር
-Gepunktet|ባለ ነጥብ
-Kariert|ባለ ካሬ
-Unsichtbar|የማይታይ
-Schlange stehen|ሰልፍ መቆም
-Idee|ሐሳብ
-Traum|ሕልም
 @3
-Schmetterlinge im Bauch|በሆድ ቢራቢሮዎች
-Ohrfeige|በጥፊ መምታት
-Wutanfall|የቁጣ ፍንዳታ
-Tränen lachen|እስከ እንባ መሳቅ
-Kitzeln|መኮርኮር
-Gursha|ጉርሻ በእጅ
-Ellbogengruß|በክርን ሰላምታ
-Wangenkuss|ጉንጭ መሳም
-Verbeugung|እጅ መንሳት
-Salutieren|ሰላምታ ወታደራዊ
-Fahnenmast|የባንዲራ ምሰሶ
-Wappen|ዓርማ
-Zepter|በትረ መንግሥት
 Thron|ዙፋን
-Krönung|ንግሥና
-Palastwache|የቤተ መንግሥት ዘብ
-Duell|ድብድብ ሁለት ሰው
-Turnier|ውድድር ባላባት
 Katapult|ወንጭፍ ትልቅ
-Zugbrücke|ተነሺ ድልድይ
-Burggraben|የምሽግ ቦይ
-Schatzkammer|የሀብት ክፍል
-Geheimgang|ሚስጥራዊ መተላለፊያ
-Falltür|ወጥመድ በር
-Spukhaus|የተረገመ ቤት
-Spinnweben|የሸረሪት ድሮች
-Fledermaushöhle|የሌሊት ወፍ ዋሻ
 Grabstein|የመቃብር ድንጋይ
 Sarg|የሬሳ ሳጥን
-Zeitreise|የጊዜ ጉዞ
-Paradies|ገነት
-Hölle|ሲኦል
-Himmelstor|የገነት በር
-Heiligenschein|የቅድስና ክብ
-Wunder|ተአምር
-Glücksbringer|መልካም እድል አምጪ
 Schornsteinfeger|የጭስ ማውጫ ጠራጊ
 Glückskeks|የእድል ብስኩት
-Wunschbrunnen|የምኞት ጉድጓድ
-Steinzeit|የድንጋይ ዘመን
-Eiszeit|የበረዶ ዘመን
-Urknall|ታላቁ ፍንዳታ
-Fossil|ቅሪተ አካል
 Mammut|ማሞዝ
-Säbelzahntiger|ሰይፍ ጥርስ ነብር
-Flugsaurier|በራሪ ዳይኖሰር
-Tyrannosaurus|ቲራኖሰረስ
-Dinosaurierei|የዳይኖሰር እንቁላል
-Höhlenmalerei|የዋሻ ሥዕል
-Hieroglyphen|ሄሮግሊፍ
-Papyrus|ፓፒረስ
-Geistesblitz|ድንገተኛ ሐሳብ
-Gedankenblase|የሐሳብ አረፋ
-Sprechblase|የንግግር አረፋ
-Liebesbrief|የፍቅር ደብዳቤ
 Postkarte|የፖስታ ካርድ
-Wettervorhersage|የአየር ትንበያ
-Einbruch|ዝርፊያ
-Verbrecher|ወንጀለኛ
-Fahndungsplakat|የሚፈለግ ሰው ማስታወቂያ
 Handschellen|የእጅ ካቴና
-Lügendetektor|የውሸት መመርመሪያ
-Phantombild|የተጠርጣሪ ምስል
-Richterhammer|የዳኛ መዶሻ
-Gefängniszelle|የእስር ቤት ክፍል
-Ausbruch|ማምለጥ
-Wahlurne|የምርጫ ሳጥን
-Friedenstaube|የሰላም ርግብ

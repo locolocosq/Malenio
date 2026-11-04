@@ -60,12 +60,7 @@ Eichhörnchen|ሽኮኮ
 Igel|ጃርት
 Fledermaus|የሌሊት ወፍ
 Hirsch|አጋዘን
-Reh|ሚዳቋ
 Stier|በሬ
-Lamm|ጠቦት
-Fohlen|ውርንጭላ
-Welpe|ቡችላ
-Kätzchen|ድመት ግልገል
 Hamster|ሃምስተር
 Meerschweinchen|ጊኒ አሳማ
 Goldfisch|ወርቃማ ዓሣ
@@ -78,8 +73,6 @@ Hyäne|ጅብ
 Gepard|አቦሸማኔ
 Leopard|ነብር
 Gorilla|ጎሪላ
-Schimpanse|ቺምፓንዚ
-Pavian|ዝንጀሮ (ባቡን)
 Ratte|ትልቅ አይጥ
 Eidechse|እንሽላሊት
 Dinosaurier|ዳይኖሰር
@@ -87,91 +80,49 @@ Drache|ዘንዶ
 Einhorn|ባለ አንድ ቀንድ ፈረስ
 Eisbär|ነጭ ድብ
 Biber|ቢቨር
-Otter|ኦተር
 Waschbär|ራኩን
 Maulwurf|ፍልፈል
-Spatz|ድንቢጥ
 Möwe|የባሕር ወፍ
 Kolibri|ሀሚንግበርድ
 @2
 Specht|ግንድ ቆርቋሪ
 Schwan|ስዋን
-Kranich|ክሬን ወፍ
-Reiher|ሽመላ ግራጫ
 Pelikan|ፔሊካን
 Geier|አሞራ
 Falke|ጭልፊት
-Kuckuck|ኩኩ ወፍ
-Wellensittich|ትንሽ በቀቀን
-Kanarienvogel|ካናሪ
 Tukan|ቱካን
-Straußenei|የሰጎን እንቁላል
 Wildschwein|ከርከሮ
-Warzenschwein|ከርከሮ ዋርትሆግ
 Büffel|ጎሽ
-Bison|ቢዞን
 Elch|ሙዝ አጋዘን
 Rentier|ሬንዲር
-Antilope|ሰስ
-Gazelle|ሚዳቋ ገዚል
-Gnu|ጉኑ
-Okapi|ኦካፒ
 Lama|ላማ
-Alpaka|አልፓካ
-Yak|ያክ
 Faultier|ስሎዝ
 Ameisenbär|ጉንዳን በል
-Gürteltier|አርማዲሎ
 Stachelschwein|ጃርት ትልቅ
 Erdmännchen|ሚርካት
-Dachs|ባጀር
-Luchs|ሊንክስ
-Puma|ፑማ
-Jaguar|ጃጓር
 Walross|ዋልረስ
 Seelöwe|የባሕር አንበሳ
 Seepferdchen|የባሕር ፈረስ
-Rochen|ሬይ ዓሣ
-Aal|ኢል
 Piranha|ፒራንሃ
 Clownfisch|ክላውን ዓሣ
 Kugelfisch|ኳስ ዓሣ
 Schwertfisch|ሰይፍ ዓሣ
 Seeigel|የባሕር ጃርት
 Koralle|ኮራል
-Kröte|ጓጉንቸር
-Salamander|ሳላማንደር
 Chamäleon|እስስት
-Leguan|ኢጉዋና
-Gecko|ጌኮ
 Kobra|ኮብራ
-Python|ዘንዶ እባብ
-Klapperschlange|ጭራ ደወል እባብ
-Alligator|አሊጌተር
 Skorpion|ጊንጥ
 Heuschrecke|አንበጣ
-Grille|ፌንጣ
 Libelle|የውሃ ተርብ
 Wespe|ተርብ
-Hummel|ትልቅ ንብ
-Motte|ብል
 Raupe|አባጨጓሬ
 Kakerlake|በረሮ
-Floh|ቁንጫ
-Laus|ቅማል
-Zecke|መዥገር
-Termite|ምስጥ
 Glühwürmchen|የሌሊት ብርሃን ትል
 Tausendfüßler|ሺህ እግር
-Regenwurm|የአፈር ትል
-Nacktschnecke|ቀንድ የሌላት አውጣ
-Hornisse|ትልቅ ተርብ
-Gottesanbeterin|ጸሎተኛ ነፍሳት
 Bienenstock|የንብ ቀፎ
 Spinnennetz|የሸረሪት ድር
 Vogelnest|የወፍ ጎጆ
 Hundehütte|የውሻ ቤት
-Pferdestall|የፈረስ በረት
 Aquarium|የዓሣ ገንዳ
 Vogelkäfig|የወፍ ቤት
 Hufeisen|የፈረስ ጫማ
@@ -180,50 +131,18 @@ Schwanz|ጅራት
 Flügel|ክንፍ
 Feder|ላባ
 Schnabel|ምንቃር
-Kralle|ጥፍር እንስሳ
 Horn|ቀንድ
 Geweih|የአጋዘን ቀንድ
-Mähne|ጋማ
 Flosse|ክንፍ ዓሣ
 Rüssel|ኩምቢ
-Stoßzahn|የዝሆን ጥርስ
-Panzer|ቅርፊት ኤሊ
-Höcker|ሻኛ
-Kokon|ኩኩን
 @3
-Gelada|ጭላዳ ዝንጀሮ
-Walia-Steinbock|ዋልያ
-Äthiopischer Wolf|ቀይ ቀበሮ
-Erdferkel|ጉንዳን በል አሳማ
-Schuhschnabel|ዋልያ ወፍ
-Ibis|ኢቢስ
-Perlhuhn|ጅግራ
-Fasan|ፋዛን
-Albatros|አልባትሮስ
-Eisvogel|ንጉሥ አጥማጅ
-Kondor|ኮንዶር
 Schnabeltier|ፕላቲፐስ
-Lemur|ሌሙር
 Orang-Utan|ኦራንጉታን
-Mandrill|ማንድሪል
-Capybara|ካፒባራ
-Chinchilla|ቺንቺላ
 Narwal|ናርዋል
 Orca|ኦርካ
 Hammerhai|መዶሻ ሻርክ
-Mantarochen|ማንታ ሬይ
-Anglerfisch|አጥማጅ ዓሣ
-Axolotl|አክሶሎትል
-Komodowaran|ኮሞዶ ድራጎን
-Anakonda|አናኮንዳ
-Stabheuschrecke|በትር ነፍሳት
-Mistkäfer|እበት ጥንዚዛ
-Hirschkäfer|የአጋዘን ጥንዚዛ
-Seidenraupe|የሐር ትል
-Seeanemone|የባሕር አበባ
 Kaulquappe|የእንቁራሪት ጫጩት
 Ameisenhaufen|የጉንዳን ኩይሳ
-Termitenhügel|የምስጥ ኩይሳ
 Fischernetz|የዓሣ መረብ
 Vogelscheuche|ማስፈራሪያ
 Futternapf|የምግብ ሳህን እንስሳ
@@ -231,5 +150,4 @@ Leine|የውሻ ገመድ
 Halsband|አንገት ማሰሪያ
 Sattel|ኮርቻ
 Zoo|የእንስሳት መካነ
-Safari|ሳፋሪ
 Bauernhof|እርሻ ቤት

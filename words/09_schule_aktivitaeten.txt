@@ -11,201 +11,31 @@ Tafel|ጥቁር ሰሌዳ
 Kreide|ጠመኔ
 Schultasche|የትምህርት ቦርሳ
 Papier|ወረቀት
-Brief schreiben|ደብዳቤ መጻፍ
 Zeitung|ጋዜጣ
 Kalender|ቀን መቁጠሪያ
 Buntstift|የቀለም እርሳስ
-Farbe|ቀለም
-Leinwand|የሥዕል ሸራ
 Staffelei|የሥዕል ማቆሚያ
-Klebestift|ሙጫ ዘንግ
 Büroklammer|የወረቀት ማያያዣ
 Tacker|ስቴፕለር
 Umschlag|ፖስታ
 Stempel|ማኅተም
-Klassenzimmer|የመማሪያ ክፍል
-Hausaufgabe|የቤት ሥራ
-Prüfung|ፈተና
-Alphabet|ፊደል
-Zahl|ቁጥር
-Buchstabe|ሆሄ
-Plus|ደምር
-Minus|ቀንስ
 Kreis|ክብ
 Quadrat|ካሬ
 Dreieck|ሶስት ማዕዘን
 Rechteck|አራት ማዕዘን
-Herzform|የልብ ቅርጽ
 Pfeil|ቀስት
-Linie|መስመር
-Punkt|ነጥብ
 Kreuz|መስቀል
 Spirale|ጠመዝማዛ
-Essen|መብላት
-Trinken|መጠጣት
-Gehen|መሄድ
-Sitzen|መቀመጥ
-Stehen|መቆም
-Schreiben|መጻፍ
-Riechen|ማሽተት
-Küssen|መሳም
-Umarmen|ማቀፍ
-Winken|እጅ ማውለብለብ
-Klatschen|ማጨብጨብ
-Werfen|መወርወር
-Fangen|መያዝ
-Treten|መምታት በእግር
-Schieben|መግፋት
-Ziehen|መሳብ
-Tragen|መሸከም
-Heben|ማንሳት
-Fallen|መውደቅ
-Fliegen|መብረር
-Kriechen|መዳህ
-Graben|መቆፈር
-Bauen|መገንባት
-Putzen|ማጽዳት
-Waschen|ማጠብ
-Duschen|ሻወር መውሰድ
-Zähne putzen|ጥርስ መቦረሽ
-Kämmen|ማበጠር
-Anziehen|መልበስ
-Aufwachen|መንቃት
-Träumen|ማለም
-Denken|ማሰብ
-Spielen|መጫወት
-Einkaufen|መገብየት
-Telefonieren|በስልክ ማውራት
-Schneiden|መቁረጥ
-Kleben|ማጣበቅ
-Klopfen|ማንኳኳት
-Pfeifen|ማፏጨት
-Flüstern|ሹክ ማለት
-Schreien|መጮህ
 @2
-Wörterbuch|መዝገበ ቃላት
-Atlas|አትላስ
 Tagebuch|ማስታወሻ ደብተር
 Notizblock|ማስታወሻ
 Klebezettel|የሚለጠፍ ማስታወሻ
 Textmarker|ማድመቂያ
-Tintenfass|የቀለም ብልቃጥ
 Zirkel|ኮምፓስ ሒሳብ
-Geodreieck|ፕሮትራክተር
 Federmappe|የእርሳስ ቦርሳ
 Aktenkoffer|የሰነድ ቦርሳ
-Whiteboard|ነጭ ሰሌዳ
-Tortendiagramm|የክብ ሠንጠረዥ
-Unterschrift|ፊርማ
-Schulglocke|የትምህርት ቤት ደወል
-Turnhalle|የጂምናስቲክ አዳራሽ
-Abschlussfeier|የምረቃ ሥነ ሥርዓት
-Diplom|ዲፕሎማ
-Labor|ቤተ ሙከራ
-Experiment|ሙከራ
-Prozent|በመቶ
-Kugel|ሉል ቅርጽ
-Kegel|ኮን
-Sechseck|ባለ ስድስት ጎን
-Achteck|ባለ ስምንት ጎን
-Raute|ሮምበስ
-Oval|ሞላላ
-Zickzack|ዚግዛግ
 Fragezeichen|የጥያቄ ምልክት
 Ausrufezeichen|የቃለ አጋኖ ምልክት
-At-Zeichen|አት ምልክት
-Unendlich|ማለቂያ የሌለው
-Bügeln|መተኮስ
-Staubsaugen|አቧራ መምጠጥ
-Abwaschen|እቃ ማጠብ
-Fegen|መጥረግ
-Gießen|ውሃ ማጠጣት
-Pflanzen|መትከል
-Ernten|ማጨድ
-Melken|ማለብ
-Füttern|መመገብ እንስሳ
-Streicheln|መዳበስ
-Gassi gehen|ውሻ ማንሸራሸር
-Zwinkern|ዓይን መጥቀስ
-Grimasse|ፊት ማጨማደድ
-Nicken|ራስ መነቅነቅ
-Kopfschütteln|ራስ መወዝወዝ
-Schulterzucken|ትከሻ መስበቅ
-Daumen hoch|አውራ ጣት ወደ ላይ
-Victory-Zeichen|የድል ምልክት
-Händeschütteln|መጨባበጥ
-High Five|ከፍ ያለ እጅ መምታት
-Verbeugen|ማጎንበስ
-Knien|መንበርከክ
-Balancieren|ሚዛን መጠበቅ
-Rutschen|መንሸራተት
-Schaukeln|መወዛወዝ
-Wippen|ሚዛን መጫወት
-Hüpfen|መንጠር
-Stolpern|መሰናከል
-Ausrutschen|መዳለጥ
-Zittern|መንቀጥቀጥ
-Frieren|መብረድ
-Sonnenbaden|ፀሐይ መሞቅ
-Auspacken|መፍታት ጥቅል
-Anstoßen|ብርጭቆ ማጋጨት
-Pusten|መንፋት
-Schmücken|ማስጌጥ
-Verstecken spielen|ድብብቆሽ መጫወት
-Messen|መለካት
-Wiegen|መመዘን
-Rühren|ማማሰል
-Braten|መጥበስ
-Grillen|መጥበስ በእሳት
-Schälen|መላጥ
-Holz hacken|እንጨት መፍለጥ
-Sägen|መጋዝ መቁረጥ
-Hämmern|መዶሻ መምታት
-Bohren|መሰርሰር
-Reparieren|መጠገን
 @3
-Schultüte|የትምህርት መጀመሪያ ኮን
 Lesezeichen|የመጽሐፍ ምልክት
-Eselsohr|የታጠፈ ገጽ ጫፍ
-Schriftrolle|ጥቅልል ጽሑፍ
-Pergament|ብራና
-Siegel|ማኅተም ሰም
-Wachssiegel|የሰም ማኅተም
-Laserpointer|ሌዘር ጠቋሚ
-Zeigestock|ጠቋሚ ዘንግ
-Abakus|አባከስ
 Weltkarte|የዓለም ካርታ
-Stammbaum|የዘር ሐረግ
-Pi|ፓይ
-Winkel|ማዕዘን
-Strichmännchen|የመስመር ሰው
-Fingerfarbe|የጣት ቀለም
-Wasserfarbe|የውሃ ቀለም
-Ölgemälde|የዘይት ሥዕል
-Selbstporträt|የራስ ሥዕል
-Mona Lisa|ሞና ሊዛ
-Skulptur|ቅርፃ ቅርጽ
-Auktion|ጨረታ
-Hypnose|ሂፕኖሲስ
-Handlesen|የእጅ መዳፍ ማንበብ
-Schuhe binden|ጫማ ማሰር
-Krawatte binden|ክራቫት ማሰር
-Haare flechten|ፀጉር መሠራት
-Rasieren|መላጨት
-Schminken|መኳኳል
-Nägel lackieren|ጥፍር መቀባት
-Augen verdrehen|ዓይን ማንከባለል
-Zunge rausstrecken|ምላስ ማውጣት
-Fingerschnippen|ጣት ማጮህ
-Daumen drücken|መልካም ዕድል መመኘት
-Augenzwinkern|ዓይን ጥቅሻ
-Luftkuss|በአየር መሳም
-Faust ballen|ቡጢ መጨበጥ
-Kopf kratzen|ራስ ማከክ
-Rülpsen|ማግሳት
-Kauen|ማኘክ
-Beißen|መንከስ
-Spucken|መትፋት
-Gurgeln|መጉመጥመጥ
-Einschenken|መቅዳት መጠጥ
-Jubeln|መደሰት በጩኸት

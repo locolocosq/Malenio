@@ -34,7 +34,6 @@ Vulkan|እሳተ ገሞራ
 Höhle|ዋሻ
 Stein|ድንጋይ
 Sand|አሸዋ
-Erde|አፈር
 Feuer|እሳት
 Rauch|ጭስ
 Welle|ማዕበል
@@ -53,223 +52,96 @@ Bahnhof|የባቡር ጣቢያ
 Flughafen|አውሮፕላን ማረፊያ
 Hafen|ወደብ
 Restaurant|ምግብ ቤት
-Café|ካፌ
 Hotel|ሆቴል
 Kino|ሲኒማ
-Museum|ሙዚየም
 Bibliothek|ቤተ መጻሕፍት
 Stadion|ስታዲየም
 Turm|ማማ
 Burg|ቤተ መንግሥት ምሽግ
-Palast|ቤተ መንግሥት
 Pyramide|ፒራሚድ
 Leuchtturm|የብርሃን ማማ
 Ampel|የትራፊክ መብራት
-Kreuzung|መስቀለኛ መንገድ
 Zebrastreifen|የእግረኛ መሻገሪያ
 Tankstelle|ነዳጅ ማደያ
-Feld|ማሳ
-Acker|እርሻ
-Bauernhaus|የገበሬ ቤት
 Scheune|ጎተራ
-Wiese|ሜዳ
-Tal|ሸለቆ
-Gipfel|የተራራ ጫፍ
 Planet|ፕላኔት
 Sonnenaufgang|የፀሐይ መውጫ
-Sonnenuntergang|የፀሐይ መጥለቂያ
 Nacht|ሌሊት
 Sommer|በጋ
 Winter|ክረምት
 Frühling|ፀደይ
-Herbst|መኸር
 Schneemann|የበረዶ ሰው
 Tornado|አውሎ ነፋስ
-Nebel|ጭጋግ
 Gewitter|ነጎድጓድ
 Tropfen|ጠብታ
 @2
-Eiche|ዋርካ
 Tanne|ጥድ ዛፍ
-Eukalyptus|ባሕር ዛፍ
-Feigenbaum|የሾላ ዛፍ
-Olivenbaum|የወይራ ዛፍ
 Bambus|ቀርከሃ
-Farn|ፈርን
-Moos|ሙዝ ሣር
 Seerose|የውሃ አበባ
-Lotus|ሎተስ
 Tulpe|ቱሊፕ
-Lilie|አበባ ሊሊ
-Orchidee|ኦርኪድ
 Gänseblümchen|ዴዚ አበባ
-Löwenzahn|የጅብ ጥርስ አበባ
 Pusteblume|የሚነፋ አበባ
-Mohnblume|ፖፒ አበባ
 Kleeblatt|ሶስት ቅጠል
-Glücksklee|አራት ቅጠል
-Meskel-Blume|አደይ አበባ
-Distel|አሜኬላ
-Dornen|እሾህ
-Knospe|እምቡጥ
-Samen|ዘር
-Baumstamm|የዛፍ ግንድ
-Baumstumpf|ጉቶ
 Tannenzapfen|የጥድ ፍሬ
 Eichel|የዋርካ ፍሬ
-Laub|የወደቀ ቅጠል
 Busch|ቁጥቋጦ
 Dschungel|ጥቅጥቅ ጫካ
-Savanne|ሳቫና
 Oase|ገነት በረሃ
-Düne|የአሸዋ ክምር
-Gletscher|የበረዶ ግግር
 Eisberg|የበረዶ ተራራ
 Lawine|የበረዶ ናዳ
-Erdbeben|የመሬት መንቀጥቀጥ
-Überschwemmung|ጎርፍ
-Hagel|በረዶ ዝናብ
-Sturm|ማዕበል አውሎ
-Hurrikan|ሀሪኬን
 Tsunami|ሱናሚ
 Sonnenfinsternis|የፀሐይ ግርዶሽ
-Mondfinsternis|የጨረቃ ግርዶሽ
 Vollmond|ሙሉ ጨረቃ
 Halbmond|ግማሽ ጨረቃ
 Sternschnuppe|ተወርዋሪ ኮከብ
 Komet|ጅራታም ኮከብ
-Meteorit|ሜቴዮራይት
-Galaxie|ጋላክሲ
-Schwarzes Loch|ጥቁር ቀዳዳ
-Mars|ማርስ
 Saturn|ሳተርን
-Jupiter|ጁፒተር
-Klippe|ገደል
-Schlucht|ሸለቆ ጥልቅ
-Sumpf|ረግረግ
 Teich|ኩሬ ትልቅ
-Damm|ግድብ
-Staudamm|ትልቅ ግድብ
-Korallenriff|የኮራል ሪፍ
 Sandburg|የአሸዋ ቤተ መንግሥት
-Fußspuren|የእግር አሻራ
-Kieselstein|ጠጠር
 Felsen|ቋጥኝ
 Kristall|ክሪስታል
 Diamant|አልማዝ
-Gold|ወርቅ
-Edelstein|የከበረ ድንጋይ
-Asche|አመድ
 Lava|ቀልጦ የሚፈስ አለት
-Krater|ጉድጓድ እሳተ ገሞራ
-Rathaus|ማዘጋጃ ቤት
 Polizeistation|ፖሊስ ጣቢያ
-Feuerwehrhaus|የእሳት አደጋ ጣቢያ
 Gefängnis|እስር ቤት
-Kindergarten|መዋዕለ ሕፃናት
 Supermarkt|ሱፐርማርኬት
 Bäckerei|ዳቦ ቤት
-Metzgerei|ሥጋ ቤት
-Friseursalon|ፀጉር ቤት
-Tierheim|የእንስሳት መጠለያ
 Zirkus|ሰርከስ
-Freizeitpark|የመዝናኛ ፓርክ
 Riesenrad|ትልቅ መዞሪያ ጎማ
 Achterbahn|ሮለር ኮስተር
 Karussell|ካሩሰል
 Schwimmbad|መዋኛ ገንዳ
-Sporthalle|የስፖርት አዳራሽ
 Fabrik|ፋብሪካ
 Baustelle|የግንባታ ቦታ
 Kran|ክሬን
 Wolkenkratzer|ሰማይ ጠቀስ ሕንፃ
-Denkmal|ሐውልት
 Statue|ሐውልት ምስል
 Friedhof|መቃብር ቦታ
-Grab|መቃብር
-Kloster|ገዳም
-Tempel|ቤተ መቅደስ
 Obelisk|ሐውልት አክሱም
-Ruine|ፍርስራሽ
 Tunnel|ዋሻ መንገድ
 Autobahn|አውራ ጎዳና
-Kreisverkehr|አደባባይ መንገድ
 Parkplatz|የመኪና ማቆሚያ
 Bushaltestelle|የአውቶቡስ ፌርማታ
-Gehweg|የእግረኛ መንገድ
 Straßenlaterne|የመንገድ መብራት
-Verkehrsschild|የትራፊክ ምልክት
 Stoppschild|የቁም ምልክት
 Wegweiser|አቅጣጫ ጠቋሚ
 Flagge|ባንዲራ
 Afrika|አፍሪካ
-Europa|አውሮፓ
 @3
-Felsenkirche|ፍልፍል ቤተ ክርስቲያን
 Eiffelturm|የኤፍል ማማ
 Freiheitsstatue|የነፃነት ሐውልት
-Chinesische Mauer|የቻይና ግንብ
-Big Ben|ቢግ ቤን
-Kolosseum|ኮሎሲየም
-Schiefer Turm von Pisa|የፒሳ ዘንባላ ማማ
-Taj Mahal|ታጅ ማሃል
 Sphinx|ስፊንክስ
-Mount Everest|ኤቨረስት ተራራ
-Kilimandscharo|ኪሊማንጃሮ
 Nordpol|ሰሜን ዋልታ
-Südpol|ደቡብ ዋልታ
-Antarktis|አንታርክቲካ
-Polarlicht|የዋልታ ብርሃን
 Eiszapfen|የበረዶ ዘንግ
 Schneeflocke|የበረዶ ቅንጣት
-Schneesturm|የበረዶ አውሎ
-Sandsturm|የአሸዋ አውሎ
 Magnet|ማግኔት
 Schatten|ጥላ
-Mondlandung|የጨረቃ ማረፍ
 Raumstation|የጠፈር ጣቢያ
 Satellit|ሳተላይት
-Asteroid|አስትሮይድ
-Supernova|ሱፐርኖቫ
 Sonnensystem|የፀሐይ ሥርዓት
-Mondkrater|የጨረቃ ጉድጓድ
-Geysir|ፍል ውሃ ምንጭ
-Stalaktit|የዋሻ ዘንግ
-Fjord|ፊዮርድ
-Regenwald|የዝናብ ደን
 Windmühle|የነፋስ ወፍጮ
 Windrad|የነፋስ ተርባይን
-Wassermühle|የውሃ ወፍጮ
-Kraftwerk|የኃይል ማመንጫ
-Atomkraftwerk|የኒውክሌር ጣቢያ
-Ölbohrturm|የነዳጅ ማውጫ
-Bergwerk|የማዕድን ማውጫ
-Wasserturm|የውሃ ማማ
-Observatorium|የከዋክብት መመልከቻ
-Campingplatz|የካምፕ ቦታ
-Berghütte|የተራራ ጎጆ
 Seilbahn|የገመድ መኪና
-Skipiste|የበረዶ መንሸራተቻ
 Hängebrücke|ተንጠልጣይ ድልድይ
-Kathedrale|ካቴድራል
-Kapelle|ጸሎት ቤት
-Minarett|ሚናሬት
-Kuppel|ጉልላት
-Glockenturm|የደወል ማማ
-Flohmarkt|የቁንጫ ገበያ
-Einkaufszentrum|የገበያ ማዕከል
-Hochzeitssaal|የሠርግ አዳራሽ
-Rennstrecke|የውድድር መንገድ
-Golfplatz|የጎልፍ ሜዳ
-Tennisplatz|የቴኒስ ሜዳ
-Eisbahn|የበረዶ ሜዳ
-Bowlingbahn|ቦውሊንግ
-Minigolf|ትንሽ ጎልፍ
-Wasserpark|የውሃ ፓርክ
-Geisterbahn|የመናፍስት ባቡር
 Labyrinth|ግራ የሚያጋባ መንገድ
-Plakatwand|የማስታወቂያ ሰሌዳ ትልቅ
 Kiosk|ኪዮስክ
-Waschanlage|የመኪና ማጠቢያ
-Werkstatt|ጋራዥ ጥገና
-Schrottplatz|የቁርጥራጭ ብረት ቦታ

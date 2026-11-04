@@ -22,7 +22,6 @@ Bäcker|ዳቦ ጋጋሪ
 Bauer|ገበሬ
 Fischer|ዓሣ አጥማጅ
 Pilot|አብራሪ
-Fahrer|ሹፌር
 Soldat|ወታደር
 König|ንጉሥ
 Königin|ንግሥት
@@ -47,191 +46,62 @@ Sänger|ዘፋኝ
 Tänzer|ዳንሰኛ
 Maler|ሠዓሊ
 Fotograf|ፎቶ አንሺ
-Verkäufer|ሻጭ
 Kellner|አስተናጋጅ
 Friseur|ፀጉር አስተካካይ
 Briefträger|ፖስተኛ
 Mechaniker|መካኒክ
 Bauarbeiter|የግንባታ ሠራተኛ
-Schneider|ልብስ ሰፊ
 Hirte|እረኛ
 Jäger|አዳኝ
 Detektiv|መርማሪ
 Dieb|ሌባ
 Richter|ዳኛ
-Präsident|ፕሬዚዳንት
 Priester|ቄስ
-Mönch|መነኩሴ
 Nonne|መነኩሲት
 Braut|ሙሽሪት
 Bräutigam|ሙሽራ
-Zwerg|ድንክ
-Riese|ግዙፍ ሰው
 Meerjungfrau|የባሕር ሴት
-Fee|ተረት ሴት
 Weihnachtsmann|የገና አባት
-Schneewittchen|በረዶ ነጭ
 Ninja|ኒንጃ
 Cowboy|ካውቦይ
 Mumie|ሙሚ
 Fußballspieler|የእግር ኳስ ተጫዋች
 Schiedsrichter|ዳኛ ስፖርት
-Trainer|አሰልጣኝ
 Tourist|ቱሪስት
-Wanderer|ተጓዥ
-Bettler|ለማኝ
-Held|ጀግና
 @2
-Onkel|አጎት
-Tante|አክስት
 Zwillinge|መንታዎች
-Ehepaar|ባልና ሚስት
-Teenager|ታዳጊ
-Ingenieur|መሐንዲስ
-Architekt|አርክቴክት
-Programmierer|ፕሮግራመር
 Wissenschaftler|ሳይንቲስት
-Erfinder|ፈጣሪ
 Tierarzt|የእንስሳት ሐኪም
-Apotheker|ፋርማሲስት
-Hebamme|አዋላጅ
-Chirurg|የቀዶ ሐኪም
-Anwalt|ጠበቃ
-Kassierer|ገንዘብ ተቀባይ
-Journalist|ጋዜጠኛ
-Nachrichtensprecher|የዜና አንባቢ
-Schriftsteller|ደራሲ
-Schauspieler|ተዋናይ
-Regisseur|ዳይሬክተር
 Musiker|ሙዚቀኛ
-Gitarrist|ጊታር ተጫዋች
-Schlagzeuger|ከበሮ መቺ
 Dirigent|የሙዚቃ መሪ
 DJ|ዲጄ
-Komiker|ኮሜዲያን
 Jongleur|አንጓላይ
-Akrobat|አክሮባት
 Seiltänzer|ገመድ ላይ ተራማጅ
-Dompteur|እንስሳ አሰልጣኝ
-Model|ሞዴል
-Designer|ዲዛይነር
-Tischler|አናጢ
-Klempner|የቧንቧ ሠራተኛ
-Elektriker|ኤሌክትሪሻን
-Maurer|ግንበኛ
-Dachdecker|የጣሪያ ሠራተኛ
-Schmied|አንጥረኛ
-Töpfer|ሸክላ ሠሪ
-Weber|ሸማኔ
 Gärtner|አትክልተኛ
-Förster|የደን ጠባቂ
 Imker|ንብ አናቢ
-Metzger|ሥጋ ቆራጭ
-Konditor|ኬክ ጋጋሪ
-Barista|ቡና አፍይ
-Zimmermädchen|የክፍል አጽጂ
-Hausmeister|የቤት ጠባቂ
-Wächter|ዘበኛ
-Türsteher|በር ጠባቂ
-Bodyguard|ጠባቂ
-Taxifahrer|የታክሲ ሹፌር
-Busfahrer|የአውቶቡስ ሹፌር
-Lokführer|የባቡር ሹፌር
 Kapitän|ካፒቴን
-Matrose|መርከበኛ
 Stewardess|የበረራ አስተናጋጅ
 Müllmann|ቆሻሻ ሰብሳቢ
-Straßenfeger|መንገድ ጠራጊ
 Schuhputzer|ሊስትሮ
-Feuerspucker|እሳት ተፊ
 Taucher|ጠላቂ
 Bergsteiger|ተራራ ወጪ
-Rettungsschwimmer|ነፍስ አድን ዋናተኛ
-Sanitäter|ፓራሜዲክ
-Spion|ሰላይ
 Gefangener|እስረኛ
-Kaiser|ንጉሠ ነገሥት
 Pharao|ፈርዖን
 Wikinger|ቫይኪንግ
-Samurai|ሳሙራይ
-Gladiator|ግላዲያተር
 Höhlenmensch|የዋሻ ሰው
-Hofnarr|ቀልደኛ ቤተ መንግሥት
-Kobold|ትንሽ ጭራቅ
-Elfe|ኤልፍ
-Troll|ትሮል
-Werwolf|ተኩላ ሰው
-Dämon|ጋኔን
-Sensenmann|ሞት ገጸ ባሕሪ
 Osterhase|የፋሲካ ጥንቸል
-Zahnfee|የጥርስ ተረት
-Hampelmann|አሻንጉሊት ሰው
 Marionette|በገመድ የሚንቀሳቀስ አሻንጉሊት
 Puppe|አሻንጉሊት
 Teddybär|የጨርቅ ድብ
 @3
-Archäologe|አርኪዮሎጂስት
-Astronom|የሥነ ፈለክ ሊቅ
-Imam|ኢማም
-Nomade|ዘላን
-Abenteurer|ጀብደኛ
-Entdecker|አሳሽ
-Schatzsucher|ሀብት ፈላጊ
-Goldgräber|ወርቅ ቆፋሪ
-Bergmann|ማዕድን አውጪ
 Holzfäller|እንጨት ቆራጭ
-Goldschmied|ወርቅ አንጥረኛ
-Uhrmacher|ሰዓት ሠሪ
-Bildhauer|ቅርጽ ሠሪ
-Tätowierer|ንቅሳት ሠሪ
-Opernsänger|የኦፔራ ዘፋኝ
-Bauchredner|በሆድ ተናጋሪ
-Pantomime|ድምፅ አልባ ተዋናይ
-Stuntman|አደገኛ ትዕይንት ሠሪ
-Rennfahrer|የውድድር ሹፌር
-Jockey|ፈረስ ጋላቢ ውድድር
 Torwart|ግብ ጠባቂ
 Boxer|ቦክሰኛ
-Gewichtheber|ክብደት አንሺ
-Marathonläufer|የማራቶን ሯጭ
-Schachspieler|የቼዝ ተጫዋች
 Surfer|ሞገድ ተንሸራታች
 Skifahrer|የበረዶ ተንሸራታች
-Fallschirmspringer|ፓራሹት ዘላይ
-Hacker|ጠላፊ
-Youtuber|ዩቲዩበር
-Gamer|ተጫዋች ጌም
-Sammler|ሰብሳቢ
-Millionär|ሚሊየነር
-Faulpelz|ሰነፍ
-Schlafmütze|እንቅልፋም
-Angsthase|ፈሪ
-Glückspilz|እድለኛ
-Pechvogel|እድለ ቢስ
-Nachteule|የሌሊት ሰው
-Frühaufsteher|ማለዳ ተነሽ
-Drachentöter|ዘንዶ ገዳይ
-Frankenstein|ፍራንከንስታይን
-Medusa|ሜዱሳ
-Zyklop|አንድ ዓይናማ ግዙፍ
-Minotaurus|ሚኖታውረስ
-Zentaur|ግማሽ ሰው ግማሽ ፈረስ
-Pegasus|ክንፍ ያለው ፈረስ
-Phönix|ፊኒክስ
-Greif|ግሪፊን
-Yeti|የበረዶ ሰው ጭራቅ
-Bigfoot|ትልቅ እግር ጭራቅ
-Kraken|ግዙፍ የባሕር ጭራቅ
-Flaschengeist|የጠርሙስ ጂኒ
 Wunderlampe|የአስማት መብራት
 Zauberstab|የአስማት በትር
-Zauberhut|የአስማት ቆብ
 Kristallkugel|የክሪስታል ኳስ
-Hexenbesen|የጠንቋይ መጥረጊያ
-Hexenkessel|የጠንቋይ ድስት
-Fliegender Teppich|በራሪ ምንጣፍ
 Schatzkarte|የሀብት ካርታ
 Schatztruhe|የሀብት ሣጥን
-Zeitmaschine|የጊዜ ማሽን
 Ufo|ዩፎ
-Lichtschwert|የብርሃን ሰይፍ

@@ -17,7 +17,6 @@ Hand|እጅ
 Finger|ጣት
 Daumen|አውራ ጣት
 Bauch|ሆድ
-Rücken|ጀርባ
 Bein|እግር
 Knie|ጉልበት
 Fuß|የእግር መዳፍ
@@ -27,16 +26,10 @@ Gehirn|አንጎል
 Bart|ጢም
 Schnurrbart|ሪዝ
 Augenbraue|ቅንድብ
-Wimper|ሽፋሽፍት
-Wange|ጉንጭ
-Kinn|አገጭ
-Stirn|ግንባር
 Ellbogen|ክርን
 Fingernagel|ጥፍር
-Faust|ቡጢ
 Muskel|ጡንቻ
 Skelett|አጽም
-Schädel|የራስ ቅል
 Blut|ደም
 Träne|እንባ
 Lächeln|ፈገግታ
@@ -71,173 +64,74 @@ Badeanzug|የዋና ልብስ
 Shorts|ቁምጣ
 Jeans|ጂንስ
 Anzug|ሱፍ ልብስ
-Uniform|የደንብ ልብስ
 Schürze|ሽርጥ
-Regenmantel|የዝናብ ልብስ
 Turnschuh|ስኒከር
 Hausschuh|የቤት ጫማ
 Pflaster|ፕላስተር ቁስል
-Pille|ኪኒን
 Spritze|መርፌ ሕክምና
 Arzt|ሐኪም
 Krankenhaus|ሆስፒታል
-Fieber|ትኩሳት
-Husten|ሳል
-Schnupfen|ጉንፋን
-Kopfschmerzen|ራስ ምታት
-Bauchschmerzen|የሆድ ቁርጠት
 Gips|ጀሶ
 Rollstuhl|ተሽከርካሪ ወንበር
 Krücke|ምርኩዝ
 Verband|ፋሻ
 Zahnarzt|የጥርስ ሐኪም
-Schwitzen|ማላብ
-Gähnen|ማዛጋት
-Niesen|ማስነጠስ
-Schlafen|መተኛት
-Weinen|ማልቀስ
-Lachen|መሳቅ
 Fingerabdruck|የጣት አሻራ
 @2
-Nasenloch|የአፍንጫ ቀዳዳ
-Ohrläppchen|የጆሮ ጫፍ
 Zahnspange|የጥርስ ማስተካከያ
 Gebiss|ሰው ሠራሽ ጥርስ
-Brust|ደረት
 Bauchnabel|እምብርት
-Hüfte|ዳሌ
-Po|መቀመጫ
-Oberschenkel|ጭን
-Ferse|ተረከዝ
-Handgelenk|የእጅ አንጓ
-Zeigefinger|አመልካች ጣት
-Kleiner Finger|ትንሿ ጣት
 Lunge|ሳንባ
 Magen|ጨጓራ
-Wirbelsäule|የጀርባ አጥንት
-Rippe|የጎድን አጥንት
 Sommersprossen|ጠቃጠቆ
 Narbe|ጠባሳ
 Pickel|ብጉር
 Glatze|መላጣ
 Zopf|ሹሩባ
-Pferdeschwanz|የፈረስ ጭራ ፀጉር
-Locken|ከርዳዳ ፀጉር
-Afro|አፍሮ
-Dreadlocks|ድሬድሎክ
 Perücke|ሰው ሠራሽ ፀጉር
-Haarband|የፀጉር ማሰሪያ
-Haarspange|የፀጉር መያዣ
-Stirnband|የግንባር ማሰሪያ
 Kopftuch|ሻሽ
 Netela|ነጠላ
-Gabi|ጋቢ
-Habesha Kemis|የሀበሻ ቀሚስ
 Turban|ጥምጣም
 Schleier|መሸፈኛ
 Hochzeitskleid|የሠርግ ቀሚስ
-Smoking|ስሞኪንግ
 Weste|ሰደርያ
-Blazer|ብሌዘር
-Strickjacke|ሹራብ ጃኬት
-Kapuzenpullover|ኮፍያ ያለው ሹራብ
-Trainingsanzug|የስፖርት ልብስ
-Leggings|ሌጊንግስ
-Strumpfhose|ታይት
 Bikini|ቢኪኒ
 Badehose|የዋና ቁምጣ
-Badekappe|የዋና ኮፍያ
 Taucherbrille|የዋና መነጽር
 Sonnenbrille|የፀሐይ መነጽር
 Gummistiefel|የላስቲክ ቦቲ
 Flip-Flops|ሸበጥ
-Absatzschuh|ታኮ ጫማ
 Schnürsenkel|የጫማ ማሰሪያ
 Reißverschluss|ዚፕ
 Hosenträger|ማንጠልጠያ ሱሪ
-Kragen|ኮሌታ
-Ärmel|እጅጌ
-Kapuze|ኮፍያ ጃኬት
-Ohrenschützer|የጆሮ መከላከያ
 Helm|ሄልሜት
-Bauarbeiterhelm|የግንባታ ቆብ
 Kochmütze|የምግብ አብሳይ ቆብ
 Zylinder|ረጅም ባርኔጣ
 Sombrero|ሶምብሬሮ
 Cowboyhut|የከብት ጠባቂ ባርኔጣ
-Baskenmütze|ቤሬት
-Nasenring|የአፍንጫ ቀለበት
-Ehering|የጋብቻ ቀለበት
-Diadem|ዘውድ ትንሽ
-Kreuzanhänger|የአንገት መስቀል
 Lippenstift|የከንፈር ቀለም
 Nagellack|የጥፍር ቀለም
-Wimperntusche|ማስካራ
 Parfüm|ሽቶ
 Tattoo|ንቅሳት
-Henna|ሂና
 Fieberthermometer|የትኩሳት መለኪያ
 Stethoskop|ማዳመጫ ሐኪም
 Röntgenbild|ራጅ
 Krankenwagen|አምቡላንስ
 Krankenschwester|ነርስ
 Apotheke|ፋርማሲ
-Medizin|መድኃኒት
-Augentropfen|የዓይን ጠብታ
 Tablette|ታብሌት
 Mundschutz|የአፍ መሸፈኛ
-Operation|ቀዶ ጥገና
-Impfung|ክትባት
-Sonnenbrand|የፀሐይ ቃጠሎ
-Mückenstich|የትንኝ ንክሻ
-Beule|እብጠት
-Blauer Fleck|ሰማያዊ ምልክት ቁስል
-Knochenbruch|ስብራት
-Zahnschmerzen|የጥርስ ሕመም
-Schluckauf|እንቅፋት ሳግ
-Gänsehaut|የሰውነት መንዘር
-Schnarchen|ማንኮራፋት
 @3
-Doppelkinn|ድርብ አገጭ
-Prothese|ሰው ሠራሽ አካል
-Hörgerät|የመስማት መርጃ
-Kontaktlinse|የዓይን ሌንስ
-Blindenstock|የዓይነ ስውራን ዱላ
-Blindenhund|መሪ ውሻ
-Gebärdensprache|የምልክት ቋንቋ
-Blutspende|ደም ልገሳ
-Trage|ቃሬዛ
-Notaufnahme|ድንገተኛ ክፍል
-Wartezimmer|የመጠባበቂያ ክፍል
-Albtraum|ቅዠት
-Schlafwandeln|በእንቅልፍ መሄድ
-Kimono|ኪሞኖ
-Sari|ሳሪ
 Poncho|ፖንቾ
-Toga|ቶጋ
-Tunika|ቱኒክ
-Overall|ቱታ
-Latzhose|ባለ ማንጠልጠያ ሱሪ
-Taucheranzug|የመጥለቂያ ልብስ
 Raumanzug|የጠፈር ልብስ
 Ritterrüstung|የጦር ትጥቅ
-Kettenhemd|የብረት ሸሚዝ
 Umhang|ካባ
-Doktorhut|የምረቃ ቆብ
-Holzschuh|የእንጨት ጫማ
 Schlittschuh|የበረዶ ጫማ
 Rollschuh|ባለ ጎማ ጫማ
-Fußballschuh|የእግር ኳስ ጫማ
-Ballettschuh|የባሌ ጫማ
 Stöckelschuh|ረጅም ታኮ ጫማ
-Fliegerbrille|የአብራሪ መነጽር
-Monokel|ነጠላ መነጽር
-Schweißband|የላብ ማሰሪያ
 Lätzchen|የሕፃን ሽርጥ
 Windel|ዳይፐር
 Schnuller|ማጥቢያ
 Babyflasche|የሕፃን ጡጦ
 Rassel|ጩኸት አሻንጉሊት
 Kinderwagen|የሕፃን ጋሪ
-Tragetuch|የሕፃን ማዘያ
-Hochstuhl|የሕፃን ወንበር
