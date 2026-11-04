@@ -7,7 +7,6 @@
 'use strict';
 
 // ---------------------------------------------------------------- Konstanten
-const PEER_PREFIX = 'malenio-v1-';
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // ohne 0/O, 1/I
 const CODE_LEN = 5;
 const MAX_PLAYERS = 8;
@@ -71,7 +70,7 @@ const T = {
     chatPh: 'Raten oder schreiben…', send: 'Senden', joined: '{name} ist beigetreten', left: '{name} hat verlassen',
     brush: 'Pinsel', eraser: 'Radierer', fill: 'Füllen', undo: 'Rückgängig', clear: 'Alles löschen',
     isDrawing: '{name} zeichnet', drawerLeft: 'Der Zeichner hat das Spiel verlassen.', notEnough: 'Zu wenige Spieler – zurück in die Lobby.',
-    gameRunning: 'Spiel läuft – du bist mitten drin!', reconnecting: 'Verbindung kurz weg – verbinde neu…', guessedChat: '{name} hat das Wort erraten! 🎉', speaking: 'im Telefon',
+    gameRunning: 'Spiel läuft – du bist mitten drin!', reconnecting: 'Verbindung kurz weg – verbinde neu…', voiceNA: 'Telefon wird noch verbunden – gleich nochmal tippen.', guessedChat: '{name} hat das Wort erraten! 🎉', speaking: 'im Telefon',
   },
   am: {
     yourName: 'ስምዎ', namePh: 'ስም ያስገቡ', create: 'ሎቢ ፍጠር', or: 'ወይም', join: 'ተቀላቀል',
@@ -93,7 +92,7 @@ const T = {
     chatPh: 'ይገምቱ ወይም ይጻፉ…', send: 'ላክ', joined: '{name} ተቀላቀለ', left: '{name} ወጣ',
     brush: 'ብሩሽ', eraser: 'ማጥፊያ', fill: 'ሙላ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ',
     isDrawing: '{name} እየሳለ ነው', drawerLeft: 'ሳዩ ጨዋታውን ለቋል።', notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።',
-    gameRunning: 'ጨዋታው እየተካሄደ ነው!', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…', guessedChat: '{name} ቃሉን ገመተው! 🎉', speaking: 'በስልክ ላይ',
+    gameRunning: 'ጨዋታው እየተካሄደ ነው!', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…', voiceNA: 'ስልኩ ገና እየተገናኘ ነው – ትንሽ ቆይተው እንደገና ይንኩ።', guessedChat: '{name} ቃሉን ገመተው! 🎉', speaking: 'በስልክ ላይ',
   },
 };
 let lang = localStorage.getItem('malenio-lang') || null;
@@ -163,108 +162,192 @@ function applyLang() {
 }
 
 // ================================================================ Netzwerk
-const net = {
-  peer: null, isHost: false, myId: null, hostConn: null, conns: new Map(), code: null,
-};
+// Spieldaten laufen über einen kostenlosen öffentlichen MQTT-Server (WebSocket über HTTPS).
+// Das funktioniert in jedem Netz (WLAN, mobile Daten). Der Host (Ersteller) bleibt der "Chef"
+// des Spiels; der MQTT-Server leitet nur Nachrichten weiter. Für Tests: ?broker=ws://...
+const BROKERS = [
+  'wss://broker.emqx.io:8084/mqtt',
+  'wss://broker.hivemq.com:8884/mqtt',
+  'wss://test.mosquitto.org:8081/mqtt',
+];
+const TOPIC_ROOT = 'malenio/v2/';
+const HOST_TIMEOUT = 20000;   // so lange ohne Nachricht vom Host -> "Verbindung weg"
+const HOST_GIVEUP = 45000;    // danach zurück ins Menü
+const CLIENT_TIMEOUT = 25000; // Host entfernt Spieler, die so lange nichts senden
 
-function sayBye() { if (net.isHost) try { broadcast({ t: 'bye' }); } catch (e) {} }
+const net = { mq: null, isHost: false, myId: null, code: null, peer: null, bye: false, timers: [] };
+const T_ = (sub) => TOPIC_ROOT + net.code + '/' + sub;
+const randId = () => 'p' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+
+function brokerList() {
+  const q = new URLSearchParams(location.search).get('broker');
+  return q ? [q] : BROKERS;
+}
+function tryBroker(url, opts) {
+  return new Promise((resolve, reject) => {
+    const c = mqtt.connect(url, { connectTimeout: 7000, reconnectPeriod: 0, keepalive: 20, clean: true, ...opts });
+    const to = setTimeout(() => { c.end(true); reject(new Error('timeout')); }, 8000);
+    c.once('connect', () => { clearTimeout(to); c.options.reconnectPeriod = 2000; resolve(c); });
+    c.once('error', (e) => { clearTimeout(to); c.end(true); reject(e); });
+  });
+}
+async function connectMqtt(opts) {
+  if (!window.mqtt) throw new Error('mqtt.js fehlt');
+  for (const url of brokerList()) {
+    try { return await tryBroker(url, opts); } catch (e) { console.warn('Broker nicht erreichbar:', url, e && e.message); }
+  }
+  throw new Error('kein Broker erreichbar');
+}
+function pub(topic, obj, opts) { try { net.mq && net.mq.publish(topic, JSON.stringify(obj), opts || {}); } catch (e) {} }
+function every(ms, fn) { const id = setInterval(fn, ms); net.timers.push(id); }
+
+function sayBye() {
+  if (!net.isHost || !net.mq) return;
+  try { broadcast({ t: 'bye' }); net.mq.publish(T_('p'), '', { retain: true }); } catch (e) {}
+}
 function destroyNet() {
   voiceOff(true);
   host.stopTimers();
-  try { net.hostConn && net.hostConn.close(); } catch (e) {}
-  net.conns.forEach((c) => { try { c.close(); } catch (e) {} });
+  net.timers.forEach(clearInterval);
+  if (net.mq && !net.isHost && net.myId) pub(T_('h'), { f: net.myId, m: { t: 'leave' } });
+  const mq = net.mq; if (mq) setTimeout(() => { try { mq.end(true); } catch (e) {} }, 150);
   try { net.peer && net.peer.destroy(); } catch (e) {}
-  Object.assign(net, { peer: null, isHost: false, myId: null, hostConn: null, conns: new Map(), code: null, bye: false });
+  Object.assign(net, { mq: null, isHost: false, myId: null, code: null, peer: null, bye: false, timers: [], peerStarting: false });
   view.reset();
 }
 
 // Nachricht an den Host (beim Host selbst: direkt verarbeiten)
 function toHost(msg) {
   if (net.isHost) queueMicrotask(() => host.onMessage(net.myId, msg));
-  else if (net.hostConn && net.hostConn.open) net.hostConn.send(msg);
+  else pub(T_('h'), { f: net.myId, m: msg });
 }
 // Nur Host: an einen bestimmten Spieler
 function sendTo(id, msg) {
   if (id === net.myId) queueMicrotask(() => view.onMessage(msg));
-  else { const c = net.conns.get(id); if (c && c.open) c.send(msg); }
+  else pub(T_('c/' + id), { m: msg });
 }
-// Nur Host: an alle (optional außer einem)
+// Nur Host: an alle (optional außer einem) – eine einzige Nachricht für alle
 function broadcast(msg, exceptId) {
-  for (const p of host.players) if (p.id !== exceptId) sendTo(p.id, msg);
+  if (exceptId !== net.myId) queueMicrotask(() => view.onMessage(msg));
+  pub(T_('a'), { x: exceptId || null, m: msg });
 }
 
-async function newPeer(id) {
+// Sprachchat läuft weiter direkt zwischen den Geräten (PeerJS / WebRTC)
+async function newPeer() {
   const config = await getIceConfig();
   return new Promise((resolve, reject) => {
-    const p = id ? new Peer(id, { config, debug: 1 }) : new Peer({ config, debug: 1 });
+    const p = new Peer({ config, debug: 1 });
     let done = false;
-    p.on('open', (pid) => { done = true; resolve(p); });
+    p.on('open', () => { done = true; resolve(p); });
     p.on('error', (err) => { if (!done) { done = true; try { p.destroy(); } catch (e) {} reject(err); } });
+  });
+}
+function startVoicePeer() {
+  if (!window.Peer || net.peerStarting) return;
+  const myId = net.myId;
+  net.peerStarting = true;
+  newPeer().then((peer) => {
+    net.peerStarting = false;
+    if (net.myId !== myId) { peer.destroy(); return; }
+    net.peer = peer;
+    peer.on('call', (call) => voiceIncoming(call));
+    peer.on('disconnected', () => setTimeout(() => { try { if (net.peer === peer && !peer.destroyed) peer.reconnect(); } catch (e) {} }, 1500));
+    toHost({ t: 'vid', vid: peer.id });
+  }).catch((e) => { net.peerStarting = false; console.warn('Sprachchat nicht verfügbar', e); });
+}
+
+// Prüft, ob unter diesem Code gerade ein Host aktiv ist (gespeicherte "Anwesenheit")
+function readPresence(mq, code, wait) {
+  return new Promise((resolve) => {
+    const topic = TOPIC_ROOT + code + '/p';
+    let result = null;
+    const onMsg = (tp, buf) => {
+      if (tp !== topic) return;
+      try { const d = buf.length ? JSON.parse(buf.toString()) : null; result = d && Date.now() - d.t < 120000 ? d : null; } catch (e) { result = null; }
+      finish();
+    };
+    const finish = () => { clearTimeout(to); mq.removeListener('message', onMsg); mq.unsubscribe(topic); resolve(result); };
+    const to = setTimeout(finish, wait);
+    mq.on('message', onMsg);
+    mq.subscribe(topic);
   });
 }
 
 async function createLobby(name) {
   setStatus(t('creating'), true);
-  let peer = null, code = null;
-  for (let i = 0; i < 5 && !peer; i++) {
-    code = makeCode();
-    try { peer = await newPeer(PEER_PREFIX + code); }
-    catch (err) { if (err.type !== 'unavailable-id') { setStatus(t('netError')); console.error(err); return; } }
-  }
-  if (!peer) { setStatus(t('netError')); return; }
-  net.peer = peer; net.isHost = true; net.myId = peer.id; net.code = code;
-  setupPeerCommon(peer);
-  peer.on('connection', (conn) => host.onConnection(conn));
-  host.init({ id: peer.id, name, lang });
+  let mq = null, code = null;
+  try {
+    for (let i = 0; i < 4 && !mq; i++) {
+      code = makeCode();
+      const c = await connectMqtt({ will: { topic: TOPIC_ROOT + code + '/p', payload: '', retain: true, qos: 1 } });
+      if (await readPresence(c, code, 1200)) { c.end(true); continue; } // Code schon belegt
+      mq = c;
+    }
+  } catch (e) { console.error(e); setStatus(t('netError')); return; }
+  if (!mq) { setStatus(t('netError')); return; }
+  Object.assign(net, { mq, isHost: true, myId: randId(), code });
+  const presence = () => pub(T_('p'), { t: Date.now() }, { retain: true, qos: 1 });
+  presence();
+  mq.subscribe(T_('h'));
+  mq.on('connect', () => { mq.subscribe(T_('h')); presence(); }); // nach Wiederverbindung
+  mq.on('message', (tp, buf) => {
+    if (tp !== T_('h')) return;
+    let d; try { d = JSON.parse(buf.toString()); } catch (e) { return; }
+    if (d && d.f && d.m) host.receive(d.f, d.m);
+  });
+  every(30000, presence);
+  every(4000, () => { host.sweep(); host.pushState(); }); // Lebenszeichen + Stand für alle
+  host.init({ id: net.myId, name, lang });
   setStatus('');
   view.enterRoom(code);
+  startVoicePeer();
 }
 
 let resumeVoice = false; // Telefon nach Wiederverbinden wieder einschalten
-let joinSession = 0; // erhöht sich bei jedem Verlassen – verhindert alte Wiederverbindungsversuche
-async function joinLobby(name, code, tries = 0) {
+let joinSession = 0;     // erhöht sich bei jedem Verlassen – verhindert alte Versuche
+async function joinLobby(name, code) {
   const session = joinSession;
-  const giveUp = (key) => { destroyNet(); if (tries > 0) { show('menu'); toast(t('hostLeft')); } else setStatus(t(key)); };
-  if (!tries) setStatus(t('connecting'), true);
-  let peer;
-  try { peer = await newPeer(null); } catch (err) { console.error(err); if (tries) retry(); else setStatus(t('netError')); return; }
-  if (session !== joinSession) { try { peer.destroy(); } catch (e) {} return; }
-  net.peer = peer; net.isHost = false; net.myId = peer.id; net.code = code;
-  setupPeerCommon(peer);
-  const conn = peer.connect(PEER_PREFIX + code, { reliable: true, metadata: { v: 1 } });
-  net.hostConn = conn;
-  let opened = false;
-  const failTimer = setTimeout(() => { if (!opened) giveUp('notFound'); }, 12000);
-  peer.on('error', (err) => {
-    if (err.type === 'peer-unavailable' && !opened) { clearTimeout(failTimer); giveUp('notFound'); }
+  setStatus(t('connecting'), true);
+  let mq;
+  try { mq = await connectMqtt({}); } catch (e) { console.error(e); setStatus(t('netError')); return; }
+  if (session !== joinSession) { mq.end(true); return; }
+  const pres = await readPresence(mq, code, 4000);
+  if (session !== joinSession) { mq.end(true); return; }
+  if (!pres) { mq.end(true); setStatus(t('notFound')); return; }
+  Object.assign(net, { mq, isHost: false, myId: randId(), code });
+  let lastHost = Date.now(), welcomed = false, warned = false;
+  const hello = () => pub(T_('h'), { f: net.myId, m: { t: 'hello', name, lang, cid: CLIENT_ID, vid: net.peer ? net.peer.id : null } });
+  const subscribeAll = () => mq.subscribe([T_('a'), T_('c/' + net.myId), T_('p')]);
+  subscribeAll();
+  mq.on('connect', () => { if (net.mq === mq) { subscribeAll(); hello(); } });
+  mq.on('message', (tp, buf) => {
+    if (net.mq !== mq) return;
+    if (tp === T_('p')) { // Anwesenheit des Hosts
+      if (!buf.length && welcomed) lastHost = Math.min(lastHost, Date.now() - HOST_GIVEUP + 8000); // Host weg? kurz warten
+      return;
+    }
+    let d; try { d = JSON.parse(buf.toString()); } catch (e) { return; }
+    if (!d || !d.m) return;
+    if (tp === T_('a') && d.x === net.myId) return;
+    lastHost = Date.now();
+    warned = false;
+    const m = d.m;
+    if (m.t === 'rejoin') { hello(); return; }
+    if (m.t === 'bye') { leaveWith('hostLeft'); return; }
+    if (m.t === 'welcome') welcomed = true;
+    view.onMessage(m);
   });
-  conn.on('open', () => { opened = true; clearTimeout(failTimer); conn.send({ t: 'hello', name, lang, cid: CLIENT_ID }); });
-  conn.on('data', (msg) => {
-    if (msg && msg.t === 'welcome') tries = 0;
-    if (msg && msg.t === 'bye') { net.bye = true; return; }
-    view.onMessage(msg);
+  const leaveWith = (key) => { const wasIn = view.inRoom; destroyNet(); show('menu'); if (wasIn) toast(t(key)); else setStatus(t(key)); };
+  every(4000, () => {
+    if (net.mq !== mq) return;
+    pub(T_('h'), { f: net.myId, m: { t: 'ping' } });
+    const silent = Date.now() - lastHost;
+    if (!welcomed && silent > 12000) { leaveWith('notFound'); return; }
+    if (silent > HOST_GIVEUP) { leaveWith('hostLeft'); return; }
+    if (silent > HOST_TIMEOUT && !warned) { warned = true; toast(t('reconnecting')); hello(); }
   });
-  conn.on('close', () => {
-    if (!net.peer || net.hostConn !== conn) return; // wir haben selbst verlassen
-    const wasIn = view.inRoom, bye = net.bye, hadVoice = voice.on;
-    destroyNet();
-    if (wasIn && !bye && tries < 3) { resumeVoice = resumeVoice || hadVoice; retry(); return; }
-    resumeVoice = false;
-    show('menu');
-    if (wasIn) toast(t('hostLeft'));
-  });
-  function retry() {
-    if (tries >= 3) { giveUp('notFound'); return; }
-    toast(t('reconnecting'));
-    setTimeout(() => { if (session === joinSession) joinLobby(name, code, tries + 1); }, 1500);
-  }
-}
-
-function setupPeerCommon(peer) {
-  peer.on('call', (call) => voiceIncoming(call));
-  peer.on('disconnected', () => { // Verbindung zum Vermittlungsdienst verloren – erneut verbinden
-    setTimeout(() => { try { if (net.peer === peer && !peer.destroyed) peer.reconnect(); } catch (e) {} }, 1500);
-  });
+  hello();
+  startVoicePeer();
 }
 
 // ================================================================ HOST
@@ -288,33 +371,46 @@ const host = {
     return p;
   },
 
-  onConnection(conn) {
-    conn.on('data', (msg) => {
-      if (msg && msg.t === 'hello') {
-        const key = String(msg.cid || conn.peer).slice(0, 40);
-        // gleiches Gerät noch drin (alte Verbindung hängt noch) -> alte Verbindung ersetzen
-        const dup = this.players.find((x) => !x.host && x.cid === key);
-        if (dup) { const oc = net.conns.get(dup.id); this.removePlayer(dup.id, true); try { oc && oc.close(); } catch (e) {} }
-        if (this.players.length >= MAX_PLAYERS) { conn.send({ t: 'full' }); setTimeout(() => conn.close(), 500); return; }
-        net.conns.set(conn.peer, conn);
-        const p = this.addPlayer(conn.peer, msg.name, msg.lang);
-        p.cid = key;
-        const back = this.phase !== 'lobby' && this.departed.get(key);
-        if (back) { p.score = back.score; p.color = back.color; this.departed.delete(key); }
-        conn.send({ t: 'welcome', code: net.code, history: this.history });
-        if (!dup) broadcast({ t: 'sys', key: 'joined', name: p.name });
-        this.pushState();
-        return;
-      }
-      if (net.conns.get(conn.peer) === conn) this.onMessage(conn.peer, msg);
-    });
-    conn.on('close', () => this.removePlayer(conn.peer));
-    conn.on('error', () => this.removePlayer(conn.peer));
+  // Nachricht von einem Mitspieler über MQTT
+  receive(from, msg) {
+    const p = this.get(from);
+    if (p) p.lastSeen = Date.now();
+    if (msg.t === 'hello') { this.onHello(from, msg); return; }
+    if (!p) { if (msg.t !== 'leave') sendTo(from, { t: 'rejoin' }); return; }
+    if (msg.t === 'ping') return;
+    if (msg.t === 'leave') { this.removePlayer(from); return; }
+    this.onMessage(from, msg);
+  },
+  onHello(from, msg) {
+    const existing = this.get(from);
+    if (existing) { // Wiederverbindung mit gleicher ID
+      if (msg.vid) existing.vid = String(msg.vid).slice(0, 64);
+      sendTo(from, { t: 'welcome', code: net.code, history: this.history });
+      this.pushState();
+      return;
+    }
+    const key = String(msg.cid || from).slice(0, 40);
+    // gleiches Gerät mit neuer ID -> alten Eintrag ersetzen
+    const dup = this.players.find((x) => !x.host && x.cid === key);
+    if (dup) this.removePlayer(dup.id, true);
+    if (this.players.length >= MAX_PLAYERS) { sendTo(from, { t: 'full' }); return; }
+    const p = this.addPlayer(from, msg.name, msg.lang);
+    p.cid = key; p.lastSeen = Date.now();
+    if (msg.vid) p.vid = String(msg.vid).slice(0, 64);
+    const back = this.phase !== 'lobby' && this.departed.get(key);
+    if (back) { p.score = back.score; p.color = back.color; this.departed.delete(key); }
+    sendTo(from, { t: 'welcome', code: net.code, history: this.history });
+    if (!dup) broadcast({ t: 'sys', key: 'joined', name: p.name });
+    this.pushState();
+  },
+  // entfernt Spieler, von denen lange nichts kam
+  sweep() {
+    const now = Date.now();
+    for (const p of [...this.players]) if (!p.host && now - (p.lastSeen || now) > CLIENT_TIMEOUT) this.removePlayer(p.id);
   },
 
   removePlayer(id, silent) {
     const p = this.get(id); if (!p) return;
-    net.conns.delete(id);
     this.players = this.players.filter((x) => x.id !== id);
     if (this.phase !== 'lobby' && p.cid) this.departed.set(p.cid, { score: p.score, color: p.color });
     if (!silent) broadcast({ t: 'sys', key: 'left', name: p.name });
@@ -339,7 +435,7 @@ const host = {
     const st = {
       t: 'state', phase: this.phase, settings: this.settings, round: this.round, drawerId: this.drawerId,
       remaining: Math.max(0, this.deadline - Date.now()),
-      players: this.players.map(({ id, name, lang, score, voice, color, host }) => ({ id, name, lang, score, voice, color, host })),
+      players: this.players.map(({ id, name, lang, score, voice, color, host, vid }) => ({ id, name, lang, score, voice, color, host, vid: vid || null })),
       reveal: this.reveal,
     };
     if (this.phase === 'drawing' && this.wordId != null) {
@@ -389,6 +485,9 @@ const host = {
       }
       case 'voice':
         p.voice = !!msg.on; this.pushState();
+        break;
+      case 'vid':
+        p.vid = String(msg.vid || '').slice(0, 64) || null; this.pushState();
         break;
     }
   },
@@ -818,6 +917,7 @@ const voice = { on: false, stream: null, calls: new Map(), audios: new Map() };
 
 async function voiceToggle() {
   if (voice.on) { voiceOff(); toast(t('voiceOff')); return; }
+  if (!net.peer) { toast(t('voiceNA')); if (!net.peerStarting) startVoicePeer(); return; }
   try {
     voice.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }, video: false });
   } catch (e) { console.error(e); toast(t('micDenied')); return; }
@@ -860,14 +960,15 @@ function voiceIncoming(call) {
 }
 // Gleicht Anrufe mit dem Spielstand ab: Wer die "kleinere" ID hat, ruft an – so gibt es keine doppelten Anrufe.
 function voiceSync(st) {
-  if (!voice.on || !net.peer) return;
-  const others = st.players.filter((p) => p.id !== net.myId);
+  if (!voice.on || !net.peer || !voice.stream) return;
+  const myVid = net.peer.id;
+  const others = st.players.filter((p) => p.id !== net.myId && p.vid);
   for (const p of others) {
-    const has = voice.calls.has(p.id);
-    if (p.voice && !has && net.myId < p.id) { const c = net.peer.call(p.id, voice.stream); if (c) attachCall(c); }
-    if (!p.voice && has) { try { voice.calls.get(p.id).close(); } catch (e) {} voice.calls.delete(p.id); const a = voice.audios.get(p.id); if (a) { a.remove(); voice.audios.delete(p.id); } }
+    const has = voice.calls.has(p.vid);
+    if (p.voice && !has && myVid < p.vid) { const c = net.peer.call(p.vid, voice.stream); if (c) attachCall(c); }
+    if (!p.voice && has) { try { voice.calls.get(p.vid).close(); } catch (e) {} voice.calls.delete(p.vid); const a = voice.audios.get(p.vid); if (a) { a.remove(); voice.audios.delete(p.vid); } }
   }
-  for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) { try { voice.calls.get(id).close(); } catch (e) {} voice.calls.delete(id); }
+  for (const vid of [...voice.calls.keys()]) if (!others.some((p) => p.vid === vid)) { try { voice.calls.get(vid).close(); } catch (e) {} voice.calls.delete(vid); }
 }
 
 // ================================================================ Menü & Bedienung

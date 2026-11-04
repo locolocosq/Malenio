@@ -232,3 +232,17 @@ button, .swatch, .tool { touch-action: manipulation; user-select: none; -webkit-
   .big-title { font-size: 30px; }
   .card { padding: 16px; }
 }
+
+/* Overlay: Inhalt immer ganz sichtbar (scrollt notfalls), nichts abgeschnitten */
+#overlay { justify-content: flex-start; overflow-y: auto; }
+#overlay > :first-child { margin-top: auto; }
+#overlay > :last-child { margin-bottom: auto; }
+@media (max-width: 600px) {
+  #overlay { gap: 8px; padding: 10px; }
+  #overlay h2 { font-size: 18px; }
+  .choices { flex-direction: column; gap: 6px; width: 100%; align-items: stretch; }
+  .choice { min-width: 0; padding: 7px 10px; font-size: 17px; flex-direction: row; justify-content: space-between; gap: 8px; }
+  .choice small { font-size: 11px; }
+  #overlay .reveal-word { font-size: 26px; }
+  #overlay .reveal-sub { font-size: 16px; }
+}
