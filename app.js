@@ -20,10 +20,16 @@ const COLORS = [
   '#795548', '#4e342e', '#ffcc80', '#c5e1a5', '#b3e5fc', '#d1c4e9', '#00897b', '#b71c1c',
 ];
 const AVATAR_COLORS = ['#e53935', '#1e88e5', '#43a047', '#fb8c00', '#8e24aa', '#00acc1', '#d81b60', '#6d4c41'];
+// Verbindungs-Server fürs Telefon. TURN = kostenloser Relay von Metered (Open Relay),
+// damit der Sprachchat auch zwischen WLAN und mobilen Daten funktioniert.
+const TURN_USER = '44a0ba51e09545086b4b4ce3', TURN_PASS = 'xA+tBgw5yXc5eCSK';
 const ICE = { iceServers: [
   { urls: 'stun:stun.l.google.com:19302' },
-  { urls: 'stun:stun1.l.google.com:19302' },
-  { urls: 'stun:global.stun.twilio.com:3478' },
+  { urls: 'stun:stun.relay.metered.ca:80' },
+  { urls: 'turn:global.relay.metered.ca:80', username: TURN_USER, credential: TURN_PASS },
+  { urls: 'turn:global.relay.metered.ca:80?transport=tcp', username: TURN_USER, credential: TURN_PASS },
+  { urls: 'turn:global.relay.metered.ca:443', username: TURN_USER, credential: TURN_PASS },
+  { urls: 'turns:global.relay.metered.ca:443?transport=tcp', username: TURN_USER, credential: TURN_PASS },
 ] };
 // Relay-Server (TURN), damit Spieler in verschiedenen Netzen (WLAN / mobile Daten) sich verbinden können.
 // Kostenlos bei Metered "Open Relay" (20 GB/Monat). Hier die Adresse mit dem eigenen API-Key eintragen:

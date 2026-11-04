@@ -32,7 +32,7 @@ node tools/build-words.js
 
 - Das Gerät, das die Lobby erstellt, ist der **Host**: Es hält den Spielstand und die Regeln.
 - Die Spieldaten (Zeichnung, Punkte, Chat) laufen über einen **kostenlosen öffentlichen MQTT-Server** (z. B. `broker.emqx.io`, mit zwei Ersatz-Servern). Das funktioniert **in jedem Netz**, also WLAN, mobile Daten, verschiedene Länder. Eine Anmeldung ist nicht nötig.
-- Der **Sprachchat (📞)** verbindet die Geräte direkt (WebRTC über [PeerJS](https://peerjs.com)). In manchen Mobilfunknetzen kommt diese Direktverbindung nicht zustande. Abhilfe ist ein kostenloser Relay-Server: ein Konto bei [Metered Open Relay](https://www.metered.ca/tools/openrelay/) (20 GB/Monat gratis) anlegen und den Link in `app.js` bei `TURN_CREDENTIALS_URL` eintragen.
+- Der **Sprachchat (📞)** verbindet die Geräte direkt (WebRTC über [PeerJS](https://peerjs.com)). In manchen Mobilfunknetzen kommt diese Direktverbindung nicht zustande. Dafür ist ein kostenloser Relay-Server von [Metered Open Relay](https://www.metered.ca/tools/openrelay/) (20 GB/Monat gratis) eingetragen (`TURN_USER`/`TURN_PASS` in `app.js`).
 - Die Website selbst besteht nur aus statischen Dateien und läuft kostenlos auf **GitHub Pages**.
 
 ### Online stellen (GitHub Pages)
