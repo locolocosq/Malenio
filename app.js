@@ -27,6 +27,11 @@ const ICE = { iceServers: [
   { urls: 'stun:global.stun.twilio.com:3478' },
 ] };
 const WORDS = window.WORDS || [];
+// Geräte-ID (bleibt beim Neuladen gleich), damit man nach einem Verbindungsabbruch seine Punkte zurückbekommt
+const CLIENT_ID = (() => {
+  try { let id = sessionStorage.getItem('malenio-cid'); if (!id) { id = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem('malenio-cid', id); } return id; }
+  catch (e) { return Math.random().toString(36).slice(2); }
+})();
 
 // ---------------------------------------------------------------- Texte
 const T = {
@@ -50,7 +55,7 @@ const T = {
     chatPh: 'Raten oder schreiben…', send: 'Senden', joined: '{name} ist beigetreten', left: '{name} hat verlassen',
     brush: 'Pinsel', eraser: 'Radierer', fill: 'Füllen', undo: 'Rückgängig', clear: 'Alles löschen',
     isDrawing: '{name} zeichnet', drawerLeft: 'Der Zeichner hat das Spiel verlassen.', notEnough: 'Zu wenige Spieler – zurück in die Lobby.',
-    gameRunning: 'Spiel läuft – du bist mitten drin!', guessedChat: '{name} hat das Wort erraten! 🎉', speaking: 'im Telefon',
+    gameRunning: 'Spiel läuft – du bist mitten drin!', reconnecting: 'Verbindung kurz weg – verbinde neu…', guessedChat: '{name} hat das Wort erraten! 🎉', speaking: 'im Telefon',
   },
   am: {
     yourName: 'ስምዎ', namePh: 'ስም ያስገቡ', create: 'ሎቢ ፍጠር', or: 'ወይም', join: 'ተቀላቀል',
@@ -72,7 +77,7 @@ const T = {
     chatPh: 'ይገምቱ ወይም ይጻፉ…', send: 'ላክ', joined: '{name} ተቀላቀለ', left: '{name} ወጣ',
     brush: 'ብሩሽ', eraser: 'ማጥፊያ', fill: 'ሙላ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ',
     isDrawing: '{name} እየሳለ ነው', drawerLeft: 'ሳዩ ጨዋታውን ለቋል።', notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።',
-    gameRunning: 'ጨዋታው እየተካሄደ ነው!', guessedChat: '{name} ቃሉን ገመተው! 🎉', speaking: 'በስልክ ላይ',
+    gameRunning: 'ጨዋታው እየተካሄደ ነው!', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…', guessedChat: '{name} ቃሉን ገመተው! 🎉', speaking: 'በስልክ ላይ',
   },
 };
 let lang = localStorage.getItem('malenio-lang') || null;
@@ -146,13 +151,14 @@ const net = {
   peer: null, isHost: false, myId: null, hostConn: null, conns: new Map(), code: null,
 };
 
+function sayBye() { if (net.isHost) try { broadcast({ t: 'bye' }); } catch (e) {} }
 function destroyNet() {
   voiceOff(true);
   host.stopTimers();
   try { net.hostConn && net.hostConn.close(); } catch (e) {}
   net.conns.forEach((c) => { try { c.close(); } catch (e) {} });
   try { net.peer && net.peer.destroy(); } catch (e) {}
-  Object.assign(net, { peer: null, isHost: false, myId: null, hostConn: null, conns: new Map(), code: null });
+  Object.assign(net, { peer: null, isHost: false, myId: null, hostConn: null, conns: new Map(), code: null, bye: false });
   view.reset();
 }
 
@@ -197,27 +203,44 @@ async function createLobby(name) {
   view.enterRoom(code);
 }
 
-async function joinLobby(name, code) {
-  setStatus(t('connecting'), true);
+let resumeVoice = false; // Telefon nach Wiederverbinden wieder einschalten
+let joinSession = 0; // erhöht sich bei jedem Verlassen – verhindert alte Wiederverbindungsversuche
+async function joinLobby(name, code, tries = 0) {
+  const session = joinSession;
+  const giveUp = (key) => { destroyNet(); if (tries > 0) { show('menu'); toast(t('hostLeft')); } else setStatus(t(key)); };
+  if (!tries) setStatus(t('connecting'), true);
   let peer;
-  try { peer = await newPeer(null); } catch (err) { setStatus(t('netError')); console.error(err); return; }
+  try { peer = await newPeer(null); } catch (err) { console.error(err); if (tries) retry(); else setStatus(t('netError')); return; }
+  if (session !== joinSession) { try { peer.destroy(); } catch (e) {} return; }
   net.peer = peer; net.isHost = false; net.myId = peer.id; net.code = code;
   setupPeerCommon(peer);
   const conn = peer.connect(PEER_PREFIX + code, { reliable: true, metadata: { v: 1 } });
   net.hostConn = conn;
   let opened = false;
-  const failTimer = setTimeout(() => { if (!opened) { destroyNet(); setStatus(t('notFound')); } }, 12000);
+  const failTimer = setTimeout(() => { if (!opened) giveUp('notFound'); }, 12000);
   peer.on('error', (err) => {
-    if (err.type === 'peer-unavailable' && !opened) { clearTimeout(failTimer); destroyNet(); setStatus(t('notFound')); }
+    if (err.type === 'peer-unavailable' && !opened) { clearTimeout(failTimer); giveUp('notFound'); }
   });
-  conn.on('open', () => { opened = true; clearTimeout(failTimer); conn.send({ t: 'hello', name, lang }); });
-  conn.on('data', (msg) => view.onMessage(msg));
+  conn.on('open', () => { opened = true; clearTimeout(failTimer); conn.send({ t: 'hello', name, lang, cid: CLIENT_ID }); });
+  conn.on('data', (msg) => {
+    if (msg && msg.t === 'welcome') tries = 0;
+    if (msg && msg.t === 'bye') { net.bye = true; return; }
+    view.onMessage(msg);
+  });
   conn.on('close', () => {
-    if (!net.peer) return; // wir haben selbst verlassen
-    const wasIn = view.inRoom;
-    destroyNet(); show('menu');
+    if (!net.peer || net.hostConn !== conn) return; // wir haben selbst verlassen
+    const wasIn = view.inRoom, bye = net.bye, hadVoice = voice.on;
+    destroyNet();
+    if (wasIn && !bye && tries < 3) { resumeVoice = resumeVoice || hadVoice; retry(); return; }
+    resumeVoice = false;
+    show('menu');
     if (wasIn) toast(t('hostLeft'));
   });
+  function retry() {
+    if (tries >= 3) { giveUp('notFound'); return; }
+    toast(t('reconnecting'));
+    setTimeout(() => { if (session === joinSession) joinLobby(name, code, tries + 1); }, 1500);
+  }
 }
 
 function setupPeerCommon(peer) {
@@ -231,9 +254,10 @@ function setupPeerCommon(peer) {
 const host = {
   players: [], settings: { rounds: 3, drawTime: 80 }, phase: 'lobby',
   round: 0, order: [], turn: -1, drawerId: null, wordId: null, choices: [], usedWords: new Set(),
-  deadline: 0, timer: null, history: [], reveal: null, colorIdx: 0,
+  deadline: 0, timer: null, history: [], reveal: null, colorIdx: 0, departed: new Map(), lobbyCheck: null,
 
   init(me) {
+    this.departed = new Map();
     this.players = []; this.phase = 'lobby'; this.history = []; this.usedWords = new Set(); this.colorIdx = 0;
     this.addPlayer(me.id, me.name, me.lang);
     this.pushState();
@@ -250,11 +274,18 @@ const host = {
   onConnection(conn) {
     conn.on('data', (msg) => {
       if (msg && msg.t === 'hello') {
+        const key = String(msg.cid || conn.peer).slice(0, 40);
+        // gleiches Gerät noch drin (alte Verbindung hängt noch) -> alte Verbindung ersetzen
+        const dup = this.players.find((x) => !x.host && x.cid === key);
+        if (dup) { const oc = net.conns.get(dup.id); this.removePlayer(dup.id, true); try { oc && oc.close(); } catch (e) {} }
         if (this.players.length >= MAX_PLAYERS) { conn.send({ t: 'full' }); setTimeout(() => conn.close(), 500); return; }
         net.conns.set(conn.peer, conn);
         const p = this.addPlayer(conn.peer, msg.name, msg.lang);
+        p.cid = key;
+        const back = this.phase !== 'lobby' && this.departed.get(key);
+        if (back) { p.score = back.score; p.color = back.color; this.departed.delete(key); }
         conn.send({ t: 'welcome', code: net.code, history: this.history });
-        broadcast({ t: 'sys', key: 'joined', name: p.name });
+        if (!dup) broadcast({ t: 'sys', key: 'joined', name: p.name });
         this.pushState();
         return;
       }
@@ -264,13 +295,20 @@ const host = {
     conn.on('error', () => this.removePlayer(conn.peer));
   },
 
-  removePlayer(id) {
+  removePlayer(id, silent) {
     const p = this.get(id); if (!p) return;
     net.conns.delete(id);
     this.players = this.players.filter((x) => x.id !== id);
-    broadcast({ t: 'sys', key: 'left', name: p.name });
+    if (this.phase !== 'lobby' && p.cid) this.departed.set(p.cid, { score: p.score, color: p.color });
+    if (!silent) broadcast({ t: 'sys', key: 'left', name: p.name });
     if (this.phase !== 'lobby' && this.phase !== 'end') {
-      if (this.players.length < 2) { this.toLobby(); broadcast({ t: 'sys', key: 'notEnough' }); return; }
+      if (this.players.length < 2) {
+        // kurz warten – vielleicht verbindet sich der Spieler gleich wieder (Handy kurz weg)
+        clearTimeout(this.lobbyCheck);
+        this.lobbyCheck = setTimeout(() => {
+          if (this.players.length < 2 && this.phase !== 'lobby' && this.phase !== 'end') { this.toLobby(); broadcast({ t: 'sys', key: 'notEnough' }); }
+        }, 10000);
+      }
       if (id === this.drawerId && (this.phase === 'choosing' || this.phase === 'drawing')) {
         broadcast({ t: 'sys', key: 'drawerLeft' });
         this.endTurn(null);
@@ -340,6 +378,7 @@ const host = {
 
   startGame() {
     this.players.forEach((p) => p.score = 0);
+    this.departed = new Map();
     this.round = 1; this.turn = -1; this.usedWords = new Set();
     this.order = shuffle(this.players.map((p) => p.id));
     this.nextTurn();
@@ -436,12 +475,14 @@ const view = {
   lastPhase: null, lastDrawer: null,
 
   reset() {
+    releaseAwake();
     this.inRoom = false; this.state = null; this.history = []; clearInterval(this.tick); this.tick = null;
     this.lastPhase = null; this.lastDrawer = null;
     closeModal(); $('#chat-log').innerHTML = ''; clearBoard();
   },
   enterRoom(code) {
     this.inRoom = true;
+    keepAwake();
     $('#lobby-code').textContent = code;
     history.replaceState(null, '', location.pathname + '?code=' + code);
     clearInterval(this.tick); this.tick = setInterval(() => this.updateTimer(), 250);
@@ -455,6 +496,7 @@ const view = {
         this.enterRoom(msg.code);
         this.history = msg.history || []; redraw(this.history);
         setStatus('');
+        if (resumeVoice) { resumeVoice = false; voiceToggle(); }
         break;
       case 'full': destroyNet(); show('menu'); setStatus(t('full')); break;
       case 'state': this.onState(msg); break;
@@ -594,6 +636,18 @@ function addChat(html, cls) {
   while (log.children.length > 150) log.firstChild.remove();
   log.scrollTop = log.scrollHeight;
 }
+
+// Bildschirm bleibt an, solange man im Spiel ist (wichtig fürs Handy – v. a. beim Host)
+let wakeLock = null;
+async function keepAwake() {
+  try {
+    if (!('wakeLock' in navigator) || !view.inRoom || document.visibilityState !== 'visible' || wakeLock) return;
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => { wakeLock = null; });
+  } catch (e) { wakeLock = null; }
+}
+function releaseAwake() { try { wakeLock && wakeLock.release(); } catch (e) {} wakeLock = null; }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') keepAwake(); });
 
 // ================================================================ Zeichnen
 function clearBoard() { ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H); }
@@ -826,6 +880,7 @@ $('#btn-join').onclick = async () => {
   if (busy) return; const n = getName(); if (!n) return;
   const code = cleanCode($('#in-code').value);
   if (code.length !== CODE_LEN) { setStatus(t('enterCode')); $('#in-code').focus(); return; }
+  joinSession++;
   busy = true; try { await joinLobby(n, code); } finally { busy = false; }
 };
 $('#in-code').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#btn-join').click(); });
@@ -844,15 +899,20 @@ $('#btn-phone').onclick = () => voiceToggle();
 $('#btn-home').onclick = async () => {
   if (view.inRoom) { if (!(await confirmBox(t('leaveConfirm')))) return; }
   const inRoom = view.inRoom;
+  joinSession++; resumeVoice = false;
+  if (net.isHost) { sayBye(); await sleep(250); }
   destroyNet();
   history.replaceState(null, '', location.pathname);
   show(inRoom || $('#screen-menu').classList.contains('hidden') ? 'menu' : 'lang');
   setStatus('');
 };
 $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
-window.addEventListener('beforeunload', () => { try { net.peer && net.peer.destroy(); } catch (e) {} });
+window.addEventListener('pagehide', () => { sayBye(); });
+window.addEventListener('beforeunload', () => { sayBye(); try { net.peer && net.peer.destroy(); } catch (e) {} });
 
 // Start
+if (new URLSearchParams(location.search).has('debug')) window.__malenioDebug = { net, host, view };
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 const urlCode = cleanCode(new URLSearchParams(location.search).get('code') || '');
 if (urlCode) $('#in-code').value = urlCode;
 if (lang) { applyLang(); show('menu'); } else { applyLang(); show('lang'); }

@@ -42,8 +42,15 @@ node tools/build-words.js
 
 HTTPS ist dort automatisch an. Das braucht man fürs Mikrofon.
 
+### Auf dem Handy spielen
+
+- Einfach den Link im Handy-Browser öffnen (Chrome auf Android, Safari auf dem iPhone). Das Spiel läuft hochkant und quer.
+- **Als App installieren:** Android: Menü ⋮ → „Zum Startbildschirm hinzufügen“ / „App installieren“. iPhone: Teilen-Symbol → „Zum Home-Bildschirm“. Danach startet Malenio im Vollbild wie eine App.
+- Solange man in einer Lobby ist, bleibt der Bildschirm an.
+- Bricht die Verbindung kurz ab (z. B. Funkloch), verbindet sich das Handy automatisch neu. Punkte und Telefon bleiben erhalten.
+
 ### Wichtig zu wissen
 
-- Der **Host muss die Seite offen lassen**. Schließt er sie oder sperrt das Handy für längere Zeit, endet das Spiel für alle.
+- Der **Host muss die Seite offen lassen**. Schließt er sie oder wechselt er länger in eine andere App (z. B. WhatsApp), kann das Spiel für alle enden. Das Handy des Hosts am besten am Ladekabel lassen.
 - Es wird kein kostenpflichtiger TURN-Server benutzt. In seltenen Netzen (manche Firmen-WLANs, einige Mobilfunknetze) kommt deshalb keine direkte Verbindung zustande. Dann hilft meist ein anderes WLAN.
 - Lokal testen: `python3 -m http.server` im Ordner starten und `http://localhost:8000` öffnen.

@@ -188,3 +188,47 @@ select { border: 3px solid var(--line); border-radius: 10px; padding: 6px 10px; 
   .big-title { font-size: 38px; }
   .code { font-size: 38px; }
 }
+
+/* ---------- Handy-Feinschliff ---------- */
+html, body { overscroll-behavior: none; }
+button, .swatch, .tool { touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+#board-wrap { max-width: calc((100dvh - 90px) * 4 / 3); margin-inline: auto; }
+@media (max-width: 900px) {
+  input, #chat-form input { font-size: 16px; } /* verhindert Zoom auf dem iPhone */
+  .tools { flex-wrap: nowrap; gap: 4px; }
+  .tools .tool { flex: 1 1 0; width: auto; min-width: 0; max-width: 46px; height: 38px; font-size: 18px; }
+  .tools .sep { flex: 0 0 2px; }
+  #palette { gap: 3px; }
+  #btn-guessed { padding: 12px; }
+  main { padding: 0 8px calc(12px + env(safe-area-inset-bottom)); }
+  #topbar { padding-left: max(8px, env(safe-area-inset-left)); padding-right: max(8px, env(safe-area-inset-right)); }
+}
+/* Handy quer */
+@media (orientation: landscape) and (max-height: 520px) {
+  #topbar { min-height: 46px; padding-top: 4px; padding-bottom: 4px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .icon-btn svg { width: 20px; height: 20px; }
+  #info-hint { font-size: 16px; }
+  #game-layout {
+    grid-template-columns: auto minmax(150px, 1fr);
+    grid-template-areas: "board players" "board chat";
+    grid-template-rows: auto 1fr; gap: 8px;
+  }
+  #board-col { grid-area: board; flex-direction: row; align-items: flex-start; }
+  #board-wrap { height: calc(100dvh - 62px); width: auto; max-width: none; flex: 0 0 auto; margin: 0; }
+  #draw-bar { flex-direction: column; flex-wrap: nowrap; width: 170px; flex: 0 0 170px; gap: 6px; }
+  #toolbar { padding: 6px; gap: 6px; }
+  #palette { grid-template-columns: repeat(6, 1fr); gap: 3px; }
+  .tools { flex-wrap: wrap; gap: 4px; }
+  .tools .tool { flex: 0 0 calc(20% - 4px); height: 30px; font-size: 15px; max-width: none; }
+  .tools .tool.size i { transform: scale(.75); }
+  .tools .sep { display: none; }
+  #btn-guessed { width: 100%; min-width: 0; padding: 8px; font-size: 17px; }
+  #game-players { grid-area: players; flex-direction: column; overflow-y: auto; max-height: 45dvh; }
+  #game-players .rank, #game-players .pflag { display: none; }
+  #game-players .pitem { padding: 4px 6px; }
+  #chat { grid-area: chat; max-height: none; min-height: 110px; height: calc(55dvh - 70px); }
+  .center, .lobby-card { margin-top: 8px; }
+  .big-title { font-size: 30px; }
+  .card { padding: 16px; }
+}
