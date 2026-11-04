@@ -13,88 +13,17 @@ Ramadan|ረመዳን
 Halloween|ሃሎዊን
 Kürbislaterne|የዱባ ፋኖስ
 Karneval|ካርኒቫል
-Freude|ደስታ
-Trauer|ሐዘን
 Angst|ፍርሃት
 Wut|ቁጣ
 Liebe|ፍቅር
-Glück|ዕድል
 Müde|ድካም
 Hunger|ረሃብ
 Durst|ጥማት
-Langeweile|መሰላቸት
-Überraschung|አስደናቂ ነገር
 Kuss|መሳም ቃል
-Umarmung|እቅፍ
 Streit|ጭቅጭቅ
 Frieden|ሰላም
 Krieg|ጦርነት
-Groß|ትልቅ
-Klein|ትንሽ
-Dick|ወፍራም
-Dünn|ቀጭን
-Lang|ረጅም
-Kurz|አጭር
-Schnell|ፈጣን
-Langsam|ቀርፋፋ
-Heiß|ሞቃት
-Kalt|ቀዝቃዛ
-Nass|እርጥብ
-Trocken|ደረቅ
-Alt|አሮጌ
-Neu|አዲስ
-Jung|ወጣት
-Stark|ጠንካራ
-Schwach|ደካማ
-Laut|ጮክ ያለ
-Leise|ፀጥ ያለ
-Hell|ብሩህ
-Dunkel|ጨለማ
-Schön|ቆንጆ
-Hässlich|አስቀያሚ
-Sauber|ንፁህ
-Schmutzig|ቆሻሻ
-Voll|ሙሉ
-Leer|ባዶ
-Hoch|ከፍ ያለ
-Tief|ጥልቅ
-Rot|ቀይ
-Blau|ሰማያዊ
-Grün|አረንጓዴ
-Gelb|ቢጫ
-Schwarz|ጥቁር
-Weiß|ነጭ
-Rosa|ሮዝ
-Lila|ወይን ጠጅ ቀለም
-Braun|ቡናማ
-Grau|ግራጫ
-Bunt|ባለ ብዙ ቀለም
-Eins|አንድ
-Zwei|ሁለት
-Drei|ሦስት
-Zehn|አስር
-Hundert|መቶ
-Uhr Zeit|ሰዓት ጊዜ
-Woche|ሳምንት
-Monat|ወር
-Jahr|ዓመት
-Gestern|ትናንት
-Heute|ዛሬ
-Morgen Zukunft|ነገ
-Mitternacht|እኩለ ሌሊት
-Mittag|እኩለ ቀን
-Links|ግራ
-Rechts|ቀኝ
-Oben|ላይ
-Unten|ታች
-Innen|ውስጥ
-Außen|ውጭ
-Ja|አዎ
-Nein|አይ
 Hallo|ሰላም ሰላምታ
-Tschüss|ቻው
-Danke|አመሰግናለሁ
-Bitte|እባክህ
 Gute Nacht|ደህና እደር
 Guten Morgen|እንደምን አደርክ
 @2
@@ -103,32 +32,18 @@ Valentinstag|የፍቅረኞች ቀን
 Muttertag|የእናቶች ቀን
 Vatertag|የአባቶች ቀን
 Kindertag|የሕፃናት ቀን
-Nationalfeiertag|ብሔራዊ በዓል
-Adwa Sieg|የዓድዋ ድል
-Eid|ኢድ
-Fasten|ጾም
 Gebet|ጸሎት
 Taufe|ክርስትና
 Beerdigung|ቀብር
 Verlobung|ቀለበት ማሰር
 Flitterwochen|የጫጉላ ጊዜ
-Jubiläum|የመታሰቢያ በዓል
 Abschlussball|የምረቃ ዳንስ
-Polterabend|የሠርግ ዋዜማ
-Babyparty|የሕፃን ድግስ
-Überraschungsparty|አስደናቂ ድግስ
-Grillparty|የጥብስ ድግስ
-Gartenparty|የአትክልት ድግስ
-Kostümparty|የአልባሳት ድግስ
-Pyjamaparty|የሌሊት ልብስ ድግስ
-Festessen|ድግስ ምግብ
 Buffet|ቡፌ
 Konfetti|ኮንፈቲ
 Luftschlange|የወረቀት ጥቅልል
 Girlande|የጌጥ ገመድ
 Lichterkette|የብርሃን ገመድ
 Wunderkerze|ብልጭልጭ ሻማ
-Knallbonbon|ፈንጂ ከረሜላ
 Geschenkpapier|የስጦታ ወረቀት
 Schleife|ሪባን ቋጠሮ
 Grußkarte|የሰላምታ ካርድ
@@ -139,210 +54,70 @@ Krippe|ግርግም
 Weihnachtsstern|የገና ኮከብ
 Christbaumkugel|የገና ዛፍ ኳስ
 Rentierschlitten|የአጋዘን ተንሸራታች
-Strumpf Weihnachten|የገና ካልሲ
-Schornstein Weihnachtsmann|የገና አባት የጭስ ማውጫ
+Weihnachtsstrumpf|የገና ካልሲ
 Lebkuchenhaus|የዝንጅብል ቤት
 Osternest|የፋሲካ ጎጆ
 Eier bemalen|እንቁላል መቀባት
 Demera|ደመራ
-Laternenumzug|የፋኖስ ሰልፍ
 Umzug|ሰልፍ
-Festwagen|የበዓል መኪና
-Kirmes|የመንደር ፌስቲቫል
 Oktoberfest|ኦክቶበርፌስት
-Flohzirkus|የቁንጫ ሰርከስ
-Eifersucht|ቅናት
-Neid|ምቀኝነት
-Stolz|ኩራት
-Scham|ኀፍረት
-Mut|ድፍረት
-Hoffnung|ተስፋ
-Sehnsucht|ናፍቆት
-Heimweh|የአገር ናፍቆት
 Verliebt|በፍቅር የወደቀ
-Liebeskummer|የፍቅር ሐዘን
-Herzschmerz|የልብ ስብራት
-Nervös|የተጨነቀ
-Aufgeregt|የተደሰተ በጉጉት
-Gelangweilt|የተሰላቸ
-Verwirrt|ግራ የተጋባ
-Überrascht|የተገረመ
-Erschrocken|የደነገጠ
 Wütend|የተናደደ
 Traurig|የሚያዝን
 Fröhlich|ደስተኛ
-Glücklich|እድለኛ ደስተኛ
-Einsam|ብቸኛ
-Schüchtern|አፋር
-Frech|ባለጌ
-Neugierig|ጉጉ
-Faul|ሰነፍ ቃል
-Fleißig|ታታሪ
-Mutig|ደፋር ቃል
-Ängstlich|ፈሪ ቃል
-Klug|ብልህ
-Dumm|ደደብ
-Lustig|አስቂኝ
-Ernst|ቁም ነገረኛ
-Freundlich|ደግ
-Böse|ክፉ
 Krank|የታመመ
-Gesund|ጤነኛ
-Reich|ሀብታም
-Arm|ድሀ
-Weich|ለስላሳ
-Hart|ጠንካራ ነገር
-Glatt|ለስላሳ ገጽ
-Rau|ሸካራ
-Spitz|ሹል
-Stumpf|ደነዝ
-Rund|ክብ ቅርጽ
-Eckig|ማዕዘናማ
-Schwer|ከባድ
-Leicht|ቀላል ክብደት
-Süß|ጣፋጭ
-Sauer|ኮምጣጣ
-Salzig|ጨዋማ
-Bitter|መራራ
-Scharf|ቅመም የበዛበት
-Lecker|ጣፋጭ ምግብ
-Eklig|አስጸያፊ
-Gefährlich|አደገኛ
-Sicher|ደህንነቱ የተጠበቀ
-Gerade|ቀጥ ያለ
-Krumm|ጠማማ
 Kaputt|የተሰበረ
-Golden|ወርቃማ
-Silbern|ብርማ
 Gestreift|ባለ ሽንትር
 Gepunktet|ባለ ነጥብ
 Kariert|ባለ ካሬ
-Durchsichtig|አሳላፊ
 Unsichtbar|የማይታይ
-Riesig|ግዙፍ
-Winzig|በጣም ትንሽ
-Orange Farbe|ብርቱካናማ
-Türkis|ቱርኩዝ
-Beige|ቤዥ
-Mitte|መሐል
-Ecke|ጥግ
-Rand|ጠርዝ
-Anfang|መጀመሪያ
-Ende|መጨረሻ
-Hälfte|ግማሽ
-Paar|ጥንድ
-Gruppe|ቡድን ሰዎች
 Schlange stehen|ሰልፍ መቆም
-Geheimnis|ሚስጥር
-Lüge|ውሸት
-Wahrheit|እውነት
 Idee|ሐሳብ
 Traum|ሕልም
-Erinnerung|ትዝታ
-Zukunft|የወደፊት ጊዜ
-Vergangenheit|ያለፈ ጊዜ
-Geburt|ልደት መወለድ
-Tod|ሞት
-Leben|ሕይወት
-Gesundheit|ጤና
-Freiheit|ነፃነት
-Gerechtigkeit|ፍትሕ
 @3
-Schadenfreude|በሰው ችግር መደሰት
-Fernweh|የጉዞ ናፍቆት
-Lampenfieber|የመድረክ ፍርሃት
-Gänsehaut Angst|በፍርሃት መንዘር
 Schmetterlinge im Bauch|በሆድ ቢራቢሮዎች
 Ohrfeige|በጥፊ መምታት
 Wutanfall|የቁጣ ፍንዳታ
 Tränen lachen|እስከ እንባ መሳቅ
 Kitzeln|መኮርኮር
-Kitzlig|ኩርኩር የሚሰማው
-Heimlich|በድብቅ
-Verschlafen|ተኝቶ ማርፈድ
-Verspätung|መዘግየት
-Pünktlich|በሰዓቱ
-Ungeduldig|ትዕግሥት የሌለው
-Geduld|ትዕግሥት
-Vertrauen|እምነት
-Verrat|ክሕደት
-Versöhnung|እርቅ
-Entschuldigung|ይቅርታ
-Vergebung|ምሕረት
-Dankbarkeit|ምስጋና
-Bescheidenheit|ትሕትና
-Großzügigkeit|ቸርነት
-Gastfreundschaft|እንግዳ ተቀባይነት
-Kaffeezeremonie Gastgeber|የቡና አፍይ አስተናጋጅ
 Gursha|ጉርሻ በእጅ
 Ellbogengruß|በክርን ሰላምታ
-Schulterstoß Gruß|በትከሻ ሰላምታ
 Wangenkuss|ጉንጭ መሳም
 Verbeugung|እጅ መንሳት
 Salutieren|ሰላምታ ወታደራዊ
-Hymne|መዝሙር ብሔራዊ
 Fahnenmast|የባንዲራ ምሰሶ
 Wappen|ዓርማ
-Orden|ኒሻን
 Zepter|በትረ መንግሥት
 Thron|ዙፋን
 Krönung|ንግሥና
 Palastwache|የቤተ መንግሥት ዘብ
-Ritterschlag|ባላባትነት ሹመት
 Duell|ድብድብ ሁለት ሰው
 Turnier|ውድድር ባላባት
-Belagerung|ከበባ
 Katapult|ወንጭፍ ትልቅ
 Zugbrücke|ተነሺ ድልድይ
 Burggraben|የምሽግ ቦይ
-Verlies|የምድር ውስጥ እስር ቤት
-Folterkammer|የስቃይ ክፍል
 Schatzkammer|የሀብት ክፍል
 Geheimgang|ሚስጥራዊ መተላለፊያ
 Falltür|ወጥመድ በር
 Spukhaus|የተረገመ ቤት
-Gruselkabinett|አስፈሪ ክፍል
 Spinnweben|የሸረሪት ድሮች
 Fledermaushöhle|የሌሊት ወፍ ዋሻ
 Grabstein|የመቃብር ድንጋይ
 Sarg|የሬሳ ሳጥን
-Kristallleuchter|የክሪስታል መብራት
 Zeitreise|የጊዜ ጉዞ
-Parallelwelt|ትይዩ ዓለም
-Weltuntergang|የዓለም ፍጻሜ
-Apokalypse|ምጽአት
 Paradies|ገነት
 Hölle|ሲኦል
 Himmelstor|የገነት በር
 Heiligenschein|የቅድስና ክብ
 Wunder|ተአምር
-Fluch|እርግማን
-Segen|በረከት
-Schicksal|እጣ ፈንታ
-Zufall|አጋጣሚ
-Pech|መጥፎ እድል
 Glücksbringer|መልካም እድል አምጪ
-Hufeisen Glück|የእድል የፈረስ ጫማ
 Schornsteinfeger|የጭስ ማውጫ ጠራጊ
 Glückskeks|የእድል ብስኩት
 Wunschbrunnen|የምኞት ጉድጓድ
-Wunschzettel|የምኞት ዝርዝር
-Sternzeichen|የኮከብ ምልክት
-Horoskop|ኮከብ ቆጠራ
-Tierkreis|የእንስሳት ክበብ ኮከብ
-Mondkalender|የጨረቃ ቀን መቁጠሪያ
-Äthiopischer Kalender|የኢትዮጵያ ቀን መቁጠሪያ
-Pagume|ጳጉሜ
-Schaltjahr|የሉቃስ ዓመት
-Jahrhundert|ክፍለ ዘመን
-Jahrtausend|ሺህ ዓመት
 Steinzeit|የድንጋይ ዘመን
-Mittelalter|መካከለኛው ዘመን
 Eiszeit|የበረዶ ዘመን
 Urknall|ታላቁ ፍንዳታ
-Evolution|ዝግመተ ለውጥ
 Fossil|ቅሪተ አካል
-Lucy Skelett|ድንቅነሽ
 Mammut|ማሞዝ
 Säbelzahntiger|ሰይፍ ጥርስ ነብር
 Flugsaurier|በራሪ ዳይኖሰር
@@ -350,68 +125,21 @@ Tyrannosaurus|ቲራኖሰረስ
 Dinosaurierei|የዳይኖሰር እንቁላል
 Höhlenmalerei|የዋሻ ሥዕል
 Hieroglyphen|ሄሮግሊፍ
-Keilschrift|የሽብልቅ ጽሕፈት
-Geez Schrift|የግዕዝ ፊደል
 Papyrus|ፓፒረስ
-Buchdruck|የመጽሐፍ ኅትመት
-Erfindung|ፈጠራ
-Entdeckung|ግኝት
-Rad Erfindung|የጎማ ፈጠራ
-Glühbirne Idee|የሐሳብ አምፖል
 Geistesblitz|ድንገተኛ ሐሳብ
-Kopfzerbrechen|የሐሳብ መጨነቅ
 Gedankenblase|የሐሳብ አረፋ
 Sprechblase|የንግግር አረፋ
-Zungenbrecher|ምላስ አጣማሪ ቃል
-Sprichwort|ምሳሌያዊ አነጋገር
-Rätsel|እንቆቅልሽ ጥያቄ
-Witz|ቀልድ
-Märchen|ተረት
-Legende|አፈ ታሪክ
-Mythos|ሚት
-Fabel|የእንስሳት ተረት
-Gedicht|ግጥም
-Roman|ልብ ወለድ
-Krimi|የወንጀል ታሪክ
-Abenteuerroman|የጀብድ ታሪክ
 Liebesbrief|የፍቅር ደብዳቤ
 Postkarte|የፖስታ ካርድ
-Telegramm|ቴሌግራም
-Schlagzeile|ርዕሰ ዜና
 Wettervorhersage|የአየር ትንበያ
-Nachrichten|ዜና
-Werbung|ማስታወቂያ
-Gerücht|ወሬ
-Klatsch|ሐሜት
-Skandal|ቅሌት
-Bestechung|ጉቦ
-Diebstahl|ስርቆት
 Einbruch|ዝርፊያ
 Verbrecher|ወንጀለኛ
 Fahndungsplakat|የሚፈለግ ሰው ማስታወቂያ
 Handschellen|የእጅ ካቴና
 Lügendetektor|የውሸት መመርመሪያ
 Phantombild|የተጠርጣሪ ምስል
-Tatort|የወንጀል ቦታ
-Spurensicherung|አሻራ ማሰባሰብ
-Lupe Detektiv|የመርማሪ ማጉያ
-Alibi|አሊቢ
-Zeuge|ምስክር
-Urteil|ፍርድ
-Hammer Richter|የዳኛ መዶሻ
-Waage Justiz|የፍትሕ ሚዛን
+Richterhammer|የዳኛ መዶሻ
 Gefängniszelle|የእስር ቤት ክፍል
 Ausbruch|ማምለጥ
-Lösegeld|የቤዛ ገንዳ
 Wahlurne|የምርጫ ሳጥን
-Stimmzettel|የምርጫ ወረቀት
-Demonstration|ሰልፍ ተቃውሞ
-Revolution|አብዮት
-Unabhängigkeit|ነፃነት አገር
-Verfassung|ሕገ መንግሥት
-Menschenrechte|ሰብዓዊ መብቶች
-Vereinte Nationen|የተባበሩት መንግሥታት
-Afrikanische Union|የአፍሪካ ኅብረት
-Weltfrieden|የዓለም ሰላም
 Friedenstaube|የሰላም ርግብ
-Händedruck Frieden|የሰላም መጨባበጥ

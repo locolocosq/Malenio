@@ -16,26 +16,19 @@ Zeitung|ጋዜጣ
 Kalender|ቀን መቁጠሪያ
 Buntstift|የቀለም እርሳስ
 Farbe|ቀለም
-Pinsel Malen|የሥዕል ብሩሽ
 Leinwand|የሥዕል ሸራ
 Staffelei|የሥዕል ማቆሚያ
 Klebestift|ሙጫ ዘንግ
 Büroklammer|የወረቀት ማያያዣ
 Tacker|ስቴፕለር
-Ordner|ፋይል ማስቀመጫ
 Umschlag|ፖስታ
 Stempel|ማኅተም
 Klassenzimmer|የመማሪያ ክፍል
-Pause|እረፍት
 Hausaufgabe|የቤት ሥራ
 Prüfung|ፈተና
-Zeugnis|ሪፖርት ካርድ
 Alphabet|ፊደል
 Zahl|ቁጥር
 Buchstabe|ሆሄ
-Wort|ቃል
-Satz|ዓረፍተ ነገር
-Rechnen|ሒሳብ መሥራት
 Plus|ደምር
 Minus|ቀንስ
 Kreis|ክብ
@@ -48,17 +41,12 @@ Linie|መስመር
 Punkt|ነጥብ
 Kreuz|መስቀል
 Spirale|ጠመዝማዛ
-Welle Form|ሞገድ ቅርጽ
-Stern Form|የኮከብ ቅርጽ
 Essen|መብላት
 Trinken|መጠጣት
 Gehen|መሄድ
 Sitzen|መቀመጥ
 Stehen|መቆም
 Schreiben|መጻፍ
-Rufen|መጣራት
-Hören|መስማት
-Sehen|ማየት
 Riechen|ማሽተት
 Küssen|መሳም
 Umarmen|ማቀፍ
@@ -85,19 +73,11 @@ Anziehen|መልበስ
 Aufwachen|መንቃት
 Träumen|ማለም
 Denken|ማሰብ
-Lernen|መማር
 Spielen|መጫወት
-Arbeiten|መሥራት
 Einkaufen|መገብየት
-Bezahlen|መክፈል
 Telefonieren|በስልክ ማውራት
-Warten|መጠበቅ
-Suchen|መፈለግ
-Finden|ማግኘት
 Schneiden|መቁረጥ
 Kleben|ማጣበቅ
-Öffnen|መክፈት
-Schließen|መዝጋት
 Klopfen|ማንኳኳት
 Pfeifen|ማፏጨት
 Flüstern|ሹክ ማለት
@@ -105,70 +85,27 @@ Schreien|መጮህ
 @2
 Wörterbuch|መዝገበ ቃላት
 Atlas|አትላስ
-Lexikon|ኢንሳይክሎፔዲያ
 Tagebuch|ማስታወሻ ደብተር
 Notizblock|ማስታወሻ
 Klebezettel|የሚለጠፍ ማስታወሻ
 Textmarker|ማድመቂያ
-Füller|የቀለም ብዕር
 Tintenfass|የቀለም ብልቃጥ
-Feder Schreiben|የጽሕፈት ላባ
 Zirkel|ኮምፓስ ሒሳብ
 Geodreieck|ፕሮትራክተር
-Taschenrechner Schule|ካልኩሌተር ትምህርት
 Federmappe|የእርሳስ ቦርሳ
-Locher|መብሻ
 Aktenkoffer|የሰነድ ቦርሳ
-Visitenkarte|የንግድ ካርድ
-Namensschild|የስም ሰሌዳ
 Whiteboard|ነጭ ሰሌዳ
-Flipchart|የወረቀት ሰሌዳ
-Präsentation|ገለጻ
-Diagramm|ሠንጠረዥ
 Tortendiagramm|የክብ ሠንጠረዥ
-Besprechung|ስብሰባ
-Videokonferenz|የቪዲዮ ስብሰባ
-Kaffeepause|የቡና እረፍት
-Überstunden|ትርፍ ሰዓት
-Gehalt|ደመወዝ
-Lebenslauf|የሥራ ታሪክ
-Vorstellungsgespräch|የሥራ ቃለ መጠይቅ
 Unterschrift|ፊርማ
-Vertrag|ውል
-Rechnung|ደረሰኝ
-Quittung|ደረሰኝ ክፍያ
-Stundenplan|የክፍለ ጊዜ ሰሌዳ
 Schulglocke|የትምህርት ቤት ደወል
-Schulhof|የትምህርት ቤት ግቢ
 Turnhalle|የጂምናስቲክ አዳራሽ
-Mensa|የተማሪዎች ምግብ ቤት
-Lehrerzimmer|የመምህራን ክፍል
-Klassenfahrt|የክፍል ጉዞ
 Abschlussfeier|የምረቃ ሥነ ሥርዓት
 Diplom|ዲፕሎማ
-Hörsaal|የትምህርት አዳራሽ
 Labor|ቤተ ሙከራ
 Experiment|ሙከራ
-Mathematik|ሒሳብ
-Geschichte|ታሪክ
-Erdkunde|ጂኦግራፊ
-Biologie|ባዮሎጂ
-Chemie|ኬሚስትሪ
-Physik|ፊዚክስ
-Kunstunterricht|የሥነ ጥበብ ትምህርት
-Sportunterricht|የስፖርት ትምህርት
-Musikunterricht|የሙዚቃ ትምህርት
-Fidel|ፊደል ገበታ
-Multiplikation|ማባዛት
-Division|ማካፈል
-Gleichheitszeichen|እኩል ምልክት
 Prozent|በመቶ
-Bruch|ክፍልፋይ
-Würfel Form|ኩብ
 Kugel|ሉል ቅርጽ
-Zylinder Form|ሲሊንደር
 Kegel|ኮን
-Pyramide Form|ፒራሚድ ቅርጽ
 Sechseck|ባለ ስድስት ጎን
 Achteck|ባለ ስምንት ጎን
 Raute|ሮምበስ
@@ -176,14 +113,8 @@ Oval|ሞላላ
 Zickzack|ዚግዛግ
 Fragezeichen|የጥያቄ ምልክት
 Ausrufezeichen|የቃለ አጋኖ ምልክት
-Klammer|ቅንፍ
 At-Zeichen|አት ምልክት
 Unendlich|ማለቂያ የሌለው
-Uhrzeit|የሰዓት ጊዜ
-Zeitzone|የሰዓት ክልል
-Rennen laufen|መሮጥ በውድድር
-Schwimmen gehen|ለዋና መሄድ
-Klettern gehen|ለመውጣት መሄድ
 Bügeln|መተኮስ
 Staubsaugen|አቧራ መምጠጥ
 Abwaschen|እቃ ማጠብ
@@ -195,22 +126,17 @@ Melken|ማለብ
 Füttern|መመገብ እንስሳ
 Streicheln|መዳበስ
 Gassi gehen|ውሻ ማንሸራሸር
-Schnarchen im Bett|በአልጋ ማንኮራፋት
-Niesen Taschentuch|በመሐረብ ማስነጠስ
 Zwinkern|ዓይን መጥቀስ
 Grimasse|ፊት ማጨማደድ
-Schmollen|ማኩረፍ
 Nicken|ራስ መነቅነቅ
 Kopfschütteln|ራስ መወዝወዝ
 Schulterzucken|ትከሻ መስበቅ
 Daumen hoch|አውራ ጣት ወደ ላይ
-Victory Zeichen|የድል ምልክት
+Victory-Zeichen|የድል ምልክት
 Händeschütteln|መጨባበጥ
 High Five|ከፍ ያለ እጅ መምታት
 Verbeugen|ማጎንበስ
 Knien|መንበርከክ
-Hocken|መቆሰር
-Strecken|መዘርጋት
 Balancieren|ሚዛን መጠበቅ
 Rutschen|መንሸራተት
 Schaukeln|መወዛወዝ
@@ -220,171 +146,66 @@ Stolpern|መሰናከል
 Ausrutschen|መዳለጥ
 Zittern|መንቀጥቀጥ
 Frieren|መብረድ
-Schwitzen Sonne|በፀሐይ ማላብ
 Sonnenbaden|ፀሐይ መሞቅ
-Fotografieren Handy|በስልክ ፎቶ ማንሳት
-Tippen|መተየብ
-Wischen Handy|ስልክ ማንሸራተት
-Aufladen|ቻርጅ ማድረግ
-Drucken|ማተም
-Kopieren|መቅዳት
-Unterschreiben|መፈረም
-Stempeln|ማኅተም ማድረግ
-Verpacken|መጠቅለል
 Auspacken|መፍታት ጥቅል
-Schenken|ስጦታ መስጠት
-Feiern|ማክበር
 Anstoßen|ብርጭቆ ማጋጨት
 Pusten|መንፋት
 Schmücken|ማስጌጥ
 Verstecken spielen|ድብብቆሽ መጫወት
-Zählen|መቁጠር
 Messen|መለካት
 Wiegen|መመዘን
-Mischen|መቀላቀል
 Rühren|ማማሰል
 Braten|መጥበስ
 Grillen|መጥበስ በእሳት
 Schälen|መላጥ
-Hacken Holz|እንጨት መፍለጥ
+Holz hacken|እንጨት መፍለጥ
 Sägen|መጋዝ መቁረጥ
 Hämmern|መዶሻ መምታት
 Bohren|መሰርሰር
-Malen Wand|ግድግዳ መቀባት
 Reparieren|መጠገን
-Fischen gehen|ዓሣ ለማጥመድ መሄድ
 @3
-Abschreiben|መኮረጅ
-Spicken|በፈተና መኮረጅ
-Nachsitzen|ከትምህርት በኋላ መቅረት ቅጣት
-Schwänzen|ከትምህርት መቅረት
-Melden Schule|እጅ ማውጣት
-Vorlesen|ጮክ ብሎ ማንበብ
-Auswendig lernen|በቃል መሸምደድ
-Diktat|ቃል ጽሕፈት
-Aufsatz|ድርሰት
-Referat|ገለጻ ጽሑፍ
-Gruppenarbeit|የቡድን ሥራ
-Elternabend|የወላጆች ስብሰባ
 Schultüte|የትምህርት መጀመሪያ ኮን
-Einschulung|የትምህርት መጀመር
-Abitur|የማትሪክ ፈተና
-Matura|ማትሪክ
-Stipendium|የትምህርት እድል
-Doktorarbeit|የዶክትሬት ጥናት
-Vorlesung|ሌክቸር
-Bibliotheksausweis|የቤተ መጻሕፍት ካርድ
 Lesezeichen|የመጽሐፍ ምልክት
 Eselsohr|የታጠፈ ገጽ ጫፍ
-Fußnote|የግርጌ ማስታወሻ
-Inhaltsverzeichnis|ማውጫ
-Klappentext|የመጽሐፍ ጀርባ ጽሑፍ
-Buchdeckel|የመጽሐፍ ሽፋን
 Schriftrolle|ጥቅልል ጽሑፍ
 Pergament|ብራና
 Siegel|ማኅተም ሰም
 Wachssiegel|የሰም ማኅተም
-Stempelkissen|የማኅተም ቀለም
-Briefbeschwerer|ወረቀት መያዣ ክብደት
-Aktenvernichter|ወረቀት ቆራጭ
-Laminiergerät|ላሚኔተር
-Overheadprojektor|ኦቨርሄድ ፕሮጀክተር
 Laserpointer|ሌዘር ጠቋሚ
 Zeigestock|ጠቋሚ ዘንግ
 Abakus|አባከስ
-Rechenschieber|የሒሳብ ማንሸራተቻ
-Periodensystem|የንጥረ ነገሮች ሠንጠረዥ
-Skelettmodell|የአጽም ሞዴል
-Globus drehen|ሉል ማሽከርከር
 Weltkarte|የዓለም ካርታ
-Zeitstrahl|የጊዜ መስመር
 Stammbaum|የዘር ሐረግ
-Mindmap|የሐሳብ ካርታ
-Venn-Diagramm|የቬን ሥዕል
-Koordinatensystem|የነጥብ ሥርዓት
-Pythagoras|ፓይታጎረስ
-Wurzelzeichen|የስር ምልክት
 Pi|ፓይ
 Winkel|ማዕዘን
-Parallele|ትይዩ
-Symmetrie|ተመሳሳይነት
-Spiegelachse|የመስታወት መስመር
-Fraktal|ፍራክታል
-Labyrinth zeichnen|ግራ መጋቢ መንገድ መሳል
-Zaubertafel|የአስማት ሰሌዳ
-Kreidezeichnung|የጠመኔ ሥዕል
 Strichmännchen|የመስመር ሰው
 Fingerfarbe|የጣት ቀለም
 Wasserfarbe|የውሃ ቀለም
 Ölgemälde|የዘይት ሥዕል
 Selbstporträt|የራስ ሥዕል
-Stillleben|ፀጥ ያለ ሕይወት ሥዕል
-Landschaftsbild|የመልክዓ ምድር ሥዕል
 Mona Lisa|ሞና ሊዛ
 Skulptur|ቅርፃ ቅርጽ
-Gipsabdruck|የጀሶ አሻራ
-Ausstellung|ኤግዚቢሽን ሥዕል
-Kunstgalerie|የሥዕል አዳራሽ
 Auktion|ጨረታ
-Hammer Auktion|የጨረታ መዶሻ
-Schlafwandeln Nacht|በሌሊት በእንቅልፍ መራመድ
-Gedankenlesen|ሐሳብ ማንበብ
 Hypnose|ሂፕኖሲስ
-Telepathie|በሐሳብ መግባባት
-Zaubern|ማስማት
-Wahrsagen|ጥንቆላ
 Handlesen|የእጅ መዳፍ ማንበብ
-Kaffeesatzlesen|በቡና አተላ መተንበይ
-Schwimmen lernen|ዋና መማር
-Fahrrad lernen|ብስክሌት መማር
 Schuhe binden|ጫማ ማሰር
 Krawatte binden|ክራቫት ማሰር
 Haare flechten|ፀጉር መሠራት
 Rasieren|መላጨት
 Schminken|መኳኳል
 Nägel lackieren|ጥፍር መቀባት
-Tätowieren|መነቀስ
 Augen verdrehen|ዓይን ማንከባለል
-Lippen spitzen|ከንፈር ማሾል
 Zunge rausstrecken|ምላስ ማውጣት
 Fingerschnippen|ጣት ማጮህ
 Daumen drücken|መልካም ዕድል መመኘት
 Augenzwinkern|ዓይን ጥቅሻ
 Luftkuss|በአየር መሳም
 Faust ballen|ቡጢ መጨበጥ
-Hände reiben|እጅ ማሻሸት
 Kopf kratzen|ራስ ማከክ
-Nase rümpfen|አፍንጫ ማኮማተር
-Stirnrunzeln|ግንባር መቋጠር
-Augenrollen|ዓይን ማንከራተት
-Seufzen|መተንፈስ በሐዘን
-Gähnen Müde|በድካም ማዛጋት
 Rülpsen|ማግሳት
-Hicksen|እንቅፋት
-Schlucken|መዋጥ
 Kauen|ማኘክ
-Lutschen|መምጠጥ
 Beißen|መንከስ
 Spucken|መትፋት
 Gurgeln|መጉመጥመጥ
-Schlürfen|ማንሿሿት
-Naschen|መቅመስ ጣፋጭ
-Probieren|መሞከር
-Verkosten|መቅመስ
 Einschenken|መቅዳት መጠጥ
-Kellnern|ማስተናገድ
-Bestellen|ማዘዝ
-Trinkgeld|ጉርሻ
-Feilschen|መከራከር ዋጋ
-Tauschen|መለዋወጥ
-Leihen|ማበደር
-Sparen|መቆጠብ
-Spenden|መለገስ
-Wählen gehen|ድምፅ መስጠት
-Demonstrieren|ሰልፍ መውጣት
-Protestieren|መቃወም
-Streiken|አድማ መምታት
-Applaudieren|ማጨብጨብ በአድናቆት
 Jubeln|መደሰት በጩኸት
-Buhrufen|መጮህ በተቃውሞ
-Pfeifen Stadion|በስታዲየም ማፏጨት

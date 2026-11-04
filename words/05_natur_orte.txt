@@ -37,7 +37,6 @@ Sand|አሸዋ
 Erde|አፈር
 Feuer|እሳት
 Rauch|ጭስ
-Eis Wasser|በረዶ ውሃ
 Welle|ማዕበል
 Pfütze|ኩሬ
 Brücke|ድልድይ
@@ -48,14 +47,11 @@ Schule|ትምህርት ቤት
 Kirche|ቤተ ክርስቲያን
 Moschee|መስጊድ
 Markt|ገበያ
-Laden|ሱቅ
 Park|መናፈሻ
 Spielplatz|የመጫወቻ ሜዳ
 Bahnhof|የባቡር ጣቢያ
 Flughafen|አውሮፕላን ማረፊያ
 Hafen|ወደብ
-Bank|ባንክ
-Post|ፖስታ ቤት
 Restaurant|ምግብ ቤት
 Café|ካፌ
 Hotel|ሆቴል
@@ -65,7 +61,7 @@ Bibliothek|ቤተ መጻሕፍት
 Stadion|ስታዲየም
 Turm|ማማ
 Burg|ቤተ መንግሥት ምሽግ
-Schloss Palast|ቤተ መንግሥት
+Palast|ቤተ መንግሥት
 Pyramide|ፒራሚድ
 Leuchtturm|የብርሃን ማማ
 Ampel|የትራፊክ መብራት
@@ -80,13 +76,9 @@ Wiese|ሜዳ
 Tal|ሸለቆ
 Gipfel|የተራራ ጫፍ
 Planet|ፕላኔት
-Erde Planet|መሬት
 Sonnenaufgang|የፀሐይ መውጫ
 Sonnenuntergang|የፀሐይ መጥለቂያ
 Nacht|ሌሊት
-Tag|ቀን
-Morgen|ጠዋት
-Abend|ምሽት
 Sommer|በጋ
 Winter|ክረምት
 Frühling|ፀደይ
@@ -95,27 +87,16 @@ Schneemann|የበረዶ ሰው
 Tornado|አውሎ ነፋስ
 Nebel|ጭጋግ
 Gewitter|ነጎድጓድ
-Hitze|ሙቀት
-Kälte|ቅዝቃዜ
 Tropfen|ጠብታ
-Pilz im Wald|በጫካ ያለ እንጉዳይ
 @2
 Eiche|ዋርካ
 Tanne|ጥድ ዛፍ
-Kiefer Baum|የፈረንጅ ጥድ
-Birke|በርች
-Weide|አኻያ
-Ahorn|ሜፕል
 Eukalyptus|ባሕር ዛፍ
-Akazie|ግራር
 Feigenbaum|የሾላ ዛፍ
-Sykomore|ሾላ
 Olivenbaum|የወይራ ዛፍ
 Bambus|ቀርከሃ
 Farn|ፈርን
 Moos|ሙዝ ሣር
-Efeu|አረግ
-Schilf|ቄጠማ
 Seerose|የውሃ አበባ
 Lotus|ሎተስ
 Tulpe|ቱሊፕ
@@ -125,12 +106,9 @@ Gänseblümchen|ዴዚ አበባ
 Löwenzahn|የጅብ ጥርስ አበባ
 Pusteblume|የሚነፋ አበባ
 Mohnblume|ፖፒ አበባ
-Lavendel|ላቬንደር
-Veilchen|ቫዮሌት
 Kleeblatt|ሶስት ቅጠል
 Glücksklee|አራት ቅጠል
-Meskel Blume|አደይ አበባ
-Brennnessel|ሳማ
+Meskel-Blume|አደይ አበባ
 Distel|አሜኬላ
 Dornen|እሾህ
 Knospe|እምቡጥ
@@ -140,11 +118,9 @@ Baumstumpf|ጉቶ
 Tannenzapfen|የጥድ ፍሬ
 Eichel|የዋርካ ፍሬ
 Laub|የወደቀ ቅጠል
-Hecke|ቁጥቋጦ አጥር
 Busch|ቁጥቋጦ
 Dschungel|ጥቅጥቅ ጫካ
 Savanne|ሳቫና
-Steppe|ስቴፕ
 Oase|ገነት በረሃ
 Düne|የአሸዋ ክምር
 Gletscher|የበረዶ ግግር
@@ -152,9 +128,7 @@ Eisberg|የበረዶ ተራራ
 Lawine|የበረዶ ናዳ
 Erdbeben|የመሬት መንቀጥቀጥ
 Überschwemmung|ጎርፍ
-Dürre|ድርቅ
 Hagel|በረዶ ዝናብ
-Nieselregen|ካፊያ
 Sturm|ማዕበል አውሎ
 Hurrikan|ሀሪኬን
 Tsunami|ሱናሚ
@@ -166,31 +140,17 @@ Sternschnuppe|ተወርዋሪ ኮከብ
 Komet|ጅራታም ኮከብ
 Meteorit|ሜቴዮራይት
 Galaxie|ጋላክሲ
-Milchstraße|ሚልኪ ዌይ
-Sternbild|የኮከብ ስብስብ
 Schwarzes Loch|ጥቁር ቀዳዳ
 Mars|ማርስ
 Saturn|ሳተርን
 Jupiter|ጁፒተር
 Klippe|ገደል
 Schlucht|ሸለቆ ጥልቅ
-Hochebene|ደጋ
-Tiefland|ቆላ
-Flussufer|የወንዝ ዳር
-Delta|ዴልታ
-Quelle|ምንጭ
-Heiße Quelle|ፍል ውሃ
 Sumpf|ረግረግ
 Teich|ኩሬ ትልቅ
-Bach|ጅረት
-Kanal|ቦይ
 Damm|ግድብ
 Staudamm|ትልቅ ግድብ
-Bucht|የባሕር ወሽመጥ
-Küste|ዳርቻ
-Riff|ሪፍ
 Korallenriff|የኮራል ሪፍ
-Muschelstrand|የዛጎል ዳርቻ
 Sandburg|የአሸዋ ቤተ መንግሥት
 Fußspuren|የእግር አሻራ
 Kieselstein|ጠጠር
@@ -198,12 +158,7 @@ Felsen|ቋጥኝ
 Kristall|ክሪስታል
 Diamant|አልማዝ
 Gold|ወርቅ
-Silber|ብር
 Edelstein|የከበረ ድንጋይ
-Kohle|የድንጋይ ከሰል
-Lehm|ጭቃ
-Matsch|ጭቃ ውሃ
-Staub|አቧራ
 Asche|አመድ
 Lava|ቀልጦ የሚፈስ አለት
 Krater|ጉድጓድ እሳተ ገሞራ
@@ -211,14 +166,11 @@ Rathaus|ማዘጋጃ ቤት
 Polizeistation|ፖሊስ ጣቢያ
 Feuerwehrhaus|የእሳት አደጋ ጣቢያ
 Gefängnis|እስር ቤት
-Gericht|ፍርድ ቤት
-Universität|ዩኒቨርሲቲ
 Kindergarten|መዋዕለ ሕፃናት
 Supermarkt|ሱፐርማርኬት
 Bäckerei|ዳቦ ቤት
 Metzgerei|ሥጋ ቤት
 Friseursalon|ፀጉር ቤት
-Apotheke Laden|ፋርማሲ ሱቅ
 Tierheim|የእንስሳት መጠለያ
 Zirkus|ሰርከስ
 Freizeitpark|የመዝናኛ ፓርክ
@@ -233,8 +185,6 @@ Kran|ክሬን
 Wolkenkratzer|ሰማይ ጠቀስ ሕንፃ
 Denkmal|ሐውልት
 Statue|ሐውልት ምስል
-Brunnen Platz|የአደባባይ ፏፏቴ
-Platz|አደባባይ
 Friedhof|መቃብር ቦታ
 Grab|መቃብር
 Kloster|ገዳም
@@ -247,122 +197,46 @@ Kreisverkehr|አደባባይ መንገድ
 Parkplatz|የመኪና ማቆሚያ
 Bushaltestelle|የአውቶቡስ ፌርማታ
 Gehweg|የእግረኛ መንገድ
-Laterne Straße|የመንገድ መብራት
+Straßenlaterne|የመንገድ መብራት
 Verkehrsschild|የትራፊክ ምልክት
 Stoppschild|የቁም ምልክት
 Wegweiser|አቅጣጫ ጠቋሚ
-Grenze|ድንበር
 Flagge|ባንዲራ
-Hauptstadt|ዋና ከተማ
-Addis Abeba|አዲስ አበባ
-Berlin|በርሊን
 Afrika|አፍሪካ
 Europa|አውሮፓ
 @3
-Lalibela|ላሊበላ
-Aksum|አክሱም
-Gondar|ጎንደር
-Harar|ሐረር
-Bahir Dar|ባሕር ዳር
-Tanasee|ጣና ሐይቅ
-Blauer Nil|ዓባይ ወንዝ
-Simien Berge|ስሜን ተራሮች
-Ras Dashen|ራስ ዳሸን
-Danakil Wüste|ዳናኪል በረሃ
-Erta Ale|ኤርታ አሌ
-Rift Valley|ስምጥ ሸለቆ
-Bale Berge|የባሌ ተራሮች
-Omo Tal|የኦሞ ሸለቆ
 Felsenkirche|ፍልፍል ቤተ ክርስቲያን
-Fasil Ghebbi|ፋሲል ግቢ
-Stele|ሐውልት ድንጋይ
-Hamburg|ሀምቡርግ
-München|ሙኒክ
-Köln|ኮሎኝ
-Brandenburger Tor|የብራንደንበርግ በር
-Kölner Dom|የኮሎኝ ካቴድራል
-Neuschwanstein|ኖይሽቫንሽታይን
-Zugspitze|ዙግሽፒትዘ
-Rhein|ራይን ወንዝ
-Donau|ዳኑብ ወንዝ
-Alpen|የአልፕስ ተራሮች
-Nordsee|የሰሜን ባሕር
-Ostsee|የባልቲክ ባሕር
-Schwarzwald|ጥቁር ደን
 Eiffelturm|የኤፍል ማማ
 Freiheitsstatue|የነፃነት ሐውልት
 Chinesische Mauer|የቻይና ግንብ
 Big Ben|ቢግ ቤን
 Kolosseum|ኮሎሲየም
-Schiefer Turm|ዘንባላው ማማ
+Schiefer Turm von Pisa|የፒሳ ዘንባላ ማማ
 Taj Mahal|ታጅ ማሃል
 Sphinx|ስፊንክስ
-Stonehenge|ስቶንሄንጅ
 Mount Everest|ኤቨረስት ተራራ
 Kilimandscharo|ኪሊማንጃሮ
-Sahara|ሰሃራ
-Amazonas|አማዞን
 Nordpol|ሰሜን ዋልታ
 Südpol|ደቡብ ዋልታ
-Äquator|ወገብ መስመር
 Antarktis|አንታርክቲካ
 Polarlicht|የዋልታ ብርሃን
-Mitternachtssonne|የእኩለ ሌሊት ፀሐይ
-Morgenröte|ንጋት
-Dämmerung|ምሽት ጨለማ
-Abendrot|የምሽት ቀይ ሰማይ
-Tau|ጤዛ
-Raureif|ውርጭ
 Eiszapfen|የበረዶ ዘንግ
 Schneeflocke|የበረዶ ቅንጣት
 Schneesturm|የበረዶ አውሎ
 Sandsturm|የአሸዋ አውሎ
-Windhose|የነፋስ ዓምድ
-Wasserhose|የውሃ ዓምድ
-Monsun|ክረምት ዝናብ
-Regenzeit|የዝናብ ወቅት
-Trockenzeit|የበጋ ወቅት
-Klimawandel|የአየር ንብረት ለውጥ
-Treibhauseffekt|የግሪንሃውስ ውጤት
-Ozonschicht|የኦዞን ንብርብር
-Atmosphäre|ከባቢ አየር
-Schwerkraft|የስበት ኃይል
 Magnet|ማግኔት
-Echo|ማስተጋባት
 Schatten|ጥላ
-Spiegelung|ነጸብራቅ
-Fata Morgana|ሕልመ ውሃ
 Mondlandung|የጨረቃ ማረፍ
 Raumstation|የጠፈር ጣቢያ
 Satellit|ሳተላይት
 Asteroid|አስትሮይድ
-Nebula|የኮከብ ደመና
 Supernova|ሱፐርኖቫ
 Sonnensystem|የፀሐይ ሥርዓት
-Umlaufbahn|ምህዋር
-Neptun|ኔፕቱን
-Uranus|ዩራነስ
-Venus|ቬነስ
-Merkur|ሜርኩሪ
-Pluto|ፕሉቶ
 Mondkrater|የጨረቃ ጉድጓድ
 Geysir|ፍል ውሃ ምንጭ
 Stalaktit|የዋሻ ዘንግ
 Fjord|ፊዮርድ
-Archipel|የደሴቶች ስብስብ
-Halbinsel|ባሕረ ገብ መሬት
-Landenge|የመሬት አንገት
-Meerenge|የባሕር ሰርጥ
-Mündung|የወንዝ አፍ
-Stromschnelle|ፈጣን ውሃ
-Wasserscheide|የውሃ መለያ
-Mangrove|ማንግሩቭ
 Regenwald|የዝናብ ደን
-Tundra|ቱንድራ
-Moor|ረግረግ ሜዳ
-Heide|ሄዝ ሜዳ
-Terrassenfeld|እርከን እርሻ
-Bewässerung|መስኖ
 Windmühle|የነፋስ ወፍጮ
 Windrad|የነፋስ ተርባይን
 Wassermühle|የውሃ ወፍጮ
@@ -370,51 +244,32 @@ Kraftwerk|የኃይል ማመንጫ
 Atomkraftwerk|የኒውክሌር ጣቢያ
 Ölbohrturm|የነዳጅ ማውጫ
 Bergwerk|የማዕድን ማውጫ
-Steinbruch|የድንጋይ ማውጫ
-Mülldeponie|የቆሻሻ መጣያ ቦታ
-Kläranlage|የፍሳሽ ማጣሪያ
 Wasserturm|የውሃ ማማ
-Sendemast|የሬዲዮ ማማ
 Observatorium|የከዋክብት መመልከቻ
-Planetarium|ፕላኔታሪየም
-Botanischer Garten|የዕፅዋት አትክልት
-Nationalpark|ብሔራዊ ፓርክ
-Naturschutzgebiet|የተፈጥሮ ጥበቃ ቦታ
 Campingplatz|የካምፕ ቦታ
 Berghütte|የተራራ ጎጆ
 Seilbahn|የገመድ መኪና
 Skipiste|የበረዶ መንሸራተቻ
 Hängebrücke|ተንጠልጣይ ድልድይ
-Aquädukt|የውሃ ድልድይ
 Kathedrale|ካቴድራል
 Kapelle|ጸሎት ቤት
-Synagoge|ምኩራብ
 Minarett|ሚናሬት
 Kuppel|ጉልላት
 Glockenturm|የደወል ማማ
-Basar|ባዛር
-Merkato|መርካቶ
 Flohmarkt|የቁንጫ ገበያ
-Messe|ኤግዚቢሽን
 Einkaufszentrum|የገበያ ማዕከል
 Hochzeitssaal|የሠርግ አዳራሽ
-Botschaft|ኤምባሲ
-Parlament|ፓርላማ
 Rennstrecke|የውድድር መንገድ
 Golfplatz|የጎልፍ ሜዳ
 Tennisplatz|የቴኒስ ሜዳ
 Eisbahn|የበረዶ ሜዳ
 Bowlingbahn|ቦውሊንግ
-Kegelbahn|ቦውሊንግ ቤት
 Minigolf|ትንሽ ጎልፍ
 Wasserpark|የውሃ ፓርክ
 Geisterbahn|የመናፍስት ባቡር
 Labyrinth|ግራ የሚያጋባ መንገድ
-Leuchtreklame|የብርሃን ማስታወቂያ
 Plakatwand|የማስታወቂያ ሰሌዳ ትልቅ
 Kiosk|ኪዮስክ
-Zeitungsstand|የጋዜጣ መሸጫ
-Imbissbude|ፈጣን ምግብ ቤት
 Waschanlage|የመኪና ማጠቢያ
 Werkstatt|ጋራዥ ጥገና
 Schrottplatz|የቁርጥራጭ ብረት ቦታ

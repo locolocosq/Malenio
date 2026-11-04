@@ -15,24 +15,18 @@ Trommel|ከበሮ
 Geige|ቫዮሊን
 Flöte|ዋሽንት
 Trompete|መለከት
-Musik|ሙዚቃ
-Lied|ዘፈን
 Note|የሙዚቃ ምልክት
-Kopfhörer Musik|የሙዚቃ ማዳመጫ
-Spiel|ጨዋታ
 Würfel|ዳይስ
 Karten|ካርታ ጨዋታ
 Schach|ቼዝ
 Puzzle|እንቆቅልሽ
-Ballon Party|የፓርቲ ፊኛ
 Geschenk|ስጦታ
 Party|ፓርቲ
 Geburtstag|ልደት
-Kerze Kuchen|የኬክ ሻማ
 Feuerwerk|ርችት
 Medaille|ሜዳሊያ
 Pokal|ዋንጫ
-Tor Fußball|ጎል
+Fußballtor|የእግር ኳስ ጎል
 Netz|መረብ
 Schläger|ራኬት
 Fahrrad fahren|ብስክሌት መንዳት
@@ -46,12 +40,10 @@ Zeichnen|መንደፍ
 Lesen|ማንበብ
 Kochen|ማብሰል
 Backen|መጋገር
-Gärtnern|አትክልት መንከባከብ
 Fotografieren|ፎቶ ማንሳት
 Fernsehen|ቴሌቪዥን ማየት
 Videospiel|የቪዲዮ ጨዋታ
 Verstecken|ድብብቆሽ
-Fangen spielen|ሩጫ ጨዋታ
 Seilspringen|ገመድ ዝላይ
 Murmeln|ብይ
 Kreisel|ሽክርክሪት አሻንጉሊት
@@ -60,8 +52,6 @@ Drachen|ካይት በረራ
 Seifenblasen|የሳሙና አረፋ
 Schneeballschlacht|የበረዶ ኳስ ውጊያ
 Picknick|ሽርሽር
-Urlaub|የእረፍት ጊዜ
-Strandurlaub|የባሕር ዳርቻ እረፍት
 Schwimmring|የዋና ቀለበት
 Taucherflossen|የዋና ክንፎች
 Surfbrett|የሞገድ ሰሌዳ
@@ -82,17 +72,13 @@ Tischtennis|የጠረጴዛ ቴኒስ
 Badminton|ባድሚንተን
 Eishockey|የበረዶ ሆኪ
 Rugby|ራግቢ
-Kino Popcorn|ሲኒማ እና ፋንዲሻ
 Zirkuszelt|የሰርከስ ድንኳን
 Konzert|ኮንሰርት
 Theater|ቲያትር
-Mikrofon Bühne|የመድረክ ማይክሮፎን
 Bühne|መድረክ
 Applaus|ጭብጨባ
 Gewinner|አሸናፊ
 Verlierer|ተሸናፊ
-Rennen|ውድድር
-Startlinie|የመነሻ መስመር
 Ziellinie|የመጨረሻ መስመር
 Pfeife|ፊሽካ
 Stoppuhr|የሰዓት ቆጣሪ
@@ -104,21 +90,16 @@ Sprungbrett|መዝለያ ሰሌዳ
 Elfmeter|ፍጹም ቅጣት ምት
 Freistoß|ቅጣት ምት
 Eckball|የማዕዘን ምት
-Abseits|ከጨዋታ ውጪ
 Rote Karte|ቀይ ካርድ
 Gelbe Karte|ቢጫ ካርድ
 Kopfball|በራስ መምታት
 Fallrückzieher|የመቀስ ምት
 Dribbeln|ማንጠባጠብ
 Torjubel|የጎል ደስታ
-Mannschaft|ቡድን
 Fans|ደጋፊዎች
 Fanschal|የደጋፊ ሻርፕ
 Anzeigetafel|የውጤት ሰሌዳ
-Halbzeit|የእረፍት ሰዓት
-Verlängerung|ተጨማሪ ሰዓት
 Weltmeisterschaft|የዓለም ዋንጫ
-Olympische Spiele|ኦሎምፒክ
 Olympische Ringe|የኦሎምፒክ ቀለበቶች
 Fackel|ችቦ
 Siegerpodest|የአሸናፊዎች መድረክ
@@ -131,8 +112,6 @@ Weitsprung|ርዝመት ዝላይ
 Stabhochsprung|በዘንግ ዝላይ
 Speerwurf|ጦር ውርወራ
 Kugelstoßen|አሎሎ ውርወራ
-Diskus|ዲስክ ውርወራ
-Hammerwurf|መዶሻ ውርወራ
 Gewichtheben|ክብደት ማንሳት
 Bogenschießen|ቀስት ውርወራ
 Fechten|ሰይፍ ፍልሚያ
@@ -141,13 +120,11 @@ Taekwondo|ቴኳንዶ
 Kung Fu|ኩንግ ፉ
 Sumo|ሱሞ
 Turmspringen|ከማማ ዝላይ
-Synchronschwimmen|ተመሳሳይ ዋና
 Wasserball|የውሃ ኳስ
 Rudern|መቅዘፍ
 Kajak|ካያክ
 Segeln|በሸራ መጓዝ
 Windsurfen|የነፋስ ሞገድ መንሸራተት
-Kitesurfen|ካይት ሰርፊንግ
 Wasserski|የውሃ ስኪ
 Schnorcheln|ስኖርክሊንግ
 Tauchen|መጥለቅ
@@ -156,23 +133,13 @@ Schlittschuhlaufen|በበረዶ መንሸራተት
 Eiskunstlauf|የበረዶ ውዝዋዜ
 Bobfahren|ቦብስሌድ
 Skispringen|የስኪ ዝላይ
-Langlauf|ረጅም ርቀት ስኪ
 Mountainbike|የተራራ ብስክሌት
-Radrennen|የብስክሌት ውድድር
-Motocross|ሞቶክሮስ
-Formel 1|ፎርሙላ 1
+Formel-1-Auto|የፎርሙላ 1 መኪና
 Pferderennen|የፈረስ ውድድር
 Gugs|ጉግስ
-Genna Spiel|ገና ጨዋታ
 Hockey|ሆኪ
-Cricket|ክሪኬት
-Polo|ፖሎ
-Squash|ስኳሽ
-Klettern Wand|የግድግዳ መውጣት
 Bungee-Jumping|ቡንጂ ዝላይ
 Fallschirmspringen|የፓራሹት ዝላይ
-Paragliding|ፓራግላይዲንግ
-Joggen|ዝግ ሩጫ
 Liegestütz|ፑሽ አፕ
 Sit-ups|ሲት አፕ
 Kniebeuge|ስኩዋት
@@ -185,22 +152,14 @@ Hula-Hoop|ሁላ ሁፕ
 Frisbee|ፍሪስቢ
 Bumerang|ቡሜራንግ
 Wasserpistole|የውሃ ሽጉጥ
-Schaukelpferd Spiel|የሚወዛወዝ ፈረስ ጨዋታ
-Sandburg bauen|የአሸዋ ቤት መሥራት
-Schneemann bauen|የበረዶ ሰው መሥራት
 Domino|ዶሚኖ
-Mühle Spiel|የወፍጮ ጨዋታ
-Dame Spiel|ዳማ
 Gebeta|ገበጣ
 Kartenhaus|የካርታ ቤት
 Zauberwürfel|ሩቢክ ኪዩብ
 Kreuzworträtsel|ቃላት እንቆቅልሽ
 Sudoku|ሱዶኩ
-Memory Spiel|የማስታወስ ጨዋታ
-Brettspiel|የሰሌዳ ጨዋታ
 Spielfigur|የጨዋታ ጠጠር
 Pokerchips|የቁማር ሳንቲም
-Lotterie|ሎተሪ
 Bingo|ቢንጎ
 Karaoke|ካራኦኬ
 Disco|ዲስኮ
@@ -227,10 +186,7 @@ Akkordeon|አኮርዲዮን
 Mundharmonika|ሃርሞኒካ
 Xylophon|ዛይሎፎን
 Triangel|ትሪያንግል
-Becken Musik|ሲምባል
 Tamburin|ታምቡሪን
-Rassel Musik|ማራካስ
-Keyboard Musik|ኪቦርድ ሙዚቃ
 E-Gitarre|ኤሌክትሪክ ጊታር
 Schlagzeug|ድራም
 Notenblatt|የሙዚቃ ወረቀት
@@ -240,12 +196,8 @@ Metronom|ሜትሮኖም
 Orchester|ኦርኬስትራ
 Chor|መዘምራን
 Band|ባንድ
-Plattenspieler Musik|የሙዚቃ ሸክላ
 Schallplatte|ሸክላ ዲስክ
-Lautstärke|የድምፅ መጠን
 Eintrittskarte|የመግቢያ ትኬት
-Vorhang Theater|የቲያትር መጋረጃ
-Scheinwerfer Bühne|የመድረክ መብራት
 Maske|ጭንብል
 Kostüm|አልባሳት ትርኢት
 Verkleidung|መደበቂያ አልባሳት
@@ -253,136 +205,65 @@ Puppentheater|የአሻንጉሊት ቲያትር
 Zaubertrick|የአስማት ዘዴ
 Kaninchen im Hut|በቆብ ውስጥ ጥንቸል
 @3
-Schiedsrichterpfiff|የዳኛ ፊሽካ
-Videobeweis|ቪኤአር
-Elfmeterschießen|የፍጹም ቅጣት ምት መለያ
 Eigentor|በራስ ጎል
-Hattrick|ሀትሪክ
-Fallrückzieher Tor|በመቀስ ምት ጎል
-Mauer Fußball|የተጫዋቾች ግድግዳ
-Kapitänsbinde|የአምበል ምልክት
-Trainerbank|የአሰልጣኝ አግዳሚ
-Umkleidekabine|የልብስ መቀየሪያ ክፍል
-Dopingtest|የአበረታች ቅመም ምርመራ
-Weltrekord|የዓለም ክብረ ወሰን
-Fotofinish|በፎቶ የተለየ ውጤት
-Siegerkranz|የአሸናፊ አክሊል
 Lorbeerkranz|የሎረል አክሊል
 Triathlon|ትሪያትሎን
-Zehnkampf|አስር ውድድር
-Biathlon|ባያትሎን
-Moderner Fünfkampf|ዘመናዊ አምስት ውድድር
-Dressurreiten|የፈረስ ውዝዋዜ
 Springreiten|የፈረስ ዝላይ
 Rodeo|ሮዲዮ
-Stierkampf|የበሬ ፍልሚያ
 Armdrücken|የክንድ ትግል
 Tauziehen|ገመድ ጉተታ
 Sackhüpfen|የከረጢት ዝላይ
 Eierlaufen|እንቁላል በማንኪያ ሩጫ
 Stuhltanz|የወንበር ጨዋታ
-Blinde Kuh|ዓይን ሸፍኖ መፈለግ
-Topfschlagen|ድስት መምታት
 Piñata|ፒኛታ
 Schnitzeljagd|የሀብት ፍለጋ ጨዋታ
-Flaschendrehen|ጠርሙስ ማሽከርከር
-Pantomime spielen|በምልክት መጫወት
 Galgenmännchen|የሰቀላ ጨዋታ
 Tic Tac Toe|ኤክስ ኦ ጨዋታ
-Schiffe versenken|መርከብ ማስመጥ
 Schere Stein Papier|መቀስ ድንጋይ ወረቀት
-Kartentrick|የካርታ አስማት
 Jonglieren|ማንጓለል
-Bauchreden|በሆድ ማውራት
 Feuerspucken|እሳት መትፋት
 Stelzenlaufen|በእንጨት እግር መራመድ
-Seiltanz|በገመድ ላይ መራመድ
 Trapez|ትራፔዝ
 Menschenpyramide|የሰዎች ፒራሚድ
-Kanonenkugel Mensch|የሰው መድፍ
-Hindernisparcours|የመሰናክል መንገድ
 Parkour|ፓርኩር
 Skatepark|የስኬት ፓርክ
 Halfpipe|ግማሽ ቧንቧ
 Kopfstand|በራስ መቆም
 Meditation|ማሰላሰል
-Pilates|ፒላቴስ
-Aerobic|ኤሮቢክስ
-Zumba|ዙምባ
-Bodybuilding|የሰውነት ግንባታ
 Laufband|የመሮጫ ማሽን
-Hometrainer|የቤት ብስክሌት
 Sauna|ሳውና
 Massage|ማሸት
 Whirlpool|ጃኩዚ
 Angelrute|የዓሣ ማጥመጃ ዘንግ
-Köder|ማጥመጃ
 Angelhaken|መንጠቆ ዓሣ
 Lagerfeuer|የካምፕ እሳት
 Stockbrot|በዱላ ዳቦ
 Marshmallow|ማርሽማሎ
 Schlafsack|የመኝታ ከረጢት
-Isomatte|የካምፕ ፍራሽ
-Gaskocher|የጋዝ ምድጃ
-Kompass Wandern|የጉዞ ኮምፓስ
 Wanderstock|የጉዞ ዱላ
-Fernglas Vogel|የወፍ መመልከቻ
-Vogelbeobachtung|ወፍ መመልከት
-Sternegucken|ኮከብ ማየት
-Geocaching|ጂኦካሺንግ
 Origami|ኦሪጋሚ
 Papierflieger|የወረቀት አውሮፕላን
 Papierboot|የወረቀት ጀልባ
-Scherenschnitt|የወረቀት ቅርጽ
-Collage|ኮላጅ
 Mosaik|ሞዛይክ
 Töpfern|ሸክላ መሥራት
 Stricken|ሹራብ መሥራት
 Häkeln|ክሮሼ
 Nähen|መስፋት
 Sticken|ጥልፍ
-Weben|መሸመን
 Schnitzen|መቅረጽ እንጨት
-Modellbau|ሞዴል መሥራት
 Modelleisenbahn|የአሻንጉሊት ባቡር
-Briefmarkensammlung|የቴምብር ስብስብ
-Kalligrafie|ጥበባዊ ጽሕፈት
 Graffiti|የግድግዳ ጽሑፍ
 Karikatur|ካርቱን
 Comic|ኮሚክ
 Zeichentrickfilm|ካርቱን ፊልም
-Stummfilm|ድምፅ አልባ ፊልም
-Horrorfilm|አስፈሪ ፊልም
 Filmklappe|የፊልም ማጨብጨቢያ
 Filmrolle|የፊልም ጥቅል
 Roter Teppich|ቀይ ምንጣፍ
 Oscar|ኦስካር
 Autogramm|ፊርማ ዝነኛ
-Fanclub|የደጋፊ ክለብ
-Schlagzeugsolo|የከበሮ ብቸኛ ምት
 Luftgitarre|ምናባዊ ጊታር
-Crowdsurfing|በሕዝብ ላይ መንሳፈፍ
-Moshpit|ሞሽ ፒት
-Zugabe|ተጨማሪ ዘፈን
-Ohrwurm|የማይረሳ ዜማ
-Mixtape|ሚክስቴፕ
-Plattenladen|የሙዚቃ ሱቅ
-Musikbox|ጁክቦክስ
-Leierkasten|የሙዚቃ ሣጥን ማሽከርከሪያ
 Dudelsack|ባግፓይፕ
-Alphorn|የአልፕ ቀንድ
-Didgeridoo|ዲጄሪዱ
-Panflöte|የፓን ዋሽንት
-Mandoline|ማንዶሊን
 Banjo|ባንጆ
 Ukulele|ዩኩሌሌ
-Sitar|ሲታር
-Glockenspiel|ግሎከንሽፒል
-Kastagnetten|ካስታኔት
 Bongo|ቦንጎ
 Gong|ጎንግ
-Stimmgabel|የድምፅ ማስተካከያ ሹካ
-Plektrum|የጊታር መምቻ
-Verstärker|ማጉያ
-Mischpult|የድምፅ ማቀላቀያ
-Tonstudio|የቀረጻ ስቱዲዮ

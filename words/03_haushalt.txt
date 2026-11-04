@@ -61,8 +61,7 @@ Bürste|ብሩሽ
 Schere|መቀስ
 Nadel|መርፌ
 Faden|ክር
-Knopf|ቁልፍ ልብስ
-Box|ሳጥን
+Knopf|የልብስ ቁልፍ
 Korb|ቅርጫት
 Tüte|ፌስታል
 Mülleimer|የቆሻሻ መጣያ
@@ -109,7 +108,6 @@ Staubsauger|የአቧራ መምጠጫ
 Wischmopp|መወልወያ
 Kehrschaufel|የቆሻሻ ማንሻ
 Schwamm|ስፖንጅ
-Spülmittel|የእቃ ሳሙና
 Geschirrspüler|የእቃ ማጠቢያ ማሽን
 Mikrowelle|ማይክሮዌቭ
 Toaster|ቶስተር
@@ -120,7 +118,6 @@ Schneidebrett|መክተፊያ
 Reibe|መፈግፈጊያ
 Sieb|ወንፊት
 Trichter|መንቆርቆሪያ
-Kelle|ጭልፋ
 Schöpflöffel|ማውጫ ማንኪያ
 Pfannenwender|መገልበጫ
 Schneebesen|መምቻ
@@ -139,15 +136,12 @@ Stäbchen|የቻይና ዘንግ
 Untertasse|የሲኒ ማስቀመጫ
 Sini|ሲኒ
 Mesob|መሶብ
-Mortar|ሙቀጫ
+Mörser|ሙቀጫ
 Mühle|ወፍጮ
-Reibestein|መፍጫ ድንጋይ
 Holzkohle|ከሰል
-Kohlebecken|ምድጃ ከሰል
 Streichholz|ክብሪት
 Feuerzeug|ላይተር
 Räucherstäbchen|ዕጣን
-Weihrauchgefäß|ማጨሻ
 Kommode|የመሳቢያ ሣጥን
 Schublade|መሳቢያ
 Nachttisch|የአልጋ ጠረጴዛ
@@ -162,12 +156,8 @@ Matratze|ፍራሽ
 Bettlaken|አንሶላ
 Kopfkissenbezug|የትራስ ልብስ
 Moskitonetz|የወባ ትንኝ መረብ
-Jalousie|የመስኮት መጋረጃ ተንሸራታች
-Fensterladen|የመስኮት መዝጊያ
 Türklinke|የበር እጀታ
-Türmatte|የበር ምንጣፍ
 Fußmatte|የእግር መጥረጊያ
-Garderobe|የልብስ መስቀያ ቦታ
 Schuhregal|የጫማ መደርደሪያ
 Bücherregal|የመጽሐፍ መደርደሪያ
 Kronleuchter|ሻንደሊየር
@@ -183,7 +173,6 @@ Fernbedienung|ሪሞት
 Lautsprecher|ድምጽ ማጉያ
 Kopfhörer|የጆሮ ማዳመጫ
 Ladegerät|ቻርጀር
-Verlängerungskabel|ማራዘሚያ ገመድ
 Werkzeugkasten|የመሣሪያ ሳጥን
 Schraubenzieher|ጠመንጃ መፍቻ
 Zange|ፒንሳ
@@ -199,7 +188,6 @@ Gießkanne|ውሃ ማጠጫ
 Gartenschlauch|የአትክልት ቱቦ
 Rasenmäher|ሣር ማጨጃ
 Rechen|መሰቅሰቂያ
-Harke|መንጠቆ
 Spaten|ዶማ
 Schubkarre|ጋሪ እጅ
 Hacke|ዶማ መቆፈሪያ
@@ -208,10 +196,7 @@ Sichel|ማጭድ
 Pflug|ማረሻ
 Sprinkler|ውሃ ረጪ
 Vogelhaus|የወፍ ቤት ትንሽ
-Briefschlitz|የደብዳቤ ማስገቢያ
 Hausnummer|የቤት ቁጥር
-Fliegengitter|የዝንብ መከላከያ
-Dachrinne|የጣሪያ ቦይ
 Schornstein|የጭስ ማውጫ
 Antenne|አንቴና
 Satellitenschüssel|ዲሽ
@@ -219,47 +204,33 @@ Solarpanel|የፀሐይ ፓነል
 Wassertank|የውሃ ታንከር
 Brunnen|የውሃ ጉድጓድ
 Tor|በር ትልቅ
-Hof|ግቢ
 Terrasse|ሰገነት
-Veranda|በረንዳ ፊት
 Dachboden|ሰገነት ቤት
-Flur|ኮሪደር
 Wohnzimmer|ሳሎን
 Schlafzimmer|መኝታ ቤት
 Kinderzimmer|የልጆች ክፍል
-Esszimmer|የመመገቢያ ክፍል
-Speisekammer|የምግብ ማከማቻ
-Abstellraum|መጋዘን ቤት
-Waschküche|የልብስ ማጠቢያ ክፍል
 Hütte|ጎጆ
 Tukul|ቱኩል
 Zelt|ድንኳን
-Wohnung|አፓርትመንት
 Hochhaus|ፎቅ ቤት
 Villa|ቪላ
 @3
-Abzugshaube|የጭስ መምጠጫ
 Gefriertruhe|ማቀዝቀዣ ሳጥን
 Wäschetrockner|ልብስ ማድረቂያ
 Nähmaschine|የስፌት ማሽን
 Fingerhut|የጣት መከላከያ
-Nadelkissen|የመርፌ ትራስ
 Stricknadel|የሹራብ መርፌ
 Wollknäuel|የሱፍ ክር ኳስ
-Häkelnadel|የክሮሼ መርፌ
 Webstuhl|የሸማ መሥሪያ
 Spinnrad|የፈትል መፍተያ
 Schneiderpuppe|የልብስ ሰፊ አሻንጉሊት
-Bügelfalte|የካውያ ማጠፊያ
 Kerzenständer|የሻማ ማቆሚያ
 Laterne|ፋኖስ
-Petroleumlampe|የኩራዝ መብራት
 Kuraz|ኩራዝ
 Öllampe|የዘይት መብራት
 Sanduhr|የአሸዋ ሰዓት
 Kuckucksuhr|የኩኩ ሰዓት
 Pendeluhr|የፔንዱለም ሰዓት
-Wandkalender|የግድግዳ ቀን መቁጠሪያ
 Pinnwand|የማስታወቂያ ሰሌዳ
 Bilderrahmen|የፎቶ ፍሬም
 Fotoalbum|የፎቶ አልበም
@@ -268,16 +239,10 @@ Sparschwein|ሳንቲም ማጠራቀሚያ
 Schlüsselbund|የቁልፍ ስብስብ
 Schlüsselloch|የቁልፍ ቀዳዳ
 Vorhängeschloss|ጓንጉል ቁልፍ
-Türspion|የበር መመልከቻ
-Gegensprechanlage|ኢንተርኮም
 Überwachungskamera|የደህንነት ካሜራ
 Alarmanlage|የማስጠንቀቂያ ደወል
-Sicherungskasten|የፊውዝ ሳጥን
-Stromzähler|የኤሌክትሪክ ቆጣሪ
-Wasserzähler|የውሃ ቆጣሪ
 Generator|ጀነሬተር
 Wasserpumpe|የውሃ ፓምፕ
-Abfluss|የፍሳሽ ማስወገጃ
 Pömpel|የፍሳሽ መክፈቻ
 Klobürste|የመጸዳጃ ብሩሽ
 Toilettenpapier|የሶፍት ወረቀት
@@ -285,35 +250,23 @@ Duschvorhang|የሻወር መጋረጃ
 Badematte|የመታጠቢያ ምንጣፍ
 Rasierer|ምላጭ
 Föhn|የፀጉር ማድረቂያ
-Lockenstab|የፀጉር ማጠፊያ
-Glätteisen|የፀጉር ማስተካከያ
 Nagelknipser|የጥፍር መቁረጫ
 Pinzette|ወረንጦ
 Wattestäbchen|የጆሮ ማጽጃ
 Parfümflasche|የሽቶ ጠርሙስ
 Seifenspender|የሳሙና ማውጫ
 Zahnseide|የጥርስ ክር
-Mundwasser|የአፍ መታጠቢያ
-Waschlappen|የፊት መታጠቢያ ጨርቅ
 Bademantel|የመታጠቢያ ቀሚስ
 Hausschuhe|የቤት ጫማ
 Wäschekorb|የልብስ ቅርጫት
-Bügelwäsche|የሚተኮስ ልብስ
-Fleckentferner|እድፍ ማስለቀቂያ
-Waschpulver|የልብስ ሳሙና ዱቄት
-Weichspüler|ልብስ ማለስለሻ
 Gummihandschuhe|የላስቲክ ጓንት
 Staubwedel|አቧራ መጥረጊያ
-Fensterputzer|መስኮት ማጽጃ
 Mausefalle|የአይጥ ወጥመድ
 Fliegenklatsche|ዝንብ መግደያ
 Insektenspray|የነፍሳት መርጫ
-Kompost|ብስባሽ
 Gewächshaus|የመስታወት ቤት
 Gartenzwerg|የአትክልት ድንክ
 Springbrunnen|ፏፏቴ ውሃ
-Vogeltränke|የወፍ ውሃ መጠጫ
-Pergola|ፔርጎላ
 Gartenbank|የአትክልት አግዳሚ
 Grill|ጥብስ ምድጃ
 Liegestuhl|የመዝናኛ ወንበር
@@ -329,20 +282,12 @@ Klettergerüst|የመውጫ ብረት
 Wendeltreppe|ጠመዝማዛ ደረጃ
 Aufzug|ሊፍት
 Rolltreppe|ተንቀሳቃሽ ደረጃ
-Geländer|መደገፊያ
-Fliese|ሴራሚክ
-Parkett|የእንጨት ወለል
-Tapete|የግድግዳ ወረቀት
-Steckdosenleiste|ባለብዙ ሶኬት
-Glasfaser|ፋይበር ገመድ
-Router|ራውተር
 Drucker|ማተሚያ
 Scanner|ስካነር
 Beamer|ፕሮጀክተር
 Spielkonsole|የጨዋታ ኮንሶል
 Plattenspieler|የሸክላ ማጫወቻ
 Kassette|ካሴት
-Videorekorder|ቪዲዮ ማጫወቻ
 Bauklötze|የእንጨት ብሎኮች
 Puppenhaus|የአሻንጉሊት ቤት
 Schaukelpferd|የሚወዛወዝ ፈረስ

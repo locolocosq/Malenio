@@ -1,0 +1,385 @@
+# Gut malbare Dinge und Szenen
+@1
+Luftballon|የአየር ፊኛ
+Fahne|ሰንደቅ
+Haustür|የቤት በር
+Gartentor|የአትክልት በር
+Kirschbaum|የቼሪ ዛፍ
+Orangenbaum|የብርቱካን ዛፍ
+Bananenbaum|የሙዝ ዛፍ
+Hundeleine|የውሻ ገመድ
+Katzenklo|የድመት መጸዳጃ
+Vogelei|የወፍ እንቁላል
+Fischglas|የዓሣ ብልቃጥ
+Spinne im Netz|በድሩ ላይ ሸረሪት
+Biene auf Blume|በአበባ ላይ ንብ
+Mann im Mond|በጨረቃ ላይ ያለ ሰው
+Schneemannnase|የበረዶ ሰው አፍንጫ
+Kuchenstück|የኬክ ቁራጭ
+Pizzastück|የፒዛ ቁራጭ
+Wassermelonenstück|የሐብሐብ ቁራጭ
+Apfelhälfte|የፖም ግማሽ
+Eierschale|የእንቁላል ቅርፊት
+Milchflasche|የወተት ጠርሙስ
+Saftglas|የጭማቂ ብርጭቆ
+Teetasse|የሻይ ስኒ
+Suppenteller|የሾርባ ሳህን
+Brotkorb|የዳቦ ቅርጫት
+Obstkorb|የፍራፍሬ ቅርጫት
+Obstsalat|የፍራፍሬ ሰላጣ
+Fischgräte|የዓሣ አጥንት
+Hühnerbein|የዶሮ እግር
+Bonbonpapier|የከረሜላ ወረቀት
+Zahnlücke|የጎደለ ጥርስ
+Blumenbeet|የአበባ ማሳ
+Gemüsegarten|የአትክልት ማሳ
+Hühnerstall|የዶሮ ቤት
+Kuhstall|የከብት በረት
+Vogelscheuche mit Hut|ባርኔጣ ያደረገ ማስፈራሪያ
+Traktorreifen|የትራክተር ጎማ
+Autoreifen|የመኪና ጎማ
+Fahrradreifen|የብስክሌት ጎማ
+Rennrad|የውድድር ብስክሌት
+Spielzeugboot|የአሻንጉሊት ጀልባ
+Papierkorb|የወረቀት ቅርጫት
+Bleistiftspitzer|የእርሳስ መቅረጫ
+Schulranzen|የትምህርት ቦርሳ ጀርባ
+Tafelkreide|የሰሌዳ ጠመኔ
+Lehrerpult|የአስተማሪ ጠረጴዛ
+Schulbank|የትምህርት ቤት ወንበር
+Brillenetui|የመነጽር ማስቀመጫ
+Zahnbecher|የጥርስ ብሩሽ ኩባያ
+Seifenblase|የሳሙና አረፋ ኳስ
+Badeente|የመታጠቢያ ዳክዬ
+Sonnencreme|የፀሐይ ክሬም
+Strandball|የዳርቻ ኳስ
+Strandkorb|የዳርቻ ወንበር ቅርጫት
+Strandhaus|የዳርቻ ቤት
+Wasserrutsche|የውሃ ተንሸራታች
+Sprungturm|የመዝለያ ማማ
+Kaugummiblase|የማስቲካ ፊኛ
+Augenbinde|የዓይን ማሰሪያ
+Nasenbluten|የአፍንጫ ደም መፍሰስ
+Haarschnitt|የፀጉር ቁርጥ
+Kopfkissenschlacht|የትራስ ውጊያ
+Kissenburg|የትራስ ምሽግ
+Deckenzelt|የብርድ ልብስ ድንኳን
+Gutenachtgeschichte|የመኝታ ተረት
+Nachtlicht|የሌሊት መብራት
+Mondgesicht|የጨረቃ ፊት
+Sonnengesicht|የፀሐይ ፊት
+Sternenhimmel mit Mond|ጨረቃና ኮከቦች
+Regenbogen mit Wolken|ቀስተ ደመናና ደመናዎች
+Schneemann mit Schal|ሻርፕ ያደረገ የበረዶ ሰው
+Hund mit Knochen|አጥንት የያዘ ውሻ
+Katze mit Wollknäuel|የሱፍ ኳስ የያዘች ድመት
+Maus mit Käse|አይብ የያዘች አይጥ
+Affe mit Banane|ሙዝ የያዘ ዝንጀሮ
+Hase mit Karotte|ካሮት የያዘ ጥንቸል
+Bär mit Honig|ማር የያዘ ድብ
+Vogel im Käfig|በቤቱ ያለ ወፍ
+Fisch an der Angel|በመንጠቆ የተያዘ ዓሣ
+Kind auf Schaukel|በዥዋዥዌ ላይ ልጅ
+Mann mit Regenschirm|ጃንጥላ የያዘ ሰው
+Frau mit Tasche|ቦርሳ የያዘች ሴት
+Baby im Kinderwagen|በጋሪ ውስጥ ሕፃን
+Oma mit Stock|ምርኩዝ የያዘች አያት
+Koch mit Kochmütze|ቆብ ያደረገ ምግብ አብሳይ
+Polizist mit Pfeife|ፊሽካ የያዘ ፖሊስ
+Zauberer mit Hut|ቆብ ያደረገ አስማተኛ
+Pirat mit Augenklappe|የዓይን መሸፈኛ ያደረገ ወንበዴ
+König auf Thron|በዙፋን ላይ ንጉሥ
+@2
+Hund jagt Katze|ውሻ ድመትን ያባርራል
+Katze auf Dach|በጣሪያ ላይ ድመት
+Vogel auf Draht|በሽቦ ላይ ወፍ
+Elefant mit Erdnuss|ኦቾሎኒ የያዘ ዝሆን
+Giraffe frisst Blätter|ቅጠል የምትበላ ቀጭኔ
+Löwe brüllt|የሚያገሳ አንበሳ
+Krokodil mit offenem Maul|አፉን የከፈተ አዞ
+Schlange im Korb|በቅርጫት ያለ እባብ
+Frosch auf Seerose|በውሃ አበባ ላይ እንቁራሪት
+Ente mit Küken|ዳክዬና ጫጩቶቿ
+Henne auf Eiern|በእንቁላል ላይ የተቀመጠች ዶሮ
+Kuh gibt Milch|ወተት የምትሰጥ ላም
+Schaf wird geschoren|የሚሸለት በግ
+Pferd springt|የሚዘል ፈረስ
+Kamel in der Wüste|በበረሃ ያለ ግመል
+Pinguin rutscht|የሚንሸራተት ፔንጉዊን
+Wal spritzt Wasser|ውሃ የሚረጭ ዓሣ ነባሪ
+Hai-Flosse|የሻርክ ክንፍ
+Qualle leuchtet|የምታበራ ጄሊፊሽ
+Schildkröte im Panzer|በቅርፊቷ ውስጥ ኤሊ
+Eule in der Nacht|በሌሊት ጉጉት
+Fledermaus hängt|የተንጠለጠለ የሌሊት ወፍ
+Bienenschwarm|የንብ መንጋ
+Ameisenstraße|የጉንዳን መንገድ
+Raupe frisst Blatt|ቅጠል የምትበላ አባጨጓሬ
+Schmetterling schlüpft|የሚወጣ ቢራቢሮ
+Hund gräbt Loch|ጉድጓድ የሚቆፍር ውሻ
+Mann angelt|ዓሣ የሚያጠምድ ሰው
+Kind baut Sandburg|የአሸዋ ቤት የሚሠራ ልጅ
+Mädchen springt Seil|ገመድ የምትዘል ልጅ
+Junge klettert auf Baum|ዛፍ የሚወጣ ልጅ
+Frau gießt Blumen|አበባ የምታጠጣ ሴት
+Mann mäht Rasen|ሣር የሚያጭድ ሰው
+Familie beim Essen|ቤተሰብ ሲመገብ
+Kinder beim Fußball|እግር ኳስ የሚጫወቱ ልጆች
+Lehrer an der Tafel|በሰሌዳ ፊት አስተማሪ
+Arzt hört Herz ab|ልብ የሚያዳምጥ ሐኪም
+Feuerwehr löscht Feuer|እሳት የምታጠፋ የእሳት አደጋ
+Polizei fängt Dieb|ሌባ የሚይዝ ፖሊስ
+Koch wirft Pizza|ፒዛ የሚወረውር ምግብ አብሳይ
+Kellner mit Tablett|ትሪ የያዘ አስተናጋጅ
+Bauer auf Traktor|በትራክተር ላይ ገበሬ
+Hirte mit Schafen|በጎች ያሉት እረኛ
+Fischer mit Netz|መረብ የያዘ ዓሣ አጥማጅ
+Maler auf Leiter|በመሰላል ላይ ቀለም ቀቢ
+Fotograf mit Kamera|ካሜራ የያዘ ፎቶ አንሺ
+Sänger mit Mikrofon|ማይክሮፎን የያዘ ዘፋኝ
+Tänzerin auf Bühne|በመድረክ ላይ ዳንሰኛ
+Clown mit Luftballons|ፊኛዎች የያዘ ቀልደኛ
+Astronaut auf dem Mond|በጨረቃ ላይ የጠፈር ተመራማሪ
+Taucher mit Fisch|ዓሣ ያለው ጠላቂ
+Skifahrer am Berg|በተራራ ላይ ስኪ ተንሸራታች
+Surfer auf Welle|በማዕበል ላይ ተንሸራታች
+Radfahrer|ብስክሌት ነጂ
+Motorradfahrer|ሞተር ሳይክል ነጂ
+Autofahrer|መኪና ነጂ
+Reiter|ፈረስ ጋላቢ
+Läufer|ሯጭ
+Schwimmer|ዋናተኛ
+Torschütze|ጎል አግቢ
+Kuchen mit Kerzen|ሻማ ያለው ኬክ
+Geschenk mit Schleife|ሪባን ያለው ስጦታ
+Eis am Stiel|በዱላ አይስክሬም
+Eis schmilzt|የሚቀልጥ አይስክሬም
+Toast springt aus Toaster|ከቶስተር የሚዘል ቶስት
+Kaffee dampft|የሚተን ቡና
+Suppe kocht über|የሚገነፍል ሾርባ
+Topf mit Deckel|ክዳን ያለው ድስት
+Kühlschrank offen|የተከፈተ ማቀዝቀዣ
+Glas umgekippt|የተገለበጠ ብርጭቆ
+Zerbrochener Teller|የተሰበረ ሳህን
+Kaputtes Fenster|የተሰበረ መስኮት
+Platter Reifen|የተነፈሰ ጎማ
+Leere Batterie|ባዶ ባትሪ
+Volle Mülltonne|የሞላ የቆሻሻ መጣያ
+Tropfender Wasserhahn|የሚያንጠባጥብ ቧንቧ
+Brennende Kerze|የሚነድ ሻማ
+Rauchender Schornstein|የሚያጨስ የጭስ ማውጫ
+Fliegender Vogel|የሚበር ወፍ
+Fallendes Blatt|የሚወድቅ ቅጠል
+Schmelzender Schneemann|የሚቀልጥ የበረዶ ሰው
+Klingelndes Telefon|የሚጮህ ስልክ
+Klingelnder Wecker|የሚጮህ ማንቂያ
+Bellender Hund|የሚጮህ ውሻ
+Schlafende Katze|የተኛች ድመት
+Weinendes Baby|የሚያለቅስ ሕፃን
+Lachender Mond|የሚስቅ ጨረቃ
+Wütende Wolke|የተናደደ ደመና
+Schwitzende Sonne|የምታልብ ፀሐይ
+Tanzende Banane|የምትደንስ ሙዝ
+Fliegende Kuh|የምትበር ላም
+Hund mit Sonnenbrille|የፀሐይ መነጽር ያደረገ ውሻ
+Katze mit Krone|ዘውድ ያደረገች ድመት
+Fisch mit Hut|ባርኔጣ ያደረገ ዓሣ
+Schnecke mit Helm|ቆብ ያደረገች ቀንድ አውጣ
+Elefant auf Fahrrad|በብስክሌት ላይ ዝሆን
+Pinguin mit Schal|ሻርፕ ያደረገ ፔንጉዊን
+Giraffe mit Schal|ሻርፕ ያደረገች ቀጭኔ
+Schwein im Schlamm|በጭቃ ውስጥ አሳማ
+Huhn überquert Straße|መንገድ የምታቋርጥ ዶሮ
+Esel mit Säcken|ከረጢት የተጫነ አህያ
+Kamelkarawane|የግመል ቅፍለት
+Pferd mit Wagen|ጋሪ የሚጎትት ፈረስ
+Kaffee kochen|ቡና ማፍላት
+Injera backen|እንጀራ መጋገር
+Brot backen|ዳቦ መጋገር
+Wäsche aufhängen|ልብስ ማስጣት
+Bett machen|አልጋ ማንጠፍ
+Tisch decken|ጠረጴዛ ማዘጋጀት
+Müll rausbringen|ቆሻሻ ማውጣት
+Fenster putzen|መስኮት መወልወል
+Auto waschen|መኪና ማጠብ
+Hund baden|ውሻ ማጠብ
+Zwiebeln schneiden|ሽንኩርት መክተፍ
+Teig kneten|ሊጥ ማሸት
+Eier aufschlagen|እንቁላል መስበር
+Pizza belegen|ፒዛ ማዘጋጀት
+Kerzen auspusten|ሻማ ማጥፋት
+Geschenk auspacken|ስጦታ መፍታት
+Luftballon aufblasen|ፊኛ መንፋት
+Drachen steigen lassen|ካይት ማብረር
+Steine übers Wasser hüpfen lassen|በውሃ ላይ ድንጋይ ማንጠር
+Schneeball werfen|የበረዶ ኳስ መወርወር
+Rad schlagen|መገለባበጥ
+Auf einem Bein stehen|በአንድ እግር መቆም
+Huckepack|በጀርባ መሸከም
+Blumen pflücken|አበባ መልቀም
+Äpfel pflücken|ፖም መልቀም
+Kaffee ernten|ቡና መልቀም
+Holz sammeln|እንጨት መልቀም
+Wasser holen|ውሃ መቅዳት
+Feuer machen|እሳት ማንደድ
+Zelt aufbauen|ድንኳን መትከል
+Brief einwerfen|ደብዳቤ ማስገባት
+Taxi rufen|ታክሲ መጥራት
+Bus verpassen|አውቶቡስ ማምለጥ
+Im Regen tanzen|በዝናብ ውስጥ መደነስ
+In die Pfütze springen|ኩሬ ውስጥ መዝለል
+Unter der Decke lesen|በብርድ ልብስ ውስጥ ማንበብ
+Selfie machen|ሰልፊ ማንሳት
+@3
+Spinne erschreckt Mann|ሰውን የምታስደነግጥ ሸረሪት
+Maus erschreckt Elefant|ዝሆንን የምታስደነግጥ አይጥ
+Hund frisst Hausaufgaben|የቤት ሥራ የሚበላ ውሻ
+Katze wirft Glas um|ብርጭቆ የምትገለብጥ ድመት
+Möwe klaut Pommes|ድንች የምትሰርቅ የባሕር ወፍ
+Affe klaut Brille|መነጽር የሚሰርቅ ዝንጀሮ
+Kuh auf dem Mond|በጨረቃ ላይ ላም
+Hai im Swimmingpool|በመዋኛ ገንዳ ውስጥ ሻርክ
+Krokodil in der Badewanne|በመታጠቢያ ገንዳ ውስጥ አዞ
+Elefant im Kühlschrank|በማቀዝቀዣ ውስጥ ዝሆን
+Giraffe im Aufzug|በሊፍት ውስጥ ቀጭኔ
+Dinosaurier in der Stadt|በከተማ ውስጥ ዳይኖሰር
+Alien entführt Kuh|ላም የሚወስድ ከሌላ ፕላኔት የመጣ
+Roboter kocht|የሚያበስል ሮቦት
+Zombie im Supermarkt|በሱፐርማርኬት ዞምቢ
+Geist unter Bettlaken|በአንሶላ ስር መንፈስ
+Monster unter dem Bett|ከአልጋ ስር ጭራቅ
+Drache speit Feuer|እሳት የሚተፋ ዘንዶ
+Ritter kämpft gegen Drachen|ከዘንዶ ጋር የሚዋጋ ባላባት
+Prinzessin im Turm|በማማ ውስጥ ልዕልት
+Hexe auf Besen|በመጥረጊያ ላይ ጠንቋይ
+Zauberer zieht Hase aus Hut|ከቆብ ጥንቸል የሚያወጣ አስማተኛ
+Meerjungfrau auf Felsen|በቋጥኝ ላይ የባሕር ሴት
+Pirat findet Schatz|ሀብት የሚያገኝ ወንበዴ
+Schiff im Sturm|በማዕበል ውስጥ መርከብ
+Flaschenpost am Strand|በዳርቻ የጠርሙስ ደብዳቤ
+Gestrandet auf Insel|በደሴት ላይ የቀረ
+Palme auf kleiner Insel|በትንሽ ደሴት ላይ ዘንባባ
+Vulkan bricht aus|የሚፈነዳ እሳተ ገሞራ
+Blitz schlägt ein|የሚመታ መብረቅ
+Haus im Schnee|በበረዶ ውስጥ ቤት
+Eisbär auf Eisscholle|በበረዶ ቁራጭ ላይ ነጭ ድብ
+Kamel mit Sonnenschirm|ጃንጥላ የያዘ ግመል
+Schneemann in der Wüste|በበረሃ ውስጥ የበረዶ ሰው
+Kaktus mit Mütze|ኮፍያ ያደረገ ቁልቋል
+Sonne geht unter am Meer|በባሕር ላይ የምትጠልቅ ፀሐይ
+Mond über den Bergen|ከተራሮች በላይ ጨረቃ
+Wolke regnet auf Mann|በሰው ላይ የሚዘንብ ደመና
+Regenschirm fliegt weg|የሚበር ጃንጥላ
+Hut fliegt weg|የሚበር ባርኔጣ
+Wind bläst Blätter|ቅጠል የሚነፍስ ነፋስ
+Baum fällt um|የሚወድቅ ዛፍ
+Apfel fällt auf Kopf|በራስ ላይ የሚወድቅ ፖም
+Bananenschale ausrutschen|በሙዝ ልጣጭ መዳለጥ
+Tortenschlacht|የኬክ ውርወራ
+Torte ins Gesicht|ፊት ላይ ኬክ
+Spaghetti essen|ስፓጌቲ መብላት
+Zu scharf gegessen|ቅመም የበዛበት ምግብ መብላት
+Gehirnfrost|በአይስክሬም ራስ መቀዝቀዝ
+Einschlafen beim Fernsehen|ቴሌቪዥን ሲያዩ መተኛት
+Verschlafen im Bus|በአውቶቡስ ውስጥ መተኛት
+Handy fällt ins Klo|ሽንት ቤት የሚወድቅ ስልክ
+Akku leer|ያለቀ ባትሪ ስልክ
+Kein WLAN|ዋይፋይ የለም
+Stau auf der Autobahn|በአውራ ጎዳና መጨናነቅ
+Panne am Straßenrand|በመንገድ ዳር የተበላሸ መኪና
+Auto abschleppen|መኪና መጎተት
+Reifen wechseln|ጎማ መቀየር
+Tanken|ነዳጅ መሙላት
+Einparken|መኪና ማቆም
+Blitzer fotografiert Auto|መኪናን የሚያነሳ ካሜራ
+Flugzeug startet|የሚነሳ አውሮፕላን
+Flugzeug landet|የሚያርፍ አውሮፕላን
+Rakete startet|የምትነሳ ሮኬት
+Zug im Tunnel|በዋሻ ውስጥ ባቡር
+Brücke über Fluss|በወንዝ ላይ ድልድይ
+Boot auf See|በሐይቅ ላይ ጀልባ
+Fähre mit Autos|መኪኖችን የጫነ ጀልባ
+Kran hebt Container|ኮንቴይነር የሚያነሳ ክሬን
+Bagger gräbt Loch|ጉድጓድ የሚቆፍር ኤክስካቫተር
+Hochhaus im Bau|በግንባታ ላይ ያለ ፎቅ
+Fensterputzer am Hochhaus|በፎቅ ላይ መስኮት አጽጂ
+Feuerwehrmann rettet Katze|ድመት የሚያድን የእሳት አደጋ ሠራተኛ
+Katze auf Baum|በዛፍ ላይ ድመት
+Kind fällt vom Fahrrad|ከብስክሌት የሚወድቅ ልጅ
+Knie aufgeschürft|የተላጠ ጉልበት
+Arm im Gips|በጀሶ ያለ ክንድ
+Zahnarzt zieht Zahn|ጥርስ የሚነቅል የጥርስ ሐኪም
+Spritze bekommen|መርፌ መወጋት
+Fieber messen|ትኩሳት መለካት
+Haare schneiden|ፀጉር መቆረጥ
+Bart rasieren|ጢም መላጨት
+Schlechter Haartag|የተበላሸ ፀጉር
+Wind im Haar|በፀጉር ውስጥ ነፋስ
+Schweißgebadet|በላብ የተጠመቀ
+Zähneklappern|ጥርስ ማንገጫገጭ
+Gänsehaut bekommen|ሰውነት መንዘር
+Herz klopft|የሚመታ ልብ
+Schmetterlinge im Bauch|በሆድ ቢራቢሮዎች
+Verliebtes Paar|የተፋቀሩ ጥንዶች
+Heiratsantrag|የጋብቻ ጥያቄ
+Hochzeitstanz|የሠርግ ዳንስ
+Brautstrauß werfen|የሙሽሪት አበባ መወርወር
+Hochzeitsauto|የሠርግ መኪና
+Baby wird geboren|የሚወለድ ሕፃን
+Erster Schultag|የመጀመሪያ የትምህርት ቀን
+Zeugnistag|የውጤት ቀን
+Letzter Schultag|የመጨረሻ የትምህርት ቀን
+Umzugskarton|የቤት መቀየሪያ ካርቶን
+Möbel tragen|የቤት ዕቃ መሸከም
+Kaffee verschüttet|የፈሰሰ ቡና
+Tinte auf Hemd|በሸሚዝ ላይ ቀለም
+Loch in der Socke|የተቀደደ ካልሲ
+Hose zerrissen|የተቀደደ ሱሪ
+Schuh verloren|የጠፋ ጫማ
+Schlüssel vergessen|የተረሳ ቁልፍ
+Ausgesperrt|ከቤት ውጭ የቀረ
+Aus dem Fenster schauen|በመስኮት ማየት
+Hinter dem Vorhang verstecken|ከመጋረጃ ጀርባ መደበቅ
+Auf Zehenspitzen schleichen|በእግር ጣት መሹለክ
+Durchs Schlüsselloch gucken|በቁልፍ ቀዳዳ ማየት
+Mit Taschenlampe im Dunkeln|በጨለማ በባትሪ
+Gruselgeschichte am Lagerfeuer|በካምፕ እሳት አስፈሪ ተረት
+Marshmallow grillen|ማርሽማሎ መጥበስ
+Sterne zählen|ኮከብ መቁጠር
+Sternschnuppe wünschen|በተወርዋሪ ኮከብ መመኘት
+Wunsch am Brunnen|በጉድጓድ ምኞት
+Münze werfen|ሳንቲም መወርወር
+Armdrücken am Tisch|በጠረጴዛ የክንድ ትግል
+Kissen ins Gesicht|ፊት ላይ ትራስ
+Wasserschlacht|የውሃ ውጊያ
+Schneeballschlacht im Park|በመናፈሻ የበረዶ ኳስ ውጊያ
+Rutschen im Schwimmbad|በመዋኛ ገንዳ መንሸራተት
+Sonnenbrand am Strand|በዳርቻ የፀሐይ ቃጠሎ
+Im Sand eingegraben|በአሸዋ የተቀበረ
+Muscheln sammeln|ዛጎል መሰብሰብ
+Krebs zwickt Zeh|ጣትን የሚቆነጥጥ ሸርጣን
+Möwe auf Kopf|በራስ ላይ የባሕር ወፍ
+Fisch springt aus Wasser|ከውሃ የሚዘል ዓሣ
+Frosch fängt Fliege|ዝንብ የሚይዝ እንቁራሪት
+Spinne seilt sich ab|በክር የምትወርድ ሸረሪት
+Ameise trägt Krümel|ፍርፋሪ የምትሸከም ጉንዳን
+Biene sticht|የምትነድፍ ንብ
+Mücke sticht|የምትነክስ ትንኝ
+Kuh frisst Gras|ሣር የምትበላ ላም
+Ziege auf Felsen|በቋጥኝ ላይ ፍየል
+Esel will nicht laufen|መሄድ የማይፈልግ አህያ
+Hahn kräht am Morgen|በጠዋት የሚጮህ አውራ ዶሮ
+Hund jagt Schwanz|ጅራቱን የሚያባርር ውሻ
+Katze jagt Laserpunkt|የሌዘር ነጥብ የምታባርር ድመት
+Hamster im Laufrad|በጎማ ውስጥ የሚሮጥ ሃምስተር
+Papagei spricht|የሚናገር በቀቀን
+Pfau schlägt Rad|ጅራቱን የሚዘረጋ ጣዎስ
+Strauß steckt Kopf in Sand|ራሱን በአሸዋ የሚቀብር ሰጎን
+Faultier am Ast|በቅርንጫፍ ላይ ስሎዝ
+Känguru mit Baby|ልጅ የያዘ ካንጋሮ
+Koala umarmt Baum|ዛፍ የሚያቅፍ ኮዋላ
+Panda isst Bambus|ቀርከሃ የሚበላ ፓንዳ
+Gorilla trommelt auf Brust|ደረቱን የሚመታ ጎሪላ
+Löwe schläft|የተኛ አንበሳ
+Nilpferd gähnt|የሚያዛጋ ጉማሬ
+Flamingo auf einem Bein|በአንድ እግር የቆመ ፍላሚንጎ

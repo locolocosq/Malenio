@@ -1,6 +1,6 @@
 # Menschen, Familie, Berufe, Fantasie
 @1
-Mann|ሰው ወንድ
+Mann|ወንድ
 Frau|ሴት
 Kind|ልጅ
 Baby|ሕፃን
@@ -13,7 +13,6 @@ Schwester|እህት
 Oma|አያት ሴት
 Opa|አያት ወንድ
 Familie|ቤተሰብ
-Freund|ጓደኛ
 Lehrer|አስተማሪ
 Schüler|ተማሪ
 Polizist|ፖሊስ
@@ -74,14 +73,7 @@ Weihnachtsmann|የገና አባት
 Schneewittchen|በረዶ ነጭ
 Ninja|ኒንጃ
 Cowboy|ካውቦይ
-Indianer|ቀይ ሕንዳዊ
 Mumie|ሙሚ
-Skelett Gespenst|አጽም መንፈስ
-Nachbar|ጎረቤት
-Gast|እንግዳ
-Chef|አለቃ
-Arbeiter|ሠራተኛ
-Sportler|ስፖርተኛ
 Fußballspieler|የእግር ኳስ ተጫዋች
 Schiedsrichter|ዳኛ ስፖርት
 Trainer|አሰልጣኝ
@@ -92,15 +84,9 @@ Held|ጀግና
 @2
 Onkel|አጎት
 Tante|አክስት
-Cousin|የአጎት ልጅ
-Neffe|የወንድም ልጅ
-Enkel|የልጅ ልጅ
 Zwillinge|መንታዎች
 Ehepaar|ባልና ሚስት
-Schwiegermutter|አማት
-Baby im Bauch|በሆድ ያለ ሕፃን
 Teenager|ታዳጊ
-Rentner|ጡረተኛ
 Ingenieur|መሐንዲስ
 Architekt|አርክቴክት
 Programmierer|ፕሮግራመር
@@ -110,18 +96,11 @@ Tierarzt|የእንስሳት ሐኪም
 Apotheker|ፋርማሲስት
 Hebamme|አዋላጅ
 Chirurg|የቀዶ ሐኪም
-Psychologe|የሥነ ልቦና ባለሙያ
 Anwalt|ጠበቃ
-Notar|ኖተሪ
-Bankangestellter|የባንክ ሠራተኛ
 Kassierer|ገንዘብ ተቀባይ
-Buchhalter|ሒሳብ ሹም
-Sekretärin|ጸሐፊ
 Journalist|ጋዜጠኛ
-Reporter|ዘጋቢ
 Nachrichtensprecher|የዜና አንባቢ
 Schriftsteller|ደራሲ
-Dichter|ገጣሚ
 Schauspieler|ተዋናይ
 Regisseur|ዳይሬክተር
 Musiker|ሙዚቀኛ
@@ -137,7 +116,6 @@ Dompteur|እንስሳ አሰልጣኝ
 Model|ሞዴል
 Designer|ዲዛይነር
 Tischler|አናጢ
-Schreiner|እንጨት ሠራተኛ
 Klempner|የቧንቧ ሠራተኛ
 Elektriker|ኤሌክትሪሻን
 Maurer|ግንበኛ
@@ -162,25 +140,17 @@ Lokführer|የባቡር ሹፌር
 Kapitän|ካፒቴን
 Matrose|መርከበኛ
 Stewardess|የበረራ አስተናጋጅ
-Bote|መልእክተኛ
-Kurier|አድራሽ
 Müllmann|ቆሻሻ ሰብሳቢ
 Straßenfeger|መንገድ ጠራጊ
 Schuhputzer|ሊስትሮ
-Lastenträger|ተሸካሚ
 Feuerspucker|እሳት ተፊ
 Taucher|ጠላቂ
 Bergsteiger|ተራራ ወጪ
 Rettungsschwimmer|ነፍስ አድን ዋናተኛ
 Sanitäter|ፓራሜዲክ
 Spion|ሰላይ
-Agent|ወኪል
 Gefangener|እስረኛ
-Bürgermeister|ከንቲባ
-Minister|ሚኒስትር
-Botschafter|አምባሳደር
 Kaiser|ንጉሠ ነገሥት
-Kaiserin|እቴጌ
 Pharao|ፈርዖን
 Wikinger|ቫይኪንግ
 Samurai|ሳሙራይ
@@ -195,55 +165,25 @@ Dämon|ጋኔን
 Sensenmann|ሞት ገጸ ባሕሪ
 Osterhase|የፋሲካ ጥንቸል
 Zahnfee|የጥርስ ተረት
-Schneemann Figur|የበረዶ ሰው ምስል
 Hampelmann|አሻንጉሊት ሰው
 Marionette|በገመድ የሚንቀሳቀስ አሻንጉሊት
 Puppe|አሻንጉሊት
 Teddybär|የጨርቅ ድብ
-Vogelscheuche Feld|የማሳ ማስፈራሪያ
 @3
 Archäologe|አርኪዮሎጂስት
 Astronom|የሥነ ፈለክ ሊቅ
-Biologe|ባዮሎጂስት
-Chemiker|ኬሚስት
-Physiker|ፊዚሲስት
-Mathematiker|የሒሳብ ሊቅ
-Philosoph|ፈላስፋ
-Historiker|የታሪክ ምሁር
-Geologe|ጂኦሎጂስት
-Meteorologe|የሚቲዎሮሎጂ ባለሙያ
-Bibliothekar|የቤተ መጻሕፍት ሠራተኛ
-Dolmetscher|አስተርጓሚ
-Übersetzer|ተርጓሚ
-Diplomat|ዲፕሎማት
-Pfarrer|ካህን
 Imam|ኢማም
-Diakon|ዲያቆን
-Prophet|ነቢይ
-Heiliger|ቅዱስ
-Einsiedler|ባሕታዊ
-Pilger|ተሳላሚ
 Nomade|ዘላን
-Flüchtling|ስደተኛ
-Auswanderer|ስደተኛ ወጪ
 Abenteurer|ጀብደኛ
 Entdecker|አሳሽ
 Schatzsucher|ሀብት ፈላጊ
 Goldgräber|ወርቅ ቆፋሪ
 Bergmann|ማዕድን አውጪ
 Holzfäller|እንጨት ቆራጭ
-Köhler|ከሰል አክሳይ
-Hufschmied|የፈረስ ጫማ ሠሪ
-Sattler|ኮርቻ ሠሪ
 Goldschmied|ወርቅ አንጥረኛ
 Uhrmacher|ሰዓት ሠሪ
-Optiker|የመነጽር ባለሙያ
-Glaser|መስታወት ሠሪ
 Bildhauer|ቅርጽ ሠሪ
-Karikaturist|ካርቱኒስት
 Tätowierer|ንቅሳት ሠሪ
-Choreograf|የዳንስ አቀናባሪ
-Komponist|የሙዚቃ ደራሲ
 Opernsänger|የኦፔራ ዘፋኝ
 Bauchredner|በሆድ ተናጋሪ
 Pantomime|ድምፅ አልባ ተዋናይ
@@ -252,41 +192,25 @@ Rennfahrer|የውድድር ሹፌር
 Jockey|ፈረስ ጋላቢ ውድድር
 Torwart|ግብ ጠባቂ
 Boxer|ቦክሰኛ
-Ringer|ታጋይ
 Gewichtheber|ክብደት አንሺ
 Marathonläufer|የማራቶን ሯጭ
 Schachspieler|የቼዝ ተጫዋች
 Surfer|ሞገድ ተንሸራታች
 Skifahrer|የበረዶ ተንሸራታች
 Fallschirmspringer|ፓራሹት ዘላይ
-Kosmonaut|ኮስሞናውት
 Hacker|ጠላፊ
-Influencer|ኢንፍሉዌንሰር
 Youtuber|ዩቲዩበር
-Streamer|ስትሪመር
 Gamer|ተጫዋች ጌም
 Sammler|ሰብሳቢ
-Erbe|ወራሽ
 Millionär|ሚሊየነር
-Geizhals|ስስታም
 Faulpelz|ሰነፍ
-Besserwisser|ሁሉን አዋቂ ነኝ ባይ
 Schlafmütze|እንቅልፋም
 Angsthase|ፈሪ
 Glückspilz|እድለኛ
 Pechvogel|እድለ ቢስ
-Draufgänger|ደፋር
-Träumer|ሕልመኛ
 Nachteule|የሌሊት ሰው
 Frühaufsteher|ማለዳ ተነሽ
-Linkshänder Kind|ግራኝ ልጅ
-Weise|ጠቢብ
-Zauberlehrling|የአስማት ተማሪ
 Drachentöter|ዘንዶ ገዳይ
-Seeräuber|የባሕር ሌባ
-Schmuggler|ኮንትሮባንዲስት
-Kopfgeldjäger|ሽልማት አዳኝ
-Gespenst im Schloss|በቤተ መንግሥት ያለ መንፈስ
 Frankenstein|ፍራንከንስታይን
 Medusa|ሜዱሳ
 Zyklop|አንድ ዓይናማ ግዙፍ
@@ -295,14 +219,9 @@ Zentaur|ግማሽ ሰው ግማሽ ፈረስ
 Pegasus|ክንፍ ያለው ፈረስ
 Phönix|ፊኒክስ
 Greif|ግሪፊን
-Sphinx Figur|የስፊንክስ ምስል
 Yeti|የበረዶ ሰው ጭራቅ
 Bigfoot|ትልቅ እግር ጭራቅ
 Kraken|ግዙፍ የባሕር ጭራቅ
-Golem|ጎሌም
-Gnom|ኖም
-Hobbit|ሆቢት
-Dschinn|ጂኒ
 Flaschengeist|የጠርሙስ ጂኒ
 Wunderlampe|የአስማት መብራት
 Zauberstab|የአስማት በትር
@@ -316,4 +235,3 @@ Schatztruhe|የሀብት ሣጥን
 Zeitmaschine|የጊዜ ማሽን
 Ufo|ዩፎ
 Lichtschwert|የብርሃን ሰይፍ
-Tarnkappe|የማይታይ ቆብ

@@ -1,56 +1,41 @@
 # Gegenstände und Verschiedenes
 @1
-Schirm|ጥላ ጃንጥላ
 Hammer und Nagel|መዶሻና ሚስማር
 Spielzeug|አሻንጉሊት ጨዋታ
 Spielzeugauto|የአሻንጉሊት መኪና
 Lego|ሌጎ
 Kugelschreiber|ቢክ
-Zettel|ቁራጭ ወረቀት
 Schachtel|ካርቶን
 Dose|ቆርቆሮ
-Glas Marmelade|የማርማላታ ብልቃጥ
+Marmeladenglas|የማርማላታ ብልቃጥ
 Deckel|ክዳን
 Kiste|ሣጥን ትልቅ
 Fass|በርሜል
 Sack|ከረጢት
-Seife Stück|ሳሙና ቁራጭ
 Taschentuch|መሐረብ
 Fächer|ማራገቢያ እጅ
-Wäsche|የታጠበ ልብስ
 Kleiderschrank|የልብስ ቁም ሳጥን
-Sparbüchse|ሳንቲም ሳጥን
-Schatz|ሀብት
-Kerzenlicht|የሻማ ብርሃን
 Flamme|ነበልባል
 Blume in Vase|በማስቀመጫ ያለ አበባ
 Blumenstrauß|የአበባ እቅፍ
 Kranz|የአበባ ጉንጉን
-Feder Vogel|የወፍ ላባ
-Kette Gold|የወርቅ ሀብል
 Perle|ዕንቁ
-Zauberkugel|የአስማት ኳስ
-Leiter Feuerwehr|የእሳት አደጋ መሰላል
 Fernrohr|ቴሌስኮፕ ትንሽ
-Spiegel Hand|የእጅ መስታወት
+Handspiegel|የእጅ መስታወት
 Wasserflasche|የውሃ ጠርሙስ
 Brotdose|የምሳ ዕቃ
 Thermosflasche|ቴርሞስ ትንሽ
 Picknickkorb|የሽርሽር ቅርጫት
 Einkaufswagen|የገበያ ጋሪ
 Einkaufskorb|የገበያ ቅርጫት
-Einkaufsliste|የገበያ ዝርዝር
 Preisschild|የዋጋ መለያ
-Waage Obst|የፍራፍሬ ሚዛን
 Kerze anzünden|ሻማ ማብራት
 Ballon platzt|ፊኛ መፈንዳት
-Wolke mit Regen|ዝናባማ ደመና
 Sonne mit Brille|መነጽር ያደረገች ፀሐይ
 Lachendes Gesicht|የሚስቅ ፊት
 Trauriges Gesicht|የሚያዝን ፊት
-Herz gebrochen|የተሰበረ ልብ
+Gebrochenes Herz|የተሰበረ ልብ
 Totenkopf|የራስ ቅል ምልክት
-Krone König|የንጉሥ ዘውድ
 Schwert|ሰይፍ
 Schild|ጋሻ
 Bogen|ቀስት መወርወሪያ
@@ -61,17 +46,10 @@ Bombe|ቦምብ
 Dynamit|ዳይናማይት
 Mauer|ግንብ
 Zielscheibe|የዒላማ ሰሌዳ
-Ziel|ዒላማ
-Pokal Gold|የወርቅ ዋንጫ
-Brot mit Butter|ዳቦ በቅቤ
 Kaffeetasse|የቡና ስኒ
 Teebeutel|የሻይ ከረጢት
-Eiswaffel Kugel|የአይስክሬም ኳስ
 Bonbonglas|የከረሜላ ብልቃጥ
 Nest|ጎጆ
-Höhle Bär|የድብ ዋሻ
-Fußball Tor|የእግር ኳስ ጎል
-Schaukel Baum|በዛፍ ላይ ዥዋዥዌ
 Baumkrone|የዛፍ ጫፍ
 Apfelbaum|የፖም ዛፍ
 Bananenstaude|የሙዝ ተክል
@@ -80,36 +58,21 @@ Kaffeebohne|የቡና ፍሬ
 Maisfeld|የበቆሎ ማሳ
 Reisfeld|የሩዝ ማሳ
 Blumenwiese|የአበባ ሜዳ
-Sonnenschirm Strand|የባሕር ዳርቻ ጃንጥላ
-Liegestuhl Strand|የባሕር ዳርቻ ወንበር
 Eimer und Schaufel|ባልዲና አካፋ
 Muschelkette|የዛጎል ሀብል
-Wellenreiten|ሞገድ መጋለብ
 Fußabdruck|የእግር አሻራ ቃል
 Handabdruck|የእጅ አሻራ
-Schatten Baum|የዛፍ ጥላ
-Licht|ብርሃን
 Sonnenstrahl|የፀሐይ ጨረር
-Stromausfall|የመብራት መጥፋት
-Kerze im Dunkeln|በጨለማ ሻማ
 Mondschein|የጨረቃ ብርሃን
 @2
 Schneekugel|የበረዶ ኳስ ጌጥ
-Spieluhr Ballerina|የዳንሰኛ ሙዚቃ ሳጥን
 Traumfänger|ሕልም ያዥ
 Windspiel|የነፋስ ደወል
 Mobile|ተንጠልጣይ ጌጥ
 Lampion|የወረቀት ፋኖስ
 Papierlaterne|የወረቀት መብራት
-Fackel Feuer|የእሳት ችቦ
-Leuchtkäfer Glas|በብልቃጥ ያሉ የብርሃን ትሎች
-Lupe Sonne|በማጉያ ፀሐይ
-Brennglas|ማቃጠያ መስታወት
 Prisma|ፕሪዝም
-Kaleidoskop Farben|የካሌይዶስኮፕ ቀለሞች
-Spiegelkabinett|የመስታወት ክፍል
 Zerrspiegel|የሚያዛባ መስታወት
-Glaskugel|የመስታወት ኳስ
 Murmel|ብይ ኳስ
 Flummi|ዘላይ ኳስ
 Wasserbombe|የውሃ ፊኛ
@@ -117,16 +80,12 @@ Knete|ሊጥ ጨዋታ
 Malbuch|የቀለም መጽሐፍ
 Stickeralbum|የተለጣፊ አልበም
 Aufkleber|ተለጣፊ
-Abziehbild|ተለጣፊ ሥዕል
-Stempelset|የማኅተም ስብስብ
-Kreidemalerei|የጠመኔ ሥዕል መሬት
 Hüpfspiel|የመዝለል ጨዋታ መሬት
 Gummitwist|የላስቲክ ዝላይ
 Steinschleuder|ወንጭፍ
 Pfeil und Bogen|ቀስትና ፍላፃ
 Holzschwert|የእንጨት ሰይፍ
 Spielzeugpistole|የአሻንጉሊት ሽጉጥ
-Ritterburg Spielzeug|የአሻንጉሊት ምሽግ
 Kuscheltier|የሚታቀፍ አሻንጉሊት
 Handpuppe|የእጅ አሻንጉሊት
 Sockenpuppe|የካልሲ አሻንጉሊት
@@ -135,8 +94,6 @@ Ferngesteuertes Auto|ሪሞት መኪና
 Bauklotzturm|የብሎክ ማማ
 Kartenspiel|የካርታ ጨዋታ ጥቅል
 Würfelbecher|የዳይስ ጽዋ
-Sanduhr Spiel|የአሸዋ ሰዓት ጨዋታ
-Spardose Schwein|የአሳማ ሳንቲም ማጠራቀሚያ
 Geldsack|የገንዘብ ከረጢት
 Goldbarren|የወርቅ አሞሌ
 Goldmünze|የወርቅ ሳንቲም
@@ -146,205 +103,70 @@ Piratenschiff|የወንበዴ መርከብ
 Augenklappe|የዓይን መሸፈኛ
 Holzbein|የእንጨት እግር
 Hakenhand|የመንጠቆ እጅ
-Papagei Schulter|በትከሻ ላይ በቀቀን
-Fernrohr Pirat|የወንበዴ ቴሌስኮፕ
-Planke|ሳንቃ
 Kanonenkugel|የመድፍ ኳስ
 Schiffswrack|የሰመጠ መርከብ
 Leuchtrakete|የምልክት ሮኬት
-Rettungsinsel|ነፍስ አድን ደሴት
-Notsignal|የአደጋ ምልክት
-Erste Hilfe Kasten|የመጀመሪያ ርዳታ ሳጥን
+Erste-Hilfe-Kasten|የመጀመሪያ ርዳታ ሳጥን
 Feuerleiter|የእሳት ማምለጫ ደረጃ
 Notausgang|የአደጋ ጊዜ መውጫ
 Sirene|ሳይረን
 Blaulicht|ሰማያዊ መብራት
-Absperrband|የመከለያ ቴፕ
 Warnschild|የማስጠንቀቂያ ምልክት
 Pylone|የትራፊክ ኮን
-Bauzaun|የግንባታ አጥር
 Gerüst|ስካፎልዲንግ
 Ziegelstein|ጡብ
-Zement|ሲሚንቶ
-Beton|ኮንክሪት
-Holzbrett|የእንጨት ሳንቃ
-Wellblech|ቆርቆሮ ጣሪያ
 Stroh|ገለባ
 Heuballen|የገለባ ጥቅል
 Heugabel|መንሽ
-Futtertrog|የእንስሳ መመገቢያ
-Melkeimer|የወተት ባልዲ
-Butterfass|ቅቤ መናጫ
-Gärkrug|እንስራ
-Tonkrug|የሸክላ ማሰሮ
 Wasserkrug|ገንቦ
-Lehmofen|የጭቃ ምድጃ
 Mitad|ምጣድ
 Holzlöffel|የእንጨት ማንኪያ
 Kalebasse|ቅል
-Korbteller|ሰፌድ
 Strohhut|የገለባ ባርኔጣ
-Hirtenstab|የእረኛ በትር
-Glocke Kuh|የላም ቃጭል
-Weidezaun|የግጦሽ አጥር
-Vogelhäuschen|የወፍ ቤት ዛፍ
-Futterhaus|የወፍ መመገቢያ
-Hängebrücke Seil|የገመድ ድልድይ
+Kuhglocke|የላም ቃጭል
 Lianen|ሐረግ
 Kokospalme|የኮኮናት ዛፍ
-Palmenstrand|የዘንባባ ዳርቻ
-Kaktusblüte|የቁልቋል አበባ
 Rosenstrauch|የጽጌረዳ ቁጥቋጦ
 Blütenblatt|የአበባ ቅጠል
-Samenkorn|የዘር ፍሬ
-Keimling|ቡቃያ
 Setzling|ችግኝ
 Baum pflanzen|ዛፍ መትከል
 Jahresringe|የዓመት ቀለበቶች
-Harz|ሙጫ ዛፍ
-Rinde|ቅርፊት ዛፍ
-Ast mit Vogel|ወፍ ያለበት ቅርንጫፍ
-Herbstblatt|የመኸር ቅጠል
 Laubhaufen|የቅጠል ክምር
 Schneeengel|የበረዶ መልአክ
 Iglu|የበረዶ ቤት
 Schneeschuh|የበረዶ ጫማ ትልቅ
-Eisloch Angeln|በበረዶ ጉድጓድ ዓሣ ማጥመድ
-Pinguin auf Eis|በበረዶ ላይ ፔንጉዊን
 Eisscholle|የበረዶ ቁራጭ
-Polarstern|የሰሜን ኮከብ
 Sternenhimmel|ኮከባማ ሰማይ
 Mondsichel|ቀጭን ጨረቃ
 Sonnenuhr|የፀሐይ ሰዓት
 Wetterfahne|የነፋስ ባንዲራ
-Windsack|የነፋስ ከረጢት
-Regenrinne|የዝናብ ቦይ
-Regentonne|የዝናብ ውሃ በርሜል
 Regentropfen|የዝናብ ጠብታ
-Regenstiefel|የዝናብ ቦቲ
-Gewitterwolke|የነጎድጓድ ደመና
 @3
-Perpetuum Mobile|ዘላለማዊ እንቅስቃሴ
-Rube-Goldberg-Maschine|ውስብስብ ማሽን
-Dominoeffekt|የዶሚኖ ውጤት
-Kettenreaktion|ሰንሰለታዊ ምላሽ
-Schmetterlingseffekt|የቢራቢሮ ውጤት
-Teufelskreis|ክፉ አዙሪት
-Zwickmühle|አጣብቂኝ
-Sackgasse Problem|መውጫ የሌለው ችግር
-Eisbergspitze|የበረዶ ተራራ ጫፍ
 Nadel im Heuhaufen|በገለባ ውስጥ መርፌ
 Elefant im Porzellanladen|ዝሆን በሸክላ ሱቅ
-Katze im Sack|በከረጢት ያለች ድመት
-Wolf im Schafspelz|የበግ ለምድ የለበሰ ተኩላ
-Hahn im Korb|በቅርጫት ውስጥ ዶሮ
-Fisch auf dem Trockenen|ከውሃ የወጣ ዓሣ
-Zwei Fliegen mit einer Klappe|በአንድ ድንጋይ ሁለት ወፍ
-Luftschloss|የአየር ላይ ቤተ መንግሥት
-Kartenhaus Einsturz|የሚፈርስ የካርታ ቤት
-Schneeballeffekt|የበረዶ ኳስ ውጤት
-Achillesferse|ደካማ ጎን
 Trojanisches Pferd|የትሮይ ፈረስ
-Büchse der Pandora|የፓንዶራ ሣጥን
-Damoklesschwert|የዳሞክለስ ሰይፍ
-Gordischer Knoten|ውስብስብ ቋጠሮ
-Rotes Tuch|ቀይ ጨርቅ
 Schwarzes Schaf|ጥቁር በግ
-Weißer Elefant|ነጭ ዝሆን
-Grüner Daumen|አረንጓዴ አውራ ጣት
-Blaues Auge|ሰማያዊ ዓይን ቁስል
-Goldene Gans|ወርቃማ ዝይ
-Silberstreif|የተስፋ ጭላንጭል
 Regenbogenfisch|የቀስተ ደመና ዓሣ
-Glückspfennig|የእድል ሳንቲም
-Wunschknochen|የምኞት አጥንት
-Kieselsteinweg|የጠጠር መንገድ
-Pflasterstein|የመንገድ ድንጋይ
-Kopfsteinpflaster|የድንጋይ ንጣፍ
 Gullydeckel|የፍሳሽ ክዳን
 Hydrant|የእሳት ውሃ ቧንቧ
-Litfaßsäule|የማስታወቂያ ዓምድ
 Telefonzelle|የስልክ ቤት
-Briefkasten Gelb|ቢጫ የፖስታ ሣጥን
 Parkbank|የመናፈሻ አግዳሚ
-Trinkbrunnen|የመጠጥ ውሃ ምንጭ
-Taubenschlag|የርግብ ቤት
 Fahrradständer|የብስክሌት ማቆሚያ
-Bauzaunplakat|የግንባታ ማስታወቂያ
-Wartehäuschen|መጠለያ ፌርማታ
-Sonnenkollektor|የፀሐይ ሰብሳቢ
-Wärmepumpe|የሙቀት ፓምፕ
-Regenwassertank|የዝናብ ውሃ ታንከር
-Biogasanlage|የባዮጋዝ ማመንጫ
-Mülltrennung|ቆሻሻ መለየት
 Recycling|መልሶ መጠቀም
-Pfandflasche|ተመላሽ ጠርሙስ
-Plastikmüll|የፕላስቲክ ቆሻሻ
-Ölteppich|የዘይት ብክለት
-Smog|ጭስና ጭጋግ
-Lärm|ጫጫታ
-Luftverschmutzung|የአየር ብክለት
-Abholzung|ደን መጨፍጨፍ
-Wiederaufforstung|ደን መልሶ ማልማት
-Artenschutz|የዝርያ ጥበቃ
 Wilderer|ሕገ ወጥ አዳኝ
-Elfenbein|የዝሆን ጥርስ ሀብት
 Pelzmantel|የፀጉር ካፖርት
 Lederjacke|የቆዳ ጃኬት
-Seidentuch|የሐር ሻርፕ
 Baumwollfeld|የጥጥ ማሳ
-Wollschaf|ሱፍ ያለው በግ
-Schafschur|በግ መሸለት
-Spindel|እንዝርት
 Garnrolle|የክር ጥቅልል
-Stoffballen|የጨርቅ ጥቅል
-Flickenteppich|የቁርጥራጭ ጨርቅ ምንጣፍ
-Patchwork|የቁርጥራጭ ስፌት
-Wandteppich|የግድግዳ ምንጣፍ
-Perserteppich|የፋርስ ምንጣፍ
 Gebetsteppich|የጸሎት ምንጣፍ
 Ikone|ሥዕለ አድኅኖ
-Prozessionskreuz|የእጅ መስቀል
-Kirchenschirm|የቤተ ክርስቲያን ጃንጥላ
-Weihwasser|ጠበል
 Weihrauch|ዕጣን ጭስ
 Rosenkranz|መቁጠሪያ
-Gebetskette|የጸሎት መቁጠሪያ
 Kirchenglocke|የቤተ ክርስቲያን ደወል
 Orgel|ኦርጋን
-Kanzel|መድረክ ቤተ ክርስቲያን
 Altar|መሠዊያ
-Taufbecken|የጥምቀት ገንዳ
 Bundeslade|ታቦት
-Mönchskutte|የመነኩሴ ልብስ
-Klosterzelle|የገዳም ክፍል
-Pilgerreise|የሐጅ ጉዞ
-Wallfahrtsort|የንግደት ቦታ
-Heilige Quelle|ቅዱስ ጸበል
-Kerzenmeer|የሻማ ባሕር
-Fastenbrechen|ፍጥር
-Festtagsbrot|የበዓል ዳቦ
-Schlachtfest|የቅርጫ ሥጋ
-Kirchenfest|ንግሥ
-Erntedankfest|የምስጋና በዓል መከር
-Irreecha|ኢሬቻ
-Fichee Chambalaalla|ፊቼ ጫምባላላ
-Ashenda|አሸንዳ
-Buhe|ቡሄ
-Chibo|ችቦ ቡሄ
-Hoya Hoye|ሆያ ሆዬ
-Abebayehosh|አበባየሆሽ
-Gena Weihnachtsspiel|የገና ጨዋታ ዱላ
-Stockspiel|የዱላ ጨዋታ
-Peitschenknall|ጅራፍ ማጮህ
-Kerzenprozession|የሻማ ሰልፍ
 Feuerlauf|በእሳት ላይ መራመድ
-Drachenboot|የዘንዶ ጀልባ
-Laternenfest|የፋኖስ በዓል
-Holi|ሆሊ
-Diwali|ዲዋሊ
-Chinesisches Neujahr|የቻይና አዲስ ዓመት
-Löwentanz|የአንበሳ ዳንስ
 Drachentanz|የዘንዶ ዳንስ
 Samba|ሳምባ
 Tango|ታንጎ
@@ -353,16 +175,7 @@ Bauchtanz|የሆድ ዳንስ
 Stepptanz|የእግር ምት ዳንስ
 Moonwalk|የጨረቃ እርምጃ
 Roboterdance|የሮቦት ዳንስ
-Polonaise|ፖሎኔዝ
 Limbo|ሊምቦ
-Schuhplattler|የጫማ ምት ዳንስ
-Volkstanz|የባሕል ዳንስ
-Gurage Tanz|የጉራጌ ጭፈራ
-Tigray Tanz|የትግራይ ጭፈራ
-Oromo Tanz|የኦሮሞ ጭፈራ
-Wolaita Tanz|የወላይታ ጭፈራ
-Gondar Tanz|የጎንደር ጭፈራ
-Schulter Tanz|የትከሻ ጭፈራ
 @1
 Schneckenhaus|የቀንድ አውጣ ቤት
 Hundeknochen|የውሻ አጥንት

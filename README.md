@@ -18,7 +18,7 @@ Werkzeuge: 24 Farben, 4 Pinselgrößen, Radierer, Füllen, Rückgängig, Alles l
 
 ## Wörter
 
-`words/*.txt` enthält **4.010 Alltagswörter** als Paare (Deutsch | Amharisch) mit Schwierigkeit 1–3.
+`words/*.txt` enthält **2.851 gut malbare Wörter und Szenen** als Paare (Deutsch | Amharisch) mit Schwierigkeit 1–3.
 Jedes Wort hat in beiden Sprachen dieselbe ID, deshalb können deutsche und äthiopische Spieler zusammen spielen.
 Nach Änderungen an den Textdateien neu erzeugen:
 
