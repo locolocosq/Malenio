@@ -22,7 +22,6 @@ Bäcker|ዳቦ ጋጋሪ
 Bauer|ገበሬ
 Fischer|ዓሣ አጥማጅ
 Pilot|አብራሪ
-Soldat|ወታደር
 König|ንጉሥ
 Königin|ንግሥት
 Prinz|ልዑል
@@ -31,15 +30,9 @@ Ritter|ባላባት
 Pirat|የባሕር ወንበዴ
 Clown|ቀልደኛ
 Zauberer|አስማተኛ
-Hexe|ጠንቋይ ሴት
-Geist|መንፈስ
 Engel|መልአክ
-Teufel|ሰይጣን
 Roboter|ሮቦት
 Alien|ከሌላ ፕላኔት የመጣ
-Monster|ጭራቅ
-Vampir|ቫምፓየር
-Zombie|ዞምቢ
 Superheld|ጀግና ሱፐር
 Astronaut|የጠፈር ተመራማሪ
 Sänger|ዘፋኝ
@@ -62,16 +55,13 @@ Braut|ሙሽሪት
 Bräutigam|ሙሽራ
 Meerjungfrau|የባሕር ሴት
 Weihnachtsmann|የገና አባት
-Ninja|ኒንጃ
 Cowboy|ካውቦይ
-Mumie|ሙሚ
 Fußballspieler|የእግር ኳስ ተጫዋች
 Schiedsrichter|ዳኛ ስፖርት
 Tourist|ቱሪስት
 @2
 Zwillinge|መንታዎች
 Wissenschaftler|ሳይንቲስት
-Tierarzt|የእንስሳት ሐኪም
 Musiker|ሙዚቀኛ
 Dirigent|የሙዚቃ መሪ
 DJ|ዲጄ
@@ -85,7 +75,6 @@ Müllmann|ቆሻሻ ሰብሳቢ
 Schuhputzer|ሊስትሮ
 Taucher|ጠላቂ
 Bergsteiger|ተራራ ወጪ
-Gefangener|እስረኛ
 Pharao|ፈርዖን
 Wikinger|ቫይኪንግ
 Höhlenmensch|የዋሻ ሰው
@@ -96,7 +85,6 @@ Teddybär|የጨርቅ ድብ
 @3
 Holzfäller|እንጨት ቆራጭ
 Torwart|ግብ ጠባቂ
-Boxer|ቦክሰኛ
 Surfer|ሞገድ ተንሸራታች
 Skifahrer|የበረዶ ተንሸራታች
 Wunderlampe|የአስማት መብራት

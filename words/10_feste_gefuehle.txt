@@ -4,8 +4,6 @@ Weihnachten|ገና
 Hochzeit|ሠርግ
 Weihnachtsbaum|የገና ዛፍ
 Osterei|የፋሲካ እንቁላል
-Halloween|ሃሎዊን
-Kürbislaterne|የዱባ ፋኖስ
 @2
 Konfetti|ኮንፈቲ
 Lichterkette|የብርሃን ገመድ
@@ -18,11 +16,7 @@ Weihnachtsstrumpf|የገና ካልሲ
 Osternest|የፋሲካ ጎጆ
 @3
 Thron|ዙፋን
-Katapult|ወንጭፍ ትልቅ
-Grabstein|የመቃብር ድንጋይ
-Sarg|የሬሳ ሳጥን
 Schornsteinfeger|የጭስ ማውጫ ጠራጊ
 Glückskeks|የእድል ብስኩት
 Mammut|ማሞዝ
 Postkarte|የፖስታ ካርድ
-Handschellen|የእጅ ካቴና

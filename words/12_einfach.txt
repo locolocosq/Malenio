@@ -1,0 +1,532 @@
+# Einfache Alltagswörter (nur einzelne Dinge)
+@1
+Ananassaft|የአናናስ ጭማቂ
+Apfelsaft|የፖም ጭማቂ
+Orangensaft|የብርቱካን ጭማቂ
+Brotscheibe|የዳቦ ቁራጭ
+Käsestück|የአይብ ቁራጭ
+Wurstbrot|የቋሊማ ዳቦ
+Erdbeerkuchen|የእንጆሪ ኬክ
+Schokoladeneis|የቸኮሌት አይስክሬም
+Vanilleeis|የቫኒላ አይስክሬም
+Zuckerstück|የስኳር ቁራጭ
+Teelöffel|የሻይ ማንኪያ
+Suppenlöffel|የሾርባ ማንኪያ
+Brotmesser|የዳቦ ቢላ
+Kochtopf|የማብሰያ ድስት
+Wasserglas|የውሃ ብርጭቆ
+Milchglas|የወተት ብርጭቆ
+Becher|ኩባያ ትልቅ
+Kaffeekanne|የቡና ማንቆርቆሪያ
+Eierbecher|የእንቁላል ማስቀመጫ
+Salzstreuer|የጨው መነስነሻ
+Pfefferstreuer|የቁንዶ በርበሬ መነስነሻ
+Butterdose|የቅቤ ዕቃ
+Brotkasten|የዳቦ ሳጥን
+Kuchenform|የኬክ መጋገሪያ
+Backofen|የመጋገሪያ ምድጃ
+Gasherd|የጋዝ ምድጃ
+Spülbecken|የእቃ ማጠቢያ ገንዳ
+Küchentisch|የወጥ ቤት ጠረጴዛ
+Küchenschrank|የወጥ ቤት ቁም ሳጥን
+Stuhlkissen|የወንበር ትራስ
+Sitzkissen|የመቀመጫ ትራስ
+Tischlampe|የጠረጴዛ መብራት
+Deckenlampe|የጣሪያ መብራት
+Lampenschirm|የመብራት ሽፋን
+Fensterbank|የመስኮት መደርደሪያ
+Fensterscheibe|የመስኮት መስታወት
+Türschloss|የበር ቁልፍ መያዣ
+Haustürschlüssel|የቤት ቁልፍ
+Autoschlüssel|የመኪና ቁልፍ
+Briefumschlag|የደብዳቤ ፖስታ
+Geburtstagskarte|የልደት ካርድ
+Bettdecke|ብርድ ልብስ አልጋ
+Kopfkissen|የራስ ትራስ
+Kinderbett|የልጅ አልጋ
+Doppelbett|ድርብ አልጋ
+Schlafsofa|የሚታጠፍ ሶፋ
+Fernsehtisch|የቴሌቪዥን ጠረጴዛ
+Wanduhr|የግድግዳ ሰዓት
+Taschenuhr|የኪስ ሰዓት
+Spielball|የመጫወቻ ኳስ
+Tennisball|የቴኒስ ኳስ
+Golfball|የጎልፍ ኳስ
+Wasserball|የውሃ ኳስ
+Gummiball|የላስቲክ ኳስ
+Spielkarte|የመጫወቻ ካርታ
+Bilderbuch|የሥዕል መጽሐፍ
+Kinderbuch|የልጆች መጽሐፍ
+Kochbuch|የምግብ አሠራር መጽሐፍ
+Notizbuch|ማስታወሻ ደብተር
+Malstift|የቀለም እርሳስ መሳያ
+Filzstift|ማርከር
+Kreidestift|የጠመኔ እርሳስ
+Schulheft|የትምህርት ደብተር
+Schulbuch|የትምህርት መጽሐፍ
+Turnbeutel|የስፖርት ከረጢት
+Handtasche|የእጅ ቦርሳ
+Reisetasche|የጉዞ ቦርሳ
+Einkaufstasche|የገበያ ቦርሳ
+Plastiktüte|ፌስታል ፕላስቲክ
+Papiertüte|የወረቀት ከረጢት
+Geldmünze|የብረት ሳንቲም
+Kaffeebecher|የቡና ኩባያ
+Teeglas|የሻይ ብርጭቆ
+Zuckerdose|የስኳር ዕቃ
+Honigglas|የማር ብልቃጥ
+Ölflasche|የዘይት ጠርሙስ
+Glasflasche|የመስታወት ጠርሙስ
+Plastikflasche|የፕላስቲክ ጠርሙስ
+Kanister|ጀሪካን
+Wasserkanister|የውሃ ጀሪካን
+Gaskocher|የጋዝ ምድጃ ትንሽ
+Petroleumkocher|የኩራዝ ምድጃ
+Holzofen|የእንጨት ምድጃ
+Brennholz|ማገዶ
+Holzstück|የእንጨት ቁራጭ
+Holzkiste|የእንጨት ሳጥን
+Pappkarton|ካርቶን ሳጥን
+Schuhkarton|የጫማ ካርቶን
+Geschenkbox|የስጦታ ሳጥን
+Schmuckkästchen|የጌጣጌጥ ሳጥን
+Nähkasten|የስፌት ሳጥን
+Stecknadel|ጭንቅላት ያለው መርፌ
+Sicherheitsnadel|መርፌ ቁልፍ
+Gummiband|ላስቲክ ማሰሪያ
+Haargummi|የፀጉር ላስቲክ
+Haarbürste|የፀጉር ብሩሽ
+Kleiderbürste|የልብስ ብሩሽ
+Schuhbürste|የጫማ ብሩሽ
+Schuhcreme|የጫማ ቀለም
+Fingerring|የጣት ቀለበት
+Halskette|የአንገት ሀብል
+Goldkette|የወርቅ ሀብል
+Uhrarmband|የሰዓት ማሰሪያ
+Wollmütze|የሱፍ ኮፍያ
+Sonnenhut|የፀሐይ ባርኔጣ
+Baseballmütze|የቤዝቦል ኮፍያ
+Winterjacke|የክረምት ጃኬት
+Regenjacke|የዝናብ ጃኬት
+Jeansjacke|የጂንስ ጃኬት
+Wollpullover|የሱፍ ሹራብ
+Sommerkleid|የበጋ ቀሚስ
+Nachthemd|የሌሊት ቀሚስ
+Unterhemd|ካናቴራ
+Wollsocken|የሱፍ ካልሲ
+Lederschuh|የቆዳ ጫማ
+Badeschuhe|የመታጠቢያ ጫማ
+Sportschuh|የስፖርት ጫማ
+Schneeanzug|የበረዶ ልብስ
+Hundekorb|የውሻ ቅርጫት
+Katzenkorb|የድመት ቅርጫት
+Katzenfutter|የድመት ምግብ
+Hundefutter|የውሻ ምግብ
+Vogelfutter|የወፍ ምግብ
+Hühnerei|የዶሮ እንቁላል
+Hühnerstall|የዶሮ ቤት
+Kuhstall|የከብት በረት
+Schafstall|የበግ በረት
+Ziegenbock|አውራ ፍየል
+Ziegenmilch|የፍየል ወተት
+Kuhmilch|የላም ወተት
+Milchkanne|የወተት ጋን
+Hirtenhund|የእረኛ ውሻ
+Pony|ትንሽ ፈረስ
+Maultier|በቅሎ
+Ochse|በሬ የሚያርስ
+Hengst|አውራ ፈረስ
+Ferkel|የአሳማ ግልገል
+Henne|ዶሮ ሴት
+Blumenkranz|የአበባ ጉንጉን
+Blumenvase|የአበባ ማስቀመጫ
+Rosenblüte|የጽጌረዳ አበባ
+Kirschbaum|የቼሪ ዛፍ
+Zitronenbaum|የሎሚ ዛፍ
+Orangenbaum|የብርቱካን ዛፍ
+Bananenbaum|የሙዝ ዛፍ
+Mangobaum|የማንጎ ዛፍ
+Kaffeebaum|የቡና ዛፍ
+Tannenbaum|የጥድ ዛፍ
+Palmenblatt|የዘንባባ ቅጠል
+Grashalm|የሣር ቅጠል
+Blumenerde|የአበባ አፈር
+Gartenhaus|የአትክልት ቤት
+Gartentor|የአትክልት በር
+Gartenschere|የአትክልት መቀስ
+Blumenkasten|የአበባ ሳጥን
+Steinmauer|የድንጋይ ግንብ
+Holzzaun|የእንጨት አጥር
+Gartenstuhl|የአትክልት ወንበር
+Gartentisch|የአትክልት ጠረጴዛ
+Sandeimer|የአሸዋ ባልዲ
+Sandschaufel|የአሸዋ አካፋ
+Schneeschaufel|የበረዶ አካፋ
+Schneeball|የበረዶ ኳስ
+Bauernhaus|የገበሬ ቤት
+Lehmhaus|የጭቃ ቤት
+Kirchturm|የቤተ ክርስቲያን ማማ
+Stadtmauer|የከተማ ግንብ
+Marktstand|የገበያ መደብ
+Obststand|የፍራፍሬ መደብ
+Gemüsestand|የአትክልት መደብ
+Busbahnhof|የአውቶቡስ መናኸሪያ
+Fußgängerbrücke|የእግረኛ ድልድይ
+Holzbrücke|የእንጨት ድልድይ
+Steinbrücke|የድንጋይ ድልድይ
+Straßenschild|የመንገድ ምልክት
+Ortsschild|የከተማ ስም ሰሌዳ
+Mülltonne|የቆሻሻ ገንዳ
+Papierkorb|የወረቀት ቅርጫት
+Sonnenblumenfeld|የሱፍ አበባ ማሳ
+Kornfeld|የእህል ማሳ
+Weizenfeld|የስንዴ ማሳ
+Heuhaufen|የገለባ ክምር
+Sandstrand|የአሸዋ ዳርቻ
+Strandkorb|የዳርቻ ወንበር
+Strandtuch|የዳርቻ ፎጣ
+Badetuch|የመታጠቢያ ፎጣ
+Handtuchhalter|የፎጣ መስቀያ
+Seifenschale|የሳሙና ማስቀመጫ
+Zahnbecher|የጥርስ ብሩሽ ኩባያ
+Badeente|የመታጠቢያ ዳክዬ
+Spielzeugboot|የአሻንጉሊት ጀልባ
+Spielzeugzug|የአሻንጉሊት ባቡር
+Spielzeugflugzeug|የአሻንጉሊት አውሮፕላን
+Holzpferd|የእንጨት ፈረስ
+Plüschtier|የጨርቅ አሻንጉሊት
+Stoffhase|የጨርቅ ጥንቸል
+Babypuppe|የሕፃን አሻንጉሊት
+Seifenblase|የሳሙና አረፋ
+@2
+Petersilie|ፓርስሊ
+Minze|ናና
+Basilikum|በሶብላ
+Schnittlauch|ቀጭን ሽንኩርት
+Lauch|ሊክ
+Limette|ትንሽ ሎሚ
+Aprikose|አፕሪኮት
+Grapefruit|ግሬፕፍሩት
+Haselnuss|ሄዝልኑት
+Kichererbse|ሽምብራ
+Lachs|ሳልመን
+Thunfisch|ቱና
+Sardine|ሰርዲን
+Rindfleisch|የበሬ ሥጋ
+Hackfleisch|የተፈጨ ሥጋ
+Salami|ሳላሚ
+Käsescheibe|የአይብ ቁራጭ ቀጭን
+Butterbrot|ቅቤ የተቀባ ዳቦ
+Toastbrot|የቶስት ዳቦ
+Vollkornbrot|ሙሉ ስንዴ ዳቦ
+Brotlaib|ሙሉ ዳቦ
+Pfannenkuchen|ፓንኬክ ትልቅ
+Apfelkuchen|የፖም ኬክ
+Käsekuchen|የአይብ ኬክ
+Obstkuchen|የፍራፍሬ ኬክ
+Mohnbrötchen|የፖፒ ዳቦ
+Sesambrötchen|የሰሊጥ ዳቦ
+Bananenbrot|የሙዝ ዳቦ
+Maiskolben|የበቆሎ እሸት
+Kartoffelsack|የድንች ከረጢት
+Zwiebelring|የሽንኩርት ቀለበት
+Paprikaschote|የቃሪያ ፍሬ
+Tomatensoße|የቲማቲም ስጎ
+Ketchupflasche|የኬችአፕ ጠርሙስ
+Senfglas|የሰናፍጭ ብልቃጥ
+Essiggurke|የተቀመመ ኪያር
+Olivenöl|የወይራ ዘይት
+Sonnenblumenöl|የሱፍ ዘይት
+Weizenmehl|የስንዴ ዱቄት
+Reiskorn|የሩዝ ፍሬ
+Haferflocken|የአጃ ፍርፋሪ
+Erdnussbutter|የኦቾሎኒ ቅቤ
+Schokoladentafel|የቸኮሌት ባር
+Bonbontüte|የከረሜላ ከረጢት
+Kaugummiautomat|የማስቲካ ማሽን
+Eistüte|የአይስክሬም ኮን
+Eisstiel|የአይስክሬም ዱላ
+Saftflasche|የጭማቂ ጠርሙስ
+Milchtüte|የወተት ካርቶን
+Joghurtbecher|የእርጎ ኩባያ
+Teekessel|የሻይ ማፍያ
+Kaffeemühle|የቡና መፍጫ
+Kaffeefilter|የቡና ማጣሪያ
+Kaffeetasse|የቡና ስኒ
+Pfeffermühle|የቁንዶ በርበሬ መፍጫ
+Knoblauchpresse|የነጭ ሽንኩርት መጭመቂያ
+Kartoffelschäler|የድንች መላጫ
+Messerblock|የቢላ ማስቀመጫ
+Holzbrett|የእንጨት መክተፊያ
+Backblech|የመጋገሪያ ብረት
+Topflappen|የድስት መያዣ ጨርቅ
+Geschirrtuch|የእቃ መጥረጊያ ጨርቅ
+Küchenrolle|የወጥ ቤት ወረቀት
+Alufolie|አሉሚኒየም ወረቀት
+Frischhaltedose|የምግብ ማስቀመጫ ሳጥን
+Vorratsdose|የማከማቻ ዕቃ
+Gewürzregal|የቅመም መደርደሪያ
+Weinglas|የወይን ብርጭቆ
+Sektglas|የሻምፓኝ ብርጭቆ
+Kerzenhalter|የሻማ መያዣ
+Wandspiegel|የግድግዳ መስታወት
+Kleiderhaken|የልብስ መንጠቆ
+Schlüsselbrett|የቁልፍ መስቀያ
+Türschild|የበር ሰሌዳ
+Fußabtreter|የእግር መጥረጊያ ምንጣፍ
+Regenschirmständer|የጃንጥላ ማስቀመጫ
+Schuhschrank|የጫማ ቁም ሳጥን
+Wäscheständer|የልብስ ማስጫ
+Nähnadel|የስፌት መርፌ
+Garnrolle|የክር ጥቅል
+Strickjacke|ሹራብ ጃኬት
+Rollkragenpullover|ከፍተኛ አንገት ሹራብ
+Faltenrock|ባለ እጥፋት ቀሚስ
+Latzhose|ባለ ማንጠልጠያ ሱሪ
+Jogginghose|የሩጫ ሱሪ
+Bermudashorts|ረጅም ቁምጣ
+Badelatschen|የመታጠቢያ ሸበጥ
+Wanderschuh|የጉዞ ጫማ
+Ballerinas|ባሌሪና ጫማ
+Ohrstecker|ትንሽ ጉትቻ
+Haarnadel|የፀጉር መርፌ
+Haarkamm|የፀጉር ማበጠሪያ
+Rasierschaum|የመላጫ አረፋ
+Handspiegel|የእጅ መስታወት
+Nagelfeile|የጥፍር ሞረድ
+Handcreme|የእጅ ቅባት
+Lippenbalsam|የከንፈር ቅባት
+Duschgel|የገላ ሳሙና
+Shampoo|ሻምፑ
+Badeschaum|የመታጠቢያ አረፋ
+Waschpulver|የልብስ ሳሙና ዱቄት
+Kehrblech|የቆሻሻ ማንሻ
+Putzeimer|የጽዳት ባልዲ
+Putzlappen|የጽዳት ጨርቅ
+Staubtuch|የአቧራ ጨርቅ
+Werkbank|የሥራ ጠረጴዛ
+Leiterwagen|የእጅ ጋሪ
+Gartenhandschuh|የአትክልት ጓንት
+Blumenzwiebel|የአበባ ሥር
+Kaktustopf|የቁልቋል ማሰሮ
+Hängelampe|ተንጠልጣይ መብራት
+Stirnlampe|የራስ ባትሪ
+Solarlampe|የፀሐይ መብራት
+Steckerleiste|ባለብዙ ሶኬት
+Verlängerungskabel|ማራዘሚያ ገመድ
+Handyhülle|የስልክ ሽፋን
+Ladekabel|የቻርጀር ገመድ
+Powerbank|ፓወር ባንክ
+Kopfhörerkabel|የጆሮ ማዳመጫ ገመድ
+Fernsehantenne|የቴሌቪዥን አንቴና
+Lautsprecherbox|ድምጽ ማጉያ ሳጥን
+Gamepad|የጨዋታ መቆጣጠሪያ
+Computerbildschirm|የኮምፒውተር ስክሪን
+Schreibtischlampe|የጠረጴዛ መብራት
+Bürostuhl|የቢሮ ወንበር
+Aktenordner|የሰነድ ፋይል
+Briefpapier|የደብዳቤ ወረቀት
+Paketband|የጥቅል ቴፕ
+Tesafilm|ስኮች ቴፕ
+Bleistiftspitzer|የእርሳስ መቅረጫ
+Wasserfarben|የውሃ ቀለሞች
+Farbkasten|የቀለም ሳጥን
+Malpinsel|የሥዕል ብሩሽ
+Zeichenblock|የሥዕል ደብተር
+Bastelschere|የልጆች መቀስ
+Bastelpapier|የሥራ ወረቀት
+Glitzer|አንጸባራቂ
+Murmelbahn|የብይ መንገድ
+Steckenpferd|የዱላ ፈረስ
+Spielzeugkiste|የአሻንጉሊት ሳጥን
+Puppenwagen|የአሻንጉሊት ጋሪ
+Bauernhofspielzeug|የእርሻ አሻንጉሊት
+Fußballschuh|የእግር ኳስ ጫማ
+Torwarthandschuh|የግብ ጠባቂ ጓንት
+Tennisschläger|የቴኒስ ራኬት
+Tischtennisschläger|የጠረጴዛ ቴኒስ ራኬት
+Federball|የባድሚንተን ኳስ
+Basketballkorb|የቅርጫት ኳስ ቅርጫት
+Volleyballnetz|የመረብ ኳስ መረብ
+Kegel|ቦውሊንግ ጠርሙስ
+Rollschuhe|ባለ ጎማ ጫማዎች
+Schlittschuhe|የበረዶ ጫማዎች
+Skistock|የስኪ ዱላ
+Skibrille|የስኪ መነጽር
+Fahrradkorb|የብስክሌት ቅርጫት
+Fahrradschloss|የብስክሌት ቁልፍ
+Fahrradlampe|የብስክሌት መብራት
+Fahrradsattel|የብስክሌት መቀመጫ
+Kindersitz|የልጅ መቀመጫ
+Autositz|የመኪና ወንበር
+Autotür|የመኪና በር
+Autofenster|የመኪና መስኮት
+Autoradio|የመኪና ሬዲዮ
+Dachgepäckträger|የጣሪያ ዕቃ መጫኛ
+Zapfsäule|የነዳጅ ፓምፕ
+Benzinkanister|የቤንዚን ጀሪካን
+Verkehrsampel|የትራፊክ መብራት
+Busfahrkarte|የአውቶቡስ ትኬት
+Zugticket|የባቡር ትኬት
+Flugticket|የአውሮፕላን ትኬት
+Rollkoffer|ባለ ጎማ ሻንጣ
+Kofferanhänger|የሻንጣ መለያ
+Stadtplan|የከተማ ካርታ
+Reiseführer|የጉዞ መመሪያ መጽሐፍ
+Fotokamera|የፎቶ ካሜራ
+Videokamera|የቪዲዮ ካሜራ
+Zeltplane|የድንኳን ሸራ
+Luftmatratze|የአየር ፍራሽ
+Campingstuhl|የካምፕ ወንበር
+Kühlbox|የማቀዝቀዣ ሳጥን
+Picknickdecke|የሽርሽር ምንጣፍ
+Grillzange|የጥብስ መያዣ
+Grillkohle|የጥብስ ከሰል
+Vogelhäuschen|የወፍ ቤት
+Insektenhotel|የነፍሳት ቤት
+Aquariumfisch|የገንዳ ዓሣ
+Hamsterkäfig|የሃምስተር ቤት
+Katzenklo|የድመት መጸዳጃ
+Kratzbaum|የድመት መቧጠጫ
+Hundeknochen|የውሻ አጥንት
+Hundeleine|የውሻ ገመድ
+Pferdesattel|የፈረስ ኮርቻ
+Futtertrog|የእንስሳ መመገቢያ
+Mistgabel|መንሽ
+Traktoranhänger|የትራክተር ተሳቢ
+Wassermühle|የውሃ ወፍጮ
+@3
+Rosmarin|ሮዝመሪ
+Thymian|ጠጅ ሳር
+Koriander|ድምብላል
+Dill|ሺቤ
+Salbei|ጠቢብ ቅጠል
+Lorbeerblatt|የበሶ ቅጠል
+Vanilleschote|የቫኒላ ፍሬ
+Zimtstange|የቀረፋ ዱላ
+Ingwerwurzel|የዝንጅብል ሥር
+Kurkuma|እርድ
+Muskatnuss|ገውዝ
+Nelke|ቅርንፉድ
+Stachelbeere|ጉዝቤሪ
+Johannisbeere|ከረንት
+Passionsfrucht|የፓሽን ፍሬ
+Litschi|ሊቺ
+Quitte|ኩዊንስ
+Rhabarber|ሩባርብ
+Kohlrabi|ኮልራቢ
+Pastinake|ፓርስኒፕ
+Fenchel|እንስላል
+Rucola|ሩኮላ
+Chicorée|ቺኮሪ
+Endivie|ኢንዲቭ
+Kresse|ፌጦ
+Kürbiskern|የዱባ ፍሬ
+Sonnenblumenkern|የሱፍ ፍሬ
+Sesamkorn|የሰሊጥ ፍሬ
+Leinsamen|ተልባ
+Linsensuppe|የምስር ሾርባ
+Erbsensuppe|የአተር ሾርባ
+Tomatensuppe|የቲማቲም ሾርባ
+Kartoffelsalat|የድንች ሰላጣ
+Nudelsalat|የፓስታ ሰላጣ
+Gurkensalat|የኪያር ሰላጣ
+Obstsalat|የፍራፍሬ ሰላጣ
+Rührschüssel|የማማሰያ ሳህን
+Messbecher|መለኪያ ኩባያ
+Küchenwaage|የወጥ ቤት ሚዛን
+Eieruhr|የእንቁላል ሰዓት
+Nussknacker|ለውዝ መስበሪያ
+Zitronenpresse|ሎሚ መጭመቂያ
+Spritzbeutel|የክሬም መጭመቂያ
+Pizzaschneider|የፒዛ መቁረጫ
+Tortenheber|የኬክ ማንሻ
+Teesieb|የሻይ ማጣሪያ
+Salatschüssel|የሰላጣ ሳህን
+Suppenkelle|የሾርባ ጭልፋ
+Bratpfanne|የመጥበሻ ብረት
+Schnellkochtopf|ፈጣን ማብሰያ ድስት
+Wok|ዎክ
+Fondueset|የፎንዱ ዕቃ
+Raclettegrill|ራክሌት ጥብስ
+Waffeleisen|የዋፍል ብረት
+Sandwichmaker|የሳንድዊች ማሽን
+Eismaschine|የአይስክሬም ማሽን
+Zuckerzange|የስኳር መያዣ
+Serviettenhalter|የናፕኪን ማስቀመጫ
+Untersetzer|የኩባያ ማስቀመጫ
+Platzdeckchen|የጠረጴዛ ምንጣፍ
+Tischläufer|የጠረጴዛ ረጅም ጨርቅ
+Kerzenleuchter|የሻማ መብራት
+Duftkerze|ሽቶ ያለው ሻማ
+Teelicht|ትንሽ ሻማ
+Briefbeschwerer|የወረቀት መያዣ
+Brieföffner|የደብዳቤ መክፈቻ
+Stempelkissen|የማኅተም ቀለም
+Locher|መብሻ
+Hefter|ስቴፕለር
+Reißzwecke|ፒን
+Magnettafel|የማግኔት ሰሌዳ
+Kreidetafel|የጠመኔ ሰሌዳ
+Weltkugel|ሉል
+Standuhr|ቋሚ ሰዓት
+Barometer|ባሮሜትር
+Wetterstation|የአየር ሁኔታ ጣቢያ
+Briefwaage|የደብዳቤ ሚዛን
+Personenwaage|የሰው ሚዛን
+Zollstock|ታጣፊ ሜትር
+Wasserwaage|ደረጃ መለኪያ
+Kneifzange|ቆንጣጭ ፒንሳ
+Rohrzange|የቧንቧ ፒንሳ
+Inbusschlüssel|አለን ቁልፍ
+Akkuschrauber|ባትሪ መፍቻ
+Stichsäge|ኤሌክትሪክ መጋዝ
+Handsäge|የእጅ መጋዝ
+Schleifpapier|አሸዋ ወረቀት
+Holzleim|የእንጨት ሙጫ
+Pinselreiniger|የብሩሽ ማጽጃ
+Malerrolle|የቀለም ሮለር
+Abdeckplane|መሸፈኛ ሸራ
+Trittleiter|አጭር መሰላል
+Gerüst|ስካፎልዲንግ
+Presslufthammer|የአየር መዶሻ
+Baukran|የግንባታ ክሬን
+Bauhelm|የግንባታ ቆብ
+Warnweste|አንጸባራቂ ሰደርያ
+Verkehrskegel|የትራፊክ ኮን
+Absperrgitter|መከለያ ብረት
+Gullydeckel|የፍሳሽ ክዳን
+Litfaßsäule|የማስታወቂያ ዓምድ
+Pavillon|ድንኳን ቤት
+Kompostkiste|የብስባሽ ሳጥን
+Regentonne|የዝናብ ውሃ በርሜል
+Dachziegel|የጣሪያ ሸክላ
+Wellblechdach|የቆርቆሮ ጣሪያ
+Dachfenster|የጣሪያ መስኮት
+Fensterladen|የመስኮት መዝጊያ
+Rollladen|የሚጠቀለል መዝጊያ
+Jalousie|የመስኮት መጋረጃ ተንሸራታች
+Türklopfer|የበር ማንኳኳያ
+Türspion|የበር መመልከቻ
+Briefschlitz|የደብዳቤ ማስገቢያ
+Ohrensessel|ከፍተኛ ወንበር
+Fußhocker|የእግር ማስቀመጫ
+Wandregal|የግድግዳ መደርደሪያ
+Vitrine|የመስታወት ቁም ሳጥን
+Garderobenständer|የልብስ መስቀያ ቋሚ
+Paravent|መከለያ
+Spinnrad|የፈትል መፍተያ
+Webstuhl|የሸማ መሥሪያ
+Stricknadel|የሹራብ መርፌ
+Schneiderkreide|የልብስ ሰፊ ጠመኔ
+Knopfloch|የቁልፍ ቀዳዳ
+Flicken|ጥገና ጨርቅ
+Bügelperlen|የሚተኮሱ ዶቃዎች
+Perlenkette|የዶቃ ሀብል
+Armreif|አምባር ክብ
+Fußkettchen|የእግር አልቦ
+Haarreif|የፀጉር ቀለበት
+Brosche|ብሮሽ
+Manschettenknopf|የእጅጌ ቁልፍ
+Krawattennadel|የክራቫት መርፌ
+Einstecktuch|የኪስ መሐረብ

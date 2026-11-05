@@ -1,0 +1,200 @@
+# Einfache Alltagswörter, Teil 3 (zusammengesetzte Dinge)
+@1
+Fußballfeld|የእግር ኳስ ሜዳ
+Basketballfeld|የቅርጫት ኳስ ሜዳ
+Strandball|የዳርቻ ኳስ
+Schneehaus|የበረዶ ቤት
+Hundehaus|የውሻ ቤት
+Puppenbett|የአሻንጉሊት አልጋ
+Babybett|የሕፃን አልጋ
+Gitterbett|ባለ አጥር አልጋ
+Sonnenstuhl|የፀሐይ ወንበር
+Kinderstuhl|የልጅ ወንበር
+Holzstuhl|የእንጨት ወንበር
+Plastikstuhl|የፕላስቲክ ወንበር
+Klappstuhl|ታጣፊ ወንበር
+Holztisch|የእንጨት ጠረጴዛ
+Glastisch|የመስታወት ጠረጴዛ
+Couchtisch|የሳሎን ጠረጴዛ
+Esstisch|የመመገቢያ ጠረጴዛ
+Wäschekammer|የልብስ ክፍል
+Plastikbecher|የፕላስቲክ ኩባያ
+Pappbecher|የወረቀት ኩባያ
+Papierteller|የወረቀት ሳህን
+Kinderteller|የልጅ ሳህን
+Frühstücksteller|የቁርስ ሳህን
+Kuchenteller|የኬክ ሳህን
+Kuchengabel|የኬክ ሹካ
+Steakmesser|የሥጋ ቢላ
+Buttermesser|የቅቤ ቢላ
+Brotkorb|የዳቦ ቅርጫት
+Obstkorb|የፍራፍሬ ቅርጫት
+Wäschekörbchen|ትንሽ የልብስ ቅርጫት
+Blumenkorb|የአበባ ቅርጫት
+Fahrradanhänger|የብስክሌት ተሳቢ
+Bollerwagen|የልጆች ጋሪ
+Handwagen|የእጅ ጋሪ
+Eselskarren|የአህያ ጋሪ
+Pferdewagen|የፈረስ ጋሪ
+Kuhfladen|የላም እበት
+Apfelkern|የፖም ፍሬ ዘር
+Kirschkern|የቼሪ ፍሬ ዘር
+Orangenschale|የብርቱካን ልጣጭ
+Eierschale|የእንቁላል ቅርፊት
+Nussschale|የለውዝ ቅርፊት
+Vogelfeder|የወፍ ላባ
+Pfauenfeder|የጣዎስ ላባ
+Hundepfote|የውሻ መዳፍ
+Katzenschwanz|የድመት ጅራት
+Pferdeschwanz|የፈረስ ጭራ
+Elefantenrüssel|የዝሆን ኩምቢ
+Giraffenhals|የቀጭኔ አንገት
+Hasenohr|የጥንቸል ጆሮ
+Entenküken|የዳክዬ ጫጩት
+Hühnerküken|የዶሮ ጫጩት
+Babyschuh|የሕፃን ጫማ
+Kinderschuh|የልጅ ጫማ
+Holzpantoffel|የእንጨት ጫማ
+Regenstiefel|የዝናብ ቦቲ
+Lederstiefel|የቆዳ ቦቲ
+Cowboystiefel|የከብት ጠባቂ ቦቲ
+Wintermütze|የክረምት ኮፍያ
+Zipfelmütze|ሹል ኮፍያ
+Badekappe|የዋና ኮፍያ
+Schirmmütze|ባለ ጥላ ኮፍያ
+Lederhandschuh|የቆዳ ጓንት
+Wollhandschuh|የሱፍ ጓንት
+Gartenhose|የአትክልት ሱሪ
+Lederhose|የቆዳ ሱሪ
+Kurzarmhemd|አጭር እጅጌ ሸሚዝ
+Karohemd|ባለ ካሬ ሸሚዝ
+Ringelshirt|ባለ ሽንትር ቲሸርት
+Fußballtrikot|የእግር ኳስ ማሊያ
+Kochschürze|የማብሰያ ሽርጥ
+Schlafmaske|የእንቅልፍ ጭምብል
+Karnevalsmaske|የካርኒቫል ጭምብል
+Wasserrutsche|የውሃ ተንሸራታች
+Sprungturm|የመዝለያ ማማ
+Schwimmbecken|የመዋኛ ገንዳ
+Planschbecken|የሕፃናት ገንዳ
+Gartenteich|የአትክልት ኩሬ
+Vogelbad|የወፍ መታጠቢያ
+Blumenbeet|የአበባ ማሳ
+Gemüsebeet|የአትክልት ማሳ
+Erdbeerfeld|የእንጆሪ ማሳ
+Maisfeld|የበቆሎ ማሳ
+Kaffeefeld|የቡና ማሳ
+Teefeld|የሻይ ማሳ
+Apfelsaftflasche|የፖም ጭማቂ ጠርሙስ
+Milchflasche|የወተት ጠርሙስ
+Saftglas|የጭማቂ ብርጭቆ
+Teetasse|የሻይ ስኒ
+Zuckerwürfel|የስኳር ኩብ
+Salzstange|የጨው ዱላ ብስኩት
+Kartoffelchips|የድንች ቺፕስ
+Schokokeks|የቸኮሌት ብስኩት
+Butterkeks|የቅቤ ብስኩት
+Kokosmakrone|የኮኮናት ብስኩት
+Wassereis|የውሃ አይስክሬም
+Erdbeermilch|የእንጆሪ ወተት
+Bananenmilch|የሙዝ ወተት
+Kakaotasse|የኮኮዋ ኩባያ
+Kirschkuchen|የቼሪ ኬክ
+Zitronenkuchen|የሎሚ ኬክ
+Marmorkuchen|ባለ ሁለት ቀለም ኬክ
+Gemüsesuppe|የአትክልት ሾርባ
+Hühnersuppe|የዶሮ ሾርባ
+Fischsuppe|የዓሣ ሾርባ
+Bratkartoffel|የተጠበሰ ድንች
+Pellkartoffel|የተቀቀለ ድንች
+Grillwurst|የተጠበሰ ቋሊማ
+Hühnchen|ትንሽ ዶሮ ሥጋ
+Fischfilet|የዓሣ ሥጋ
+Frühstücksei|የቁርስ እንቁላል
+@2
+Schreibtischstuhl|የጽሕፈት ወንበር
+Drehstuhl|የሚሽከረከር ወንበር
+Barhocker|ከፍተኛ በርጩማ
+Sitzsack|የመቀመጫ ከረጢት
+Ecksofa|የማዕዘን ሶፋ
+Bücherkiste|የመጽሐፍ ሳጥን
+Spielzeugregal|የአሻንጉሊት መደርደሪያ
+Kleiderstange|የልብስ ዘንግ
+Schmuckschatulle|የጌጣጌጥ ሳጥን
+Nachtlampe|የሌሊት መብራት
+Leselampe|የማንበቢያ መብራት
+Leuchtturmlampe|የብርሃን ማማ መብራት
+Straßenlampe|የመንገድ መብራት
+Gartenlampe|የአትክልት መብራት
+Taschenspiegel|የኪስ መስታወት
+Badezimmerspiegel|የመታጠቢያ መስታወት
+Zahnputzbecher|የጥርስ መቦረሻ ኩባያ
+Seifenstück|የሳሙና ቁራጭ
+Handseife|የእጅ ሳሙና
+Waschlappen|የፊት መታጠቢያ ጨርቅ
+Duschkopf|የሻወር ራስ
+Badewannenstöpsel|የገንዳ መክደኛ
+Toilettendeckel|የመጸዳጃ ክዳን
+Bügelperle|የሚተኮስ ዶቃ
+Nähgarn|የስፌት ክር
+Stoffschere|የጨርቅ መቀስ
+Maßstab|ማስመሪያ ረጅም
+Werkzeuggürtel|የመሣሪያ ቀበቶ
+Schraubendreher|ጠመንጃ መፍቻ ትንሽ
+Nagelschere|የጥፍር መቀስ
+Haarschere|የፀጉር መቀስ
+Wetterfahne|የነፋስ ባንዲራ
+Windspiel|የነፋስ ደወል
+Glockenspiel|የደወል ሙዚቃ መሣሪያ
+Kirchenglocke|የቤተ ክርስቲያን ደወል
+Türklingel|የበር ደወል
+Tischglocke|የጠረጴዛ ደወል
+Küchenuhr|የወጥ ቤት ሰዓት
+Sonnenuhr|የፀሐይ ሰዓት
+Briefmarkenalbum|የቴምብር አልበም
+Telefonbuch|የስልክ መጽሐፍ
+Rezeptbuch|የምግብ መጽሐፍ
+Malbuch|የቀለም መጽሐፍ
+Hörbuch|የድምፅ መጽሐፍ
+Bücherstapel|የመጽሐፍ ክምር
+Zeitungsstapel|የጋዜጣ ክምር
+Holzstapel|የእንጨት ክምር
+Steinhaufen|የድንጋይ ክምር
+Sandhaufen|የአሸዋ ክምር
+Laubhaufen|የቅጠል ክምር
+Schneehaufen|የበረዶ ክምር
+Maulwurfshügel|የፍልፈል ጉብታ
+Honigwabe|የማር እንጀራ
+Schmetterlingsnetz|የቢራቢሮ መረብ
+Fischeimer|የዓሣ ባልዲ
+Fischglas|የዓሣ ብልቃጥ
+Wassernapf|የውሃ ሳህን እንስሳ
+Pferdestall|የፈረስ በረት
+Schafwolle|የበግ ሱፍ
+Hirtenstab|የእረኛ በትር
+Melkschemel|የማለቢያ በርጩማ
+Melkeimer|የወተት ማለቢያ ባልዲ
+Butterfass|ቅቤ መናጫ
+Mehlsack|የዱቄት ከረጢት
+Reissack|የሩዝ ከረጢት
+Kaffeesack|የቡና ከረጢት
+Kartoffelkorb|የድንች ቅርጫት
+Eierkarton|የእንቁላል ካርቶን
+Milchkarton|የወተት ካርቶን
+Pizzakarton|የፒዛ ካርቶን
+Umzugskarton|የቤት መቀየሪያ ካርቶን
+Geschenkpaket|የስጦታ ጥቅል
+Briefpaket|የፖስታ ጥቅል
+@3
+Getreidesilo|የእህል ማከማቻ ማማ
+Wasserturm|የውሃ ማማ
+Ampelmännchen|የትራፊክ መብራት ሰው
+Straßenbahnhaltestelle|የትራም ፌርማታ
+Fahrradweg|የብስክሌት መንገድ
+Parkhaus|የመኪና ማቆሚያ ሕንፃ
+Autowaschanlage|የመኪና ማጠቢያ
+Schiffsanker|የመርከብ መልሕቅ
+Bullauge|የመርከብ ክብ መስኮት
+Rettungsweste|ነፍስ አድን ጃኬት
+Leuchtboje|የብርሃን ተንሳፋፊ
+Muschelschale|የዛጎል ቅርፊት

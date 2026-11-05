@@ -1,0 +1,69 @@
+# Einfache Alltagswörter, Teil 2 (nur einzelne Dinge)
+@1
+Lastauto|የጭነት መኪና
+Postauto|የፖስታ መኪና
+Lieferwagen|የዕቃ ማድረሻ መኪና
+Kleinbus|ሚኒባስ
+Reisebus|የጉዞ አውቶቡስ
+Sportwagen|የስፖርት መኪና
+Kinderfahrrad|የልጅ ብስክሌት
+Laufrad|የልጅ መንሸራተቻ ብስክሌት
+Tretroller|የእግር ስኩተር
+Motorroller|ሞተር ስኩተር
+Ruderboot|የመቅዘፊያ ጀልባ
+Fischerboot|የዓሣ አጥማጅ ጀልባ
+Segelschiff|የሸራ መርከብ
+Passagierflugzeug|የተሳፋሪ አውሮፕላን
+Papierflugzeug|የወረቀት አውሮፕላን
+Luftballon|የአየር ፊኛ
+Fahrkarte|ትኬት ጉዞ
+Bahngleis|የባቡር ሀዲድ
+Lokomotive|የባቡር ሞተር
+Waggon|ፉርጎ
+Bahnhofsuhr|የባቡር ጣቢያ ሰዓት
+Hafenkran|የወደብ ክሬን
+Anlegesteg|የጀልባ ማረፊያ
+Schwimmflügel|የዋና ክንፍ
+Schwimmbrille|የዋና መነጽር
+Sandförmchen|የአሸዋ ቅርጽ
+Schaufelbagger|አካፋ ያለው ኤክስካቫተር
+Robbe|የባሕር ውሻ
+Polarfuchs|የዋልታ ቀበሮ
+Kaninchen|ጥንቸል የቤት
+Wellensittich|ትንሽ በቀቀን
+Spatz|ድንቢጥ
+Weintraube|የወይን ዘለላ
+Kakao|ኮኮዋ
+@2
+Kühltasche|የማቀዝቀዣ ቦርሳ
+Grillspieß|የጥብስ ዘንግ
+Holzkohlegrill|የከሰል ጥብስ ምድጃ
+Gasflasche|የጋዝ ሲሊንደር
+Feuerstelle|የእሳት ቦታ
+Streichholzschachtel|የክብሪት ሳጥን
+Öllampe|የዘይት መብራት
+Füller|የቀለም ብዕር
+Tintenpatrone|የቀለም መሙያ
+Heftklammer|የስቴፕለር ሽቦ
+Klebestift|ሙጫ ዘንግ
+Trinkflasche|የመጠጫ ጠርሙስ
+Wörterbuch|መዝገበ ቃላት
+Zeitschrift|መጽሔት
+Comicheft|የካርቱን መጽሔት
+Geschenkband|የስጦታ ሪባን
+Luftschlange|የወረቀት ጥቅልል
+Partyhut|የፓርቲ ኮፍያ
+Tröte|ጡሩምባ ትንሽ
+Kerzenständer|የሻማ ማቆሚያ
+@3
+Notenschlüssel|የሙዚቃ ቁልፍ ምልክት
+Schachbrett|የቼዝ ሰሌዳ
+Würfelspiel|የዳይስ ጨዋታ
+Puzzleteil|የእንቆቅልሽ ቁራጭ
+Stelzen|የእንጨት እግሮች
+Mähdrescher|ኮምባይነር
+Preisschild|የዋጋ መለያ
+Schaufensterpuppe|የሱቅ አሻንጉሊት ሰው
+Umkleidekabine|የልብስ መቀየሪያ ክፍል
+Spiegelschrank|የመስታወት ቁም ሳጥን
+Wattebausch|ጥጥ

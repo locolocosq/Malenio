@@ -18,17 +18,7 @@ Wasserflasche|የውሃ ጠርሙስ
 Brotdose|የምሳ ዕቃ
 Picknickkorb|የሽርሽር ቅርጫት
 Einkaufswagen|የገበያ ጋሪ
-Totenkopf|የራስ ቅል ምልክት
-Schwert|ሰይፍ
-Schild|ጋሻ
-Bogen|ቀስት መወርወሪያ
-Speer|ጦር
-Kanone|መድፍ
-Pistole|ሽጉጥ
-Bombe|ቦምብ
-Dynamit|ዳይናማይት
 Mauer|ግንብ
-Zielscheibe|የዒላማ ሰሌዳ
 Teebeutel|የሻይ ከረጢት
 Nest|ጎጆ
 Apfelbaum|የፖም ዛፍ
@@ -39,10 +29,8 @@ Schneekugel|የበረዶ ኳስ ጌጥ
 Lampion|የወረቀት ፋኖስ
 Murmel|ብይ ኳስ
 Flummi|ዘላይ ኳስ
-Wasserbombe|የውሃ ፊኛ
 Knete|ሊጥ ጨዋታ
 Aufkleber|ተለጣፊ
-Steinschleuder|ወንጭፍ
 Handpuppe|የእጅ አሻንጉሊት
 Spielzeugeisenbahn|የአሻንጉሊት ባቡር
 Kartenspiel|የካርታ ጨዋታ ጥቅል
@@ -51,7 +39,6 @@ Piratenflagge|የወንበዴ ባንዲራ
 Piratenschiff|የወንበዴ መርከብ
 Augenklappe|የዓይን መሸፈኛ
 Schiffswrack|የሰመጠ መርከብ
-Erste-Hilfe-Kasten|የመጀመሪያ ርዳታ ሳጥን
 Notausgang|የአደጋ ጊዜ መውጫ
 Sirene|ሳይረን
 Pylone|የትራፊክ ኮን

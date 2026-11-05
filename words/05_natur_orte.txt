@@ -103,7 +103,6 @@ Kristall|ክሪስታል
 Diamant|አልማዝ
 Lava|ቀልጦ የሚፈስ አለት
 Polizeistation|ፖሊስ ጣቢያ
-Gefängnis|እስር ቤት
 Supermarkt|ሱፐርማርኬት
 Bäckerei|ዳቦ ቤት
 Zirkus|ሰርከስ
@@ -116,7 +115,6 @@ Baustelle|የግንባታ ቦታ
 Kran|ክሬን
 Wolkenkratzer|ሰማይ ጠቀስ ሕንፃ
 Statue|ሐውልት ምስል
-Friedhof|መቃብር ቦታ
 Obelisk|ሐውልት አክሱም
 Tunnel|ዋሻ መንገድ
 Autobahn|አውራ ጎዳና

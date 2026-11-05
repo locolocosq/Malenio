@@ -29,9 +29,6 @@ Augenbraue|ቅንድብ
 Ellbogen|ክርን
 Fingernagel|ጥፍር
 Muskel|ጡንቻ
-Skelett|አጽም
-Blut|ደም
-Träne|እንባ
 Lächeln|ፈገግታ
 Hemd|ሸሚዝ
 Hose|ሱሪ
@@ -67,15 +64,6 @@ Anzug|ሱፍ ልብስ
 Schürze|ሽርጥ
 Turnschuh|ስኒከር
 Hausschuh|የቤት ጫማ
-Pflaster|ፕላስተር ቁስል
-Spritze|መርፌ ሕክምና
-Arzt|ሐኪም
-Krankenhaus|ሆስፒታል
-Gips|ጀሶ
-Rollstuhl|ተሽከርካሪ ወንበር
-Krücke|ምርኩዝ
-Verband|ፋሻ
-Zahnarzt|የጥርስ ሐኪም
 Fingerabdruck|የጣት አሻራ
 @2
 Zahnspange|የጥርስ ማስተካከያ
@@ -84,8 +72,6 @@ Bauchnabel|እምብርት
 Lunge|ሳንባ
 Magen|ጨጓራ
 Sommersprossen|ጠቃጠቆ
-Narbe|ጠባሳ
-Pickel|ብጉር
 Glatze|መላጣ
 Zopf|ሹሩባ
 Perücke|ሰው ሠራሽ ፀጉር
@@ -113,18 +99,9 @@ Lippenstift|የከንፈር ቀለም
 Nagellack|የጥፍር ቀለም
 Parfüm|ሽቶ
 Tattoo|ንቅሳት
-Fieberthermometer|የትኩሳት መለኪያ
-Stethoskop|ማዳመጫ ሐኪም
-Röntgenbild|ራጅ
-Krankenwagen|አምቡላንስ
-Krankenschwester|ነርስ
-Apotheke|ፋርማሲ
-Tablette|ታብሌት
-Mundschutz|የአፍ መሸፈኛ
 @3
 Poncho|ፖንቾ
 Raumanzug|የጠፈር ልብስ
-Ritterrüstung|የጦር ትጥቅ
 Umhang|ካባ
 Schlittschuh|የበረዶ ጫማ
 Rollschuh|ባለ ጎማ ጫማ

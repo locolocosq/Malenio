@@ -99,7 +99,6 @@ Barcode|ባርኮድ
 Emoji|ኢሞጂ
 @3
 Wohnwagen|የቤት ተሳቢ
-Kampfpanzer|ታንክ
 Flaschenpost|የጠርሙስ ደብዳቤ
 Hundeschlitten|የውሻ ተንሸራታች
 Strommast|የኤሌክትሪክ ምሰሶ
@@ -107,5 +106,4 @@ Mikroskop|ማይክሮስኮፕ
 Reagenzglas|የሙከራ ቱቦ
 Führerschein|መንጃ ፈቃድ
 Stau|የትራፊክ መጨናነቅ
-Unfall|አደጋ
 Gleis|የባቡር ሀዲድ

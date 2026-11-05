@@ -76,7 +76,6 @@ Gorilla|ጎሪላ
 Ratte|ትልቅ አይጥ
 Eidechse|እንሽላሊት
 Dinosaurier|ዳይኖሰር
-Drache|ዘንዶ
 Einhorn|ባለ አንድ ቀንድ ፈረስ
 Eisbär|ነጭ ድብ
 Biber|ቢቨር

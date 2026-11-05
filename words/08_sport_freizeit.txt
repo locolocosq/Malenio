@@ -31,7 +31,6 @@ Schwimmring|የዋና ቀለበት
 Taucherflossen|የዋና ክንፎች
 Surfbrett|የሞገድ ሰሌዳ
 Ski|ስኪ
-Karate|ካራቴ
 Volleyball|የመረብ ኳስ
 Golf|ጎልፍ
 Baseball|ቤዝቦል
@@ -54,7 +53,6 @@ Snowboard|ስኖውቦርድ
 Hula-Hoop|ሁላ ሁፕ
 Frisbee|ፍሪስቢ
 Bumerang|ቡሜራንግ
-Wasserpistole|የውሃ ሽጉጥ
 Domino|ዶሚኖ
 Kartenhaus|የካርታ ቤት
 Zauberwürfel|ሩቢክ ኪዩብ
