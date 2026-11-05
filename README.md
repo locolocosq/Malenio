@@ -23,8 +23,10 @@ Jedes Wort hat in beiden Sprachen dieselbe ID, deshalb können deutsche und äth
 Nach Änderungen an den Textdateien neu erzeugen:
 
 ```bash
-node tools/build-words.js
+node tools/build-words.js && node tools/stamp.js
 ```
+
+`stamp.js` gibt den Dateien eine neue Versions-Kennung, damit alle Handys sofort die neue Version laden.
 
 > Die amharischen Übersetzungen sollte eine Muttersprachlerin oder ein Muttersprachler einmal durchsehen. Korrekturen trägt man einfach in den `.txt`-Dateien ein.
 

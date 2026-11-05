@@ -48,6 +48,9 @@ function getIceConfig() {
   return iceConfigPromise;
 }
 const WORDS = window.WORDS || [];
+// Kennung der Wortliste – alle Spieler müssen dieselbe Liste haben (gleiche Wort-Nummern)
+const WORDS_VERSION = (() => { let h = 5381; const s = JSON.stringify(WORDS); for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0; return WORDS.length + '-' + h.toString(36); })();
+const wordDiff = (id) => (WORDS[id] ? WORDS[id][2] : 1);
 // Geräte-ID (bleibt beim Neuladen gleich), damit man nach einem Verbindungsabbruch seine Punkte zurückbekommt
 const CLIENT_ID = (() => {
   try { let id = sessionStorage.getItem('malenio-cid'); if (!id) { id = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem('malenio-cid', id); } return id; }
@@ -76,7 +79,7 @@ const T = {
     chatPh: 'Raten oder schreiben…', send: 'Senden', joined: '{name} ist beigetreten', left: '{name} hat verlassen',
     brush: 'Pinsel', eraser: 'Radierer', fill: 'Füllen', undo: 'Rückgängig', clear: 'Alles löschen',
     isDrawing: '{name} zeichnet', drawerLeft: 'Der Zeichner hat das Spiel verlassen.', notEnough: 'Zu wenige Spieler – zurück in die Lobby.',
-    gameRunning: 'Spiel läuft – du bist mitten drin!', reconnecting: 'Verbindung kurz weg – verbinde neu…', voiceNA: 'Telefon wird noch verbunden – gleich nochmal tippen.', guessedChat: '{name} hat das Wort erraten! 🎉', speaking: 'im Telefon',
+    gameRunning: 'Spiel läuft – du bist mitten drin!', reconnecting: 'Verbindung kurz weg – verbinde neu…', updating: 'Neue Version wird geladen…', versionMismatch: 'Unterschiedliche Spielversionen – bitte alle die Seite neu laden.', voiceNA: 'Telefon wird noch verbunden – gleich nochmal tippen.', guessedChat: '{name} hat das Wort erraten! 🎉', speaking: 'im Telefon',
   },
   am: {
     yourName: 'ስምዎ', namePh: 'ስም ያስገቡ', create: 'ሎቢ ፍጠር', or: 'ወይም', join: 'ተቀላቀል',
@@ -98,7 +101,7 @@ const T = {
     chatPh: 'ይገምቱ ወይም ይጻፉ…', send: 'ላክ', joined: '{name} ተቀላቀለ', left: '{name} ወጣ',
     brush: 'ብሩሽ', eraser: 'ማጥፊያ', fill: 'ሙላ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ',
     isDrawing: '{name} እየሳለ ነው', drawerLeft: 'ሳዩ ጨዋታውን ለቋል።', notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።',
-    gameRunning: 'ጨዋታው እየተካሄደ ነው!', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…', voiceNA: 'ስልኩ ገና እየተገናኘ ነው – ትንሽ ቆይተው እንደገና ይንኩ።', guessedChat: '{name} ቃሉን ገመተው! 🎉', speaking: 'በስልክ ላይ',
+    gameRunning: 'ጨዋታው እየተካሄደ ነው!', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…', updating: 'አዲሱ ስሪት እየተጫነ ነው…', versionMismatch: 'የተለያዩ የጨዋታ ስሪቶች – ሁሉም ገጹን እንደገና ይጫኑ።', voiceNA: 'ስልኩ ገና እየተገናኘ ነው – ትንሽ ቆይተው እንደገና ይንኩ።', guessedChat: '{name} ቃሉን ገመተው! 🎉', speaking: 'በስልክ ላይ',
   },
 };
 let lang = localStorage.getItem('malenio-lang') || null;
@@ -394,7 +397,7 @@ const host = {
     const existing = this.get(from);
     if (existing) { // Wiederverbindung mit gleicher ID
       if (msg.vid) existing.vid = String(msg.vid).slice(0, 64);
-      sendTo(from, { t: 'welcome', code: net.code, history: this.history });
+      sendTo(from, { t: 'welcome', code: net.code, history: this.history, wv: WORDS_VERSION });
       this.pushState();
       return;
     }
@@ -408,7 +411,7 @@ const host = {
     if (msg.vid) p.vid = String(msg.vid).slice(0, 64);
     const back = this.phase !== 'lobby' && this.departed.get(key);
     if (back) { p.score = back.score; p.color = back.color; this.departed.delete(key); }
-    sendTo(from, { t: 'welcome', code: net.code, history: this.history });
+    sendTo(from, { t: 'welcome', code: net.code, history: this.history, wv: WORDS_VERSION });
     if (!dup) broadcast({ t: 'sys', key: 'joined', name: p.name });
     this.pushState();
   },
@@ -448,7 +451,7 @@ const host = {
       reveal: this.reveal,
     };
     if (this.phase === 'drawing' && this.wordId != null) {
-      st.diff = WORDS[this.wordId][2];
+      st.diff = wordDiff(this.wordId);
       st.hint = { de: maskWord(wordIn(this.wordId, 'de')), am: maskWord(wordIn(this.wordId, 'am')) };
       if (forId === this.drawerId) st.wordId = this.wordId; // nur der Zeichner kennt das Wort
     }
@@ -548,7 +551,7 @@ const host = {
     const gains = {};
     if (guesserId && this.wordId != null) {
       const frac = clamp((this.deadline - Date.now()) / (this.settings.drawTime * 1000), 0, 1);
-      const mult = DIFF_MULT[WORDS[this.wordId][2]] || 1;
+      const mult = DIFF_MULT[wordDiff(this.wordId)] || 1;
       const g = Math.round((50 + 250 * frac) * mult / 5) * 5;
       const d = Math.round((25 + 125 * frac) * mult / 5) * 5;
       const gp = this.get(guesserId), dp = this.get(this.drawerId);
@@ -619,6 +622,17 @@ const view = {
   onMessage(msg) {
     switch (msg.t) {
       case 'welcome':
+        if (msg.wv && msg.wv !== WORDS_VERSION) {
+          let tried = false; try { tried = sessionStorage.getItem('malenio-reload') === msg.wv; } catch (e) {}
+          if (!tried) {
+            try { sessionStorage.setItem('malenio-reload', msg.wv); sessionStorage.setItem('malenio-autojoin', msg.code); } catch (e) {}
+            toast(t('updating'));
+            const code = msg.code; destroyNet();
+            setTimeout(() => { const q = new URLSearchParams(location.search); q.set('code', code); q.set('r', Date.now()); location.href = location.pathname + '?' + q.toString(); }, 600);
+            return;
+          }
+          toast(t('versionMismatch'));
+        }
         this.enterRoom(msg.code);
         this.history = msg.history || []; redraw(this.history);
         setStatus('');
@@ -705,7 +719,7 @@ const view = {
       ov.classList.remove('hidden');
       if (st.drawerId === net.myId && st.choices) {
         ov.innerHTML = `<h2>${t('chooseWord')}</h2><div class="choices">` + st.choices.map((id, i) => {
-          const d = WORDS[id][2]; const maxPts = Math.round(300 * DIFF_MULT[d] / 5) * 5;
+          const d = wordDiff(id); const maxPts = Math.round(300 * DIFF_MULT[d] / 5) * 5;
           return `<button class="choice" data-i="${i}">${esc(wordIn(id, lang))}<span class="stars">${'★'.repeat(d)}${'☆'.repeat(3 - d)}</span><small>${t('d' + d)} · ${t('upTo', { n: maxPts })}</small></button>`;
         }).join('') + '</div>';
         ov.querySelectorAll('.choice').forEach((b) => b.onclick = () => {
@@ -1060,6 +1074,10 @@ if (new URLSearchParams(location.search).has('debug')) window.__malenioDebug = {
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 const urlCode = cleanCode(new URLSearchParams(location.search).get('code') || '');
 if (urlCode) $('#in-code').value = urlCode;
+try {
+  const aj = sessionStorage.getItem('malenio-autojoin');
+  if (aj && aj === urlCode && lang && $('#in-name').value) { sessionStorage.removeItem('malenio-autojoin'); setTimeout(() => $('#btn-join').click(), 300); }
+} catch (e) {}
 if (lang) { applyLang(); show('menu'); } else { applyLang(); show('lang'); }
 if (!window.Peer) setStatus('PeerJS konnte nicht geladen werden (Internet?)');
 })();
