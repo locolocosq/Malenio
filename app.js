@@ -616,6 +616,7 @@ const view = {
     history.replaceState(null, '', location.pathname + '?code=' + code);
     clearInterval(this.tick); this.tick = setInterval(() => this.updateTimer(), 250);
   },
+  turnKeyOf(st) { return st.round + '|' + st.drawerId + '|' + (st.choices || []).join(','); },
   me() { return this.state && this.state.players.find((p) => p.id === net.myId); },
   isDrawer() { return this.state && this.state.phase === 'drawing' && this.state.drawerId === net.myId; },
 
@@ -708,7 +709,8 @@ const view = {
 
     // Overlay – nur neu zeichnen, wenn sich wirklich etwas geändert hat (sonst gehen Klicks verloren)
     const ov = $('#overlay');
-    const turnKey = st.round + '|' + st.drawerId + '|' + (st.choices || []).join(',');
+    const turnKey = this.turnKeyOf(st);
+    if (st.phase !== 'choosing') this.chosen = null; // alte Wahl vergessen
     const ovKey = JSON.stringify([lang, st.phase, turnKey, this.chosen && this.chosen.turn === turnKey ? this.chosen.i : -1, st.reveal,
       st.phase === 'end' ? sorted.map((p) => p.id + p.score) : 0, st.phase === 'choosing' && drawer ? drawer.name : '']);
     if (ovKey === this.ovKey) { if (phaseChanged && st.phase === 'drawing') redraw(this.history); return; }
@@ -757,7 +759,8 @@ const view = {
 
   updateTimer() {
     const st0 = this.state, c = this.chosen;
-    if (st0 && c && st0.phase === 'choosing' && st0.drawerId === net.myId && Date.now() - c.at > 2500) {
+    // Wahl nur für GENAU diesen Zug wiederholen (nie eine alte Wahl aus einer früheren Runde)
+    if (st0 && c && st0.phase === 'choosing' && st0.drawerId === net.myId && c.turn === this.turnKeyOf(st0) && Date.now() - c.at > 2500) {
       c.at = Date.now(); toHost({ t: 'choose', i: c.i });
     }
     const el = $('#info-timer');
