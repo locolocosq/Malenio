@@ -1,0 +1,341 @@
+# Natur, Tiere, Orte (Teil 2)
+@1
+Sonnenstrahl|የፀሐይ ጨረር
+Regenwolke|የዝናብ ደመና
+Schneewolke|የበረዶ ደመና
+Gewitterwolke|የነጎድጓድ ደመና
+Schäfchenwolke|ትንሽ ነጭ ደመና
+Wassertropfen|የውሃ ጠብታ
+Tautropfen|የጤዛ ጠብታ
+Schneemannmütze|የበረዶ ሰው ኮፍያ
+Sternenhimmel|ኮከባማ ሰማይ
+Nachthimmel|የሌሊት ሰማይ
+Abendsonne|የምሽት ፀሐይ
+Mondsichel|ቀጭን ጨረቃ
+Sandkorn|የአሸዋ ቅንጣት
+Steinplatte|የድንጋይ ሰሌዳ
+Kieselstein|ጠጠር
+Flussstein|የወንዝ ድንጋይ
+Felswand|የቋጥኝ ግድግዳ
+Bergspitze|የተራራ ጫፍ
+Berghang|የተራራ ዳገት
+Bergsee|የተራራ ሐይቅ
+Bergdorf|የተራራ መንደር
+Bergziege|የተራራ ፍየል
+Flussufer|የወንዝ ዳር
+Seeufer|የሐይቅ ዳር
+Meeresufer|የባሕር ዳር
+Meereswelle|የባሕር ማዕበል
+Wellenbrecher|ማዕበል መከላከያ
+Sanddüne|የአሸዋ ክምር ኮረብታ
+Schneeberg|በበረዶ የተሸፈነ ተራራ
+Eisfläche|የበረዶ ሜዳ
+Eisloch|የበረዶ ጉድጓድ
+Baumstamm|የዛፍ ግንድ
+Baumstumpf|ጉቶ
+Baumkrone|የዛፍ ጫፍ
+Baumrinde|የዛፍ ቅርፊት
+Baumwurzel|የዛፍ ሥር
+Laubbaum|ቅጠላማ ዛፍ
+Nadelbaum|መርፌ ቅጠል ዛፍ
+Eiche|ዋርካ
+Birke|በርች ዛፍ
+Weide|አኻያ
+Akazie|ግራር
+Eukalyptus|ባሕር ዛፍ
+Buche|ቢች ዛፍ
+Linde|ሊንደን ዛፍ
+Ahorn|ሜፕል ዛፍ
+Kiefer|የፈረንጅ ጥድ
+Fichte|ስፕሩስ ዛፍ
+Lärche|ላርች ዛፍ
+Pappel|ፖፕላር ዛፍ
+Platane|ፕላታን ዛፍ
+Affenbrotbaum|ባኦባብ ዛፍ
+Blumenwiese|የአበባ ሜዳ
+Wiesenblume|የሜዳ አበባ
+Lilie|አበባ ሊሊ
+Orchidee|ኦርኪድ
+Narzisse|ናርሲስ አበባ
+Krokus|ክሮከስ አበባ
+Hyazinthe|ሂያሲንት አበባ
+Nelkenblume|የካርኔሽን አበባ
+Lavendel|ላቬንደር
+Mohnblume|ፖፒ አበባ
+Kornblume|ሰማያዊ አበባ
+Veilchen|ቫዮሌት
+Maiglöckchen|የደወል አበባ
+Schneeglöckchen|የበረዶ ደወል አበባ
+Margerite|ትልቅ ዴዚ
+Dahlie|ዳህሊያ አበባ
+Hortensie|ሆርቴንሲያ
+Geranie|ጌራኒየም
+Efeu|አረግ
+Schilf|ቄጠማ
+Moos|ሙዝ ሣር
+Farn|ፈርን
+Knospe|እምቡጥ
+Blütenblatt|የአበባ ቅጠል
+Samenkorn|የዘር ፍሬ
+Keimling|ቡቃያ
+Setzling|ችግኝ
+Gänseküken|የዝይ ጫጩት
+Schwanenküken|የስዋን ጫጩት
+Vogelküken|የወፍ ጫጩት
+Lämmchen|ትንሽ በግ
+Kälbchen|ጥጃ
+Fohlen|ውርንጭላ
+Welpe|ቡችላ
+Kätzchen|ድመት ግልገል
+Häschen|ትንሽ ጥንቸል
+Bärenjunges|የድብ ግልገል
+Löwenbaby|የአንበሳ ግልገል
+Elefantenbaby|የዝሆን ግልገል
+Pandabär|ፓንዳ ድብ
+Braunbär|ቡናማ ድብ
+Waldkauz|የጫካ ጉጉት
+Uhu|ትልቅ ጉጉት
+Amsel|ጥቁር ወፍ
+Rotkehlchen|ሮቢን ወፍ
+Meise|ቲት ወፍ
+Fink|ፊንች ወፍ
+Krähe|ቁራ ግራጫ
+Elster|ማግፓይ
+Kranich|ክሬን ወፍ
+Reiher|ሽመላ ግራጫ
+Kuckuck|ኩኩ ወፍ
+Kanarienvogel|ካናሪ
+Hummel|ትልቅ ንብ
+Grille|ፌንጣ
+Motte|ብል
+Nacktschnecke|ቀንድ የሌላት አውጣ
+Regenwurm|የአፈር ትል
+Hirschkäfer|የአጋዘን ጥንዚዛ
+Junikäfer|የሰኔ ጥንዚዛ
+Wasserkäfer|የውሃ ጥንዚዛ
+Seehund|የባሕር ውሻ ትንሽ
+Seeotter|የባሕር ኦተር
+Otter|ኦተር
+Fischotter|የዓሣ ኦተር
+Wasserschildkröte|የውሃ ኤሊ
+Landschildkröte|የምድር ኤሊ
+Riesenschildkröte|ግዙፍ ኤሊ
+Laubfrosch|አረንጓዴ እንቁራሪት
+Kröte|ጓጉንቸር
+Molch|ሞልች
+Salamander|ሳላማንደር
+Gecko|ጌኮ
+Leguan|ኢጉዋና
+Forelle|ትራውት
+Karpfen|ካርፕ
+Hecht|ፓይክ
+Aal|ኢል
+Rochen|ሬይ ዓሣ
+Mantarochen|ማንታ ሬይ
+Lachsforelle|ሳልመን ትራውት
+Seeschwalbe|የባሕር ዋጥ
+Schwalbe|ዋጥ ወፍ
+Kakadu|ካካቱ
+Ara|ማካው በቀቀን
+Emu|ኢሙ
+Kiwivogel|የኪዊ ወፍ
+Pfauenrad|የጣዎስ ጅራት
+@2
+Gazelle|ሚዳቋ ገዚል
+Antilope|ሰስ
+Gnu|ጉኑ
+Okapi|ኦካፒ
+Tapir|ታፒር
+Yak|ያክ
+Alpaka|አልፓካ
+Bison|ቢዞን
+Warzenschwein|ከርከሮ ዋርትሆግ
+Schimpanse|ቺምፓንዚ
+Pavian|ዝንጀሮ ባቡን
+Lemur|ሌሙር
+Mandrill|ማንድሪል
+Gibbon|ጊቦን
+Luchs|ሊንክስ
+Puma|ፑማ
+Jaguar|ጃጓር
+Schneeleopard|የበረዶ ነብር
+Dachs|ባጀር
+Marder|ማርተን
+Wiesel|ዊዝል
+Iltis|ፖልካት
+Murmeltier|ማርሞት
+Chinchilla|ቺንቺላ
+Frettchen|ፌሬት
+Gürteltier|አርማዲሎ
+Erdferkel|ጉንዳን በል አሳማ
+Wombat|ዎምባት
+Kängurubaby|የካንጋሮ ልጅ
+Koalabär|ኮዋላ ድብ
+Eisvogel|ንጉሥ አጥማጅ
+Wiedehopf|ሁፖ ወፍ
+Fasan|ፋዛን
+Rebhuhn|ቆቅ
+Wachtel|ድርጭት
+Perlhuhn|ጅግራ
+Kormoran|ኮርሞራንት
+Albatros|አልባትሮስ
+Möwenfeder|የባሕር ወፍ ላባ
+Ibis|ኢቢስ
+Marabu|ማራቡ
+Kondor|ኮንዶር
+Habicht|ሸለምጥማጥ
+Bussard|ቡዛርድ
+Seeadler|የባሕር ንስር
+Papageientaucher|ፓፊን
+Wildgans|የዱር ዝይ
+Wildente|የዱር ዳክዬ
+Stockente|አረንጓዴ ራስ ዳክዬ
+Teichhuhn|የኩሬ ዶሮ
+Blässhuhn|ጥቁር የውሃ ዶሮ
+Gelada|ጭላዳ ዝንጀሮ
+Walia|ዋልያ
+Seidenraupe|የሐር ትል
+Gottesanbeterin|ጸሎተኛ ነፍሳት
+Stabheuschrecke|በትር ነፍሳት
+Wasserläufer|የውሃ ሯጭ
+Stechmücke|ትንኝ
+Ameisenkönigin|የጉንዳን ንግሥት
+Bienenkönigin|የንብ ንግሥት
+Termitenhügel|የምስጥ ኩይሳ
+Wespennest|የተርብ ጎጆ
+Seeanemone|የባሕር አበባ
+Seegurke|የባሕር ኪያር
+Seeschnecke|የባሕር ቀንድ አውጣ
+Miesmuschel|ጥቁር ዛጎል
+Jakobsmuschel|የሸራ ዛጎል
+Auster|ኦይስተር
+Perlmuschel|የዕንቁ ዛጎል
+Einsiedlerkrebs|ብቸኛ ሸርጣን
+Strandkrabbe|የዳርቻ ሸርጣን
+Languste|የባሕር ሎብስተር
+Flusskrebs|የወንዝ ሸርጣን
+Kaiserpinguin|ንጉሣዊ ፔንጉዊን
+Buckelwal|ጉብ ዓሣ ነባሪ
+Blauwal|ሰማያዊ ዓሣ ነባሪ
+Pottwal|ስፐርም ዌል
+Belugawal|ቤሉጋ
+Seekuh|የባሕር ላም
+Tümmler|ዶልፊን ትልቅ
+Sägefisch|የመጋዝ ዓሣ
+Igelfisch|ጃርት ዓሣ
+Papageifisch|የበቀቀን ዓሣ
+Kofferfisch|ሳጥን ዓሣ
+Zitteraal|ኤሌክትሪክ ኢል
+Wels|ካትፊሽ
+Tilapia|አሣ ቆሮ
+Barsch|ፐርች ዓሣ
+Hering|ሄሪንግ
+Makrele|ማኬሬል
+Kabeljau|ኮድ
+Scholle|ጠፍጣፋ ዓሣ
+Sardelle|አንቾቪ
+Krabbe|ሸርጣን ትንሽ
+Wüstenfuchs|የበረሃ ቀበሮ
+Steppenfuchs|የሜዳ ቀበሮ
+Rotfuchs|ቀይ ቀበሮ
+Schakal|ቀበሮ ጃካል
+Kojote|ኮዮቴ
+Hyänenhund|የዱር ውሻ
+Dingo|ዲንጎ
+Husky|ሃስኪ ውሻ
+Dackel|አጭር እግር ውሻ
+Pudel|ፑድል ውሻ
+Dalmatiner|ነጠብጣብ ውሻ
+Schäferhund|የእረኛ ውሻ ትልቅ
+Bernhardiner|ትልቅ የተራራ ውሻ
+Mops|ፓግ ውሻ
+Perserkatze|የፋርስ ድመት
+Siamkatze|የሲያም ድመት
+Hauskatze|የቤት ድመት
+Straßenkatze|የመንገድ ድመት
+Kater|ወንድ ድመት
+Zwergkaninchen|ትንሽ ጥንቸል የቤት
+Rennmaus|ጀርቢል
+Hausmaus|የቤት አይጥ
+Feldmaus|የሜዳ አይጥ
+Spitzmaus|ሹል አፍንጫ አይጥ
+Siebenschläfer|እንቅልፋም ሽኮኮ
+Streifenhörnchen|ባለ ሽንትር ሽኮኮ
+Flughörnchen|በራሪ ሽኮኮ
+Biberdamm|የቢቨር ግድብ
+Fuchsbau|የቀበሮ ጉድጓድ
+Kaninchenbau|የጥንቸል ጉድጓድ
+Dachsbau|የባጀር ጉድጓድ
+@3
+Mangrovenbaum|የማንግሩቭ ዛፍ
+Kokosnusspalme|የኮኮናት ዘንባባ
+Ölpalme|የዘይት ዘንባባ
+Bananenpflanze|የሙዝ ተክል
+Kakteenblüte|የቁልቋል አበባ
+Agave|ሳማ ቁልቋል
+Aloe|እሬት
+Sukkulente|ውሃ የሚያከማች ተክል
+Bonsai|ቦንሳይ
+Mistel|ሚስቴል
+Stechpalme|እሾሃማ ቅጠል ተክል
+Brombeerstrauch|የጥቁር እንጆሪ ቁጥቋጦ
+Rosenstrauch|የጽጌረዳ ቁጥቋጦ
+Fliederbusch|የሊላክ ቁጥቋጦ
+Ginster|ቢጫ አበባ ቁጥቋጦ
+Heidekraut|ሄዝ አበባ
+Wasserlilie|የውሃ ሊሊ
+Lotusblüte|የሎተስ አበባ
+Seetang|የባሕር አረም
+Algen|አልጌ
+Pilzkreis|የእንጉዳይ ክብ
+Fliegenpilz|ቀይ እንጉዳይ ነጠብጣብ
+Steinpilz|ቡናማ እንጉዳይ
+Pfifferling|ቢጫ እንጉዳይ
+Champignon|ነጭ እንጉዳይ
+Tannennadel|የጥድ መርፌ ቅጠል
+Kiefernzapfen|የፈረንጅ ጥድ ፍሬ
+Bucheckern|የቢች ፍሬ
+Haselstrauch|የሄዝልኑት ቁጥቋጦ
+Weidenkätzchen|የአኻያ አበባ
+Pusteblumenschirm|የሚነፋ አበባ ዘር
+Löwenzahnblatt|የጅብ ጥርስ ቅጠል
+Brennnesselblatt|የሳማ ቅጠል
+Kleefeld|የሶስት ቅጠል ሜዳ
+Reisterrasse|የሩዝ እርከን
+Teeplantage|የሻይ እርሻ
+Kaffeeplantage|የቡና እርሻ
+Bananenplantage|የሙዝ እርሻ
+Obstgarten|የፍራፍሬ አትክልት
+Gemüsegarten|የአትክልት ማሳ
+Kräutergarten|የቅመም አትክልት
+Steingarten|የድንጋይ አትክልት
+Blumengarten|የአበባ አትክልት
+Rosengarten|የጽጌረዳ አትክልት
+Kakteengarten|የቁልቋል አትክልት
+Palmenhaus|የዘንባባ ቤት
+Baumschule|የችግኝ ጣቢያ
+Vogelinsel|የወፍ ደሴት
+Felseninsel|የቋጥኝ ደሴት
+Palmeninsel|የዘንባባ ደሴት
+Sandbank|የአሸዋ ደሴት ትንሽ
+Lagune|ሐይቅ ዳርቻ
+Korallenriff|የኮራል ሪፍ
+Unterwasserhöhle|የውሃ ውስጥ ዋሻ
+Tropfsteinhöhle|የጠብታ ድንጋይ ዋሻ
+Gletscherspalte|የበረዶ ስንጥቅ
+Eishöhle|የበረዶ ዋሻ
+Schneewehe|የበረዶ ክምር ነፋስ
+Wüstenoase|የበረሃ ገነት
+Kamelkarawane|የግመል ቅፍለት
+Wüstenzelt|የበረሃ ድንኳን
+Nomadenzelt|የዘላን ድንኳን
+Strohhütte|የሣር ጎጆ
+Lehmhütte|የጭቃ ጎጆ
+Baumhütte|የዛፍ ጎጆ
+Fischerhütte|የዓሣ አጥማጅ ጎጆ
+Almhütte|የተራራ ጎጆ
+Holzhütte|የእንጨት ጎጆ
+Pfahlbau|በምሰሶ ላይ ያለ ቤት
+Hausboot|የጀልባ ቤት
+Leuchtfeuer|የምልክት እሳት
+Windrose|የነፋስ አቅጣጫ ምልክት

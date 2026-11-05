@@ -32,7 +32,6 @@ Clown|ቀልደኛ
 Zauberer|አስማተኛ
 Engel|መልአክ
 Roboter|ሮቦት
-Alien|ከሌላ ፕላኔት የመጣ
 Superheld|ጀግና ሱፐር
 Astronaut|የጠፈር ተመራማሪ
 Sänger|ዘፋኝ

@@ -1,0 +1,306 @@
+# Essen, Trinken, Küche (Teil 2)
+@1
+Apfelscheibe|የፖም ቁራጭ
+Apfelmus|የፖም ልጥልጥ
+Apfelstrudel|የፖም ስትሩደል
+Bananensaft|የሙዝ ጭማቂ
+Bananenkuchen|የሙዝ ኬክ
+Bananeneis|የሙዝ አይስክሬም
+Birnbaum|የፒር ዛፍ
+Birnensaft|የፒር ጭማቂ
+Kirschsaft|የቼሪ ጭማቂ
+Kirscheis|የቼሪ አይስክሬም
+Traubensaft|የወይን ጭማቂ
+Tomatensaft|የቲማቲም ጭማቂ
+Karottensaft|የካሮት ጭማቂ
+Mangosaft|የማንጎ ጭማቂ
+Zitronensaft|የሎሚ ጭማቂ
+Zitroneneis|የሎሚ አይስክሬም
+Zitronenscheibe|የሎሚ ቁራጭ
+Orangenscheibe|የብርቱካን ቁራጭ
+Melonenscheibe|የሜሎን ቁራጭ
+Ananasscheibe|የአናናስ ቁራጭ
+Tomatenscheibe|የቲማቲም ቁራጭ
+Gurkenscheibe|የኪያር ቁራጭ
+Wurstscheibe|የቋሊማ ቁራጭ
+Schinkenbrot|የካም ዳቦ
+Käsebrot|የአይብ ዳቦ
+Honigbrot|የማር ዳቦ
+Marmeladenbrot|የማርማላታ ዳቦ
+Weißbrot|ነጭ ዳቦ
+Schwarzbrot|ጥቁር ዳቦ
+Maisbrot|የበቆሎ ዳቦ
+Brotkrümel|የዳቦ ፍርፋሪ
+Brotrinde|የዳቦ ቅርፊት
+Pizzastück|የፒዛ ቁራጭ
+Kuchenstück|የኬክ ቁራጭ
+Tortenstück|የቶርታ ቁራጭ
+Schokostück|የቸኮሌት ቁራጭ
+Eiskugel|የአይስክሬም ኳስ
+Erdbeertorte|የእንጆሪ ቶርታ
+Schokotorte|የቸኮሌት ቶርታ
+Obsttorte|የፍራፍሬ ቶርታ
+Sahnetorte|የክሬም ቶርታ
+Käsepizza|የአይብ ፒዛ
+Gemüsepizza|የአትክልት ፒዛ
+Pizzaofen|የፒዛ ምድጃ
+Brotbackofen|የዳቦ መጋገሪያ ምድጃ
+Nudelsuppe|የፓስታ ሾርባ
+Kartoffelsuppe|የድንች ሾርባ
+Kürbissuppe|የዱባ ሾርባ
+Bohnensuppe|የባቄላ ሾርባ
+Reisschüssel|የሩዝ ሳህን
+Suppenschüssel|የሾርባ ሳህን
+Müslischale|የሙስሊ ሳህን
+Obstschale|የፍራፍሬ ሳህን
+Bonbonschale|የከረሜላ ሳህን
+Nussschüssel|የለውዝ ሳህን
+Hühnerbein|የዶሮ እግር
+Hähnchenflügel|የዶሮ ክንፍ
+Fischgräte|የዓሣ አጥንት
+Fischkopf|የዓሣ ራስ
+Eiergelb|የእንቁላል አስኳል
+Eiweiß|የእንቁላል ነጭ
+Wachtelei|የድርጭት እንቁላል
+Hühnerfutter|የዶሮ ምግብ
+Kaffeepulver|የቡና ዱቄት
+Teeblatt|የሻይ ቅጠል
+Pfefferminze|ናና ቅጠል
+Erdnussschale|የኦቾሎኒ ቅርፊት
+Kokosmilch|የኮኮናት ወተት
+Kokosflocken|የኮኮናት ፍርፋሪ
+Milchreis|የወተት ሩዝ
+Grießbrei|የሰሞሊና ገንፎ
+Haferbrei|የአጃ ገንፎ
+Puddingschale|የፑዲንግ ሳህን
+Sahnehäubchen|የክሬም ጫፍ
+Schlagsahne|የተገረፈ ክሬም
+Sahnetopf|የክሬም ድስት
+Butterstück|የቅቤ ቁራጭ
+Zuckerguss|የስኳር ሽፋን
+Streusel|ፍርፋሪ ስኳር
+Lebkuchen|የዝንጅብል ብስኩት
+Lebkuchenherz|የልብ ቅርጽ ብስኩት
+Weihnachtsplätzchen|የገና ብስኩት
+Butterplätzchen|የቅቤ ብስኩት
+Keksdose|የብስኩት ሳጥን
+Bonbonglas|የከረሜላ ብልቃጥ
+Schokoladenhase|የቸኮሌት ጥንቸል
+Schokoladenei|የቸኮሌት እንቁላል
+Schokoladenherz|የቸኮሌት ልብ
+Zuckerstange|የስኳር ዱላ
+Kaugummikugel|የማስቲካ ኳስ
+Lakritze|ጥቁር ከረሜላ
+Popcorntüte|የፋንዲሻ ከረጢት
+Chipstüte|የቺፕስ ከረጢት
+Gummibärchentüte|የጎማ ከረሜላ ከረጢት
+Brezelstange|የብሬዝል ዱላ
+Salzbrezel|የጨው ብሬዝል
+Laugenbrötchen|ቡናማ ትንሽ ዳቦ
+Rosinenbrötchen|የዘቢብ ዳቦ
+Schokobrötchen|የቸኮሌት ዳቦ
+Hefezopf|የተጠለፈ ዳቦ
+Brotteig|የዳቦ ሊጥ
+Pizzateig|የፒዛ ሊጥ
+Kuchenteig|የኬክ ሊጥ
+@2
+Ananaspflanze|የአናናስ ተክል
+Kaffeepflanze|የቡና ተክል
+Teepflanze|የሻይ ተክል
+Tomatenpflanze|የቲማቲም ተክል
+Erdbeerpflanze|የእንጆሪ ተክል
+Kartoffelpflanze|የድንች ተክል
+Maispflanze|የበቆሎ ተክል
+Sonnenblumenkerne|የሱፍ ፍሬዎች
+Kürbiskerne|የዱባ ፍሬዎች
+Melonenkern|የሐብሐብ ፍሬ
+Pfirsichkern|የኮክ ፍሬ ዘር
+Avocadokern|የአቮካዶ ፍሬ ዘር
+Mangokern|የማንጎ ፍሬ ዘር
+Dattelpalme|የተምር ዛፍ
+Kokospalme|የኮኮናት ዛፍ
+Olivenbaum|የወይራ ዛፍ
+Feigenbaum|የበለስ ዛፍ
+Pflaumenbaum|የፕለም ዛፍ
+Pfirsichbaum|የኮክ ዛፍ
+Nussbaum|የለውዝ ዛፍ
+Kastanienbaum|የደረት ለውዝ ዛፍ
+Weinrebe|የወይን ሐረግ
+Weinberg|የወይን ማሳ
+Hopfen|ሆፕ ተክል
+Gerstenähre|የገብስ ዛላ
+Weizenähre|የስንዴ ዛላ
+Reispflanze|የሩዝ ተክል
+Zuckerrohr|ሸንኮራ አገዳ
+Teffkorn|የጤፍ ፍሬ
+Hirsekorn|የማሽላ ፍሬ
+Bohnenranke|የባቄላ ሐረግ
+Erbsenschote|የአተር ፍሬ ቆዳ
+Bohnenschote|የባቄላ ቆዳ
+Chilischote|የሚጥሚጣ ፍሬ
+Knoblauchknolle|የነጭ ሽንኩርት ራስ
+Ingwerknolle|የዝንጅብል ራስ
+Sellerieknolle|የሴሊሪ ሥር
+Rübe|ሥር አትክልት
+Steckrübe|ቢጫ ሥር
+Zuckerrübe|የስኳር ሥር
+Weißkohl|ነጭ ጎመን
+Rotkohl|ቀይ ጎመን
+Grünkohl|አረንጓዴ ጎመን
+Rosenkohl|ትንሽ ጎመን
+Chinakohl|የቻይና ጎመን
+Eisbergsalat|አይስበርግ ሰላጣ
+Kopfsalat|ሙሉ ሰላጣ
+Feldsalat|የሜዳ ሰላጣ
+Salatblatt|የሰላጣ ቅጠል
+Kohlblatt|የጎመን ቅጠል
+Lorbeerbaum|የበሶ ዛፍ
+Zimtbaum|የቀረፋ ዛፍ
+Pfefferkorn|የቁንዶ በርበሬ ፍሬ
+Senfkorn|የሰናፍጭ ፍሬ
+Kümmel|ከሙን
+Kardamom|ኮረሪማ
+Safran|ሳፍሮን
+Oregano|ኦሬጋኖ
+Paprikapulver|የቃሪያ ዱቄት
+Currypulver|የካሪ ዱቄት
+Chilipulver|የሚጥሚጣ ዱቄት
+Backpulver|የመጋገሪያ ዱቄት
+Puderzucker|የዱቄት ስኳር
+Würfelzucker|የኩብ ስኳር
+Rohrzucker|ቡናማ ስኳር
+Meersalz|የባሕር ጨው
+Salzfass|የጨው ዕቃ
+Senftube|የሰናፍጭ ቱቦ
+Zahnpastatube|የጥርስ ሳሙና ቱቦ
+Mayonnaise|ማዮኔዝ
+Remoulade|ሬሙላድ
+Pesto|ፔስቶ
+Tomatenmark|የቲማቲም ድልህ
+Gemüsebrühe|የአትክልት መረቅ
+Bratensoße|የሥጋ መረቅ
+Salatsoße|የሰላጣ ማጣፈጫ
+Ketchupflecken|የኬችአፕ እድፍ
+Teigschaber|የሊጥ መፋቂያ
+Teigrolle|የሊጥ መዳመጫ
+Ausstechform|የብስኩት ቅርጽ መቁረጫ
+Muffinform|የማፊን መጋገሪያ
+Springform|የኬክ ክብ መጋገሪያ
+Kastenform|ባለ ሳጥን መጋገሪያ
+Backpinsel|የመጋገሪያ ብሩሽ
+Backpapier|የመጋገሪያ ወረቀት
+Kochlöffel|የማብሰያ ማንኪያ
+Rührlöffel|የማማሰያ ማንኪያ
+Salatbesteck|የሰላጣ ማንኪያና ሹካ
+Besteckkasten|የማንኪያ ሹካ ሳጥን
+Gemüsemesser|የአትክልት ቢላ
+Fleischmesser|የሥጋ ቢላ
+Fleischklopfer|የሥጋ መምቻ
+Kartoffelstampfer|የድንች መፍጫ
+Knödel|ክኑደል
+Teigtasche|የሊጥ ኪስ
+Frühlingsrolle|ስፕሪንግ ሮል
+Nudelauflauf|የፓስታ ፉርኖ
+Lasagne|ላዛኛ
+Ravioli|ራቪዮሊ
+Tortellini|ቶርቴሊኒ
+Makkaroni|ማካሮኒ
+Bandnudel|ጠፍጣፋ ፓስታ
+Spiralnudel|ጠመዝማዛ ፓስታ
+Reisnudel|የሩዝ ፓስታ
+Nudelsieb|የፓስታ ማጥለያ
+Reiskocher|የሩዝ ማብሰያ
+Dampfgarer|የእንፋሎት ማብሰያ
+Fritteuse|የመጥበሻ ማሽን
+Kontaktgrill|የኤሌክትሪክ ጥብስ
+Entsafter|ጭማቂ ማውጫ
+Stabmixer|የእጅ ማቀላቀያ
+Handmixer|የእጅ መምቻ ማሽን
+Küchenmaschine|የወጥ ቤት ማሽን
+Brotmaschine|የዳቦ መቁረጫ ማሽን
+Kaffeevollautomat|የቡና ማሽን ትልቅ
+Milchaufschäumer|ወተት አረፋ ማውጫ
+Teebeutelhalter|የሻይ ከረጢት መያዣ
+Zuckerstreuer|የስኳር መነስነሻ
+Ölkanne|የዘይት ማንቆርቆሪያ
+Essigflasche|የኮምጣጤ ጠርሙስ
+Gewürzglas|የቅመም ብልቃጥ
+Gewürzmühle|የቅመም መፍጫ
+@3
+Bananenblatt|የሙዝ ቅጠል
+Ensetepflanze|የእንሰት ተክል
+Kaffeekirsche|የቡና ፍሬ ቀይ
+Kakaobohne|የኮኮዋ ፍሬ
+Kakaofrucht|የኮኮዋ ቆርቆሮ ፍሬ
+Vanilleblüte|የቫኒላ አበባ
+Baumwollpflanze|የጥጥ ተክል
+Sesampflanze|የሰሊጥ ተክል
+Kaktusfrucht|የቁልቋል ፍሬ
+Mangoscheibe|የማንጎ ቁራጭ
+Papayakern|የፓፓያ ፍሬ ዘር
+Granatapfelkern|የሮማን ፍሬ ዘር
+Kokosschale|የኮኮናት ቅርፊት
+Walnussschale|የዋልኑት ቅርፊት
+Pistazienschale|የፒስታቺዮ ቅርፊት
+Mandelblüte|የአልሞንድ አበባ
+Kirschblüte|የቼሪ አበባ
+Apfelblüte|የፖም አበባ
+Orangenblüte|የብርቱካን አበባ
+Zitronenblatt|የሎሚ ቅጠል
+Weinblatt|የወይን ቅጠል
+Feigenblatt|የበለስ ቅጠል
+Ahornblatt|የሜፕል ቅጠል
+Eichenblatt|የዋርካ ቅጠል
+Kastanienblatt|የደረት ለውዝ ቅጠል
+Brezelteig|የብሬዝል ሊጥ
+Spätzlehobel|የሽፐትዝሌ መሥሪያ
+Waffelteig|የዋፍል ሊጥ
+Crêpepfanne|የክሬፕ መጥበሻ
+Wokpfanne|የዎክ መጥበሻ
+Pfannendeckel|የመጥበሻ ክዳን
+Topfdeckel|የድስት ክዳን
+Glasdeckel|የመስታወት ክዳን
+Schraubdeckel|የሚጠመዘዝ ክዳን
+Kronkorken|የጠርሙስ ቆርኪ
+Flaschendeckel|የጠርሙስ ክዳን
+Korken|ቡሽ
+Strohhalmglas|መምጠጫ ያለው ብርጭቆ
+Cocktailglas|የኮክቴል ብርጭቆ
+Bierkrug|የቢራ ኩባያ
+Samowar|ሳሞቫር
+Kaffeeröster|የቡና መቁያ
+Kaffeesieb|የቡና ማጣሪያ
+Kaffeesatz|የቡና አተላ
+Räucherfass|የዕጣን ማጨሻ
+Holzmörser|የእንጨት ሙቀጫ
+Steinmühle|የድንጋይ ወፍጮ
+Getreidemühle|የእህል ወፍጮ
+Mühlstein|የወፍጮ ድንጋይ
+Brotkorbdeckel|የዳቦ ቅርጫት ክዳን
+Injerakorb|የእንጀራ ቅርጫት
+Injerapfanne|የእንጀራ ምጣድ
+Tellerstapel|የሳህን ክምር
+Tassenregal|የኩባያ መደርደሪያ
+Abtropfgitter|የእቃ ማድረቂያ
+Spülbürste|የእቃ ማጠቢያ ብሩሽ
+Spülschwamm|የእቃ ማጠቢያ ስፖንጅ
+Spülmittelflasche|የእቃ ሳሙና ጠርሙስ
+Müllbeutel|የቆሻሻ ከረጢት
+Biotonne|የአትክልት ቆሻሻ ገንዳ
+Pfandflasche|ተመላሽ ጠርሙስ
+Getränkekiste|የመጠጥ ሳጥን
+Wasserkiste|የውሃ ሳጥን
+Saftkarton|የጭማቂ ካርቶን
+Konservendose|የታሸገ ምግብ ቆርቆሮ
+Fischdose|የዓሣ ቆርቆሮ
+Erbsendose|የአተር ቆርቆሮ
+Keksrolle|የብስኩት ጥቅል
+Kekskrümel|የብስኩት ፍርፋሪ
+Schokostreusel|የቸኮሌት ፍርፋሪ
+Zuckerperlen|የስኳር ዶቃዎች
+Marzipankartoffel|የማርዚፓን ኳስ
+Nougatcreme|የኑጋ ክሬም
+Karamellbonbon|የካራሜል ከረሜላ
+Pfefferminzbonbon|የናና ከረሜላ
+Honiglöffel|የማር ማንኪያ
+Bienenwachs|የንብ ሰም

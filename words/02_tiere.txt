@@ -29,7 +29,6 @@ Hai|ሻርክ
 Wal|ዓሣ ነባሪ
 Delfin|ዶልፊን
 Schildkröte|ኤሊ
-Schlange|እባብ
 Frosch|እንቁራሪት
 Krokodil|አዞ
 Spinne|ሸረሪት
@@ -109,7 +108,6 @@ Schwertfisch|ሰይፍ ዓሣ
 Seeigel|የባሕር ጃርት
 Koralle|ኮራል
 Chamäleon|እስስት
-Kobra|ኮብራ
 Skorpion|ጊንጥ
 Heuschrecke|አንበጣ
 Libelle|የውሃ ተርብ

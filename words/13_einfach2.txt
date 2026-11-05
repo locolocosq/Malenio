@@ -51,7 +51,6 @@ Wörterbuch|መዝገበ ቃላት
 Zeitschrift|መጽሔት
 Comicheft|የካርቱን መጽሔት
 Geschenkband|የስጦታ ሪባን
-Luftschlange|የወረቀት ጥቅልል
 Partyhut|የፓርቲ ኮፍያ
 Tröte|ጡሩምባ ትንሽ
 Kerzenständer|የሻማ ማቆሚያ

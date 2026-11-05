@@ -1,0 +1,345 @@
+# Verschiedene Alltagsdinge (Teil 3)
+@1
+Apfelkorb|የፖም ቅርጫት
+Bananenkorb|የሙዝ ቅርጫት
+Eierkorb|የእንቁላል ቅርጫት
+Fahrradtasche|የብስክሌት ቦርሳ
+Schultüte|የትምህርት መጀመሪያ ኮን
+Strandtasche|የዳርቻ ቦርሳ
+Badetasche|የመታጠቢያ ቦርሳ
+Brotbeutel|የዳቦ ከረጢት
+Geldtasche|የገንዘብ ቦርሳ
+Gürteltasche|የወገብ ቦርሳ
+Umhängetasche|የትከሻ ቦርሳ
+Laptoptasche|የላፕቶፕ ቦርሳ
+Kameratasche|የካሜራ ቦርሳ
+Werkzeugtasche|የመሣሪያ ቦርሳ
+Kühlschrankmagnet|የማቀዝቀዣ ማግኔት
+Fotorahmen|የፎቶ ክፈፍ
+Wandbild|የግድግዳ ሥዕል
+Kinderbild|የልጅ ሥዕል
+Familienfoto|የቤተሰብ ፎቶ
+Hochzeitsfoto|የሠርግ ፎቶ
+Postkartenständer|የፖስታ ካርድ ማቆሚያ
+Wandteppich|የግድግዳ ምንጣፍ
+Wandkerze|የግድግዳ ሻማ
+Wandlampe|የግድግዳ መብራት
+Wandhaken|የግድግዳ መንጠቆ
+Wandtafel|የግድግዳ ሰሌዳ
+Wandkreuz|የግድግዳ መስቀል
+Holzkreuz|የእንጨት መስቀል
+Kirchenkerze|የቤተ ክርስቲያን ሻማ
+Kirchenbank|የቤተ ክርስቲያን አግዳሚ
+Kirchentür|የቤተ ክርስቲያን በር
+Kirchenfenster|የቤተ ክርስቲያን መስኮት
+Moscheekuppel|የመስጊድ ጉልላት
+Gebetsschnur|የጸሎት መቁጠሪያ
+Hirtenflöte|የእረኛ ዋሽንት
+Kaffeetablett|የቡና ትሪ
+Kaffeeschale|የቡና ሳህን
+Kaffeebrett|የቡና ረከቦት
+Rekebot|ረከቦት
+Räucherschale|የዕጣን ሳህን
+Strohkorb|የገለባ ቅርጫት
+Brotteller|የዳቦ ሳህን
+Holzteller|የእንጨት ሳህን
+Holzschale|የእንጨት ሳህን ጥልቅ
+Holzbecher|የእንጨት ኩባያ
+Holzkamm|የእንጨት ማበጠሪያ
+Holzspielzeug|የእንጨት አሻንጉሊት
+Holzauto|የእንጨት መኪና
+Holzeisenbahn|የእንጨት ባቡር
+Holzpuzzle|የእንጨት እንቆቅልሽ
+Holzwürfel|የእንጨት ዳይስ
+Holzflöte|የእንጨት ዋሽንት
+Holztrommel|የእንጨት ከበሮ
+Holzboot|የእንጨት ጀልባ
+Holzbank|የእንጨት አግዳሚ
+Holzhocker|የእንጨት በርጩማ
+Holzleiter|የእንጨት መሰላል
+Holztor|የእንጨት በር ትልቅ
+Holzfenster|የእንጨት መስኮት
+Holzdach|የእንጨት ጣሪያ
+Steinbank|የድንጋይ አግዳሚ
+Steintisch|የድንጋይ ጠረጴዛ
+Steinfigur|የድንጋይ ምስል
+Steinbrunnen|የድንጋይ ጉድጓድ
+Steinhaus|የድንጋይ ቤት
+Steinturm|የድንጋይ ማማ
+Glaskugel|የመስታወት ኳስ
+Glasvase|የመስታወት ማስቀመጫ
+Glasschale|የመስታወት ሳህን
+Glaskrug|የመስታወት ማሰሮ
+Glasdach|የመስታወት ጣሪያ
+Metallbox|የብረት ሳጥን
+Blechdose|የቆርቆሮ ሳጥን
+Blecheimer|የቆርቆሮ ባልዲ
+Blechtrommel|የቆርቆሮ ከበሮ
+Plastikkiste|የፕላስቲክ ሳጥን
+Plastikeimer|የፕላስቲክ ባልዲ
+Plastikschüssel|የፕላስቲክ ሳህን
+Plastikteller|የፕላስቲክ ሳህን ጠፍጣፋ
+Plastiklöffel|የፕላስቲክ ማንኪያ
+Plastikgabel|የፕላስቲክ ሹካ
+Papierschere|የወረቀት መቀስ
+Papierrolle|የወረቀት ጥቅል
+Papierstapel|የወረቀት ክምር
+Papierball|የወረቀት ኳስ
+Papiertaschentuch|የወረቀት መሐረብ
+Stoffpuppe|የጨርቅ አሻንጉሊት
+Stofftasche|የጨርቅ ቦርሳ
+Stoffschuh|የጨርቅ ጫማ
+Stoffblume|የጨርቅ አበባ
+Lederball|የቆዳ ኳስ
+Lederbeutel|የቆዳ ከረጢት
+Ledersessel|የቆዳ ወንበር
+Ledersofa|የቆዳ ሶፋ
+Ledertasche|የቆዳ ቦርሳ
+Wollmantel|የሱፍ ካፖርት
+Wollfaden|የሱፍ ክር
+Wollschaf|ሱፍ ያለው በግ
+Baumwollhemd|የጥጥ ሸሚዝ
+Baumwollfeld|የጥጥ ማሳ
+Baumwollball|የጥጥ ኳስ
+@2
+Kartoffelpuffer|የድንች ፓንኬክ
+Gemüsekorb|የአትክልት ቅርጫት
+Pilzkorb|የእንጉዳይ ቅርጫት
+Beerenkorb|የእንጆሪ ቅርጫት
+Fischkorb|የዓሣ ቅርጫት
+Hängekorb|ተንጠልጣይ ቅርጫት
+Fahrradkörbchen|ትንሽ የብስክሌት ቅርጫት
+Katzenbaum|የድመት መውጫ
+Katzenspielzeug|የድመት አሻንጉሊት
+Hundespielzeug|የውሻ አሻንጉሊት
+Hundebett|የውሻ አልጋ
+Hundemantel|የውሻ ልብስ
+Hundepfeife|የውሻ ፊሽካ
+Hundeschüssel|የውሻ ሳህን
+Katzenschüssel|የድመት ሳህን
+Vogelschaukel|የወፍ ዥዋዥዌ
+Vogelspiegel|የወፍ መስታወት
+Fischfutter|የዓሣ ምግብ
+Hasenfutter|የጥንቸል ምግብ
+Pferdefutter|የፈረስ ምግብ
+Kuhfutter|የላም ምግብ
+Heunetz|የገለባ መረብ
+Hühnerfeder|የዶሮ ላባ
+Gänsefeder|የዝይ ላባ
+Straußenfeder|የሰጎን ላባ
+Adlerfeder|የንስር ላባ
+Taubenfeder|የርግብ ላባ
+Hirschgeweih|የአጋዘን ቀንድ
+Kuhhorn|የላም ቀንድ
+Ziegenhorn|የፍየል ቀንድ
+Nashornhorn|የአውራሪስ ቀንድ
+Tigerfell|የነብር ቆዳ
+Leopardenmuster|የነብር ነጠብጣብ
+Löwenmähne|የአንበሳ ጋማ
+Pferdemähne|የፈረስ ጋማ
+Bärentatze|የድብ መዳፍ
+Entenfuß|የዳክዬ እግር
+Schildkrötenpanzer|የኤሊ ቅርፊት
+Krebsschere|የሸርጣን ጥፍር
+Fischschuppe|የዓሣ ቅርፊት
+Walflosse|የዓሣ ነባሪ ክንፍ
+Delfinflosse|የዶልፊን ክንፍ
+Pinguinfeder|የፔንጉዊን ላባ
+Bienenwabe|የንብ እንጀራ
+Schmetterlingsflügel|የቢራቢሮ ክንፍ
+Libellenflügel|የውሃ ተርብ ክንፍ
+Vogelflügel|የወፍ ክንፍ
+Vogelschnabel|የወፍ ምንቃር
+Vogelkralle|የወፍ ጥፍር
+Elefantenohr|የዝሆን ጆሮ
+Elefantenfuß|የዝሆን እግር
+Giraffenfleck|የቀጭኔ ነጠብጣብ
+Kamelhöcker|የግመል ሻኛ
+Kängurubeutel|የካንጋሮ ኪስ
+Affenschwanz|የዝንጀሮ ጅራት
+Fuchsschwanz|የቀበሮ ጅራት
+Eichhörnchenschwanz|የሽኮኮ ጅራት
+Schwanenhals|የስዋን አንገት
+Storchennest|የሽመላ ጎጆ
+Adlerhorst|የንስር ጎጆ
+Schwalbennest|የዋጥ ጎጆ
+Entenhaus|የዳክዬ ቤት
+Ententeich|የዳክዬ ኩሬ
+Froschteich|የእንቁራሪት ኩሬ
+Fischteich|የዓሣ ኩሬ
+Seerosenteich|የውሃ አበባ ኩሬ
+Gartenbrücke|የአትክልት ድልድይ
+Bachbrücke|የጅረት ድልድይ
+Schneebrücke|የበረዶ ድልድይ
+Eisenbahnbrücke|የባቡር ድልድይ
+Autobahnbrücke|የአውራ ጎዳና ድልድይ
+Brückenpfeiler|የድልድይ ምሰሶ
+Tunneleingang|የዋሻ መግቢያ
+Höhleneingang|የዋሻ በር
+Burgtor|የምሽግ በር
+Burgturm|የምሽግ ማማ
+Burgmauer|የምሽግ ግንብ
+Schlosstor|የቤተ መንግሥት በር
+Schlossturm|የቤተ መንግሥት ማማ
+Palastgarten|የቤተ መንግሥት አትክልት
+Königsthron|የንጉሥ ዙፋን
+Königsmantel|የንጉሥ ካባ
+Prinzessinnenkleid|የልዕልት ቀሚስ
+Ritterhelm|የባላባት ቆብ
+Ritterburg|የባላባት ምሽግ
+Ritterpferd|የባላባት ፈረስ
+Piratenhut|የወንበዴ ባርኔጣ
+Piratenkiste|የወንበዴ ሳጥን
+Schatzinsel|የሀብት ደሴት
+Goldschatz|የወርቅ ሀብት
+Goldmünze|የወርቅ ሳንቲም
+Silbermünze|የብር ሳንቲም
+Geldstapel|የገንዘብ ክምር
+Münzstapel|የሳንቲም ክምር
+Sparbuch|የቁጠባ ደብተር
+Sparkasse|የቁጠባ ሳጥን
+Geldkassette|የገንዘብ ሳጥን
+Bankkarte|የባንክ ካርድ
+Kassenbon|የግዢ ደረሰኝ
+Einkaufszettel|የገበያ ዝርዝር ወረቀት
+Preiszettel|የዋጋ ወረቀት
+Rabattschild|የቅናሽ ምልክት
+Schaufenster|የሱቅ መስኮት
+Ladentheke|የሱቅ ጠረጴዛ
+Ladenkasse|የሱቅ ገንዘብ መቀበያ
+Einkaufskorb|የገበያ ቅርጫት
+Obstwaage|የፍራፍሬ ሚዛን
+Brotregal|የዳቦ መደርደሪያ
+Kühlregal|የማቀዝቀዣ መደርደሪያ
+Tiefkühltruhe|ጥልቅ ማቀዝቀዣ ሳጥን
+Getränkeautomat|የመጠጥ ማሽን
+Süßigkeitenautomat|የከረሜላ ማሽን
+Fotoautomat|የፎቶ ማሽን
+@3
+Fahnenmast|የባንዲራ ምሰሶ
+Wetterballon|የአየር ሁኔታ ፊኛ
+Leuchtrakete|የምልክት ሮኬት
+Signalflagge|የምልክት ባንዲራ
+Flaggenmast|የባንዲራ ዘንግ
+Flaschenzug|መዘውር
+Seilwinde|የገመድ መጠቅለያ
+Hebebühne|ማንሻ መድረክ
+Lagerhalle|መጋዘን ትልቅ
+Palette|የእንጨት ፓሌት
+Containerkran|የኮንቴይነር ክሬን
+Frachtcontainer|የጭነት ኮንቴይነር
+Förderband|ተንቀሳቃሽ ቀበቶ
+Fabrikschornstein|የፋብሪካ ጭስ ማውጫ
+Fabrikhalle|የፋብሪካ አዳራሽ
+Werkstatttor|የጋራዥ ትልቅ በር
+Autowerkstatt|የመኪና ጋራዥ
+Reifenstapel|የጎማ ክምር
+Wagenheber|ጃክ
+Radmutter|የጎማ ብሎን
+Abschleppseil|የመጎተቻ ገመድ
+Starthilfekabel|የባትሪ ማስነሻ ገመድ
+Warndreieck|የአደጋ ሦስት ማዕዘን
+Schneeketten|የበረዶ ሰንሰለቶች
+Dachbox|የጣሪያ ሳጥን
+Anhängerkupplung|የተሳቢ መያዣ
+Auspuffrohr|የጭስ ማውጫ ቱቦ
+Kühlerfigur|የመኪና ፊት ምስል
+Scheinwerferlicht|የፊት መብራት ብርሃን
+Rücklicht|የኋላ መብራት
+Blinklicht|የሚበራ መብራት
+Kennzeichen|ታርጋ ቁጥር
+Tankdeckel|የነዳጅ ክዳን
+Motorhaube|የሞተር ሽፋን
+Kofferraumdeckel|የዕቃ ማስቀመጫ ክዳን
+Handschuhfach|የመኪና ትንሽ ሳጥን
+Sonnenblende|የፀሐይ መከለያ
+Rückbank|የኋላ ወንበር
+Kopfstütze|የራስ መደገፊያ
+Armlehne|የክንድ መደገፊያ
+Fußraum|የእግር ቦታ
+Fußpedal|የእግር ፔዳል
+Schalthebel|ማርሽ መቀየሪያ
+Handbremse|የእጅ ፍሬን
+Tachometer|የፍጥነት መለኪያ
+Tankanzeige|የነዳጅ መለኪያ
+Autoschlüsselanhänger|የመኪና ቁልፍ ማንጠልጠያ
+Lenkradschloss|የመሪ ቁልፍ
+Navigationsgerät|የአቅጣጫ መሣሪያ
+Autoaufkleber|የመኪና ተለጣፊ
+Wunderbaum|የመኪና ሽቶ
+Autowaschbürste|የመኪና ማጠቢያ ብሩሽ
+Waschstraße|የመኪና ማጠቢያ መስመር
+Parkschein|የማቆሚያ ደረሰኝ
+Parkbucht|የማቆሚያ ቦታ
+Garagenhof|የጋራዥ ግቢ
+Fahrradbox|የብስክሌት ሳጥን
+Rollerständer|የስኩተር ማቆሚያ
+Busspur|የአውቶቡስ መስመር
+Taxistand|የታክሲ ማቆሚያ
+Bajajstand|የባጃጅ ማቆሚያ
+Pferdekutscher|ጋሪ ነጂ
+Schuhputzkasten|የሊስትሮ ሳጥን
+Zeitungsjunge|ጋዜጣ ሻጭ ልጅ
+Marktfrau|የገበያ ሴት
+Obsthändler|ፍራፍሬ ነጋዴ
+Gemüsehändler|አትክልት ነጋዴ
+Fischhändler|ዓሣ ነጋዴ
+Blumenhändler|አበባ ነጋዴ
+Eisverkäufer|አይስክሬም ሻጭ
+Maiskolbenverkäufer|በቆሎ ጠባሽ
+Kaffeeverkäuferin|ቡና ሻጪ
+Brotverkäuferin|ዳቦ ሻጪ
+Wasserträger|ውሃ ተሸካሚ
+Holzträger|እንጨት ተሸካሚ
+Hirtenjunge|እረኛ ልጅ
+Gänsehirtin|ዝይ ጠባቂ
+Ziegenhirte|ፍየል ጠባቂ
+Kuhhirte|ላም ጠባቂ
+Schäferin|በግ ጠባቂ ሴት
+Bäuerin|ገበሬ ሴት
+Gärtnerin|አትክልተኛ ሴት
+Köchin|ምግብ አብሳይ ሴት
+Bäckerin|ዳቦ ጋጋሪ ሴት
+Lehrerin|አስተማሪ ሴት
+Sängerin|ዘፋኝ ሴት
+Tänzerin|ዳንሰኛ ሴት
+Malerin|ሠዓሊ ሴት
+Fischerin|ዓሣ አጥማጅ ሴት
+Pilotin|አብራሪ ሴት
+Kapitänin|ካፒቴን ሴት
+Astronautin|የጠፈር ተመራማሪ ሴት
+Friseurin|ፀጉር አስተካካይ ሴት
+Kellnerin|አስተናጋጅ ሴት
+Fotografin|ፎቶ አንሺ ሴት
+Imkerin|ንብ አናቢ ሴት
+Musikerin|ሙዚቀኛ ሴት
+Taucherin|ጠላቂ ሴት
+Skifahrerin|ስኪ ተንሸራታች ሴት
+Surferin|ሞገድ ተንሸራታች ሴት
+Bergsteigerin|ተራራ ወጪ ሴት
+Gitarristin|ጊታር ተጫዋች ሴት
+Schülerin|ተማሪ ሴት
+Großmutter|አያት ሴት ትልቅ
+Großvater|አያት ወንድ ትልቅ
+Enkelkind|የልጅ ልጅ
+Neugeborenes|አዲስ የተወለደ ሕፃን
+Kleinkind|ትንሽ ልጅ
+Schulkind|የትምህርት ቤት ልጅ
+Brautpaar|ሙሽሮች
+Babysitter|ሕፃን ጠባቂ
+Nachbarskind|የጎረቤት ልጅ
+Schneeeule|የበረዶ ጉጉት
+Schneehase|የበረዶ ጥንቸል
+Schneehuhn|የበረዶ ዶሮ
+Polarbär|የዋልታ ድብ
+Wüstenmaus|የበረሃ አይጥ
+Wüstenrose|የበረሃ ጽጌረዳ
+Wüstenkaktus|የበረሃ ቁልቋል
+Wüstenstrauß|የበረሃ ሰጎን
+Steppengras|የሜዳ ሣር
+Bambuswald|የቀርከሃ ጫካ
+Palmenwald|የዘንባባ ጫካ
+Tannenwald|የጥድ ጫካ
+Birkenwald|የበርች ጫካ
+Eichenwald|የዋርካ ጫካ
+Regenwaldbaum|የዝናብ ደን ዛፍ

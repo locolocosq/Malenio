@@ -1,0 +1,253 @@
+# Rest bis 4000
+@1
+Sonnenblumenbaum|ትልቅ የሱፍ አበባ
+Apfelkuchenstück|የፖም ኬክ ቁራጭ
+Bananenstaude|የሙዝ ዘለላ ተክል
+Bananenbund|የሙዝ ዘለላ
+Traubenbund|የወይን ዘለላ ትልቅ
+Kirschpaar|ጥንድ ቼሪ
+Erdbeerkorb|የእንጆሪ ቅርጫት
+Erdbeermarmelade|የእንጆሪ ማርማላታ
+Orangenmarmelade|የብርቱካን ማርማላታ
+Kirschmarmelade|የቼሪ ማርማላታ
+Honigtopf|የማር ማሰሮ
+Milchtopf|የወተት ድስት
+Teetopf|የሻይ ድስት
+Suppentopf|የሾርባ ድስት
+Blumentöpfchen|ትንሽ የአበባ ማሰሮ
+Kakteentopf|የቁልቋል ማሰሮ ትልቅ
+Wasserkrug|የውሃ ማሰሮ
+Milchkrug|የወተት ማሰሮ
+Saftkrug|የጭማቂ ማሰሮ
+Blumenkrug|የአበባ ማሰሮ ጥልቅ
+Kinderschaukel|የልጆች ዥዋዥዌ
+Kinderrad|የልጅ ብስክሌት ትንሽ
+Kinderzelt|የልጆች ድንኳን
+Kindertisch|የልጅ ጠረጴዛ
+Kinderlampe|የልጅ መብራት
+Kinderrucksack|የልጅ ቦርሳ
+Kindersofa|የልጅ ሶፋ
+Kinderhaus|የልጆች ቤት
+Kinderküche|የልጆች ወጥ ቤት
+Kinderauto|የልጅ መኪና
+Kinderkamera|የልጅ ካሜራ
+Kindertrommel|የልጅ ከበሮ
+Kinderhandschuh|የልጅ ጓንት
+Kinderschal|የልጅ ሻርፕ
+Kindermütze|የልጅ ኮፍያ
+Kinderbrille|የልጅ መነጽር
+Kinderschirm|የልጅ ጃንጥላ
+Kinderstiefel|የልጅ ቦቲ
+Kinderpullover|የልጅ ሹራብ
+Kinderhose|የልጅ ሱሪ
+Babyjacke|የሕፃን ጃኬት
+Babyschühchen|የሕፃን ጫማ ትንሽ
+Babylöffel|የሕፃን ማንኪያ
+Babyteller|የሕፃን ሳህን
+Babybecher|የሕፃን ኩባያ
+Babyspielzeug|የሕፃን አሻንጉሊት
+Babyrassel|የሕፃን ጩኸት አሻንጉሊት
+Babytragetasche|የሕፃን መያዣ ቦርሳ
+Babybadetuch|የሕፃን ፎጣ
+Babykissen|የሕፃን ትራስ
+@2
+Sonnenblumenkopf|የሱፍ አበባ ራስ
+Maiskorn|የበቆሎ ፍሬ
+Kaffeekorn|የቡና ፍሬ ቅንጣት
+Weizenkorn|የስንዴ ፍሬ
+Gerstenkorn|የገብስ ፍሬ
+Kürbisfeld|የዱባ ማሳ
+Kartoffelfeld|የድንች ማሳ
+Tomatenfeld|የቲማቲም ማሳ
+Zwiebelfeld|የሽንኩርት ማሳ
+Gerstenfeld|የገብስ ማሳ
+Teffeld|የጤፍ ማሳ
+Bohnenfeld|የባቄላ ማሳ
+Reisbauer|ሩዝ አምራች ገበሬ
+Kaffeebauer|ቡና አምራች ገበሬ
+Teebauer|ሻይ አምራች ገበሬ
+Obstbauer|ፍራፍሬ አምራች ገበሬ
+Bienenhonig|የንብ ማር
+Bienenhaus|የንብ ቤት
+Hühnerhof|የዶሮ ግቢ
+Bauernhofkatze|የእርሻ ድመት
+Hofhund|የግቢ ውሻ
+Hoftor|የግቢ በር
+Hofbrunnen|የግቢ ጉድጓድ
+Scheunentor|የጎተራ በር
+Scheunendach|የጎተራ ጣሪያ
+Heuboden|የገለባ ሰገነት
+Strohballen|የገለባ ጥቅል ክብ
+Strohpuppe|የገለባ አሻንጉሊት
+Strohstern|የገለባ ኮከብ
+Strohhalmbündel|የገለባ ጥቅል
+Kürbiskopf|የዱባ ራስ
+Kürbiskuchen|የዱባ ኬክ
+Kürbisblüte|የዱባ አበባ
+Gurkenglas|የኪያር ብልቃጥ
+Senfgurke|የሰናፍጭ ኪያር
+Tomatenstrauch|የቲማቲም ቁጥቋጦ
+Paprikapflanze|የቃሪያ ተክል
+Chilipflanze|የሚጥሚጣ ተክል
+Basilikumtopf|የበሶብላ ማሰሮ
+Minzblatt|የናና ቅጠል
+Petersilienbund|የፓርስሊ ጥቅል
+Schnittlauchbund|የቀጭን ሽንኩርት ጥቅል
+Radieschenbund|የቀይ ስር ጥቅል
+Karottenbund|የካሮት ጥቅል
+Lauchstange|የሊክ ዘንግ
+Selleriestange|የሴሊሪ ዘንግ
+Rhabarberstange|የሩባርብ ዘንግ
+Zimtstern|የቀረፋ ኮከብ ብስኩት
+Vanillekipferl|የቫኒላ ጨረቃ ብስኩት
+Butterbrezel|የቅቤ ብሬዝል
+Käsestange|የአይብ ዱላ
+Schinkenröllchen|የካም ጥቅል
+Gurkenwasser|የኪያር ውሃ
+Melonenball|የሜሎን ኳስ
+Obstspieß|የፍራፍሬ ዘንግ
+Gemüsespieß|የአትክልት ዘንግ
+Fleischspieß|የሥጋ ዘንግ
+Fischspieß|የዓሣ ዘንግ
+Maisspieß|የበቆሎ ዘንግ
+Grillteller|የጥብስ ሳህን
+Grillrost|የጥብስ ፍርግርግ
+Grillhandschuh|የጥብስ ጓንት
+Grillschürze|የጥብስ ሽርጥ
+Grillfeuer|የጥብስ እሳት
+Lagerfeuerholz|የካምፕ እሳት እንጨት
+Laternenstab|የፋኖስ ዘንግ
+Kerzenwachs|የሻማ ሰም
+Kerzendocht|የሻማ ክር
+Kerzenflamme|የሻማ ነበልባል
+Streichholzkopf|የክብሪት ራስ
+Feuerholz|የእሳት እንጨት
+Holzscheit|የእንጨት ፍልጥ
+Holzspäne|የእንጨት ፍርፋሪ
+Sägemehl|የመጋዝ ዱቄት
+Baumharz|የዛፍ ሙጫ
+Ahornsirup|የሜፕል ሽሮፕ
+Zuckersirup|የስኳር ሽሮፕ
+Sirupflasche|የሽሮፕ ጠርሙስ
+Saftpresse|ጭማቂ መጭመቂያ
+Obstpresse|የፍራፍሬ መጭመቂያ
+Ölmühle|የዘይት ወፍጮ
+Kaffeerösterei|የቡና መቁያ ቤት
+Teedose|የሻይ ሳጥን
+Kaffeedose|የቡና ሳጥን
+Zuckertüte|የስኳር ከረጢት
+Mehltüte|የዱቄት ከረጢት
+Reistüte|የሩዝ ከረጢት
+Nudeltüte|የፓስታ ከረጢት
+Brottüte|የዳቦ ከረጢት
+Brötchentüte|የትንሽ ዳቦ ከረጢት
+Obsttüte|የፍራፍሬ ከረጢት
+Kartoffeltüte|የድንች ከረጢት
+Bonbondose|የከረሜላ ሳጥን
+Pralinenschachtel|የቸኮሌት ሳጥን
+Kekspackung|የብስኩት ጥቅል
+Chipsdose|የቺፕስ ቆርቆሮ
+Getränkedose|የመጠጥ ቆርቆሮ
+Coladose|የኮካ ቆርቆሮ
+Saftpäckchen|የጭማቂ ጥቅል ትንሽ
+Milchpulver|የወተት ዱቄት
+Kakaopulver|የኮኮዋ ዱቄት
+Teepulver|የሻይ ዱቄት
+Puddingpulver|የፑዲንግ ዱቄት
+Gummiente|የጎማ ዳክዬ
+Gummistiefelpaar|ጥንድ የላስቲክ ቦቲ
+Gummihandschuh|የላስቲክ ጓንት
+Gummiringe|የላስቲክ ቀለበቶች
+Gummischlauch|የላስቲክ ቱቦ
+Gummireifen|የላስቲክ ጎማ
+Gummisohle|የላስቲክ ሶል
+Gummihammer|የጎማ መዶሻ
+Gummipuppe|የጎማ አሻንጉሊት
+Gummitier|የጎማ እንስሳ
+Gummifrosch|የጎማ እንቁራሪት
+Gummifisch|የጎማ ዓሣ
+@3
+Sonnenuhrzeiger|የፀሐይ ሰዓት ጠቋሚ
+Uhrzeiger|የሰዓት እጅ
+Uhrpendel|የሰዓት ፔንዱለም
+Uhrwerk|የሰዓት ውስጣዊ ማሽን
+Kuckucksvogel|የኩኩ ሰዓት ወፍ
+Zifferblatt|የሰዓት ፊት
+Weckerglocke|የማንቂያ ደወል
+Glockenschnur|የደወል ገመድ
+Glockenklöppel|የደወል ምላስ
+Türglocke|የበር ደወል ትልቅ
+Schulglocke|የትምህርት ቤት ደወል
+Handglocke|የእጅ ደወል
+Fahrradglocke|የብስክሌት ደወል ክብ
+Schlittenglocke|የተንሸራታች ደወል
+Halsbandglocke|የአንገት ደወል
+Windglocke|የነፋስ ደወል ትንሽ
+Glockenblume|የደወል አበባ
+Rapsfeld|የካኖላ ማሳ
+Rapsblüte|የካኖላ አበባ
+Lavendelfeld|የላቬንደር ማሳ
+Tulpenfeld|የቱሊፕ ማሳ
+Mohnfeld|የፖፒ ማሳ
+Blumenmarkt|የአበባ ገበያ
+Fischmarkt|የዓሣ ገበያ
+Obstmarkt|የፍራፍሬ ገበያ
+Viehmarkt|የከብት ገበያ
+Kamelmarkt|የግመል ገበያ
+Gewürzmarkt|የቅመም ገበያ
+Stoffmarkt|የጨርቅ ገበያ
+Weihnachtsmarkt|የገና ገበያ
+Nachtmarkt|የሌሊት ገበያ
+Marktkorb|የገበያ ቅርጫት ትልቅ
+Marktschirm|የገበያ ጃንጥላ
+Marktwaage|የገበያ ሚዛን
+Marktkarren|የገበያ ጋሪ
+Lastesel|ዕቃ የተጫነ አህያ
+Packesel|የጭነት አህያ
+Lastkamel|የጭነት ግመል
+Packsattel|የጭነት ኮርቻ
+Satteltasche|የኮርቻ ቦርሳ
+Wasserschlauch|የውሃ ቱቦ ረጅም
+Gartenspritze|የአትክልት መርጫ
+Rasensprenger|የሣር ውሃ ረጪ
+Regenmesser|የዝናብ መለኪያ
+Windmesser|የነፋስ መለኪያ
+Wetterfrosch|የአየር ሁኔታ እንቁራሪት
+Sonnensegel|የፀሐይ ሸራ
+Markise|የመስኮት ጥላ ሸራ
+Balkonkasten|የበረንዳ የአበባ ሳጥን
+Balkonstuhl|የበረንዳ ወንበር
+Balkontür|የበረንዳ በር
+Balkongeländer|የበረንዳ መደገፊያ
+Dachterrasse|የጣሪያ ሰገነት
+Dachgarten|የጣሪያ አትክልት
+Dachboden|የጣሪያ ሥር ክፍል
+Dachluke|የጣሪያ መስኮት ትንሽ
+Kellertreppe|የምድር ቤት ደረጃ
+Kellertür|የምድር ቤት በር
+Kellerfenster|የምድር ቤት መስኮት
+Vorratsregal|የማከማቻ መደርደሪያ
+Einmachglas|የማቆያ ብልቃጥ
+Marmeladentopf|የማርማላታ ማሰሮ
+Gurkentopf|የኪያር ማሰሮ
+Butterfässchen|ትንሽ ቅቤ መናጫ
+Käselaib|ሙሉ አይብ
+Käsereibe|የአይብ መፈግፈጊያ
+Käseglocke|የአይብ ሽፋን
+Käsemesser|የአይብ ቢላ
+Brotzeitbrett|የመክሰስ ሰሌዳ
+Frühstücksbrett|የቁርስ ሰሌዳ
+Eierlöffel|የእንቁላል ማንኪያ
+Eierwärmer|የእንቁላል ማሞቂያ ሽፋን
+Teewärmer|የሻይ ማሞቂያ ሽፋን
+Kaffeewärmer|የቡና ማሞቂያ ሽፋን
+Wärmeplatte|ማሞቂያ ሳህን
+Warmhaltekanne|ሙቀት ማቆያ ማንቆርቆሪያ
+Thermobecher|ሙቀት ማቆያ ኩባያ
+Trinkhalm|መምጠጫ ቱቦ
+Trinkbecher|የመጠጫ ኩባያ
+Schnabeltasse|የሕፃን ኩባያ በአፍ
+Kinderflasche|የልጅ ጠርሙስ
+Brotdosenset|የምሳ ዕቃ ስብስብ
+Pausenbox|የእረፍት ምግብ ሳጥን
+Vesperdose|የመክሰስ ሳጥን

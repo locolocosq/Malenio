@@ -1,0 +1,320 @@
+# Stadt, Verkehr, Kleidung, Spielzeug, Schule, Technik (Teil 2)
+@1
+Stadtbus|የከተማ አውቶቡስ
+Linienbus|የመስመር አውቶቡስ
+Busfahrer|የአውቶቡስ ሹፌር
+Taxifahrer|የታክሲ ሹፌር
+Lokführer|የባቡር ሹፌር
+Zugfenster|የባቡር መስኮት
+Zugtür|የባቡር በር
+Busfenster|የአውቶቡስ መስኮት
+Autoreifen|የመኪና ጎማ
+Fahrradreifen|የብስክሌት ጎማ
+Traktorreifen|የትራክተር ጎማ
+Ersatzrad|ትርፍ ጎማ
+Autolampe|የመኪና መብራት
+Autohupe|የመኪና ጡሩምባ
+Autodach|የመኪና ጣሪያ
+Autositzgurt|የመኪና ቀበቶ
+Autokindersitz|የልጅ የመኪና ወንበር
+Wasserflugzeug|የውሃ አውሮፕላን
+Segelflieger|ሞተር አልባ አውሮፕላን
+Flugzeugflügel|የአውሮፕላን ክንፍ
+Flugzeugfenster|የአውሮፕላን መስኮት
+Raketenstart|የሮኬት መነሻ
+Spielzeugrakete|የአሻንጉሊት ሮኬት
+Spielzeugroboter|የአሻንጉሊት ሮቦት
+Spielzeughaus|የአሻንጉሊት ቤት
+Spielzeugküche|የአሻንጉሊት ወጥ ቤት
+Spielzeugtelefon|የአሻንጉሊት ስልክ
+Spielzeugtrommel|የአሻንጉሊት ከበሮ
+Spielzeuggitarre|የአሻንጉሊት ጊታር
+Spielzeugbagger|የአሻንጉሊት ኤክስካቫተር
+Spielzeugtraktor|የአሻንጉሊት ትራክተር
+Spielzeuglaster|የአሻንጉሊት የጭነት መኪና
+Spielzeugpferd|የአሻንጉሊት ፈረስ
+Spielzeugente|የአሻንጉሊት ዳክዬ
+Spielzeugbär|የአሻንጉሊት ድብ
+Spielzeugkatze|የአሻንጉሊት ድመት
+Spielzeughund|የአሻንጉሊት ውሻ
+Spielzeugschiff|የአሻንጉሊት መርከብ
+Spielzeugkrone|የአሻንጉሊት ዘውድ
+Spielzeugkamera|የአሻንጉሊት ካሜራ
+Spielzeugbauernhof|የአሻንጉሊት እርሻ
+Spielzeugburg|የአሻንጉሊት ምሽግ
+Puppenkleid|የአሻንጉሊት ቀሚስ
+Puppenschuh|የአሻንጉሊት ጫማ
+Puppenstube|የአሻንጉሊት ክፍል
+Puppentasse|የአሻንጉሊት ኩባያ
+Würfelturm|የዳይስ ማማ
+Legostein|የሌጎ ድንጋይ
+Bauklotz|የእንጨት ብሎክ
+Malkreide|የቀለም ጠመኔ
+Straßenkreide|የመንገድ ጠመኔ
+Wachsmalstift|የሰም ቀለም እርሳስ
+Fingerfarbe|የጣት ቀለም
+Tuschkasten|የቀለም ሳጥን ትንሽ
+Pinselbecher|የብሩሽ ኩባያ
+Zeichenpapier|የሥዕል ወረቀት
+Buntpapier|ቀለማዊ ወረቀት
+Seidenpapier|ስስ ወረቀት
+Papierkrone|የወረቀት ዘውድ
+Papierhut|የወረቀት ኮፍያ
+Papiermaske|የወረቀት ጭምብል
+Papierfächer|የወረቀት ማራገቢያ
+Papierstern|የወረቀት ኮከብ
+Papierblume|የወረቀት አበባ
+Papierkette|የወረቀት ሰንሰለት
+Papierschiff|የወረቀት መርከብ
+Papierdrachen|የወረቀት ካይት
+Windrädchen|የነፋስ ጎማ አሻንጉሊት
+Kinderdrachen|የልጆች ካይት
+Sandspielzeug|የአሸዋ አሻንጉሊት
+Schwimmtier|የሚንሳፈፍ አሻንጉሊት
+Wasserspritze|ውሃ መርጫ አሻንጉሊት
+Gießkännchen|ትንሽ ውሃ ማጠጫ
+Schulranzen|የትምህርት ቦርሳ ጀርባ
+Schulbank|የትምህርት ቤት ወንበር
+Schultafel|የትምህርት ቤት ሰሌዳ
+Lehrerpult|የአስተማሪ ጠረጴዛ
+Klassenfoto|የክፍል ፎቶ
+Pausenbrot|የእረፍት ዳቦ
+Schulhof|የትምህርት ቤት ግቢ
+Schulweg|የትምህርት ቤት መንገድ
+Schultür|የትምህርት ቤት በር
+Turnschuhe|የስፖርት ጫማዎች
+Hausschlüssel|የቤት ቁልፍ
+Schlüsselanhänger|የቁልፍ ማንጠልጠያ
+Namensschild|የስም ሰሌዳ
+Kinderuhr|የልጅ ሰዓት
+Kindermesser|የልጅ ቢላ
+Kinderbesteck|የልጅ ማንኪያ ሹካ
+Kinderbecher|የልጅ ኩባያ
+Kinderhut|የልጅ ባርኔጣ
+Kinderjacke|የልጅ ጃኬት
+Kinderkleid|የልጅ ቀሚስ
+Kindersocken|የልጅ ካልሲ
+Babysocken|የሕፃን ካልሲ
+Babymütze|የሕፃን ኮፍያ
+Babybadewanne|የሕፃን ገንዳ
+Babyschale|የሕፃን መቀመጫ
+Babyphone|የሕፃን ማዳመጫ
+Spieluhrbär|የሙዚቃ ድብ
+@2
+Fahrradpumpe|የብስክሌት ፓምፕ
+Fahrradkette|የብስክሌት ሰንሰለት
+Fahrradpedal|የብስክሌት ፔዳል
+Fahrradlenker|የብስክሌት መሪ
+Fahrradspiegel|የብስክሌት መስታወት
+Fahrradständer|የብስክሌት ማቆሚያ
+Fahrradgarage|የብስክሌት ጋራዥ
+Motorradhelm|የሞተር ሳይክል ቆብ
+Motorradjacke|የሞተር ሳይክል ጃኬት
+Lederhandschuhe|የቆዳ ጓንቶች
+Sturzhelm|የሞተር ቆብ
+Rennrad|የውድድር ብስክሌት
+Lastenrad|የጭነት ብስክሌት
+Liegerad|የተኛ ብስክሌት
+Klapprad|ታጣፊ ብስክሌት
+Elektroauto|የኤሌክትሪክ መኪና
+Ladesäule|የመኪና ቻርጅ ማደያ
+Kleinwagen|ትንሽ መኪና
+Geländewagen|የገጠር መኪና
+Pick-up|ፒካፕ መኪና
+Tieflader|ዝቅተኛ ተሳቢ
+Kipper|ገልባጭ መኪና
+Kühlwagen|የማቀዝቀዣ መኪና
+Möbelwagen|የዕቃ መጫኛ መኪና
+Eiswagen|የአይስክሬም መኪና
+Imbisswagen|የምግብ መኪና
+Kehrmaschine|መንገድ ጠራጊ መኪና
+Straßenwalze|መንገድ ደልዳይ
+Schneepflug|በረዶ ጠራጊ
+Rasentraktor|የሣር ትራክተር
+Mähmaschine|ማጨጃ ማሽን
+Holzlaster|የእንጨት መኪና
+Viehwagen|የከብት መኪና
+Pferdeanhänger|የፈረስ ተሳቢ
+Bootsanhänger|የጀልባ ተሳቢ
+Campingbus|የካምፕ አውቶቡስ
+Doppeldecker|ባለ ሁለት ክንፍ አውሮፕላን
+Segelflugzeug|ሞተር አልባ አውሮፕላን ትልቅ
+Wasserski|የውሃ ስኪ
+Jetski|ጄት ስኪ
+Motorboot|የሞተር ጀልባ
+Schlauchboot|የአየር ጀልባ
+Tretboot|በእግር የሚነዳ ጀልባ
+Paddelboot|የመቅዘፊያ ጀልባ ትንሽ
+Paddel|መቅዘፊያ
+Bootssteg|የጀልባ ማረፊያ ድልድይ
+Bootshaus|የጀልባ ቤት
+Hafenmauer|የወደብ ግንብ
+Containerschiff|የኮንቴይነር መርከብ
+Frachtschiff|የጭነት መርከብ
+Kreuzfahrtschiff|የመዝናኛ መርከብ
+Dampfer|የእንፋሎት መርከብ
+Schiffsglocke|የመርከብ ደወል
+Schiffsflagge|የመርከብ ባንዲራ
+Schiffstau|የመርከብ ገመድ
+Rettungsboot|ነፍስ አድን ጀልባ
+Fahrgastschiff|የተሳፋሪ መርከብ
+Bahnübergang|የባቡር መሻገሪያ
+Bahnschranke|የባቡር መከላከያ
+Bahnsteig|የባቡር መድረክ
+Bahnhofshalle|የባቡር ጣቢያ አዳራሽ
+Fahrkartenautomat|የትኬት ማሽን
+Gepäckwagen|የሻንጣ ጋሪ
+Kofferband|የሻንጣ መውጫ
+Flughafenturm|የአውሮፕላን ማረፊያ ማማ
+Landebahn|ማረፊያ መንገድ
+Flugzeugtreppe|የአውሮፕላን ደረጃ
+Windsack|የነፋስ ከረጢት
+Aufzugknopf|የሊፍት ቁልፍ
+Parkuhr|የመኪና ማቆሚያ ቆጣሪ
+Parkscheibe|የማቆሚያ ሰዓት ካርድ
+Verkehrsschild|የትራፊክ ምልክት
+Vorfahrtsschild|የቅድሚያ ምልክት
+Einbahnstraßenschild|የአንድ አቅጣጫ ምልክት
+Wegweiserpfahl|የአቅጣጫ ጠቋሚ ምሰሶ
+Leitplanke|የመንገድ መከለያ
+Bordstein|የእግረኛ መንገድ ጠርዝ
+Pflasterstein|የመንገድ ድንጋይ
+Kanaldeckel|የፍሳሽ ክዳን ክብ
+Laternenpfahl|የመብራት ምሰሶ
+Ampelmast|የትራፊክ መብራት ምሰሶ
+Telefonmast|የስልክ ምሰሶ
+Funkturm|የሬዲዮ ማማ
+Fernsehturm|የቴሌቪዥን ማማ
+Uhrturm|የሰዓት ማማ
+Glockenturm|የደወል ማማ
+Aussichtsturm|የመመልከቻ ማማ
+Sprungschanze|የስኪ መዝለያ
+Riesenrutsche|ግዙፍ ተንሸራታች
+Autoscooter|የሚጋጩ መኪኖች
+Kettenkarussell|የሰንሰለት ካሩሰል
+Zuckerwattestand|የጥጥ ከረሜላ መደብ
+Popcornstand|የፋንዲሻ መደብ
+Eisdiele|የአይስክሬም ቤት
+Pizzeria|ፒዛ ቤት
+Bäckerladen|የዳቦ ሱቅ
+Blumenladen|የአበባ ሱቅ
+Spielzeugladen|የአሻንጉሊት ሱቅ
+Schuhladen|የጫማ ሱቅ
+Buchladen|የመጽሐፍ ሱቅ
+Kleiderladen|የልብስ ሱቅ
+Obstladen|የፍራፍሬ ሱቅ
+Gemüseladen|የአትክልት ሱቅ
+Fischladen|የዓሣ ሱቅ
+Kaffeehaus|የቡና ቤት
+Teehaus|የሻይ ቤት
+Brotladen|የዳቦ መሸጫ
+Marktplatz|የገበያ ቦታ
+Kirchplatz|የቤተ ክርስቲያን አደባባይ
+Stadtpark|የከተማ መናፈሻ
+Stadttor|የከተማ በር
+Stadthaus|የከተማ ቤት
+Reihenhaus|ተያያዥ ቤቶች
+Mehrfamilienhaus|ባለ ብዙ ቤተሰብ ቤት
+Einfamilienhaus|የአንድ ቤተሰብ ቤት
+Ferienhaus|የእረፍት ቤት
+Baumhausleiter|የዛፍ ቤት መሰላል
+Wolkenkratzerfenster|የፎቅ መስኮት
+@3
+Bergbahn|የተራራ ባቡር
+Zahnradbahn|ጥርስ ያለው ባቡር
+Sessellift|የወንበር ማንሻ
+Gondelbahn|የገመድ ባቡር ክፍል
+Schwebebahn|ተንጠልጣይ ባቡር
+Magnetbahn|የማግኔት ባቡር
+Hochgeschwindigkeitszug|ፈጣን ባቡር
+Nachtzug|የሌሊት ባቡር
+Güterwaggon|የጭነት ፉርጎ
+Tankwaggon|የነዳጅ ፉርጎ
+Kohlewaggon|የከሰል ፉርጎ
+Dampflokomotive|የእንፋሎት ባቡር ሞተር
+Draisine|የሀዲድ ጋሪ
+Rikscha|ሪክሾ
+Fahrradrikscha|የብስክሌት ሪክሾ
+Tuk-Tuk|ቱክ ቱክ
+Pferdeschlitten|የፈረስ ተንሸራታች
+Ochsenkarren|የበሬ ጋሪ
+Eselkarren|የአህያ ጋሪ ትንሽ
+Kamelsattel|የግመል ኮርቻ
+Reitstiefel|የፈረስ ግልቢያ ቦቲ
+Reithelm|የፈረስ ግልቢያ ቆብ
+Reitgerte|የፈረስ ጅራፍ
+Steigbügel|የእግር መርገጫ ኮርቻ
+Zügel|ልጓም ገመድ
+Hufnagel|የፈረስ ጫማ ሚስማር
+Pferdebürste|የፈረስ ብሩሽ
+Pferdedecke|የፈረስ ብርድ ልብስ
+Futtersack|የምግብ ከረጢት እንስሳ
+Heuraufe|የገለባ ማስቀመጫ
+Hühnerleiter|የዶሮ መሰላል
+Legenest|የዶሮ መጣያ ጎጆ
+Brutkasten|የእንቁላል መፈልፈያ
+Bienenkasten|የንብ ሳጥን
+Imkerhut|የንብ አናቢ ቆብ
+Honigschleuder|የማር ማውጫ ማሽን
+Wabenrahmen|የማር እንጀራ ፍሬም
+Taubenschlag|የርግብ ቤት
+Hasenstall|የጥንቸል ቤት
+Ziegenstall|የፍየል በረት
+Schweinestall|የአሳማ በረት
+Futterkrippe|የእንስሳ ግርግም
+Tränke|የእንስሳ ውሃ መጠጫ
+Viehweide|የከብት ግጦሽ
+Weidezaun|የግጦሽ አጥር
+Kuhweide|የላም ግጦሽ
+Schafherde|የበግ መንጋ
+Ziegenherde|የፍየል መንጋ
+Kuhherde|የላም መንጋ
+Pferdekoppel|የፈረስ ግቢ
+Melkmaschine|የማለቢያ ማሽን
+Milchtank|የወተት ታንክ
+Käserei|የአይብ መሥሪያ ቤት
+Molkerei|የወተት ፋብሪካ
+Bäckerofen|የዳቦ ጋጋሪ ምድጃ
+Mühlrad|የወፍጮ ጎማ
+Windmühlenflügel|የነፋስ ወፍጮ ክንፍ
+Wasserrad|የውሃ ጎማ
+Brunnenkurbel|የጉድጓድ መዘውር
+Wassereimerkette|የባልዲ ሰንሰለት
+Ziehbrunnen|የሚጎተት ውሃ ጉድጓድ
+Pumpbrunnen|የእጅ ፓምፕ ጉድጓድ
+Regenrinne|የዝናብ ቦይ
+Fallrohr|የውሃ ቱቦ ጣሪያ
+Wetterhahn|የነፋስ አቅጣጫ ጠቋሚ ዶሮ
+Blitzableiter|መብረቅ መከላከያ
+Dachrinne|የጣሪያ ቦይ
+Schneefanggitter|የበረዶ መያዣ
+Solardach|የፀሐይ ጣሪያ
+Sonnenkollektor|የፀሐይ ሰብሳቢ
+Wärmflasche|የሙቅ ውሃ ጠርሙስ
+Heizlüfter|ሙቅ አየር ማራገቢያ
+Kachelofen|የሸክላ ምድጃ
+Holzherd|የእንጨት ማብሰያ ምድጃ
+Kohleofen|የከሰል ምድጃ
+Lehmofen|የጭቃ ምድጃ
+Tonkrug|የሸክላ ማሰሮ
+Tontopf|የሸክላ ድስት
+Tonschale|የሸክላ ሳህን
+Tonfigur|የሸክላ ምስል
+Töpferscheibe|የሸክላ መሥሪያ ጎማ
+Webrahmen|የሽመና ፍሬም
+Spindel|እንዝርት
+Wollspindel|የሱፍ እንዝርት
+Garnspule|የክር ጥቅል መያዣ
+Nähkorb|የስፌት ቅርጫት
+Schnittmuster|የልብስ ቅርጽ ወረቀት
+Kleiderpuppe|የልብስ ሰፊ አሻንጉሊት
+Bügelpuppe|የካውያ ቅርጽ
+Hutschachtel|የባርኔጣ ሳጥን
+Hutständer|የባርኔጣ ማቆሚያ
+Schirmständer|የጃንጥላ ማቆሚያ
+Stiefelknecht|የቦቲ ማውለቂያ
+Schuhlöffel|የጫማ ማንኪያ
+Kleiderschutz|የልብስ ሽፋን
+Mottenkugel|የብል ኳስ
+Wäschestärke|የልብስ ማጠንከሪያ
+Bügelwasser|የካውያ ውሃ

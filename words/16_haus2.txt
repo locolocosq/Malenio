@@ -1,0 +1,275 @@
+# Haus, Möbel, Gegenstände (Teil 2)
+@1
+Haustür|የቤት በር
+Hintertür|የኋላ በር
+Glastür|የመስታወት በር
+Holztür|የእንጨት በር
+Schranktür|የቁም ሳጥን በር
+Kühlschranktür|የማቀዝቀዣ በር
+Gartentür|የአትክልት በር
+Küchenfenster|የወጥ ቤት መስኮት
+Rundfenster|ክብ መስኮት
+Fenstergriff|የመስኮት እጀታ
+Türgriff|የበር እጀታ
+Schubladengriff|የመሳቢያ እጀታ
+Treppenstufe|የደረጃ እርከን
+Holztreppe|የእንጨት ደረጃ
+Steintreppe|የድንጋይ ደረጃ
+Treppenhaus|የደረጃ ቤት
+Hausdach|የቤት ጣሪያ
+Strohdach|የሣር ጣሪያ
+Blechdach|የብረት ጣሪያ
+Hauswand|የቤት ግድግዳ
+Holzwand|የእንጨት ግድግዳ
+Ziegelwand|የጡብ ግድግዳ
+Holzboden|የእንጨት ወለል
+Fliesenboden|የሴራሚክ ወለል
+Teppichboden|የምንጣፍ ወለል
+Wohnzimmerlampe|የሳሎን መብራት
+Badezimmerlampe|የመታጠቢያ መብራት
+Kerzenlampe|የሻማ መብራት
+Lichtschlauch|የብርሃን ቱቦ
+Tischuhr|የጠረጴዛ ሰዓት
+Digitaluhr|ዲጂታል ሰዓት
+Spielzeuguhr|የአሻንጉሊት ሰዓት
+Radiowecker|የሬዲዮ ማንቂያ
+Bildschirmuhr|የስክሪን ሰዓት
+Kinderzimmerlampe|የልጆች ክፍል መብራት
+Kuscheldecke|ለስላሳ ብርድ ልብስ
+Wolldecke|የሱፍ ብርድ ልብስ
+Babydecke|የሕፃን ብርድ ልብስ
+Tagesdecke|የአልጋ ሽፋን
+Sofakissen|የሶፋ ትራስ
+Herzkissen|የልብ ቅርጽ ትራስ
+Nackenkissen|የአንገት ትራስ
+Federkissen|የላባ ትራስ
+Bettgestell|የአልጋ ፍሬም
+Hochbett|ከፍተኛ አልጋ
+Wasserbett|የውሃ አልጋ
+Klappbett|ታጣፊ አልጋ
+Feldbett|የሜዳ አልጋ
+Babywiege|የሕፃን አንቀልባ አልጋ
+Wickeltisch|የሕፃን ልብስ መቀየሪያ ጠረጴዛ
+Spielteppich|የመጫወቻ ምንጣፍ
+Badteppich|የመታጠቢያ ምንጣፍ
+Gebetsteppich|የጸሎት ምንጣፍ
+Fellteppich|የቆዳ ምንጣፍ
+Strohmatte|የሣር ምንጣፍ
+Bastmatte|የሰፌድ ምንጣፍ
+Yogamatte|የዮጋ ምንጣፍ
+Gummimatte|የላስቲክ ምንጣፍ
+Duschmatte|የሻወር ምንጣፍ
+Fensterputzmittel|የመስኮት ማጽጃ
+Putzmittel|የጽዳት ፈሳሽ
+Seifenpulver|የሳሙና ዱቄት
+Wäschesack|የልብስ ከረጢት
+Kleiderbeutel|የልብስ ቦርሳ
+Schuhbeutel|የጫማ ከረጢት
+Stoffbeutel|የጨርቅ ከረጢት
+Jutebeutel|የጆንያ ከረጢት
+Kartoffelnetz|የድንች መረብ
+Einkaufsnetz|የገበያ መረብ
+Wäschenetz|የልብስ መረብ
+Haarnetz|የፀጉር መረብ
+Tischtuch|የጠረጴዛ ጨርቅ
+Spitzendecke|የዳንቴል ልብስ
+Stoffserviette|የጨርቅ ናፕኪን
+Papierserviette|የወረቀት ናፕኪን
+Taschentuchbox|የሶፍት ሳጥን
+Kosmetiktuch|የፊት ሶፍት
+Feuchttuch|እርጥብ ሶፍት
+Wattepad|የጥጥ ቁራጭ
+Haarspray|የፀጉር መርጫ
+Haargel|የፀጉር ጄል
+Haaröl|የፀጉር ዘይት
+Körperöl|የሰውነት ዘይት
+Sonnencreme|የፀሐይ ክሬም
+Gesichtscreme|የፊት ቅባት
+Zahnbürstenbecher|የጥርስ ብሩሽ ኩባያ
+Rasierpinsel|የመላጫ ብሩሽ
+Kosmetiktasche|የመዋቢያ ቦርሳ
+Kulturbeutel|የመታጠቢያ ዕቃ ቦርሳ
+Schminkspiegel|የመኳኳያ መስታወት
+Schminkpinsel|የመኳኳያ ብሩሽ
+Puderdose|የፓውደር ሳጥን
+Parfümflakon|የሽቶ ብልቃጥ
+Deoroller|ዲዮድራንት
+Nagellackflasche|የጥፍር ቀለም ብልቃጥ
+Haarklammer|የፀጉር መቆንጠጫ
+Haarschleife|የፀጉር ሪባን
+Kopfband|የራስ ማሰሪያ
+Stirnband|የግንባር ማሰሪያ
+Schweißtuch|የላብ መጥረጊያ
+@2
+Gartenzaun|የአትክልት አጥር
+Bambuszaun|የቀርከሃ አጥር
+Drahtzaun|የሽቦ አጥር
+Zaunpfahl|የአጥር ምሰሶ
+Gartenweg|የአትክልት መንገድ
+Steinweg|የድንጋይ መንገድ
+Kiesweg|የጠጠር መንገድ
+Trittstein|የእግር ድንጋይ
+Gartenmauer|የአትክልት ግንብ
+Hofeinfahrt|የግቢ መግቢያ
+Garagentor|የጋራዥ በር
+Carport|የመኪና ጥላ
+Briefkastenschlüssel|የፖስታ ሳጥን ቁልፍ
+Klingelschild|የደወል ሰሌዳ
+Hausnummernschild|የቤት ቁጥር ሰሌዳ
+Fahnenstange|የባንዲራ ምሰሶ
+Wäschespinne|የሚሽከረከር ልብስ ማስጫ
+Teppichklopfer|የምንጣፍ መምቻ
+Mülleimerdeckel|የቆሻሻ ዕቃ ክዳን
+Komposthaufen|የብስባሽ ክምር
+Holzschuppen|የእንጨት መጋዘን
+Geräteschuppen|የመሣሪያ መጋዘን
+Gartenschuppen|የአትክልት መጋዘን
+Brennholzstapel|የማገዶ ክምር
+Sägebock|የመጋዝ መቆሚያ
+Hackklotz|የመፍለጫ ግንድ
+Werkzeugwand|የመሣሪያ ግድግዳ
+Schraubenglas|የብሎን ብልቃጥ
+Nagelkiste|የሚስማር ሳጥን
+Farbdose|የቀለም ቆርቆሮ
+Farbpinsel|የቀለም ብሩሽ
+Farbpalette|የቀለም ሰሌዳ
+Malerkittel|የቀለም ቀቢ ልብስ
+Malerleiter|የቀለም ቀቢ መሰላል
+Tapetenrolle|የግድግዳ ወረቀት ጥቅል
+Kleistereimer|የሙጫ ባልዲ
+Spachtel|መፋቂያ
+Kelle|የግንበኛ ማንኪያ
+Mörtelkübel|የስሚንቶ ባልዲ
+Ziegelstapel|የጡብ ክምር
+Sandsack|የአሸዋ ከረጢት
+Zementsack|የሲሚንቶ ከረጢት
+Holzbalken|የእንጨት ምሰሶ
+Stahlträger|የብረት ምሰሶ
+Dachbalken|የጣሪያ ምሰሶ
+Holzbohle|ወፍራም ሳንቃ
+Sperrholz|የተጣበቀ እንጨት
+Holzlatte|የእንጨት ጠፍጣፋ
+Holzpflock|የእንጨት ካስማ
+Zeltpflock|የድንኳን ካስማ
+Zeltstange|የድንኳን ምሰሶ
+Wäscheleinenpfosten|የልብስ ማስጫ ምሰሶ
+Schaukelgerüst|የዥዋዥዌ ፍሬም
+Klettergerüst|የመውጫ ብረት
+Kletterseil|የመውጫ ገመድ
+Strickleiter|የገመድ መሰላል
+Seilbrücke|የገመድ ድልድይ
+Baumschaukel|የዛፍ ዥዋዥዌ
+Reifenschaukel|የጎማ ዥዋዥዌ
+Nestschaukel|የጎጆ ዥዋዥዌ
+Kinderrutsche|የልጆች ተንሸራታች
+Wellenrutsche|ሞገዳማ ተንሸራታች
+Drehscheibe|የሚሽከረከር ሰሌዳ
+Kletterwand|የመውጫ ግድግዳ
+Balancierbalken|የሚዛን ምሰሶ
+Turnmatte|የጅምናስቲክ ምንጣፍ
+Turnbank|የጅምናስቲክ አግዳሚ
+Sprossenwand|የመውጫ ደረጃ ግድግዳ
+Gymnastikball|የጅምናስቲክ ኳስ
+Sprungkasten|የመዝለያ ሳጥን
+Reck|የብረት ዘንግ ስፖርት
+Ringe|ቀለበቶች ስፖርት
+Hanteln|ዳምቤሎች
+Gewichtsscheibe|የክብደት ሳህን
+Trainingsrad|የልምምድ ብስክሌት
+Laufbahn|የሩጫ መም
+Startblock|የሩጫ መነሻ
+Zielband|የመጨረሻ ሪባን
+Siegertreppchen|የአሸናፊዎች ደረጃ
+Goldpokal|የወርቅ ዋንጫ
+Silbermedaille|የብር ሜዳሊያ
+Bronzemedaille|የነሐስ ሜዳሊያ
+Urkunde|የምስክር ወረቀት
+Startnummer|የውድድር ቁጥር
+Pfeifenband|የፊሽካ ገመድ
+Anzeigetafel|የውጤት ሰሌዳ
+Eckfahne|የማዕዘን ባንዲራ
+Torpfosten|የጎል ምሰሶ
+Tornetz|የጎል መረብ
+Basketballkorbnetz|የቅርጫት መረብ
+Tennisnetz|የቴኒስ መረብ
+Tischtennisplatte|የጠረጴዛ ቴኒስ ጠረጴዛ
+Tischtennisball|የጠረጴዛ ቴኒስ ኳስ
+Billardkugel|የፑል ኳስ
+Billardtisch|የፑል ጠረጴዛ
+Billardqueue|የፑል ዱላ
+Dartscheibe|የዳርት ሰሌዳ
+Dartpfeil|የዳርት ቀስት
+Kegelkugel|የቦውሊንግ ኳስ
+Bowlingkugel|ቦውሊንግ ኳስ
+Golfschläger|የጎልፍ ዱላ
+Golfloch|የጎልፍ ጉድጓድ
+Golftasche|የጎልፍ ቦርሳ
+Baseballschläger|የቤዝቦል ዱላ
+Baseballhandschuh|የቤዝቦል ጓንት
+Hockeyschläger|የሆኪ ዱላ
+Eishockeypuck|የበረዶ ሆኪ ዲስክ
+Rugbyball|የራግቢ ኳስ
+Handballtor|የእጅ ኳስ ጎል
+Skateboardrampe|የስኬትቦርድ መወጣጫ
+Snowboardschuh|የስኖውቦርድ ጫማ
+Skischuh|የስኪ ጫማ
+Skilift|የስኪ ማንሻ
+Schneemobil|የበረዶ ሞተር
+Bobschlitten|ቦብ ተንሸራታች
+Eislaufschuh|የበረዶ መንሸራተቻ ጫማ
+@3
+Kronenkorken|የጠርሙስ ቆብ
+Flaschenregal|የጠርሙስ መደርደሪያ
+Weinregal|የወይን መደርደሪያ
+Zeitungsständer|የጋዜጣ ማስቀመጫ
+Zeitschriftenkorb|የመጽሔት ቅርጫት
+Brennholzkorb|የማገዶ ቅርጫት
+Kaminbesteck|የምድጃ መሣሪያዎች
+Kamingitter|የምድጃ መከለያ
+Ofenrohr|የምድጃ ቱቦ
+Ofenklappe|የምድጃ በር
+Kohleschaufel|የከሰል አካፋ
+Aschekasten|የአመድ ሳጥን
+Blasebalg|ወናፍ
+Feuerhaken|የእሳት መንጠቆ
+Feuerstein|የእሳት ድንጋይ
+Streichholzbriefchen|የክብሪት ደብተር
+Sturmlaterne|የነፋስ ፋኖስ
+Grubenlampe|የማዕድን አውጪ መብራት
+Leuchtstab|የሚያበራ ዘንግ
+Lavalampe|የላቫ መብራት
+Diskolampe|የዲስኮ መብራት
+Lichterbogen|የብርሃን ቅስት
+Papiersterne|የወረቀት ኮከቦች
+Strohsterne|የገለባ ኮከቦች
+Weihnachtskugel|የገና ኳስ
+Weihnachtskrippe|የገና ግርግም
+Weihnachtsglocke|የገና ደወል
+Weihnachtsmütze|የገና አባት ኮፍያ
+Lebkuchenmann|የዝንጅብል ሰው ብስኩት
+Nussknackerfigur|የለውዝ መስበሪያ አሻንጉሊት
+Räuchermännchen|የዕጣን ሰው አሻንጉሊት
+Schwibbogen|የሻማ ቅስት
+Osterkorb|የፋሲካ ቅርጫት
+Osterkerze|የፋሲካ ሻማ
+Osterlamm|የፋሲካ በግ
+Ostereierbaum|የፋሲካ እንቁላል ዛፍ
+Pinata|ፒኛታ
+Luftballonbogen|የፊኛ ቅስት
+Partyteller|የፓርቲ ሳህን
+Partybecher|የፓርቲ ኩባያ
+Partygirlande|የፓርቲ ማስጌጫ
+Geburtstagskrone|የልደት ዘውድ
+Geburtstagskerze|የልደት ሻማ
+Zahlenkerze|ቁጥር ሻማ
+Wunschkerze|የምኞት ሻማ
+Glückwunschkarte|የእንኳን ደስ አለህ ካርድ
+Hochzeitskarte|የሠርግ ካርድ
+Hochzeitsring|የሠርግ ቀለበት
+Hochzeitsauto|የሠርግ መኪና
+Brautschleier|የሙሽሪት መሸፈኛ
+Brautstrauß|የሙሽሪት እቅፍ
+Ringkissen|የቀለበት ትራስ
+Hochzeitsbogen|የሠርግ ቅስት
+Gästebuch|የእንግዶች መጽሐፍ
+Fotobox|የፎቶ ሳጥን
