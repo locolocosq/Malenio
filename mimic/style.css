@@ -256,3 +256,14 @@ select { border: 3px solid var(--line); border-radius: 10px; padding: 6px 10px; 
 .vline .vg { color: var(--green-d); min-width: 40px; text-align: right; }
 body.emo-on main { padding-bottom: 80px; }
 @media (max-width: 400px) { .emo-bar button { font-size: 24px; padding: 2px; } }
+
+/* ---- Stoppuhr ---- */
+.timer-big { font-size: 84px; font-weight: 900; line-height: 1; color: var(--bg1); font-variant-numeric: tabular-nums; }
+.timer-big.light { font-size: 56px; color: #ffe066; text-shadow: 0 3px 0 rgba(0,0,0,.35); }
+.big-btn { width: min(62vw, 240px); aspect-ratio: 1; border-radius: 50%; border: none; color: #fff; font-size: 34px; font-weight: 900; user-select: none; -webkit-user-select: none; touch-action: none; }
+.big-btn.go { background: var(--green); box-shadow: 0 8px 0 var(--green-d); }
+.big-btn.stop { background: #ff3b5c; box-shadow: 0 8px 0 #c4203e; width: min(78vw, 300px); font-size: 44px; }
+.big-btn:active { transform: translateY(6px); box-shadow: none; }
+.timer-wait { font-size: 22px; font-weight: 900; color: var(--muted); }
+.vline.best { background: #fff6c8; }
+.vline .vp small { color: var(--muted); font-weight: 800; }

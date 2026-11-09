@@ -61,6 +61,7 @@ const T = {
     modeGuess: '✏️ Malen & Raten', modeLogo: '🏷️ Logo-Quiz', chooseWord: 'Wähle ein Wort zum Malen:', choosing: '{name} wählt ein Wort…', drawsNow: '{name} malt – rate!', youDraw: 'Du malst:',
     guessPh: 'Dein Tipp…', guessedIt: '{name} hat es erraten! 🎉', youGuessed: 'Richtig! 🎉', almost: 'Fast! 🤏', guessedBtn: '✅ Erraten!', whoGuessed: 'Wer hat es erraten?', nobodyLeft: 'Alle haben es schon.', wordWas: 'Das Wort war:',
     logoQ: 'Welche Marke ist das?', logoPh: 'Tippe die ersten Buchstaben…', youPicked: 'Deine Wahl:', logoWas: 'Das war:', noPick: 'nichts gewählt', lobbyMode: 'Spielmodus:', loadingLogos: 'Lade Logos…',
+    modeTimer: '⏱️ Stoppuhr', timerGoal: 'Stoppe genau bei', seconds: 'Sekunden', timerHint: 'Drück START und zähle im Kopf – danach siehst du nur noch den STOPP-Knopf!', startBtn: 'START', stopBtn: 'STOPP', stopped: 'Gestoppt! Warte auf die anderen…', target: 'Ziel', perfect: 'Perfekt!', notStopped: 'nicht gestoppt',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
@@ -81,6 +82,7 @@ const T = {
     modeGuess: '✏️ መሳልና መገመት', modeLogo: '🏷️ የአርማ ጥያቄ', chooseWord: 'የሚስሉትን ቃል ይምረጡ፦', choosing: '{name} ቃል እየመረጠ ነው…', drawsNow: '{name} እየሳለ ነው – ይገምቱ!', youDraw: 'እርስዎ ይሳሉ፦',
     guessPh: 'ግምትዎ…', guessedIt: '{name} ገመተው! 🎉', youGuessed: 'ትክክል! 🎉', almost: 'ተቃርበዋል! 🤏', guessedBtn: '✅ ተገመተ!', whoGuessed: 'ማን ገመተው?', nobodyLeft: 'ሁሉም ገምተዋል።', wordWas: 'ቃሉ፦',
     logoQ: 'ይህ የየትኛው ብራንድ ነው?', logoPh: 'የመጀመሪያ ፊደላትን ይጻፉ…', youPicked: 'ምርጫዎ፦', logoWas: 'ይህ ነበር፦', noPick: 'ምንም አልተመረጠም', lobbyMode: 'የጨዋታ ዓይነት፦', loadingLogos: 'አርማዎች እየተጫኑ ነው…',
+    modeTimer: '⏱️ የሰዓት ቆጣሪ', timerGoal: 'በትክክል ያቁሙ በ', seconds: 'ሰከንድ', timerHint: 'ጀምርን ይጫኑና በአእምሮዎ ይቁጠሩ – ከዚያ የማቆሚያ ቁልፉን ብቻ ያያሉ!', startBtn: 'ጀምር', stopBtn: 'አቁም', stopped: 'ቆሟል! ሌሎችን ይጠብቁ…', target: 'ዒላማ', perfect: 'ፍጹም!', notStopped: 'አላቆመም',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -371,7 +373,7 @@ async function joinParty(name, code, tries = 0) {
 const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
-  drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(),
+  drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -413,6 +415,12 @@ const host = {
         return;
       }
       case 'mark': if (this.phase === 'guess' && from === this.drawer && msg.pid !== from && this.get(msg.pid) && !this.guessed.has(msg.pid)) this.award(msg.pid); return;
+      case 'stop': {
+        if (this.phase !== 'timer' || msg.round !== this.round || this.stops.has(from)) return;
+        this.stops.set(from, clamp(Math.round(+msg.ms || 0), 0, 120000)); this.pushState();
+        if (this.players.every((x) => this.stops.has(x.id))) this.endTimer();
+        return;
+      }
       case 'pick': {
         if (this.phase !== 'logo' || msg.round !== this.round || this.picks.has(from) || !window.LOGOS) return;
         const name = String(msg.name || '').slice(0, 60);
@@ -481,6 +489,7 @@ const host = {
     if ((this.phase === 'choose' || this.phase === 'guess') && id === this.drawer) { this.endTurn(); return; }
     if (this.phase === 'guess' && this.allGuessed()) { this.endTurn(); return; }
     if (this.phase === 'logo' && this.players.every((x) => this.picks.has(x.id))) { this.endLogo(); return; }
+    if (this.phase === 'timer' && this.players.every((x) => this.stops.has(x.id))) { this.endTimer(); return; }
     this.pushState();
   },
   sweep() { const now = Date.now(); for (const p of [...this.players]) if (!p.host && now - p.seen > 20000) this.removePlayer(p.id); },
@@ -489,8 +498,9 @@ const host = {
       t: 'state', phase: this.phase, round: this.round, rounds: this.rounds, soundIdx: this.soundIdx,
       remaining: Math.max(0, this.deadline - Date.now()), showPid: this.showOrder[this.showIdx] || null, showIdx: this.showIdx, showCount: this.showOrder.length,
       players: this.players.map((p) => ({ id: p.id, name: p.name, char: p.char, score: p.score, voice: p.voice, host: p.host, lang: p.lang,
-        done: this.mode === 'logo' ? this.picks.has(p.id) : this.mode === 'guess' ? this.guessed.has(p.id) : this.recs.has(p.id) })),
-      drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx,
+        done: this.mode === 'timer' ? this.stops.has(p.id) : this.mode === 'logo' ? this.picks.has(p.id) : this.mode === 'guess' ? this.guessed.has(p.id) : this.recs.has(p.id) })),
+      drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target,
+      stops: this.mode === 'timer' && this.phase === 'results' ? Object.fromEntries(this.stops) : null,
       picks: this.mode === 'logo' && this.phase === 'results' ? Object.fromEntries([...this.picks].map(([k, v]) => [k, { name: v.name, ok: v.ok }])) : null,
       roundScores: Object.fromEntries([...this.recs].map(([k, v]) => [k, v.score])), gains: this.gains,
       mode: this.mode, wordIdx: this.wordIdx,
@@ -520,6 +530,11 @@ const host = {
   nextRound() {
     this.round++;
     if (this.round > this.rounds) { this.setPhase('end', 0); return; }
+    if (this.mode === 'timer') {
+      this.target = TIMER_TARGETS[rnd(TIMER_TARGETS.length)] * 1000; this.stops = new Map(); this.gains = {};
+      this.setPhase('timer', 25 + this.target / 1000 * 2, () => this.endTimer());
+      return;
+    }
     if (this.mode === 'logo') {
       const n = LOGOS.length; let i = rnd(n); for (let k = 0; k < 200 && this.used.has(i); k++) i = rnd(n);
       this.used.add(i); this.logoIdx = i; this.picks = new Map(); this.gains = {};
@@ -566,6 +581,19 @@ const host = {
     if (r) { const v = [...r.votes.values()]; r.avg = v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0; r.score = Math.round(r.avg * 20); }
     this.revealed = true;
     this.setPhase('present', 4, () => { this.showIdx++; this.presentStep(); });
+  },
+  // ---- Stoppuhr: wer am nächsten an der Zielzeit stoppt, gewinnt
+  endTimer() {
+    if (this.phase !== 'timer') return;
+    this.stop(); this.gains = {};
+    const ranked = [...this.stops].sort((a, b) => Math.abs(a[1] - this.target) - Math.abs(b[1] - this.target));
+    for (const p of this.players) {
+      const rank = ranked.findIndex(([id]) => id === p.id);
+      let g = rank < 0 ? 0 : LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)];
+      if (rank >= 0 && Math.abs(this.stops.get(p.id) - this.target) <= 50) g += 50; // fast genau: Bonus
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
   },
   // ---- Logo-Quiz: wer zuerst richtig tippt, bekommt am meisten
   endLogo() {
@@ -643,7 +671,7 @@ const view = {
   inRoom: false, state: null, deadlineLocal: 0, tick: null, recs: new Map(), recRound: -1,
   lastKey: '', myRec: null, recorder: null, listenRound: -1, recRoundStarted: -1, drawRoundStarted: -1, drawings: new Map(), drawRound: -1, draw: null, presentKey: '',
   live: [], liveTurn: -1, chat: [], chatTurn: -1, opQ: [], opTimer: null, myPick: null, chooseSent: -1,
-  reset() { this.modeTouched = false; clearInterval(this.opTimer); this.live = []; this.chat = []; this.myPick = null; this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.recRoundStarted = -1; this.listenRound = -1; this.drawRoundStarted = -1; this.drawings = new Map(); this.draw = null; this.presentKey = ''; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
+  reset() { this.timerRun = null; this.modeTouched = false; clearInterval(this.opTimer); this.live = []; this.chat = []; this.myPick = null; this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.recRoundStarted = -1; this.listenRound = -1; this.drawRoundStarted = -1; this.drawings = new Map(); this.draw = null; this.presentKey = ''; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
   enterRoom(code) {
     this.inRoom = true; $('#lobby-code').textContent = code;
     history.replaceState(null, '', location.pathname + '?code=' + code);
@@ -679,13 +707,13 @@ const view = {
     if (st.round !== this.recRound && st.phase !== 'lobby') { this.recs = new Map(); this.recRound = st.round; }
     voiceSync(st); applyVoiceMute(st.phase);
     if (st.mode === 'logo') ensureLogos().catch(() => {});
-    if (st.phase === 'lobby') { showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.timerRun = null; this.myPick = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
     if (key !== this.lastKey) { this.lastKey = key; this.renderStage(prev); }
     else if (st.phase === 'present') this.updateVoteArea();
-    else if (st.phase === 'logo') this.updateDone();
+    else if (st.phase === 'logo' || st.phase === 'timer') this.updateDone();
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
@@ -699,13 +727,13 @@ const view = {
     $('#lobby-wait').classList.toggle('hidden', net.isHost);
     const b = $('#btn-start'); b.disabled = st.players.length < 2; b.textContent = st.players.length < 2 ? t('needTwo') : t('start');
     const lm = $('#lobby-mode'); lm.classList.toggle('hidden', net.isHost);
-    lm.textContent = t('lobbyMode') + ' ' + t({ sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo' }[st.mode] || 'modeSound');
+    lm.textContent = t('lobbyMode') + ' ' + t({ sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer' }[st.mode] || 'modeSound');
     if (net.isHost && $('#set-mode').value !== st.mode && !this.modeTouched) { $('#set-mode').value = st.mode; setRoundOpts(st.mode); }
   },
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose') && p.id === st.drawer ? '✏️' : ''));
+    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose') && p.id === st.drawer ? '✏️' : ''));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -750,6 +778,8 @@ const view = {
       this.renderGuess();
     } else if (st.phase === 'logo') {
       this.renderLogo();
+    } else if (st.phase === 'timer') {
+      this.renderTimer();
     } else if (st.phase === 'present') {
       this.renderPresent();
     } else if (st.phase === 'show') {
@@ -775,6 +805,12 @@ const view = {
         await this.playWithHead(r.buf, null, pk, () => $('#wave'), (lv) => { if (mouth) mouth.style.transform = `scaleY(${1 + lv * 2.2}) scaleX(${1 + lv * .4})`; });
         if (this.state.showIdx === myIdx) reveal();
       } else { const e = $('#show-score'); if (e) e.textContent = t('noRec'); setTimeout(reveal, 900); }
+    } else if (st.phase === 'results' && st.mode === 'timer') {
+      const sv = st.stops || {}, diff = (id) => (sv[id] == null ? 1e9 : Math.abs(sv[id] - st.target));
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('target')}</div><div class="timer-big light">${fmtSec(st.target)} s</div>
+        <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const ms = sv[x.id];
+          const d = ms == null ? '' : (ms >= st.target ? '+' : '−') + fmtSec(Math.abs(ms - st.target));
+          return `<div class="vline${i === 0 && ms != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && ms != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${ms == null ? '⏳ ' + t('notStopped') : `<b>${fmtSec(ms)} s</b> <small>${d}${Math.abs(ms - st.target) <= 50 ? ' 🎯 ' + t('perfect') : ''}</small>`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'logo') {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="logo-res"><div class="logo-box small"><canvas id="lcv" width="240" height="240"></canvas></div>
         <div><div class="cat light">${t('logoWas')}</div><div class="logo-name" id="logo-name"></div></div></div>
@@ -1016,6 +1052,21 @@ const view = {
     el.innerHTML = this.chat.map((c) => c.sys ? `<div class="sys">${esc(c.text)}</div>` : `<div><b>${esc(c.name)}:</b> ${esc(c.text)}</div>`).join('');
     el.scrollTop = el.scrollHeight;
   },
+  // ---------------- Stoppuhr ----------------
+  renderTimer() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    const run = this.timerRun && this.timerRun.round === round ? this.timerRun : null;
+    if (run && run.ms != null) { stage.innerHTML = `<div class="timer-wait">✅ ${t('stopped')}</div><div class="done-list" id="done-list"></div>`; this.updateDone(); return; }
+    if (run) { // läuft: nur der Stopp-Knopf
+      stage.innerHTML = `<button class="big-btn stop" id="t-stop">${t('stopBtn')}</button>`;
+      $('#t-stop').onpointerdown = (e) => { e.preventDefault(); if (run.ms != null) return; run.ms = performance.now() - run.t0; toHost({ t: 'stop', round, ms: run.ms }); tick(660); this.renderTimer(); };
+      return;
+    }
+    stage.innerHTML = `<div class="cat">${t('timerGoal')}</div><div class="timer-big">${fmtSec(st.target)}</div><div class="cat">${t('seconds')}</div>
+      <button class="big-btn go" id="t-start">${t('startBtn')}</button><div class="hint">${t('timerHint')}</div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    $('#t-start').onpointerdown = (e) => { e.preventDefault(); this.timerRun = { round, t0: performance.now(), ms: null }; tick(880); this.renderTimer(); };
+  },
   // ---------------- Logo-Quiz ----------------
   async renderLogo() {
     const st = this.state, stage = $('#stage'), round = st.round;
@@ -1044,7 +1095,7 @@ const view = {
   },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
-    if (!st || st.phase === 'lobby' || st.phase === 'end') { el.textContent = ''; el.classList.add('hidden'); return; }
+    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
     el.textContent = s; el.classList.toggle('low', (st.phase === 'record' || st.phase === 'draw' || st.phase === 'guess' || st.phase === 'logo') && s <= 5);
@@ -1052,8 +1103,10 @@ const view = {
   },
 };
 // ---- Spielmodi, Logos, Raten
-const MODES = ['sound', 'draw', 'guess', 'logo'];
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10] };
+const MODES = ['sound', 'draw', 'guess', 'logo', 'timer'];
+const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
+const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
