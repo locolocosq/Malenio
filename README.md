@@ -64,6 +64,9 @@ HTTPS ist dort automatisch an. Das braucht man fürs Mikrofon.
 
 Ein zweites Spiel im selben Repo: Alle hören einen kurzen Ton (Tierstimme, Lachen, Ansage, Melodie …) – mit Wellenform und mitlaufendem Strich. Dann Countdown 3-2-1-LOS: alle machen ihn **gleichzeitig mit nur einem Versuch** nach, die eigene Stimme erscheint live als pinke Welle. Danach kommt jeder nacheinander auf die **Bühne ans Mikrofon**, seine Aufnahme wird vorgespielt und er bekommt Punkte; oben zeigen Punktekarten den Stand. Wer am Ende die meisten Punkte hat, gewinnt. Das Spiel vergleicht die Aufnahme automatisch mit dem Original (Tonhöhen-Verlauf, Lautstärke, Klangfarbe, Länge) und vergibt 0–100 Punkte, plus Bonus für Platz 1 und 2. Danach werden alle Aufnahmen vorgespielt, die Figur des Spielers tanzt und bewegt den Mund dazu.
 
+- **Zwei Spielmodi** (in der Lobby wählbar):
+  - 🎤 **Töne nachmachen:** zuhören, dann selbst auf **Start** drücken (nach 10 Sekunden startet die Aufnahme automatisch), ein Versuch. Bewertet werden Lautstärke-Verlauf, Tonhöhe/Tonlage, Länge und Klangfarbe; zu leise gibt Abzug.
+  - 🎨 **Malen & bewerten:** alle bekommen dasselbe Wort (aus der Malenio-Wortliste, Deutsch/Amharisch) und malen 60 Sekunden. Danach stellt jeder sein Bild auf der Bühne vor (es wird Strich für Strich nachgezeichnet), die anderen geben 1–5 Sterne. Ø Sterne × 20 = Punkte.
 - Online: `https://locolocosq.github.io/Malenio/mimic/`
 - Bis 8 Spieler, Party-Code, Deutsch/Amharisch, 📞 Sprachchat, 🏠 zurück zum Menü.
 - Jeder gestaltet seine eigene Figur (Farbe, Augen, Mund, Kopf, Extra, Tanz).

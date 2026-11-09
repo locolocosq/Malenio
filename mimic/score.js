@@ -62,7 +62,7 @@
     const voiced = fr.filter((f) => f.hz);
     const med = voiced.length ? voiced.map((f) => f.hz).sort((p, q) => p - q)[voiced.length >> 1] : 0;
     for (const f of fr) f.st = f.hz && med ? 12 * Math.log2(f.hz / med) : null; // Halbtöne relativ zur eigenen Stimmlage
-    return { frames: fr, voicedFrac: voiced.length / fr.length, seconds: fr.length * HOP / SR, maxDb };
+    return { frames: fr, voicedFrac: voiced.length / fr.length, seconds: fr.length * HOP / SR, maxDb, medHz: med };
   }
 
   // Dynamic Time Warping mit Band – erlaubt etwas schneller/langsamer
@@ -94,11 +94,18 @@
   function compare(ref, rec) {
     if (!ref || !rec || rec.frames.length < 5) return 0;
     const v = ref.voicedFrac;
-    const wL = 1, wZ = 0.7, wP = 0.4 + 1.2 * v;
+    // Lautstärke-Verlauf und Tonhöhe zählen stark, Klangfarbe weniger
+    const wL = 1.6, wZ = 0.4, wP = 0.5 + 1.8 * v;
     const cost = dtwCost(ref.frames, rec.frames, wL, wZ, wP) / (wL + wZ + wP);
     const ratio = rec.seconds / Math.max(0.2, ref.seconds);
     const lenFactor = Math.exp(-Math.abs(Math.log(ratio)) * 0.9);
-    const sim = Math.exp(-cost * 4.5) * (0.55 + 0.45 * lenFactor);
+    // Tonlage: bis 5 Halbtöne Unterschied frei, danach Abzug (hohe Töne hoch, tiefe Töne tief nachmachen)
+    let pitchFactor = 1;
+    if (ref.medHz && rec.medHz) pitchFactor = Math.exp(-Math.max(0, Math.abs(12 * Math.log2(rec.medHz / ref.medHz)) - 5) / 14);
+    else if (ref.medHz && !rec.medHz && v > 0.4) pitchFactor = 0.6; // Ton war gesungen/gepfiffen, Nachahmung ohne Ton
+    // Lautstärke: zu leise (geflüstert) gibt Abzug
+    const volFactor = Math.max(0.35, Math.min(1, (rec.maxDb + 42) / 22));
+    const sim = Math.exp(-cost * 4.5) * (0.55 + 0.45 * lenFactor) * (0.6 + 0.4 * pitchFactor) * volFactor;
     return Math.round(100 * Math.max(0, Math.min(1, (sim - 0.12) / 0.78)));
   }
 

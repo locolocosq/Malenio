@@ -9,6 +9,7 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const rnd = (n) => Math.floor(Math.random() * n);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ------------------------------------------------------------------ Einstellungen
@@ -16,6 +17,10 @@ const PREFIX = 'echoparty-v1-';
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const MAX_PLAYERS = 8;
 const RESULT_TIME = 7;
+const START_WAIT = 10;      // so lange darf man mit dem Start-Knopf warten
+const DRAW_TIME = 60;       // Sekunden zum Malen
+const VOTE_TIME = 12;       // Sekunden zum Bewerten eines Bildes
+const WORDS = window.WORDS || [];
 const TURN_USER = '44a0ba51e09545086b4b4ce3', TURN_PASS = 'xA+tBgw5yXc5eCSK';
 const ICE = { iceServers: [
   { urls: 'stun:stun.l.google.com:19302' },
@@ -34,10 +39,10 @@ const T = {
     namePh: 'Dein Name', create: 'Party erstellen', or: 'oder', join: 'Beitreten', editChar: '🎨 Figur gestalten',
     codeNote: 'Der Code besteht nur aus lateinischen Buchstaben (A–Z) und Zahlen.', credits: 'Quellen der Töne',
     makeChar: 'Deine Figur', random: '🎲 Zufall', done: 'Fertig', color: 'Farbe', eyes: 'Augen', mouth: 'Mund', hat: 'Kopf', extra: 'Extra', dance: 'Tanz',
-    code: 'Party-Code', copy: 'Kopieren', copied: 'Kopiert!', share: 'Teilen', players: 'Spieler', rounds: 'Anzahl Töne',
+    code: 'Party-Code', copy: 'Kopieren', copied: 'Kopiert!', share: 'Teilen', players: 'Spieler', rounds: 'Anzahl Runden',
     start: 'Party starten', needTwo: 'Mindestens 2 Spieler nötig', waitHost: 'Warte, bis der Host startet…',
     hostTip: 'Lass diese Seite offen – dein Gerät ist der Spiel-Server.', micTip: '🎤 Du brauchst ein Mikrofon. Am besten mit Kopfhörern spielen.',
-    round: 'Ton {a}/{b}', listen: 'Hör gut zu!', yourTurn: 'Jetzt du! Mach den Ton nach.', tapRec: 'Aufnehmen', stop: 'Stopp',
+    round: 'Runde {a}/{b}', listen: 'Hör gut zu!', yourTurn: 'Jetzt du! Mach den Ton nach.', tapRec: 'Aufnehmen', stop: 'Stopp',
     again: '🔁 Nochmal anhören', retry: '🎙️ Neu aufnehmen', playMine: '▶️ Meine Aufnahme', send: '✅ Abschicken', sent: 'Abgeschickt! Warte auf die anderen…',
     showTime: 'Wie gut war es?', noRec: 'Keine Aufnahme 😶', points: 'Punkte', results: 'Ergebnis', gameOver: 'Party vorbei!', playAgain: 'Nochmal spielen',
     leave: 'Party verlassen und zum Menü?', yes: 'Ja', no: 'Nein', hostLeft: 'Der Host hat die Party verlassen.', notFound: 'Party nicht gefunden. Code prüfen!',
@@ -45,16 +50,16 @@ const T = {
     enterName: 'Bitte gib einen Namen ein.', enterCode: 'Bitte gib den 5-stelligen Code ein.', micDenied: 'Kein Zugriff aufs Mikrofon – bitte erlauben.',
     voiceOn: 'Telefon an – ihr könnt reden', voiceOff: 'Telefon aus', joined: '{name} ist da!', left: '{name} ist gegangen', reconnecting: 'Verbindung weg – verbinde neu…',
     notEnough: 'Zu wenige Spieler – zurück zur Lobby.', you: 'du', creditsTitle: 'Quellen der Töne (Wikimedia Commons, freie Lizenzen)', close: 'Schließen',
-    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!',
+    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!', startRec: 'Start', autoIn: 'Startet automatisch in {n} s', mode: 'Spielmodus', modeSound: '🎤 Töne nachmachen', modeDraw: '🎨 Malen & bewerten', drawThis: 'Male:', drawDone: 'Fertig', drawSent: 'Abgeschickt! Warte auf die anderen…', eraser: 'Radierer', undo: 'Rückgängig', clear: 'Alles löschen', rateIt: 'Wie gut ist das Bild? Gib Sterne:', thanksVote: 'Danke für deine Bewertung!', othersRate: 'Die anderen bewerten gerade dein Bild…', votedCount: 'haben bewertet',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
     codeNote: 'ኮዱ የላቲን ፊደላት (A–Z) እና ቁጥሮች ብቻ ነው።', credits: 'የድምፆቹ ምንጮች',
     makeChar: 'የእርስዎ ገጸ ባሕሪ', random: '🎲 በዘፈቀደ', done: 'ጨርስ', color: 'ቀለም', eyes: 'ዓይኖች', mouth: 'አፍ', hat: 'ራስ', extra: 'ተጨማሪ', dance: 'ዳንስ',
-    code: 'የፓርቲ ኮድ', copy: 'ቅዳ', copied: 'ተቀድቷል!', share: 'አጋራ', players: 'ተጫዋቾች', rounds: 'የድምፆች ብዛት',
+    code: 'የፓርቲ ኮድ', copy: 'ቅዳ', copied: 'ተቀድቷል!', share: 'አጋራ', players: 'ተጫዋቾች', rounds: 'የዙሮች ብዛት',
     start: 'ፓርቲ ጀምር', needTwo: 'ቢያንስ 2 ተጫዋቾች ያስፈልጋሉ', waitHost: 'አስተናጋጁ እስኪጀምር ይጠብቁ…',
     hostTip: 'ይህን ገጽ ክፍት ይተዉት – መሣሪያዎ የጨዋታው አገልጋይ ነው።', micTip: '🎤 ማይክሮፎን ያስፈልጋል። በጆሮ ማዳመጫ ቢጫወቱ ይሻላል።',
-    round: 'ድምፅ {a}/{b}', listen: 'በደንብ ያዳምጡ!', yourTurn: 'አሁን እርስዎ! ድምፁን ይድገሙ።', tapRec: 'ቅዳ', stop: 'አቁም',
+    round: 'ዙር {a}/{b}', listen: 'በደንብ ያዳምጡ!', yourTurn: 'አሁን እርስዎ! ድምፁን ይድገሙ።', tapRec: 'ቅዳ', stop: 'አቁም',
     again: '🔁 እንደገና ያዳምጡ', retry: '🎙️ እንደገና ቅዳ', playMine: '▶️ የእኔ ቅጂ', send: '✅ ላክ', sent: 'ተልኳል! ሌሎችን ይጠብቁ…',
     showTime: 'ምን ያህል ጥሩ ነበር?', noRec: 'ቅጂ የለም 😶', points: 'ነጥብ', results: 'ውጤት', gameOver: 'ፓርቲው አበቃ!', playAgain: 'እንደገና ተጫወት',
     leave: 'ፓርቲውን ትተው ወደ ዋና ማውጫ ይመለሱ?', yes: 'አዎ', no: 'አይ', hostLeft: 'አስተናጋጁ ፓርቲውን ለቋል።', notFound: 'ፓርቲው አልተገኘም። ኮዱን ያረጋግጡ!',
@@ -62,7 +67,7 @@ const T = {
     enterName: 'እባክዎ ስም ያስገቡ።', enterCode: 'እባክዎ ባለ 5 ፊደል ኮዱን ያስገቡ።', micDenied: 'ማይክሮፎን አልተፈቀደም – እባክዎ ይፍቀዱ።',
     voiceOn: 'ስልኩ በርቷል – መነጋገር ትችላላችሁ', voiceOff: 'ስልኩ ጠፍቷል', joined: '{name} መጣ!', left: '{name} ወጣ', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…',
     notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።', you: 'እርስዎ', creditsTitle: 'የድምፆቹ ምንጮች (Wikimedia Commons፣ ነፃ ፈቃድ)', close: 'ዝጋ',
-    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!',
+    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!', startRec: 'ጀምር', autoIn: 'በ{n} ሰከንድ ውስጥ በራሱ ይጀምራል', mode: 'የጨዋታ ዓይነት', modeSound: '🎤 ድምፅ መድገም', modeDraw: '🎨 መሳልና መገምገም', drawThis: 'ይሳሉ፦', drawDone: 'ጨርሻለሁ', drawSent: 'ተልኳል! ሌሎችን ይጠብቁ…', eraser: 'ማጥፊያ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ', rateIt: 'ሥዕሉ ምን ያህል ጥሩ ነው? ኮከብ ይስጡ፦', thanksVote: 'ስለ ግምገማዎ እናመሰግናለን!', othersRate: 'ሌሎች ሥዕልዎን እየገመገሙ ነው…', votedCount: 'ገምግመዋል',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -336,7 +341,7 @@ async function joinParty(name, code, tries = 0) {
 
 // ------------------------------------------------------------------ HOST
 const host = {
-  players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null,
+  players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; },
@@ -352,7 +357,7 @@ const host = {
     if (!p) return;
     switch (msg.t) {
       case 'ping': return;
-      case 'start': if (p.host && this.phase === 'lobby' && this.players.length >= 2) { this.rounds = clamp(+msg.rounds || 5, 1, 20); this.startGame(); } return;
+      case 'start': if (p.host && this.phase === 'lobby' && this.players.length >= 2) { this.rounds = clamp(+msg.rounds || 5, 1, 20); this.mode = msg.mode === 'draw' ? 'draw' : 'sound'; this.startGame(); } return;
       case 'lobby': if (p.host) this.toLobby(); return;
       case 'voice': p.voice = !!msg.on; this.pushState(); return;
       case 'char': p.char = validChar(msg.char); this.pushState(); return;
@@ -363,6 +368,23 @@ const host = {
         this.pushState();
         if (this.players.every((x) => this.recs.has(x.id))) this.startShow();
         return;
+      case 'drawing': {
+        if (this.phase !== 'draw' || msg.round !== this.round || this.recs.has(from)) return;
+        const strokes = Array.isArray(msg.strokes) ? msg.strokes.slice(0, 800) : [];
+        this.recs.set(from, { score: 0, strokes, votes: new Map(), avg: 0 });
+        broadcast({ t: 'drawing', pid: from, round: this.round, strokes }, from);
+        this.pushState();
+        if (this.players.every((x) => this.recs.has(x.id))) this.startPresent();
+        return;
+      }
+      case 'vote': {
+        if (this.phase !== 'present' || this.revealed) return;
+        const cur = this.showOrder[this.showIdx]; if (msg.pid !== cur || from === cur) return;
+        const r = this.recs.get(cur); if (!r) return;
+        r.votes.set(from, clamp(msg.stars | 0, 1, 5)); this.pushState();
+        if (this.players.filter((x) => x.id !== cur).every((x) => r.votes.has(x.id))) this.revealVotes();
+        return;
+      }
     }
   },
   hello(from, msg) {
@@ -380,6 +402,7 @@ const host = {
     sendTo(from, { t: 'welcome', code: net.code, sv: SOUNDS_VERSION });
     // bereits vorhandene Aufnahmen dieser Runde nachliefern
     if (this.phase === 'record' || this.phase === 'show') for (const [pid, r] of this.recs) if (pid !== from) sendTo(from, { t: 'rec', pid, round: this.round, wav: r.wav, score: r.score });
+    if (this.phase === 'draw' || this.phase === 'present') for (const [pid, r] of this.recs) if (pid !== from) sendTo(from, { t: 'drawing', pid, round: this.round, strokes: r.strokes });
     this.pushState();
   },
   removePlayer(id) {
@@ -390,6 +413,7 @@ const host = {
     broadcast({ t: 'sys', key: 'left', name: p.name });
     if (this.phase !== 'lobby' && this.phase !== 'end' && this.players.length < 2) { this.toLobby(); broadcast({ t: 'sys', key: 'notEnough' }); return; }
     if (this.phase === 'record' && this.players.every((x) => this.recs.has(x.id))) this.startShow();
+    if (this.phase === 'draw' && this.players.every((x) => this.recs.has(x.id))) this.startPresent();
     this.pushState();
   },
   sweep() { const now = Date.now(); for (const p of [...this.players]) if (!p.host && now - p.seen > 20000) this.removePlayer(p.id); },
@@ -399,6 +423,9 @@ const host = {
       remaining: Math.max(0, this.deadline - Date.now()), showPid: this.showOrder[this.showIdx] || null, showIdx: this.showIdx, showCount: this.showOrder.length,
       players: this.players.map((p) => ({ id: p.id, name: p.name, char: p.char, score: p.score, voice: p.voice, host: p.host, lang: p.lang, done: this.recs.has(p.id) })),
       roundScores: Object.fromEntries([...this.recs].map(([k, v]) => [k, v.score])), gains: this.gains,
+      mode: this.mode, wordIdx: this.wordIdx,
+      present: this.phase === 'present' ? (() => { const r = this.recs.get(this.showOrder[this.showIdx]) || { votes: new Map() };
+        return { revealed: this.revealed, voters: [...r.votes.keys()], avg: this.revealed ? r.avg : 0, score: this.revealed ? r.score : 0 }; })() : null,
     };
   },
   pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, s); },
@@ -411,10 +438,16 @@ const host = {
   nextRound() {
     this.round++;
     if (this.round > this.rounds) { this.setPhase('end', 0); return; }
+    if (this.mode === 'draw') {
+      let w = rnd(WORDS.length); for (let k = 0; k < 300 && (this.used.has(w) || (WORDS[w] && WORDS[w][2] > 2)); k++) w = rnd(WORDS.length);
+      this.used.add(w); this.wordIdx = w; this.recs = new Map(); this.gains = {}; this.showOrder = []; this.showIdx = 0;
+      this.setPhase('draw', DRAW_TIME, () => this.startPresent());
+      return;
+    }
     let i = rnd(SOUNDS.length); for (let k = 0; k < 60 && this.used.has(i); k++) i = rnd(SOUNDS.length);
     this.used.add(i); this.soundIdx = i; this.recs = new Map(); this.gains = {}; this.showOrder = []; this.showIdx = 0;
     const sec = (SOUNDS[i] && SOUNDS[i].seconds) || 3;
-    this.setPhase('listen', sec * 2 + 3.5, () => this.setPhase('record', 3 * 0.8 + sec + 0.6 + 6, () => this.startShow()));
+    this.setPhase('listen', sec * 2 + 3.5, () => this.setPhase('record', START_WAIT + sec + 0.6 + 6, () => this.startShow()));
   },
   startShow() {
     this.stop();
@@ -427,6 +460,24 @@ const host = {
     const r = this.recs.get(this.showOrder[this.showIdx]);
     const sec = r && r.wav ? clamp(r.sec, 0.5, 8) + 3.8 : 2.5;
     this.setPhase('show', sec, () => { this.showIdx++; this.showStep(); });
+  },
+  // Malen: jedes Bild kommt nacheinander auf die Bühne, die anderen geben Sterne
+  startPresent() {
+    this.stop();
+    this.showOrder = shuffle(this.players.filter((p) => this.recs.has(p.id)).map((p) => p.id));
+    this.showIdx = 0; this.presentStep();
+  },
+  presentStep() {
+    if (this.showIdx >= this.showOrder.length) { this.finishRound(); return; }
+    this.revealed = false;
+    this.setPhase('present', 3.5 + VOTE_TIME, () => this.revealVotes());
+  },
+  revealVotes() {
+    this.stop();
+    const r = this.recs.get(this.showOrder[this.showIdx]);
+    if (r) { const v = [...r.votes.values()]; r.avg = v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0; r.score = Math.round(r.avg * 20); }
+    this.revealed = true;
+    this.setPhase('present', 4, () => { this.showIdx++; this.presentStep(); });
   },
   finishRound() {
     const ranked = [...this.recs].sort((a, b) => b[1].score - a[1].score);
@@ -443,8 +494,8 @@ const host = {
 // ------------------------------------------------------------------ ANZEIGE
 const view = {
   inRoom: false, state: null, deadlineLocal: 0, tick: null, recs: new Map(), recRound: -1,
-  lastKey: '', myRec: null, recorder: null, listenRound: -1, recRoundStarted: -1,
-  reset() { this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.recRoundStarted = -1; this.listenRound = -1; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
+  lastKey: '', myRec: null, recorder: null, listenRound: -1, recRoundStarted: -1, drawRoundStarted: -1, drawings: new Map(), drawRound: -1, draw: null, presentKey: '',
+  reset() { this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.recRoundStarted = -1; this.listenRound = -1; this.drawRoundStarted = -1; this.drawings = new Map(); this.draw = null; this.presentKey = ''; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
   enterRoom(code) {
     this.inRoom = true; $('#lobby-code').textContent = code;
     history.replaceState(null, '', location.pathname + '?code=' + code);
@@ -459,6 +510,7 @@ const view = {
       case 'full': destroyNet(); showScreen('menu'); setStatus(t('full')); break;
       case 'state': this.onState(msg); break;
       case 'rec': if (this.state && msg.round === this.state.round) this.storeRec(msg.pid, msg.round, msg.wav, msg.score); break;
+      case 'drawing': if (this.state && msg.round === this.state.round) this.storeDrawing(msg.pid, msg.round, msg.strokes); break;
       case 'sys': toast(t(msg.key, { name: msg.name })); break;
     }
   },
@@ -477,8 +529,9 @@ const view = {
     if (st.phase === 'lobby') { showScreen('lobby'); this.renderLobby(); this.lastKey = ''; return; }
     showScreen('game');
     this.renderStrip();
-    const key = [st.phase, st.round, st.showIdx, st.phase === 'record' ? st.players.map((p) => p.done ? 1 : 0).join('') : '', lang].join('|');
+    const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang].join('|');
     if (key !== this.lastKey) { this.lastKey = key; this.renderStage(prev); }
+    else if (st.phase === 'present') this.updateVoteArea();
     this.updateTimer();
   },
   renderLobby() {
@@ -497,7 +550,7 @@ const view = {
   async renderStage(prev) {
     const st = this.state, stage = $('#stage');
     $('#info-round').textContent = st.phase === 'end' ? '' : t('round', { a: Math.min(st.round, st.rounds), b: st.rounds });
-    const onStage = st.phase === 'show' || st.phase === 'results' || st.phase === 'end';
+    const onStage = st.phase === 'show' || st.phase === 'present' || st.phase === 'results' || st.phase === 'end';
     stage.classList.toggle('on-stage', onStage);
     $('#game-players').classList.toggle('hidden', onStage);
     if (st.phase === 'listen') {
@@ -520,6 +573,11 @@ const view = {
     } else if (st.phase === 'record') {
       if (this.recRoundStarted !== st.round) { this.recRoundStarted = st.round; this.runRecord(st.round, st.soundIdx); }
       else this.updateDone();
+    } else if (st.phase === 'draw') {
+      if (this.drawRoundStarted !== st.round) { this.drawRoundStarted = st.round; this.runDraw(st.round, st.wordIdx); }
+      else this.updateDone();
+    } else if (st.phase === 'present') {
+      this.renderPresent();
     } else if (st.phase === 'show') {
       stopPlay();
       const p = st.players.find((x) => x.id === st.showPid);
@@ -534,15 +592,15 @@ const view = {
         <div class="wave-box small"><canvas id="wave" width="640" height="90"></canvas></div>
         <div class="score-row"><span class="big-score" id="show-score"></span><span class="stars" id="show-stars"></span></div>`;
       const mouth = stage.querySelector('.performer .mouth');
-      const reveal = () => { countUp($('#show-score'), score); const s5 = Math.round(score / 20); $('#show-stars').textContent = '★'.repeat(s5) + '☆'.repeat(5 - s5); };
       const myRound = st.round, myIdx = st.showIdx;
+      const reveal = () => { const st2 = this.state; if (!st2 || st2.phase !== 'show' || st2.showIdx !== myIdx || st2.round !== myRound) return; const el = $('#show-stars'); if (!el) return; countUp($('#show-score'), score); const s5 = Math.round(score / 20); el.textContent = '★'.repeat(s5) + '☆'.repeat(5 - s5); };
       if (r && !r.buf) await sleep(500);
       if (this.state.showIdx !== myIdx || this.state.round !== myRound) return;
       if (r && r.buf) {
         const pk = peaks(r.buf.getChannelData(0), 100);
         await this.playWithHead(r.buf, null, pk, () => $('#wave'), (lv) => { if (mouth) mouth.style.transform = `scaleY(${1 + lv * 2.2}) scaleX(${1 + lv * .4})`; });
         if (this.state.showIdx === myIdx) reveal();
-      } else { $('#show-score').textContent = t('noRec'); setTimeout(reveal, 900); }
+      } else { const e = $('#show-score'); if (e) e.textContent = t('noRec'); setTimeout(reveal, 900); }
     } else if (st.phase === 'results') {
       const sorted = [...st.players].sort((a, b) => b.score - a.score);
       stage.innerHTML = scoreCards(st, null, true) + `<div class="floor"><div class="speaker-box left">🔊</div><div class="speaker-box right">🔊</div>
@@ -579,15 +637,21 @@ const view = {
     let ref; try { ref = await loadSound(idx); } catch (e) { toast(t('loading')); return; }
     const cv = $('#wave'); drawWave(cv, ref.peaks, null, -1);
     let micOk = true; try { await getMic(); } catch (e) { micOk = false; }
-    for (const n of [3, 2, 1]) {
-      if (!alive()) return;
-      const cd = $('#wave-cd'); if (cd) { cd.textContent = n; cd.classList.remove('pop'); void cd.offsetWidth; cd.classList.add('pop'); }
-      tick(n === 1 ? 660 : 440); await sleep(800);
-    }
+    // Start-Knopf: selbst drücken – nach 10 Sekunden startet es von allein
+    const hint = $('#rec-hint');
+    hint.innerHTML = `<button class="rec-btn" id="rec-start">🎙️<br>${t('startRec')}</button><div class="note" id="auto-note"></div>`;
+    await new Promise((resolve) => {
+      let left = START_WAIT, done = false;
+      const fin = () => { if (done) return; done = true; clearInterval(iv); resolve(); };
+      const upd = () => { const n = $('#auto-note'); if (n) n.textContent = t('autoIn', { n: left }); };
+      const iv = setInterval(() => { left--; if (left <= 0 || !alive()) fin(); else { upd(); if (left <= 3) tick(440); } }, 1000);
+      upd(); const rb = $('#rec-start'); if (rb) rb.onclick = fin; else fin();
+    });
     if (!alive()) return;
+    { const h0 = $('#rec-hint'); if (h0) h0.textContent = ''; }
     const cd = $('#wave-cd'); if (cd) { cd.textContent = t('go'); cd.classList.add('go'); setTimeout(() => { cd.textContent = ''; cd.classList.remove('go'); }, 700); }
     tick(880);
-    if (!micOk) { $('#rec-hint').textContent = t('micDenied'); toHost({ t: 'rec', round, score: 0, wav: null, sec: 0 }); return; }
+    if (!micOk) { const h2 = $('#rec-hint'); if (h2) h2.textContent = t('micDenied'); toHost({ t: 'rec', round, score: 0, wav: null, sec: 0 }); return; }
     const sec = ref.buf.duration, N = ref.peaks.length, recPk = new Array(N).fill(0);
     const t0 = performance.now();
     let lastI = 0;
@@ -599,7 +663,7 @@ const view = {
     this.recorder = rec;
     let raf = 0; const loop = () => { const c = $('#wave'); if (c) drawWave(c, ref.peaks, recPk, (performance.now() - t0) / 1000 / sec); if (this.recorder === rec) raf = requestAnimationFrame(loop); };
     loop();
-    $('#rec-hint').textContent = '🎙️ ' + t('recording');
+    { const h1 = $('#rec-hint'); if (h1) h1.textContent = '🎙️ ' + t('recording'); }
     const { data, sr } = await rec.promise; this.recorder = null; cancelAnimationFrame(raf);
     const c2 = $('#wave'); if (c2) drawWave(c2, ref.peaks, recPk, -1);
     const feat = EchoScore.features(data, sr); const score = feat ? EchoScore.compare(ref.feat, feat) : 0;
@@ -609,14 +673,115 @@ const view = {
     toHost({ t: 'rec', round, score, wav, sec: small.length / EchoScore.SR });
     const h = $('#rec-hint'); if (h) h.textContent = '✅ ' + t('sent');
   },
+  // ---------------- Malen ----------------
+  storeDrawing(pid, round, strokes) {
+    if (round !== this.drawRound) { this.drawings = new Map(); this.drawRound = round; }
+    this.drawings.set(pid, strokes || []);
+  },
+  runDraw(round, wordIdx) {
+    const stage = $('#stage');
+    stage.innerHTML = `<div class="cat">${t('drawThis')}</div><div class="meme-title">${esc(wordName(wordIdx))}</div>
+      <div class="draw-wrap"><canvas id="dcv" width="800" height="600"></canvas><div class="draw-sent hidden" id="draw-sent">✅ ${t('drawSent')}</div></div>
+      <div class="palette">${PALETTE.map((c, i) => `<button class="sw${i === 0 ? ' on' : ''}" data-c="${c}" style="background:${c}"></button>`).join('')}</div>
+      <div class="dtools"><button class="tl sz" data-s="5">•</button><button class="tl sz on" data-s="12">●</button><button class="tl sz" data-s="28">⬤</button>
+        <button class="tl" id="t-er" title="${t('eraser')}">🧽</button><button class="tl" id="t-undo" title="${t('undo')}">↩️</button><button class="tl" id="t-clear" title="${t('clear')}">🗑️</button></div>
+      <button class="btn green" id="d-done">✅ ${t('drawDone')}</button><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const cv = $('#dcv'), ctx = cv.getContext('2d');
+    const d = { strokes: [], color: PALETTE[0], size: 12, eraser: false, cur: null, sent: false, round };
+    this.draw = d;
+    const redraw = () => { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 600); for (const s of d.strokes) drawStroke(ctx, s); };
+    redraw();
+    const pos = (e) => { const r = cv.getBoundingClientRect(); return [Math.round((e.clientX - r.left) / r.width * 800), Math.round((e.clientY - r.top) / r.height * 600)]; };
+    cv.addEventListener('pointerdown', (e) => {
+      if (d.sent) return; e.preventDefault(); cv.setPointerCapture(e.pointerId);
+      const [x, y] = pos(e); d.cur = { c: d.eraser ? '#ffffff' : d.color, w: d.eraser ? Math.max(24, d.size) : d.size, p: [x, y] };
+      d.strokes.push(d.cur); drawStroke(ctx, d.cur);
+    });
+    cv.addEventListener('pointermove', (e) => {
+      if (!d.cur) return; const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+      for (const ev of evs) { const [x, y] = pos(ev); const p = d.cur.p, lx = p[p.length - 2], ly = p[p.length - 1];
+        if (Math.abs(x - lx) + Math.abs(y - ly) < 3) continue;
+        ctx.strokeStyle = d.cur.c; ctx.lineWidth = d.cur.w; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke(); p.push(x, y); }
+    });
+    const end = () => { d.cur = null; };
+    cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+    stage.querySelectorAll('.sw').forEach((b) => b.onclick = () => { d.color = b.dataset.c; d.eraser = false; stage.querySelectorAll('.sw').forEach((x) => x.classList.toggle('on', x === b)); $('#t-er').classList.remove('on'); });
+    stage.querySelectorAll('.sz').forEach((b) => b.onclick = () => { d.size = +b.dataset.s; stage.querySelectorAll('.sz').forEach((x) => x.classList.toggle('on', x === b)); });
+    $('#t-er').onclick = () => { d.eraser = !d.eraser; $('#t-er').classList.toggle('on', d.eraser); };
+    $('#t-undo').onclick = () => { if (!d.sent) { d.strokes.pop(); redraw(); } };
+    $('#t-clear').onclick = () => { if (!d.sent) { d.strokes = []; redraw(); } };
+    $('#d-done').onclick = () => this.sendDrawing();
+  },
+  sendDrawing() {
+    const d = this.draw, st = this.state; if (!d || d.sent || !st || st.round !== d.round || st.phase !== 'draw') return;
+    d.sent = true;
+    this.storeDrawing(net.myId, d.round, d.strokes);
+    toHost({ t: 'drawing', round: d.round, strokes: d.strokes });
+    const s = $('#draw-sent'); if (s) s.classList.remove('hidden');
+    const b = $('#d-done'); if (b) b.disabled = true;
+  },
+  renderPresent() {
+    const st = this.state, stage = $('#stage'), pid = st.showPid, p = st.players.find((x) => x.id === pid);
+    if (!p) { stage.innerHTML = ''; return; }
+    const key = st.round + '|' + st.showIdx;
+    if (this.presentKey === key && $('#pcv')) { this.updateVoteArea(); return; }
+    this.presentKey = key;
+    stage.innerHTML = scoreCards(st, pid) + `<div class="floor draw-floor"><div class="speaker-box left">🔊</div><div class="speaker-box right">🔊</div>
+        <div class="easel"><canvas id="pcv" width="800" height="600"></canvas></div>
+        <div class="presenter">${charEl(p.char, 78, true)}</div></div>
+      <div class="perf-name">🎨 ${esc(p.name)} · „${esc(wordName(st.wordIdx))}“</div><div id="vote-area"></div>`;
+    replayStrokes($('#pcv'), (this.drawings && this.drawings.get(pid)) || [], 3200);
+    this.updateVoteArea();
+  },
+  updateVoteArea() {
+    const st = this.state, el = $('#vote-area'); if (!el || !st.present) return;
+    const pid = st.showPid, pr = st.present, others = st.players.length - 1;
+    if (pr.revealed) {
+      const s5 = Math.round(pr.avg);
+      el.innerHTML = `<div class="score-row"><span class="stars big">${'★'.repeat(s5)}${'☆'.repeat(5 - s5)}</span><span class="big-score">+${pr.score}</span></div>`;
+      return;
+    }
+    const counter = `<div class="hint light">${pr.voters.length}/${others} ${t('votedCount')}</div>`;
+    if (pid === net.myId) { el.innerHTML = `<div class="hint light">${t('othersRate')}</div>${counter}`; return; }
+    if (pr.voters.includes(net.myId)) { el.innerHTML = `<div class="hint light">✅ ${t('thanksVote')}</div>${counter}`; return; }
+    el.innerHTML = `<div class="hint light">${t('rateIt')}</div><div class="vote-stars">${[1, 2, 3, 4, 5].map((n) => `<button class="vstar" data-n="${n}">★</button>`).join('')}</div>${counter}`;
+    const btns = el.querySelectorAll('.vstar');
+    btns.forEach((b) => {
+      b.onpointerenter = () => btns.forEach((x) => x.classList.toggle('lit', +x.dataset.n <= +b.dataset.n));
+      b.onclick = () => { toHost({ t: 'vote', pid, stars: +b.dataset.n }); el.innerHTML = `<div class="hint light">✅ ${t('thanksVote')}</div>`; };
+    });
+  },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
     if (!st || st.phase === 'lobby' || st.phase === 'end') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', st.phase === 'record' && s <= 3);
+    el.textContent = s; el.classList.toggle('low', (st.phase === 'record' || st.phase === 'draw') && s <= 5);
+    if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
+// Malen: Farben, Strich zeichnen, Bild Strich für Strich nachzeichnen
+const PALETTE = ['#111111', '#ffffff', '#e53935', '#fb8c00', '#fdd835', '#43a047', '#1e88e5', '#8e24aa', '#ec407a', '#795548', '#90a4ae', '#00bcd4'];
+const wordName = (i) => (WORDS[i] ? WORDS[i][lang === 'am' ? 1 : 0] : '?');
+function drawStroke(ctx, s, upto) {
+  const p = s.p, n = upto == null ? p.length : Math.min(p.length, upto);
+  ctx.strokeStyle = s.c; ctx.fillStyle = s.c; ctx.lineWidth = s.w; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  if (n <= 2) { ctx.beginPath(); ctx.arc(p[0], p[1], s.w / 2, 0, Math.PI * 2); ctx.fill(); return; }
+  ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (let i = 2; i < n; i += 2) ctx.lineTo(p[i], p[i + 1]); ctx.stroke();
+}
+function replayStrokes(cv, strokes, ms) {
+  const ctx = cv.getContext('2d'); const total = strokes.reduce((a, s) => a + s.p.length, 0) || 1; const t0 = performance.now();
+  const frame = () => {
+    if (!cv.isConnected) return;
+    const f = Math.min(1, (performance.now() - t0) / ms); let budget = Math.ceil(total * f / 2) * 2;
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 600);
+    for (const s of strokes) { if (budget <= 0) break; drawStroke(ctx, s, budget); budget -= s.p.length; }
+    if (f < 1) requestAnimationFrame(frame);
+  };
+  frame();
+}
 // Wellenform: blau = Original, pink = eigene Stimme, rot = Laufstrich
 function peaks(data, n) {
   const out = new Array(n).fill(0), step = Math.max(1, Math.floor(data.length / n));
@@ -740,7 +905,7 @@ $('#btn-join').onclick = async () => {
   const c = cleanCode($('#in-code').value); if (c.length !== 5) { setStatus(t('enterCode')); return; }
   joinSession++; busy = true; try { await joinParty(n, c); } finally { busy = false; }
 };
-$('#btn-start').onclick = () => toHost({ t: 'start', rounds: +$('#set-rounds').value });
+$('#btn-start').onclick = () => toHost({ t: 'start', rounds: +$('#set-rounds').value, mode: $('#set-mode').value });
 $('#btn-copy').onclick = async () => { try { await navigator.clipboard.writeText(net.code); toast(t('copied')); } catch (e) { toast(net.code); } };
 $('#btn-share').onclick = async () => {
   const url = location.origin + location.pathname + '?code=' + net.code;
