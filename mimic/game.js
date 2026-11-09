@@ -21,6 +21,11 @@ const LEAD = 1.0;           // Vorlauf: der Zeiger startet 1 Sekunde vor dem Ton
 const START_WAIT = 10;      // so lange darf man mit dem Start-Knopf warten
 const DRAW_TIME = 60;       // Sekunden zum Malen
 const VOTE_TIME = 12;       // Sekunden zum Bewerten eines Bildes
+const CHOOSE_TIME = 12;     // Malen & Raten: Zeit, ein Wort auszuwählen
+const GUESS_TIME = 80;      // Malen & Raten: Zeit zum Malen/Raten
+const LOGO_TIME = 20;       // Logo-Quiz: so lange dauert es, bis das Logo ganz zu sehen ist
+const LOGO_POINTS = [100, 80, 65, 50, 40, 30, 25, 20];
+const EMOJIS = ['😆', '😂', '😍', '🔥', '👍', '😳', '😢', '👎'];
 const WORDS = window.WORDS || [];
 const TURN_USER = '44a0ba51e09545086b4b4ce3', TURN_PASS = 'xA+tBgw5yXc5eCSK';
 const ICE = { iceServers: [
@@ -52,6 +57,9 @@ const T = {
     voiceOn: 'Telefon an – ihr könnt reden', voiceOff: 'Telefon aus', joined: '{name} ist da!', left: '{name} ist gegangen', reconnecting: 'Verbindung weg – verbinde neu…',
     notEnough: 'Zu wenige Spieler – zurück zur Lobby.', you: 'du', creditsTitle: 'Quellen der Töne (Wikimedia Commons, freie Lizenzen)', close: 'Schließen',
     tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!', startRec: 'Start', waitLine: 'Gleich… los, wenn der Strich die gelbe Linie erreicht!', soundBtn: '🔊 Ton aktivieren', soundOn: 'Ton ist an 🔊', autoIn: 'Startet automatisch in {n} s', mode: 'Spielmodus', modeSound: '🎤 Töne nachmachen', modeDraw: '🎨 Malen & bewerten', drawThis: 'Male:', drawDone: 'Fertig', drawSent: 'Abgeschickt! Warte auf die anderen…', eraser: 'Radierer', undo: 'Rückgängig', clear: 'Alles löschen', rateIt: 'Wie gut ist das Bild? Gib Sterne:', thanksVote: 'Danke für deine Bewertung!', othersRate: 'Die anderen bewerten gerade dein Bild…', votedCount: 'haben bewertet',
+    modeGuess: '✏️ Malen & Raten', modeLogo: '🏷️ Logo-Quiz', chooseWord: 'Wähle ein Wort zum Malen:', choosing: '{name} wählt ein Wort…', drawsNow: '{name} malt – rate!', youDraw: 'Du malst:',
+    guessPh: 'Dein Tipp…', guessedIt: '{name} hat es erraten! 🎉', youGuessed: 'Richtig! 🎉', almost: 'Fast! 🤏', guessedBtn: '✅ Erraten!', whoGuessed: 'Wer hat es erraten?', nobodyLeft: 'Alle haben es schon.', wordWas: 'Das Wort war:',
+    logoQ: 'Welche Marke ist das?', logoPh: 'Tippe die ersten Buchstaben…', youPicked: 'Deine Wahl:', logoWas: 'Das war:', noPick: 'nichts gewählt', lobbyMode: 'Spielmodus:', loadingLogos: 'Lade Logos…',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
@@ -69,6 +77,9 @@ const T = {
     voiceOn: 'ስልኩ በርቷል – መነጋገር ትችላላችሁ', voiceOff: 'ስልኩ ጠፍቷል', joined: '{name} መጣ!', left: '{name} ወጣ', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…',
     notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።', you: 'እርስዎ', creditsTitle: 'የድምፆቹ ምንጮች (Wikimedia Commons፣ ነፃ ፈቃድ)', close: 'ዝጋ',
     tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!', startRec: 'ጀምር', waitLine: 'ቆይ… መስመሩ ቢጫውን መስመር ሲደርስ ይጀምሩ!', soundBtn: '🔊 ድምፅ አብራ', soundOn: 'ድምፁ በርቷል 🔊', autoIn: 'በ{n} ሰከንድ ውስጥ በራሱ ይጀምራል', mode: 'የጨዋታ ዓይነት', modeSound: '🎤 ድምፅ መድገም', modeDraw: '🎨 መሳልና መገምገም', drawThis: 'ይሳሉ፦', drawDone: 'ጨርሻለሁ', drawSent: 'ተልኳል! ሌሎችን ይጠብቁ…', eraser: 'ማጥፊያ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ', rateIt: 'ሥዕሉ ምን ያህል ጥሩ ነው? ኮከብ ይስጡ፦', thanksVote: 'ስለ ግምገማዎ እናመሰግናለን!', othersRate: 'ሌሎች ሥዕልዎን እየገመገሙ ነው…', votedCount: 'ገምግመዋል',
+    modeGuess: '✏️ መሳልና መገመት', modeLogo: '🏷️ የአርማ ጥያቄ', chooseWord: 'የሚስሉትን ቃል ይምረጡ፦', choosing: '{name} ቃል እየመረጠ ነው…', drawsNow: '{name} እየሳለ ነው – ይገምቱ!', youDraw: 'እርስዎ ይሳሉ፦',
+    guessPh: 'ግምትዎ…', guessedIt: '{name} ገመተው! 🎉', youGuessed: 'ትክክል! 🎉', almost: 'ተቃርበዋል! 🤏', guessedBtn: '✅ ተገመተ!', whoGuessed: 'ማን ገመተው?', nobodyLeft: 'ሁሉም ገምተዋል።', wordWas: 'ቃሉ፦',
+    logoQ: 'ይህ የየትኛው ብራንድ ነው?', logoPh: 'የመጀመሪያ ፊደላትን ይጻፉ…', youPicked: 'ምርጫዎ፦', logoWas: 'ይህ ነበር፦', noPick: 'ምንም አልተመረጠም', lobbyMode: 'የጨዋታ ዓይነት፦', loadingLogos: 'አርማዎች እየተጫኑ ነው…',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -359,6 +370,7 @@ async function joinParty(name, code, tries = 0) {
 const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
+  drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -373,7 +385,41 @@ const host = {
     if (!p) return;
     switch (msg.t) {
       case 'ping': return;
-      case 'start': if (p.host && this.phase === 'lobby' && this.players.length >= 2) { this.rounds = clamp(+msg.rounds || 5, 1, 20); this.mode = msg.mode === 'draw' ? 'draw' : 'sound'; this.startGame(); } return;
+      case 'start':
+        if (p.host && this.phase === 'lobby' && this.players.length >= 2) {
+          this.rounds = clamp(+msg.rounds || 5, 1, 30); this.mode = MODES.includes(msg.mode) ? msg.mode : 'sound';
+          if (this.mode === 'logo') ensureLogos().then(() => { if (this.phase === 'lobby') this.startGame(); }).catch(() => toast(t('netError'))); else this.startGame();
+        } return;
+      case 'mode': if (p.host && this.phase === 'lobby' && MODES.includes(msg.mode)) { this.mode = msg.mode; this.pushState(); } return;
+      case 'emo': {
+        const now = Date.now(); if (now - (p.lastEmo || 0) < 180) return; p.lastEmo = now;
+        if (EMOJIS[msg.e | 0]) broadcast({ t: 'emo', e: msg.e | 0, pid: from }); return;
+      }
+      case 'choose': if (this.phase === 'choose' && from === this.drawer && this.choices.includes(msg.w)) this.chooseWord(msg.w); return;
+      case 'ops': {
+        if (this.phase !== 'guess' || from !== this.drawer || msg.turn !== this.turn || !Array.isArray(msg.ops)) return;
+        const ops = msg.ops.slice(0, 200).map(cleanOp).filter(Boolean);
+        for (const o of ops) { this.livePts += o.p ? o.p.length : 0; if (this.livePts > 60000) return; applyOp(this.live, o); }
+        broadcast({ t: 'ops', turn: this.turn, ops }, from); return;
+      }
+      case 'guess': {
+        if (this.phase !== 'guess' || from === this.drawer || this.guessed.has(from)) return;
+        const text = String(msg.text || '').trim().slice(0, 40); if (!text) return;
+        const res = checkGuess(text, this.wordIdx);
+        if (res === 2) { this.award(from); return; }
+        broadcast({ t: 'chat', pid: from, name: p.name, text });
+        if (res === 1) sendTo(from, { t: 'sys', key: 'almost' });
+        return;
+      }
+      case 'mark': if (this.phase === 'guess' && from === this.drawer && msg.pid !== from && this.get(msg.pid) && !this.guessed.has(msg.pid)) this.award(msg.pid); return;
+      case 'pick': {
+        if (this.phase !== 'logo' || msg.round !== this.round || this.picks.has(from) || !window.LOGOS) return;
+        const name = String(msg.name || '').slice(0, 60);
+        this.picks.set(from, { name, ok: normB(name) === normB(LOGOS[this.logoIdx][0]), at: Date.now() });
+        this.pushState();
+        if (this.players.every((x) => this.picks.has(x.id))) this.endLogo();
+        return;
+      }
       case 'lobby': if (p.host) this.toLobby(); return;
       case 'voice': p.voice = !!msg.on; this.pushState(); return;
       case 'char': p.char = validChar(msg.char); this.pushState(); return;
@@ -419,6 +465,7 @@ const host = {
     // bereits vorhandene Aufnahmen dieser Runde nachliefern
     if (this.phase === 'record' || this.phase === 'show') for (const [pid, r] of this.recs) if (pid !== from) sendTo(from, { t: 'rec', pid, round: this.round, wav: r.wav, score: r.score });
     if (this.phase === 'draw' || this.phase === 'present') for (const [pid, r] of this.recs) if (pid !== from) sendTo(from, { t: 'drawing', pid, round: this.round, strokes: r.strokes });
+    if (this.phase === 'guess' && from !== this.drawer) sendTo(from, { t: 'sync', turn: this.turn, strokes: this.live });
     this.pushState();
   },
   removePlayer(id) {
@@ -430,6 +477,9 @@ const host = {
     if (this.phase !== 'lobby' && this.phase !== 'end' && this.players.length < 2) { this.toLobby(); broadcast({ t: 'sys', key: 'notEnough' }); return; }
     if (this.phase === 'record' && this.players.every((x) => this.recs.has(x.id))) this.startShow();
     if (this.phase === 'draw' && this.players.every((x) => this.recs.has(x.id))) this.startPresent();
+    if ((this.phase === 'choose' || this.phase === 'guess') && id === this.drawer) { this.endTurn(); return; }
+    if (this.phase === 'guess' && this.allGuessed()) { this.endTurn(); return; }
+    if (this.phase === 'logo' && this.players.every((x) => this.picks.has(x.id))) { this.endLogo(); return; }
     this.pushState();
   },
   sweep() { const now = Date.now(); for (const p of [...this.players]) if (!p.host && now - p.seen > 20000) this.removePlayer(p.id); },
@@ -437,23 +487,44 @@ const host = {
     return {
       t: 'state', phase: this.phase, round: this.round, rounds: this.rounds, soundIdx: this.soundIdx,
       remaining: Math.max(0, this.deadline - Date.now()), showPid: this.showOrder[this.showIdx] || null, showIdx: this.showIdx, showCount: this.showOrder.length,
-      players: this.players.map((p) => ({ id: p.id, name: p.name, char: p.char, score: p.score, voice: p.voice, host: p.host, lang: p.lang, done: this.recs.has(p.id) })),
+      players: this.players.map((p) => ({ id: p.id, name: p.name, char: p.char, score: p.score, voice: p.voice, host: p.host, lang: p.lang,
+        done: this.mode === 'logo' ? this.picks.has(p.id) : this.mode === 'guess' ? this.guessed.has(p.id) : this.recs.has(p.id) })),
+      drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx,
+      picks: this.mode === 'logo' && this.phase === 'results' ? Object.fromEntries([...this.picks].map(([k, v]) => [k, { name: v.name, ok: v.ok }])) : null,
       roundScores: Object.fromEntries([...this.recs].map(([k, v]) => [k, v.score])), gains: this.gains,
       mode: this.mode, wordIdx: this.wordIdx,
       present: this.phase === 'present' ? (() => { const r = this.recs.get(this.showOrder[this.showIdx]) || { votes: new Map() };
         return { revealed: this.revealed, voters: [...r.votes.keys()], votes: this.revealed ? Object.fromEntries(r.votes) : null, avg: this.revealed ? r.avg : 0, score: this.revealed ? r.score : 0 }; })() : null,
     };
   },
-  pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, s); },
+  pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, this.stateFor(p, s)); },
+  // Malen & Raten: das Wort sieht nur, wer malt oder es schon erraten hat – alle anderen nur die Striche
+  stateFor(p, s) {
+    if (this.mode !== 'guess' || (s.phase !== 'choose' && s.phase !== 'guess' && s.phase !== 'results')) return s;
+    const w = this.wordIdx, knows = p.id === this.drawer || this.guessed.has(p.id) || s.phase === 'results';
+    const word = WORDS[w] ? WORDS[w][p.lang === 'am' ? 1 : 0] : '';
+    return Object.assign({}, s, { word: knows ? w : -1, hint: w >= 0 ? [...word].map((c) => (c === ' ' || c === '-' ? c : '_')).join('') : '',
+      choices: s.phase === 'choose' && p.id === this.drawer ? this.choices : null });
+  },
   setPhase(phase, sec, next) {
     this.stop(); this.phase = phase; this.deadline = Date.now() + sec * 1000; this.pushState();
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
-  startGame() { this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.departed = new Map(); this.nextRound(); },
-  toLobby() { this.stop(); this.phase = 'lobby'; this.recs = new Map(); this.gains = {}; this.pushState(); },
+  startGame() {
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.departed = new Map();
+    if (this.mode === 'guess') { this.turnOrder = []; this.turnIdx = 0; this.nextTurn(); return; }
+    this.nextRound();
+  },
+  toLobby() { this.stop(); this.phase = 'lobby'; this.recs = new Map(); this.gains = {}; this.drawer = null; this.picks = new Map(); this.guessed = new Map(); this.pushState(); },
   nextRound() {
     this.round++;
     if (this.round > this.rounds) { this.setPhase('end', 0); return; }
+    if (this.mode === 'logo') {
+      const n = LOGOS.length; let i = rnd(n); for (let k = 0; k < 200 && this.used.has(i); k++) i = rnd(n);
+      this.used.add(i); this.logoIdx = i; this.picks = new Map(); this.gains = {};
+      this.setPhase('logo', LOGO_TIME, () => this.endLogo());
+      return;
+    }
     if (this.mode === 'draw') {
       let w = rnd(WORDS.length); for (let k = 0; k < 300 && (this.used.has(w) || (WORDS[w] && WORDS[w][2] > 2)); k++) w = rnd(WORDS.length);
       this.used.add(w); this.wordIdx = w; this.recs = new Map(); this.gains = {}; this.showOrder = []; this.showIdx = 0;
@@ -495,6 +566,65 @@ const host = {
     this.revealed = true;
     this.setPhase('present', 4, () => { this.showIdx++; this.presentStep(); });
   },
+  // ---- Logo-Quiz: wer zuerst richtig tippt, bekommt am meisten
+  endLogo() {
+    if (this.phase !== 'logo') return;
+    this.stop(); this.gains = {};
+    const right = [...this.picks].filter(([, v]) => v.ok).sort((a, b) => a[1].at - b[1].at);
+    for (const p of this.players) {
+      const rank = right.findIndex(([id]) => id === p.id);
+      const g = rank < 0 ? 0 : LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)];
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', RESULT_TIME, () => this.nextRound());
+  },
+  // ---- Malen & Raten: einer malt, alle anderen raten
+  pickWord(diff) {
+    let w = rnd(WORDS.length);
+    for (let k = 0; k < 400 && (this.used.has(w) || !WORDS[w] || WORDS[w][2] !== diff); k++) w = rnd(WORDS.length);
+    return w;
+  },
+  nextTurn() {
+    for (;;) {
+      if (this.turnIdx >= this.turnOrder.length) {
+        this.round++;
+        if (this.round > this.rounds) { this.drawer = null; this.setPhase('end', 0); return; }
+        this.turnOrder = this.players.map((p) => p.id); this.turnIdx = 0;
+      }
+      const id = this.turnOrder[this.turnIdx++];
+      if (this.get(id)) { this.drawer = id; break; }
+    }
+    this.turn++; this.wordIdx = -1; this.live = []; this.livePts = 0; this.guessed = new Map(); this.gains = {};
+    this.choices = [1, 2, 3].map((d) => this.pickWord(d));
+    this.setPhase('choose', CHOOSE_TIME, () => this.chooseWord(this.choices[rnd(3)]));
+  },
+  chooseWord(w) {
+    if (this.phase !== 'choose') return;
+    this.wordIdx = w; this.used.add(w);
+    this.setPhase('guess', GUESS_TIME, () => this.endTurn());
+  },
+  allGuessed() { return this.players.filter((x) => x.id !== this.drawer).every((x) => this.guessed.has(x.id)); },
+  award(pid) {
+    const p = this.get(pid); if (!p) return;
+    const f = clamp((this.deadline - Date.now()) / (GUESS_TIME * 1000), 0, 1);
+    const mult = [1, 1.25, 1.5][((WORDS[this.wordIdx] || [])[2] || 1) - 1];
+    const pts = Math.round((40 + 80 * f) * mult) + Math.max(0, 20 - 5 * this.guessed.size);
+    this.guessed.set(pid, pts);
+    broadcast({ t: 'chat', sys: 'guessedIt', name: p.name, pid });
+    if (this.allGuessed()) this.endTurn(); else this.pushState();
+  },
+  endTurn() {
+    if (this.phase !== 'choose' && this.phase !== 'guess') return;
+    this.stop(); this.gains = {};
+    const mult = [1, 1.25, 1.5][((WORDS[this.wordIdx] || [])[2] || 1) - 1];
+    for (const p of this.players) {
+      let g = this.guessed.get(p.id) || 0;
+      if (p.id === this.drawer) g = Math.round(this.guessed.size * 30 * mult);
+      p.score += g; this.gains[p.id] = g;
+    }
+    if (this.wordIdx < 0) this.wordIdx = this.choices[0];
+    this.setPhase('results', 6, () => this.nextTurn());
+  },
   finishRound() {
     const ranked = [...this.recs].sort((a, b) => b[1].score - a[1].score);
     this.gains = {};
@@ -511,7 +641,8 @@ const host = {
 const view = {
   inRoom: false, state: null, deadlineLocal: 0, tick: null, recs: new Map(), recRound: -1,
   lastKey: '', myRec: null, recorder: null, listenRound: -1, recRoundStarted: -1, drawRoundStarted: -1, drawings: new Map(), drawRound: -1, draw: null, presentKey: '',
-  reset() { this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.recRoundStarted = -1; this.listenRound = -1; this.drawRoundStarted = -1; this.drawings = new Map(); this.draw = null; this.presentKey = ''; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
+  live: [], liveTurn: -1, chat: [], chatTurn: -1, opQ: [], opTimer: null, myPick: null, chooseSent: -1,
+  reset() { this.modeTouched = false; clearInterval(this.opTimer); this.live = []; this.chat = []; this.myPick = null; this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.recRoundStarted = -1; this.listenRound = -1; this.drawRoundStarted = -1; this.drawings = new Map(); this.draw = null; this.presentKey = ''; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
   enterRoom(code) {
     this.inRoom = true; $('#lobby-code').textContent = code;
     history.replaceState(null, '', location.pathname + '?code=' + code);
@@ -528,6 +659,10 @@ const view = {
       case 'rec': if (this.state && msg.round === this.state.round) this.storeRec(msg.pid, msg.round, msg.wav, msg.score); break;
       case 'drawing': if (this.state && msg.round === this.state.round) this.storeDrawing(msg.pid, msg.round, msg.strokes); break;
       case 'sys': toast(t(msg.key, { name: msg.name })); break;
+      case 'emo': flyEmoji(msg.e, msg.pid); break;
+      case 'chat': this.addChat(msg); break;
+      case 'ops': this.applyLive(msg.turn, msg.ops); break;
+      case 'sync': this.live = []; this.liveTurn = msg.turn; for (const o of msg.strokes || []) this.live.push({ c: o.c, w: o.w, p: o.p.slice() }); this.redrawLive(); break;
     }
   },
   storeRec(pid, round, wav, score) {
@@ -542,12 +677,17 @@ const view = {
     this.deadlineLocal = Date.now() + st.remaining;
     if (st.round !== this.recRound && st.phase !== 'lobby') { this.recs = new Map(); this.recRound = st.round; }
     voiceSync(st); applyVoiceMute(st.phase);
-    if (st.phase === 'lobby') { showScreen('lobby'); this.renderLobby(); this.lastKey = ''; return; }
+    if (st.mode === 'logo') ensureLogos().catch(() => {});
+    if (st.phase === 'lobby') { showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
-    const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang].join('|');
+    const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
     if (key !== this.lastKey) { this.lastKey = key; this.renderStage(prev); }
     else if (st.phase === 'present') this.updateVoteArea();
+    else if (st.phase === 'logo') this.updateDone();
+    else if (st.phase === 'guess') this.updateGuessInfo();
+    else if (st.phase === 'choose') this.updateChoose();
+    this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
     this.updateTimer();
   },
   renderLobby() {
@@ -557,17 +697,22 @@ const view = {
     $('#host-settings').classList.toggle('hidden', !net.isHost);
     $('#lobby-wait').classList.toggle('hidden', net.isHost);
     const b = $('#btn-start'); b.disabled = st.players.length < 2; b.textContent = st.players.length < 2 ? t('needTwo') : t('start');
+    const lm = $('#lobby-mode'); lm.classList.toggle('hidden', net.isHost);
+    lm.textContent = t('lobbyMode') + ' ' + t({ sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo' }[st.mode] || 'modeSound');
+    if (net.isHost && $('#set-mode').value !== st.mode && !this.modeTouched) { $('#set-mode').value = st.mode; setRoundOpts(st.mode); }
   },
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, st.phase === 'record' && p.done ? '✅' : '')).join('');
+    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose') && p.id === st.drawer ? '✏️' : ''));
+    $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
     const st = this.state, stage = $('#stage');
     $('#info-round').textContent = st.phase === 'end' ? '' : t('round', { a: Math.min(st.round, st.rounds), b: st.rounds });
     const onStage = st.phase === 'show' || st.phase === 'present' || st.phase === 'results' || st.phase === 'end';
     stage.classList.toggle('on-stage', onStage);
+    if (st.phase !== 'guess') { clearInterval(this.opTimer); this.opTimer = null; }
     $('#game-players').classList.toggle('hidden', onStage);
     if (st.phase === 'listen') {
       stage.innerHTML = `<div class="cat">${t('category')}</div><div class="meme-title">${esc(soundName(st.soundIdx))}</div>
@@ -598,6 +743,12 @@ const view = {
     } else if (st.phase === 'draw') {
       if (this.drawRoundStarted !== st.round) { this.drawRoundStarted = st.round; this.runDraw(st.round, st.wordIdx); }
       else this.updateDone();
+    } else if (st.phase === 'choose') {
+      this.renderChoose();
+    } else if (st.phase === 'guess') {
+      this.renderGuess();
+    } else if (st.phase === 'logo') {
+      this.renderLogo();
     } else if (st.phase === 'present') {
       this.renderPresent();
     } else if (st.phase === 'show') {
@@ -623,11 +774,18 @@ const view = {
         await this.playWithHead(r.buf, null, pk, () => $('#wave'), (lv) => { if (mouth) mouth.style.transform = `scaleY(${1 + lv * 2.2}) scaleX(${1 + lv * .4})`; });
         if (this.state.showIdx === myIdx) reveal();
       } else { const e = $('#show-score'); if (e) e.textContent = t('noRec'); setTimeout(reveal, 900); }
+    } else if (st.phase === 'results' && st.mode === 'logo') {
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="logo-res"><div class="logo-box small"><canvas id="lcv" width="240" height="240"></canvas></div>
+        <div><div class="cat light">${t('logoWas')}</div><div class="logo-name" id="logo-name"></div></div></div>
+        <div class="vlist">${[...st.players].sort((a, b) => (st.gains[b.id] || 0) - (st.gains[a.id] || 0)).map((x) => { const pk = st.picks && st.picks[x.id];
+          return `<div class="vline">${charEl(x.char, 26, false)}<span class="vn">${esc(x.name)}</span><span class="vp ${pk ? (pk.ok ? 'ok' : 'bad') : ''}">${pk ? (pk.ok ? '✅ ' : '❌ ') + esc(pk.name) : '⏳ ' + t('noPick')}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+      try { await ensureLogos(); } catch (e) { return; }
+      const cv = $('#lcv'); if (cv && this.state.phase === 'results') { drawLogo(cv, st.logoIdx, 1); $('#logo-name').textContent = LOGOS[st.logoIdx][0]; }
     } else if (st.phase === 'results') {
       const sorted = [...st.players].sort((a, b) => b.score - a.score);
       stage.innerHTML = scoreCards(st, null, true) + `<div class="floor"><div class="speaker-box left">🔊</div><div class="speaker-box right">🔊</div>
         <div class="crowd">${sorted.map((p) => `<div class="crowd-p">${charEl(p.char, 70, true)}<div class="gain">+${st.gains[p.id] || 0}</div></div>`).join('')}</div></div>
-        <h2>${t('results')}</h2>`;
+        ${st.mode === 'guess' && st.word >= 0 ? `<div class="cat light">${t('wordWas')}</div><div class="meme-title light">${esc(wordName(st.word))}</div>` : `<h2>${t('results')}</h2>`}`;
     } else if (st.phase === 'end') {
       const s = [...st.players].sort((a, b) => b.score - a.score);
       const pod = [s[1], s[0], s[2]].map((p, i) => p ? `<div class="pl">${charEl(p.char, i === 1 ? 100 : 74, true)}<div>${esc(p.name)}</div><div class="block" style="height:${[60, 90, 44][i]}px;background:${['#c0c0c0', '#ffc107', '#cd7f32'][i]}">${[2, 1, 3][i]}</div></div>` : '').join('');
@@ -717,36 +875,12 @@ const view = {
     const stage = $('#stage');
     stage.innerHTML = `<div class="cat">${t('drawThis')}</div><div class="meme-title">${esc(wordName(wordIdx))}</div>
       <div class="draw-wrap"><canvas id="dcv" width="800" height="600"></canvas><div class="draw-sent hidden" id="draw-sent">✅ ${t('drawSent')}</div></div>
-      <div class="palette">${PALETTE.map((c, i) => `<button class="sw${i === 0 ? ' on' : ''}" data-c="${c}" style="background:${c}"></button>`).join('')}</div>
-      <div class="dtools"><button class="tl sz" data-s="5">•</button><button class="tl sz on" data-s="12">●</button><button class="tl sz" data-s="28">⬤</button>
-        <button class="tl" id="t-er" title="${t('eraser')}">🧽</button><button class="tl" id="t-undo" title="${t('undo')}">↩️</button><button class="tl" id="t-clear" title="${t('clear')}">🗑️</button></div>
+      ${paletteHTML()}
       <button class="btn green" id="d-done">✅ ${t('drawDone')}</button><div class="done-list" id="done-list"></div>`;
     this.updateDone();
-    const cv = $('#dcv'), ctx = cv.getContext('2d');
     const d = { strokes: [], color: PALETTE[0], size: 12, eraser: false, cur: null, sent: false, round };
     this.draw = d;
-    const redraw = () => { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 600); for (const s of d.strokes) drawStroke(ctx, s); };
-    redraw();
-    const pos = (e) => { const r = cv.getBoundingClientRect(); return [Math.round((e.clientX - r.left) / r.width * 800), Math.round((e.clientY - r.top) / r.height * 600)]; };
-    cv.addEventListener('pointerdown', (e) => {
-      if (d.sent) return; e.preventDefault(); cv.setPointerCapture(e.pointerId);
-      const [x, y] = pos(e); d.cur = { c: d.eraser ? '#ffffff' : d.color, w: d.eraser ? Math.max(24, d.size) : d.size, p: [x, y] };
-      d.strokes.push(d.cur); drawStroke(ctx, d.cur);
-    });
-    cv.addEventListener('pointermove', (e) => {
-      if (!d.cur) return; const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
-      for (const ev of evs) { const [x, y] = pos(ev); const p = d.cur.p, lx = p[p.length - 2], ly = p[p.length - 1];
-        if (Math.abs(x - lx) + Math.abs(y - ly) < 3) continue;
-        ctx.strokeStyle = d.cur.c; ctx.lineWidth = d.cur.w; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-        ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke(); p.push(x, y); }
-    });
-    const end = () => { d.cur = null; };
-    cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
-    stage.querySelectorAll('.sw').forEach((b) => b.onclick = () => { d.color = b.dataset.c; d.eraser = false; stage.querySelectorAll('.sw').forEach((x) => x.classList.toggle('on', x === b)); $('#t-er').classList.remove('on'); });
-    stage.querySelectorAll('.sz').forEach((b) => b.onclick = () => { d.size = +b.dataset.s; stage.querySelectorAll('.sz').forEach((x) => x.classList.toggle('on', x === b)); });
-    $('#t-er').onclick = () => { d.eraser = !d.eraser; $('#t-er').classList.toggle('on', d.eraser); };
-    $('#t-undo').onclick = () => { if (!d.sent) { d.strokes.pop(); redraw(); } };
-    $('#t-clear').onclick = () => { if (!d.sent) { d.strokes = []; redraw(); } };
+    bindPainter(stage, $('#dcv'), d, null);
     $('#d-done').onclick = () => this.sendDrawing();
   },
   sendDrawing() {
@@ -790,15 +924,250 @@ const view = {
       b.onclick = () => { toHost({ t: 'vote', pid, stars: +b.dataset.n }); el.innerHTML = `<div class="hint light">✅ ${t('thanksVote')}</div>`; };
     });
   },
+  toggleEmo(on) {
+    const bar = $('#emo-bar'); if (!bar) return;
+    if (on && !bar.childElementCount) {
+      bar.innerHTML = EMOJIS.map((e, i) => `<button data-e="${i}">${e}</button>`).join('');
+      bar.querySelectorAll('button').forEach((b) => b.onclick = () => { const now = Date.now(); if (now - (this.lastEmo || 0) < 250) return; this.lastEmo = now; toHost({ t: 'emo', e: +b.dataset.e }); });
+    }
+    bar.classList.toggle('hidden', !on); document.body.classList.toggle('emo-on', on);
+  },
+  // ---------------- Malen & Raten ----------------
+  renderChoose() {
+    const st = this.state, stage = $('#stage'), dr = st.players.find((x) => x.id === st.drawer);
+    if (st.drawer === net.myId) {
+      stage.innerHTML = `<div class="cat">${t('chooseWord')}</div><div class="choices" id="choices"></div>`;
+      this.updateChoose();
+    } else {
+      stage.innerHTML = `<div class="choose-wait">${dr ? charEl(dr.char, 120, true) : ''}<h2>${esc(t('choosing', { name: dr ? dr.name : '?' }))}</h2></div>`;
+    }
+  },
+  updateChoose() {
+    const st = this.state, el = $('#choices'); if (!el || el.childElementCount || !st.choices) return;
+    el.innerHTML = st.choices.map((w) => `<button class="btn choice" data-w="${w}"><span>${esc(wordName(w))}</span><small>${'★'.repeat((WORDS[w] || [0, 0, 1])[2])}</small></button>`).join('');
+    el.querySelectorAll('.choice').forEach((b) => b.onclick = () => { if (this.chooseSent === st.turn) return; this.chooseSent = st.turn; el.querySelectorAll('.choice').forEach((x) => x.disabled = x !== b); toHost({ t: 'choose', w: +b.dataset.w }); });
+  },
+  renderGuess() {
+    const st = this.state, stage = $('#stage'), me = st.drawer === net.myId, dr = st.players.find((x) => x.id === st.drawer);
+    if (this.liveTurn !== st.turn) { this.live = []; this.liveTurn = st.turn; }
+    if (this.chatTurn !== st.turn) { this.chat = []; this.chatTurn = st.turn; }
+    stage.innerHTML = `<div class="g-head"><span class="g-who">${me ? t('youDraw') : esc(t('drawsNow', { name: dr ? dr.name : '?' }))}</span><span class="g-word" id="g-word"></span></div>
+      <div class="draw-wrap"><canvas id="gcv" width="800" height="600"></canvas></div>
+      ${me ? paletteHTML() + `<button class="btn green" id="g-mark">${t('guessedBtn')}</button><div class="g-chat small" id="g-chat"></div>` :
+        `<div class="g-chat" id="g-chat"></div><form class="g-form" id="g-form"><input id="g-in" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${t('guessPh')}"><button class="btn small primary">➤</button></form>`}`;
+    if (me) {
+      const d = { strokes: [], color: PALETTE[0], size: 12, eraser: false, cur: null, sent: false };
+      this.draw = null; this.opQ = [];
+      bindPainter(stage, $('#gcv'), d, (op) => { const last = this.opQ[this.opQ.length - 1]; if (op.o === 'p' && last && last.o === 'p' && last.p.length < 380) last.p.push(...op.p); else this.opQ.push(op); });
+      clearInterval(this.opTimer);
+      const turn = st.turn;
+      this.opTimer = setInterval(() => { if (!this.opQ.length) return; const ops = this.opQ; this.opQ = []; toHost({ t: 'ops', turn, ops }); }, 80);
+      $('#g-mark').onclick = () => this.markDialog();
+      this.renderChat();
+    } else {
+      this.redrawLive(); this.renderChat();
+      $('#g-form').onsubmit = (e) => { e.preventDefault(); const i = $('#g-in'); const v = i.value.trim(); if (!v) return; toHost({ t: 'guess', text: v }); i.value = ''; };
+    }
+    this.updateGuessInfo();
+  },
+  updateGuessInfo() {
+    const st = this.state, el = $('#g-word'); if (!el) return;
+    el.textContent = st.word >= 0 ? wordName(st.word) : (st.hint || '');
+    el.classList.toggle('known', st.word >= 0);
+    const mine = st.players.find((x) => x.id === net.myId);
+    const f = $('#g-form'); if (f && mine && mine.done && !f.classList.contains('done')) { f.classList.add('done'); f.innerHTML = `<div class="g-ok">${t('youGuessed')}</div>`; }
+  },
+  markDialog() {
+    const st = this.state; if (!st || st.phase !== 'guess') return;
+    const left = st.players.filter((x) => x.id !== net.myId && !x.done);
+    const b = modal(`<h3>${t('whoGuessed')}</h3>${left.length ? `<div class="mark-list">${left.map((x) => `<button class="btn mark" data-id="${esc(x.id)}">${charEl(x.char, 30, false)}<span>${esc(x.name)}</span></button>`).join('')}</div>` : `<p>${t('nobodyLeft')}</p>`}<button class="btn" id="cl">${t('close')}</button>`);
+    b.querySelectorAll('.mark').forEach((x) => x.onclick = () => { toHost({ t: 'mark', pid: x.dataset.id }); x.remove(); });
+    b.querySelector('#cl').onclick = closeModal;
+  },
+  applyLive(turn, ops) {
+    if (!Array.isArray(ops)) return;
+    if (turn !== this.liveTurn) { this.live = []; this.liveTurn = turn; }
+    const cv = $('#gcv'), ctx = cv && this.state && this.state.drawer !== net.myId ? cv.getContext('2d') : null;
+    for (const raw of ops) {
+      const o = cleanOp(raw); if (!o) continue;
+      const last = this.live[this.live.length - 1], from = last ? last.p.length : 0;
+      applyOp(this.live, o);
+      if (!ctx) continue;
+      if (o.o === 'u' || o.o === 'x') { this.redrawLive(); continue; }
+      const s = this.live[this.live.length - 1]; if (!s) continue;
+      if (o.o === 's') drawStroke(ctx, s);
+      else { ctx.strokeStyle = s.c; ctx.lineWidth = s.w; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.beginPath(); ctx.moveTo(s.p[from - 2], s.p[from - 1]); for (let i = from; i < s.p.length; i += 2) ctx.lineTo(s.p[i], s.p[i + 1]); ctx.stroke(); }
+    }
+  },
+  redrawLive() {
+    const cv = $('#gcv'); if (!cv || (this.state && this.state.drawer === net.myId)) return;
+    const ctx = cv.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 600); for (const s of this.live) drawStroke(ctx, s);
+  },
+  addChat(m) {
+    if (this.state && this.chatTurn !== this.state.turn) { this.chat = []; this.chatTurn = this.state.turn; }
+    this.chat.push(m.sys ? { sys: true, text: t(m.sys, { name: m.name }) } : { name: m.name, text: m.text });
+    if (this.chat.length > 40) this.chat.shift();
+    this.renderChat();
+    if (m.sys === 'guessedIt') tick(990);
+  },
+  renderChat() {
+    const el = $('#g-chat'); if (!el) return;
+    el.innerHTML = this.chat.map((c) => c.sys ? `<div class="sys">${esc(c.text)}</div>` : `<div><b>${esc(c.name)}:</b> ${esc(c.text)}</div>`).join('');
+    el.scrollTop = el.scrollHeight;
+  },
+  // ---------------- Logo-Quiz ----------------
+  async renderLogo() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    stage.innerHTML = `<div class="cat">${t('logoQ')}</div><div class="logo-box"><canvas id="lcv" width="300" height="300"></canvas><div class="logo-load" id="logo-load">${t('loadingLogos')}</div></div>
+      <div class="logo-pick" id="logo-pick"></div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    try { await ensureLogos(); } catch (e) { toast(t('netError')); return; }
+    const alive = () => this.state && this.state.phase === 'logo' && this.state.round === round;
+    if (!alive()) return;
+    const ld = $('#logo-load'); if (ld) ld.remove();
+    const cv = $('#lcv'), idx = st.logoIdx;
+    const loop = () => { if (!alive() || !cv.isConnected) return; drawLogo(cv, idx, 1 - (this.deadlineLocal - Date.now()) / (LOGO_TIME * 1000)); requestAnimationFrame(loop); };
+    loop();
+    const pick = $('#logo-pick');
+    const showPicked = () => { pick.innerHTML = `<div class="picked">${t('youPicked')} <b>${esc(this.myPick.name)}</b> 🔒</div>`; };
+    if (this.myPick && this.myPick.round === round) { showPicked(); return; }
+    pick.innerHTML = `<input id="logo-in" maxlength="30" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${t('logoPh')}"><div class="sug" id="logo-sug"></div>`;
+    const inp = $('#logo-in'), sug = $('#logo-sug');
+    inp.oninput = () => {
+      sug.innerHTML = brandMatches(inp.value).map((n) => `<button class="btn small sug-b">${esc(n)}</button>`).join('');
+      sug.querySelectorAll('.sug-b').forEach((b) => b.onclick = () => {
+        if (!alive() || (this.myPick && this.myPick.round === round)) return;
+        this.myPick = { round, name: b.textContent }; toHost({ t: 'pick', round, name: b.textContent }); showPicked();
+      });
+    };
+  },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
     if (!st || st.phase === 'lobby' || st.phase === 'end') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', (st.phase === 'record' || st.phase === 'draw') && s <= 5);
+    el.textContent = s; el.classList.toggle('low', (st.phase === 'record' || st.phase === 'draw' || st.phase === 'guess' || st.phase === 'logo') && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
+// ---- Spielmodi, Logos, Raten
+const MODES = ['sound', 'draw', 'guess', 'logo'];
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10] };
+let logosP = null;
+function ensureLogos() {
+  if (window.LOGOS) return Promise.resolve();
+  if (!logosP) logosP = new Promise((res, rej) => {
+    const el = document.createElement('script'); el.src = $('#logos-src').content;
+    el.onload = res; el.onerror = () => { logosP = null; rej(new Error('logos')); }; document.head.appendChild(el);
+  });
+  return logosP;
+}
+// Markennamen vergleichen: Groß/klein, Akzente und Zeichen egal
+const normB = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9+]/g, '');
+// Wörter vergleichen (Deutsch + Amharisch): ä=ae=a usw.
+function wordForms(s) {
+  const b = String(s).toLowerCase().replace(/ß/g, 'ss').replace(/[^a-zäöüé\u1200-\u137f0-9]/g, '');
+  return new Set([b, b.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue'), b.replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u').replace(/é/g, 'e')]);
+}
+function lev(a, b) {
+  if (Math.abs(a.length - b.length) > 2) return 9;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) { const cur = [i]; for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = cur; }
+  return prev[b.length];
+}
+// 2 = richtig, 1 = knapp daneben, 0 = falsch
+function checkGuess(text, w) {
+  if (!WORDS[w]) return 0;
+  const g = wordForms(text); let near = false;
+  for (const target of [WORDS[w][0], WORDS[w][1]]) for (const a of wordForms(target)) for (const b of g) {
+    if (a && a === b) return 2;
+    if (a.length >= 4 && lev(a, b) === 1) near = true;
+  }
+  return near ? 1 : 0;
+}
+// Live-Malen: Befehle s=neuer Strich, p=Punkte anhängen, u=rückgängig, x=alles löschen
+function cleanOp(o) {
+  if (!o || typeof o !== 'object') return null;
+  const pts = (a) => Array.isArray(a) ? a.slice(0, 400).map((v) => clamp(Math.round(+v || 0), 0, 800)) : [];
+  if (o.o === 's') return { o: 's', c: /^#[0-9a-f]{6}$/i.test(o.c) ? o.c : '#111111', w: clamp(+o.w || 12, 1, 60), p: pts(o.p).slice(0, 2) };
+  if (o.o === 'p') return { o: 'p', p: pts(o.p) };
+  if (o.o === 'u' || o.o === 'x') return { o: o.o };
+  return null;
+}
+function applyOp(strokes, o) {
+  if (o.o === 's') strokes.push({ c: o.c, w: o.w, p: o.p.slice() });
+  else if (o.o === 'p') { const s = strokes[strokes.length - 1]; if (s) s.p.push(...o.p); }
+  else if (o.o === 'u') strokes.pop();
+  else if (o.o === 'x') strokes.length = 0;
+}
+// Logo zeichnen: f = 0 (ganz grob verpixelt) … 1 (ganz scharf)
+function drawLogo(cv, idx, f) {
+  const L = window.LOGOS && LOGOS[idx]; if (!L) return;
+  const W = cv.width, ctx = cv.getContext('2d');
+  if (cv._idx !== idx) {
+    const b = document.createElement('canvas'); b.width = b.height = W; const c = b.getContext('2d');
+    const n = parseInt(L[1], 16), lum = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+    c.fillStyle = lum > 0.8 ? '#2b2250' : '#ffffff'; c.fillRect(0, 0, W, W);
+    const pad = W * 0.16, sc = (W - 2 * pad) / 24; c.translate(pad, pad); c.scale(sc, sc);
+    c.fillStyle = '#' + L[1]; try { c.fill(new Path2D(L[2])); } catch (e) {}
+    cv._base = b; cv._idx = idx; cv._small = document.createElement('canvas');
+  }
+  ctx.imageSmoothingEnabled = true;
+  if (f >= 0.995) { ctx.drawImage(cv._base, 0, 0); return; }
+  const cells = Math.max(3, Math.round(3 * Math.pow(W / 3 / 1.2, Math.pow(clamp(f, 0, 1), 1.25))));
+  const sm = cv._small; sm.width = sm.height = cells;
+  const sc = sm.getContext('2d'); sc.imageSmoothingEnabled = true; sc.drawImage(cv._base, 0, 0, cells, cells);
+  ctx.imageSmoothingEnabled = false; ctx.drawImage(sm, 0, 0, W, W);
+}
+function brandMatches(q) {
+  const n = normB(q); if (!n) return [];
+  const names = window.BRAND_NAMES || [], a = [], b = [];
+  for (const x of names) { if (normB(x).startsWith(n)) a.push(x); else if (x.split(/[\s\-&.]+/).some((w) => w.length > 1 && normB(w).startsWith(n))) b.push(x); }
+  return a.concat(b).slice(0, 8);
+}
+// Emojis fliegen über die Bühne
+function flyEmoji(e, pid) {
+  const layer = $('#emo-layer'); if (!layer || !EMOJIS[e]) return;
+  const p = view.state && view.state.players.find((x) => x.id === pid);
+  const el = document.createElement('div'); el.className = 'emo-fly';
+  el.style.left = (8 + Math.random() * 78) + '%';
+  el.innerHTML = `<span>${EMOJIS[e]}</span>${p ? `<small>${esc(p.name)}</small>` : ''}`;
+  layer.appendChild(el); setTimeout(() => el.remove(), 2600);
+  while (layer.children.length > 30) layer.firstChild.remove();
+}
+function paletteHTML() {
+  return `<div class="palette">${PALETTE.map((c, i) => `<button class="sw${i === 0 ? ' on' : ''}" data-c="${c}" style="background:${c}"></button>`).join('')}</div>
+    <div class="dtools"><button class="tl sz" data-s="5">•</button><button class="tl sz on" data-s="12">●</button><button class="tl sz" data-s="28">⬤</button>
+    <button class="tl" id="t-er" title="${t('eraser')}">🧽</button><button class="tl" id="t-undo" title="${t('undo')}">↩️</button><button class="tl" id="t-clear" title="${t('clear')}">🗑️</button></div>`;
+}
+// Malfläche mit Werkzeugen verbinden; emit (optional) schickt jeden Schritt live an die anderen
+function bindPainter(stage, cv, d, emit) {
+  const ctx = cv.getContext('2d');
+  const redraw = () => { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 600); for (const s of d.strokes) drawStroke(ctx, s); };
+  redraw();
+  const pos = (e) => { const r = cv.getBoundingClientRect(); return [clamp(Math.round((e.clientX - r.left) / r.width * 800), 0, 800), clamp(Math.round((e.clientY - r.top) / r.height * 600), 0, 600)]; };
+  cv.addEventListener('pointerdown', (e) => {
+    if (d.sent) return; e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    const [x, y] = pos(e); d.cur = { c: d.eraser ? '#ffffff' : d.color, w: d.eraser ? Math.max(24, d.size) : d.size, p: [x, y] };
+    d.strokes.push(d.cur); drawStroke(ctx, d.cur);
+    if (emit) emit({ o: 's', c: d.cur.c, w: d.cur.w, p: [x, y] });
+  });
+  cv.addEventListener('pointermove', (e) => {
+    if (!d.cur) return; const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+    for (const ev of evs) { const [x, y] = pos(ev); const p = d.cur.p, lx = p[p.length - 2], ly = p[p.length - 1];
+      if (Math.abs(x - lx) + Math.abs(y - ly) < 3) continue;
+      ctx.strokeStyle = d.cur.c; ctx.lineWidth = d.cur.w; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke(); p.push(x, y);
+      if (emit) emit({ o: 'p', p: [x, y] }); }
+  });
+  const end = () => { d.cur = null; };
+  cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+  stage.querySelectorAll('.sw').forEach((b) => b.onclick = () => { d.color = b.dataset.c; d.eraser = false; stage.querySelectorAll('.sw').forEach((x) => x.classList.toggle('on', x === b)); $('#t-er').classList.remove('on'); });
+  stage.querySelectorAll('.sz').forEach((b) => b.onclick = () => { d.size = +b.dataset.s; stage.querySelectorAll('.sz').forEach((x) => x.classList.toggle('on', x === b)); });
+  $('#t-er').onclick = () => { d.eraser = !d.eraser; $('#t-er').classList.toggle('on', d.eraser); };
+  $('#t-undo').onclick = () => { if (!d.sent && d.strokes.length) { d.strokes.pop(); redraw(); if (emit) emit({ o: 'u' }); } };
+  $('#t-clear').onclick = () => { if (!d.sent) { d.strokes = []; redraw(); if (emit) emit({ o: 'x' }); } };
+}
 // Malen: Farben, Strich zeichnen, Bild Strich für Strich nachzeichnen
 const PALETTE = ['#111111', '#ffffff', '#e53935', '#fb8c00', '#fdd835', '#43a047', '#1e88e5', '#8e24aa', '#ec407a', '#795548', '#90a4ae', '#00bcd4'];
 const wordName = (i) => (WORDS[i] ? WORDS[i][lang === 'am' ? 1 : 0] : '?');
@@ -955,6 +1324,11 @@ $('#btn-join').onclick = async () => {
   joinSession++; busy = true; try { await joinParty(n, c); } finally { busy = false; }
 };
 $('#btn-start').onclick = () => toHost({ t: 'start', rounds: +$('#set-rounds').value, mode: $('#set-mode').value });
+function setRoundOpts(mode) {
+  const [opts, def] = ROUND_OPTS[mode] || ROUND_OPTS.sound, sel = $('#set-rounds');
+  sel.innerHTML = opts.map((n) => `<option${n === def ? ' selected' : ''}>${n}</option>`).join('');
+}
+$('#set-mode').onchange = () => { view.modeTouched = true; const m = $('#set-mode').value; setRoundOpts(m); toHost({ t: 'mode', mode: m }); };
 $('#btn-copy').onclick = async () => { try { await navigator.clipboard.writeText(net.code); toast(t('copied')); } catch (e) { toast(net.code); } };
 $('#btn-share').onclick = async () => {
   const url = location.origin + location.pathname + '?code=' + net.code;
