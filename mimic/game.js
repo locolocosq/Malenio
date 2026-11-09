@@ -17,6 +17,7 @@ const PREFIX = 'echoparty-v1-';
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const MAX_PLAYERS = 8;
 const RESULT_TIME = 7;
+const LEAD = 1.0;           // Vorlauf: der Zeiger startet 1 Sekunde vor dem Ton
 const START_WAIT = 10;      // so lange darf man mit dem Start-Knopf warten
 const DRAW_TIME = 60;       // Sekunden zum Malen
 const VOTE_TIME = 12;       // Sekunden zum Bewerten eines Bildes
@@ -50,7 +51,7 @@ const T = {
     enterName: 'Bitte gib einen Namen ein.', enterCode: 'Bitte gib den 5-stelligen Code ein.', micDenied: 'Kein Zugriff aufs Mikrofon – bitte erlauben.',
     voiceOn: 'Telefon an – ihr könnt reden', voiceOff: 'Telefon aus', joined: '{name} ist da!', left: '{name} ist gegangen', reconnecting: 'Verbindung weg – verbinde neu…',
     notEnough: 'Zu wenige Spieler – zurück zur Lobby.', you: 'du', creditsTitle: 'Quellen der Töne (Wikimedia Commons, freie Lizenzen)', close: 'Schließen',
-    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!', startRec: 'Start', autoIn: 'Startet automatisch in {n} s', mode: 'Spielmodus', modeSound: '🎤 Töne nachmachen', modeDraw: '🎨 Malen & bewerten', drawThis: 'Male:', drawDone: 'Fertig', drawSent: 'Abgeschickt! Warte auf die anderen…', eraser: 'Radierer', undo: 'Rückgängig', clear: 'Alles löschen', rateIt: 'Wie gut ist das Bild? Gib Sterne:', thanksVote: 'Danke für deine Bewertung!', othersRate: 'Die anderen bewerten gerade dein Bild…', votedCount: 'haben bewertet',
+    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!', startRec: 'Start', waitLine: 'Gleich… los, wenn der Strich die gelbe Linie erreicht!', soundBtn: '🔊 Ton aktivieren', soundOn: 'Ton ist an 🔊', autoIn: 'Startet automatisch in {n} s', mode: 'Spielmodus', modeSound: '🎤 Töne nachmachen', modeDraw: '🎨 Malen & bewerten', drawThis: 'Male:', drawDone: 'Fertig', drawSent: 'Abgeschickt! Warte auf die anderen…', eraser: 'Radierer', undo: 'Rückgängig', clear: 'Alles löschen', rateIt: 'Wie gut ist das Bild? Gib Sterne:', thanksVote: 'Danke für deine Bewertung!', othersRate: 'Die anderen bewerten gerade dein Bild…', votedCount: 'haben bewertet',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
@@ -67,7 +68,7 @@ const T = {
     enterName: 'እባክዎ ስም ያስገቡ።', enterCode: 'እባክዎ ባለ 5 ፊደል ኮዱን ያስገቡ።', micDenied: 'ማይክሮፎን አልተፈቀደም – እባክዎ ይፍቀዱ።',
     voiceOn: 'ስልኩ በርቷል – መነጋገር ትችላላችሁ', voiceOff: 'ስልኩ ጠፍቷል', joined: '{name} መጣ!', left: '{name} ወጣ', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…',
     notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።', you: 'እርስዎ', creditsTitle: 'የድምፆቹ ምንጮች (Wikimedia Commons፣ ነፃ ፈቃድ)', close: 'ዝጋ',
-    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!', startRec: 'ጀምር', autoIn: 'በ{n} ሰከንድ ውስጥ በራሱ ይጀምራል', mode: 'የጨዋታ ዓይነት', modeSound: '🎤 ድምፅ መድገም', modeDraw: '🎨 መሳልና መገምገም', drawThis: 'ይሳሉ፦', drawDone: 'ጨርሻለሁ', drawSent: 'ተልኳል! ሌሎችን ይጠብቁ…', eraser: 'ማጥፊያ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ', rateIt: 'ሥዕሉ ምን ያህል ጥሩ ነው? ኮከብ ይስጡ፦', thanksVote: 'ስለ ግምገማዎ እናመሰግናለን!', othersRate: 'ሌሎች ሥዕልዎን እየገመገሙ ነው…', votedCount: 'ገምግመዋል',
+    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!', startRec: 'ጀምር', waitLine: 'ቆይ… መስመሩ ቢጫውን መስመር ሲደርስ ይጀምሩ!', soundBtn: '🔊 ድምፅ አብራ', soundOn: 'ድምፁ በርቷል 🔊', autoIn: 'በ{n} ሰከንድ ውስጥ በራሱ ይጀምራል', mode: 'የጨዋታ ዓይነት', modeSound: '🎤 ድምፅ መድገም', modeDraw: '🎨 መሳልና መገምገም', drawThis: 'ይሳሉ፦', drawDone: 'ጨርሻለሁ', drawSent: 'ተልኳል! ሌሎችን ይጠብቁ…', eraser: 'ማጥፊያ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ', rateIt: 'ሥዕሉ ምን ያህል ጥሩ ነው? ኮከብ ይስጡ፦', thanksVote: 'ስለ ግምገማዎ እናመሰግናለን!', othersRate: 'ሌሎች ሥዕልዎን እየገመገሙ ነው…', votedCount: 'ገምግመዋል',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -165,7 +166,18 @@ function ac() {
   if (actx.state === 'suspended') actx.resume().catch(() => {});
   return actx;
 }
-document.addEventListener('pointerdown', () => ac(), { capture: true });
+// Ton sicher einschalten: AudioContext fortsetzen, stillen Ton abspielen und (iPhone) Wiedergabe-Modus setzen,
+// damit der Ton auch kommt, wenn der Lautlos-Schalter an ist.
+const SILENT_MP3 = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//NwwAAAAAAAAAAAAEluZm8AAAAPAAAAGQAACuoAGhoaIyMjIy0tLS02NjY2QEBAQEpKSkpTU1NTXV1dXWZmZmZwcHBweXl5eYODg4ONjY2NlpaWlqCgoKCpqamps7Ozs729vb3GxsbG0NDQ0NnZ2dnj4+Pj7Ozs7Pb29vb/////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQCUgAAAAAAAArqJwTg6QAAAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==';
+let unlockEl = null;
+function unlockAudio() {
+  try { if (navigator.audioSession) navigator.audioSession.type = micStream ? 'play-and-record' : 'playback'; } catch (e) {}
+  const ctx = ac();
+  try { const b = ctx.createBuffer(1, 1, 22050), s = ctx.createBufferSource(); s.buffer = b; s.connect(ctx.destination); s.start(); } catch (e) {}
+  try { if (!unlockEl) { unlockEl = new Audio(SILENT_MP3); unlockEl.loop = true; unlockEl.volume = 0.01; unlockEl.setAttribute('playsinline', ''); } unlockEl.play().catch(() => {}); } catch (e) {}
+  return ctx.state === 'running';
+}
+document.addEventListener('pointerdown', () => unlockAudio(), { capture: true });
 const bufCache = new Map();
 async function loadSound(i) {
   if (bufCache.has(i)) return bufCache.get(i);
@@ -212,6 +224,7 @@ let micStream = null;
 async function getMic() {
   if (micStream && micStream.getAudioTracks().some((tr) => tr.readyState === 'live')) return micStream;
   micStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: true } });
+  try { if (navigator.audioSession) navigator.audioSession.type = 'play-and-record'; } catch (e) {}
   return micStream;
 }
 // Aufnahme mit Pegelanzeige; liefert Float32-Daten in ctx.sampleRate
@@ -425,7 +438,7 @@ const host = {
       roundScores: Object.fromEntries([...this.recs].map(([k, v]) => [k, v.score])), gains: this.gains,
       mode: this.mode, wordIdx: this.wordIdx,
       present: this.phase === 'present' ? (() => { const r = this.recs.get(this.showOrder[this.showIdx]) || { votes: new Map() };
-        return { revealed: this.revealed, voters: [...r.votes.keys()], avg: this.revealed ? r.avg : 0, score: this.revealed ? r.score : 0 }; })() : null,
+        return { revealed: this.revealed, voters: [...r.votes.keys()], votes: this.revealed ? Object.fromEntries(r.votes) : null, avg: this.revealed ? r.avg : 0, score: this.revealed ? r.score : 0 }; })() : null,
     };
   },
   pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, s); },
@@ -447,7 +460,7 @@ const host = {
     let i = rnd(SOUNDS.length); for (let k = 0; k < 60 && this.used.has(i); k++) i = rnd(SOUNDS.length);
     this.used.add(i); this.soundIdx = i; this.recs = new Map(); this.gains = {}; this.showOrder = []; this.showIdx = 0;
     const sec = (SOUNDS[i] && SOUNDS[i].seconds) || 3;
-    this.setPhase('listen', sec * 2 + 3.5, () => this.setPhase('record', START_WAIT + sec + 0.6 + 6, () => this.startShow()));
+    this.setPhase('listen', (LEAD + sec) * 2 + 3.5, () => this.setPhase('record', START_WAIT + LEAD + sec + 0.6 + 6, () => this.startShow()));
   },
   startShow() {
     this.stop();
@@ -560,12 +573,18 @@ const view = {
       const mb = $('#mic-ok'); if (mb) mb.onclick = async () => { try { await getMic(); mb.remove(); } catch (e) { toast(t('micDenied')); } };
       try {
         const s = await loadSound(st.soundIdx); if (this.state.phase !== 'listen') return;
-        const cv = $('#wave'); if (cv) drawWave(cv, s.peaks, null, -1);
+        const lf = LEAD / (LEAD + s.buf.duration);
+        const cv = $('#wave'); if (cv) drawWave(cv, s.peaks, null, -1, lf);
+        const round = st.round;
+        const offerSound = () => { if (ac().state === 'running' || $('#snd-btn')) return;
+          $('#stage').insertAdjacentHTML('beforeend', `<button class="btn primary" id="snd-btn">${t('soundBtn')}</button>`);
+          $('#snd-btn').onclick = async () => { unlockAudio(); $('#snd-btn').remove(); if (this.state.phase === 'listen' && this.state.round === round) await this.playWithHead(s.buf, s.peaks, null, () => $('#wave'), null, LEAD); }; };
         if (this.listenRound !== st.round) {
-          this.listenRound = st.round; const round = st.round;
+          this.listenRound = st.round;
           for (let k = 0; k < 2; k++) {
             if (this.state.phase !== 'listen' || this.state.round !== round) return;
-            await this.playWithHead(s.buf, s.peaks, null, () => $('#wave'));
+            offerSound();
+            await this.playWithHead(s.buf, s.peaks, null, () => $('#wave'), null, LEAD);
             await sleep(600);
           }
         }
@@ -616,11 +635,12 @@ const view = {
     }
   },
   // spielt einen Ton und lässt den roten Strich über die Wellenform laufen
-  playWithHead(buf, refPk, recPk, getCanvas, onLevel) {
-    const t0 = ac().currentTime; let raf = 0;
-    const loop = () => { const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, (ac().currentTime - t0) / buf.duration); raf = requestAnimationFrame(loop); };
+  playWithHead(buf, refPk, recPk, getCanvas, onLevel, lead) {
+    lead = lead || 0; const total = lead + buf.duration, lf = lead / total;
+    const t0 = performance.now(); let raf = 0;
+    const loop = () => { const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, (performance.now() - t0) / 1000 / total, lf); raf = requestAnimationFrame(loop); };
     loop();
-    return playBuffer(buf, onLevel).then(() => { cancelAnimationFrame(raf); const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, -1); });
+    return sleep(lead * 1000).then(() => playBuffer(buf, onLevel)).then(() => { cancelAnimationFrame(raf); const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, -1, lf); });
   },
   updateDone() {
     const el = $('#done-list'); const st = this.state; if (!el || !st) return;
@@ -635,7 +655,8 @@ const view = {
     this.updateDone();
     const alive = () => this.state && this.state.round === round && this.state.phase === 'record';
     let ref; try { ref = await loadSound(idx); } catch (e) { toast(t('loading')); return; }
-    const cv = $('#wave'); drawWave(cv, ref.peaks, null, -1);
+    const lf = LEAD / (LEAD + ref.buf.duration);
+    const cv = $('#wave'); drawWave(cv, ref.peaks, null, -1, lf);
     let micOk = true; try { await getMic(); } catch (e) { micOk = false; }
     // Start-Knopf: selbst drücken – nach 10 Sekunden startet es von allein
     const hint = $('#rec-hint');
@@ -648,24 +669,25 @@ const view = {
       upd(); const rb = $('#rec-start'); if (rb) rb.onclick = fin; else fin();
     });
     if (!alive()) return;
-    { const h0 = $('#rec-hint'); if (h0) h0.textContent = ''; }
-    const cd = $('#wave-cd'); if (cd) { cd.textContent = t('go'); cd.classList.add('go'); setTimeout(() => { cd.textContent = ''; cd.classList.remove('go'); }, 700); }
-    tick(880);
+    { const h0 = $('#rec-hint'); if (h0) h0.textContent = '👀 ' + t('waitLine'); }
+    // Wenn der Zeiger die gestrichelte Linie erreicht: LOS!
+    setTimeout(() => { if (!alive()) return; const cd = $('#wave-cd'); if (cd) { cd.textContent = t('go'); cd.classList.add('go'); setTimeout(() => { cd.textContent = ''; cd.classList.remove('go'); }, 700); } tick(880); const h1 = $('#rec-hint'); if (h1) h1.textContent = '🎙️ ' + t('recording'); }, LEAD * 1000);
+    tick(520);
     if (!micOk) { const h2 = $('#rec-hint'); if (h2) h2.textContent = t('micDenied'); toHost({ t: 'rec', round, score: 0, wav: null, sec: 0 }); return; }
-    const sec = ref.buf.duration, N = ref.peaks.length, recPk = new Array(N).fill(0);
+    const sec = ref.buf.duration, total = LEAD + sec, N = 120, recPk = new Array(N).fill(0);
     const t0 = performance.now();
     let lastI = 0;
-    const rec = recordFor(sec + 0.6, (lv) => {
-      const i = Math.min(N - 1, Math.floor((performance.now() - t0) / 1000 / sec * N));
+    const rec = recordFor(total + 0.6, (lv) => {
+      const i = Math.min(N - 1, Math.floor((performance.now() - t0) / 1000 / total * N));
       for (let k = lastI; k <= i; k++) recPk[k] = Math.max(recPk[k], Math.min(1, lv * 1.8)); // Lücken füllen
       lastI = i + 1;
     });
     this.recorder = rec;
-    let raf = 0; const loop = () => { const c = $('#wave'); if (c) drawWave(c, ref.peaks, recPk, (performance.now() - t0) / 1000 / sec); if (this.recorder === rec) raf = requestAnimationFrame(loop); };
+    let raf = 0; const loop = () => { const c = $('#wave'); if (c) drawWave(c, ref.peaks, recPk, (performance.now() - t0) / 1000 / total, lf); if (this.recorder === rec) raf = requestAnimationFrame(loop); };
     loop();
-    { const h1 = $('#rec-hint'); if (h1) h1.textContent = '🎙️ ' + t('recording'); }
-    const { data, sr } = await rec.promise; this.recorder = null; cancelAnimationFrame(raf);
-    const c2 = $('#wave'); if (c2) drawWave(c2, ref.peaks, recPk, -1);
+    const res = await rec.promise; this.recorder = null; cancelAnimationFrame(raf);
+    const c2 = $('#wave'); if (c2) drawWave(c2, ref.peaks, recPk, -1, lf);
+    const data = trimStart(res.data, res.sr), sr = res.sr;
     const feat = EchoScore.features(data, sr); const score = feat ? EchoScore.compare(ref.feat, feat) : 0;
     const small = EchoScore.resample(data, sr); const wav = encodeWav(small, EchoScore.SR);
     if (this.state.round !== round) return;
@@ -738,12 +760,14 @@ const view = {
   updateVoteArea() {
     const st = this.state, el = $('#vote-area'); if (!el || !st.present) return;
     const pid = st.showPid, pr = st.present, others = st.players.length - 1;
+    const raters = st.players.filter((x) => x.id !== pid);
     if (pr.revealed) {
       const s5 = Math.round(pr.avg);
-      el.innerHTML = `<div class="score-row"><span class="stars big">${'★'.repeat(s5)}${'☆'.repeat(5 - s5)}</span><span class="big-score">+${pr.score}</span></div>`;
+      const list = raters.map((x) => { const v = pr.votes && pr.votes[x.id]; return `<div class="vline">${charEl(x.char, 26, false)}<span class="vn">${esc(x.name)}</span><span class="vs">${v ? '★'.repeat(v) + '☆'.repeat(5 - v) : '—'}</span></div>`; }).join('');
+      el.innerHTML = `<div class="score-row"><span class="stars big">${'★'.repeat(s5)}${'☆'.repeat(5 - s5)}</span><span class="big-score">+${pr.score}</span></div><div class="vlist">${list}</div>`;
       return;
     }
-    const counter = `<div class="hint light">${pr.voters.length}/${others} ${t('votedCount')}</div>`;
+    const counter = `<div class="voter-chips">${raters.map((x) => `<span class="${pr.voters.includes(x.id) ? 'ok' : ''}">${pr.voters.includes(x.id) ? '✅' : '⏳'} ${esc(x.name)}</span>`).join('')}</div>`;
     if (pid === net.myId) { el.innerHTML = `<div class="hint light">${t('othersRate')}</div>${counter}`; return; }
     if (pr.voters.includes(net.myId)) { el.innerHTML = `<div class="hint light">✅ ${t('thanksVote')}</div>${counter}`; return; }
     el.innerHTML = `<div class="hint light">${t('rateIt')}</div><div class="vote-stars">${[1, 2, 3, 4, 5].map((n) => `<button class="vstar" data-n="${n}">★</button>`).join('')}</div>${counter}`;
@@ -782,20 +806,31 @@ function replayStrokes(cv, strokes, ms) {
   };
   frame();
 }
+// Stille vor dem eigentlichen Geräusch abschneiden (der Vorlauf)
+function trimStart(d, sr) {
+  let peak = 0; for (let i = 0; i < d.length; i += 4) peak = Math.max(peak, Math.abs(d[i]));
+  if (peak < 0.005) return d;
+  let i = 0; while (i < d.length && Math.abs(d[i]) < peak * 0.08) i++;
+  return d.subarray(Math.max(0, i - Math.floor(0.15 * sr)));
+}
 // Wellenform: blau = Original, pink = eigene Stimme, rot = Laufstrich
 function peaks(data, n) {
   const out = new Array(n).fill(0), step = Math.max(1, Math.floor(data.length / n));
   for (let i = 0; i < n; i++) { let m = 0; for (let j = i * step; j < Math.min(data.length, (i + 1) * step); j += 4) m = Math.max(m, Math.abs(data[j])); out[i] = m; }
   const mx = Math.max(...out, 1e-6); return out.map((v) => Math.sqrt(v / mx));
 }
-function drawWave(cv, ref, rec, head) {
-  const c = cv.getContext('2d'), W = cv.width, H = cv.height, n = (ref || rec).length, bw = W / n;
+// lead = Anteil des Vorlaufs (0..1): links davon ist noch Stille, der Ton beginnt an der gestrichelten Linie
+function drawWave(cv, ref, rec, head, lead) {
+  lead = lead || 0;
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height;
   c.clearRect(0, 0, W, H);
   c.fillStyle = '#1d1440'; c.beginPath(); (c.roundRect ? c.roundRect(0, 0, W, H, 18) : c.rect(0, 0, W, H)); c.fill();
   c.fillStyle = 'rgba(255,255,255,.25)'; c.fillRect(8, H / 2 - 1, W - 16, 2);
-  const bars = (arr, col) => { c.fillStyle = col; arr.forEach((v, i) => { const h = Math.max(1.5, v * H * 0.42); c.fillRect(i * bw + 1.5, H / 2 - h, Math.max(1, bw - 3), h * 2); }); };
-  if (ref) bars(ref, '#7fe3ff');
-  if (rec) bars(rec, 'rgba(255,70,170,.9)');
+  const bars = (arr, col, x0, x1) => { const bw = (x1 - x0) / arr.length; c.fillStyle = col; arr.forEach((v, i) => { const h = Math.max(1.5, v * H * 0.42); c.fillRect(x0 + i * bw + 1, H / 2 - h, Math.max(1, bw - 2), h * 2); }); };
+  const xs = lead * W;
+  if (lead > 0) { c.fillStyle = 'rgba(255,255,255,.06)'; c.fillRect(0, 0, xs, H); c.fillStyle = '#ffe066'; for (let y = 6; y < H - 6; y += 10) c.fillRect(xs - 1, y, 2, 6); }
+  if (ref) bars(ref, '#7fe3ff', xs, W);
+  if (rec) bars(rec, 'rgba(255,70,170,.9)', 0, W);
   if (head >= 0 && head <= 1.08) { const x = Math.min(1, head) * (W - 8) + 4; c.fillStyle = '#ff2244'; c.fillRect(x - 2.5, 6, 5, H - 12); }
 }
 function tick(f) { try { const ctx = ac(), o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f; g.gain.value = 0.12; o.connect(g); g.connect(ctx.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18); o.stop(ctx.currentTime + 0.2); } catch (e) {} }
@@ -871,6 +906,7 @@ function showScreen(s) {
   const inRoom = s === 'lobby' || s === 'game';
   $('#btn-home').classList.toggle('hidden', s === 'lang');
   $('#btn-phone').classList.toggle('hidden', !inRoom);
+  $('#btn-sound').classList.toggle('hidden', !inRoom);
   $('#game-info').classList.toggle('hidden', s !== 'game');
   $('#logo').classList.toggle('hidden', s === 'game');
   if (s === 'menu') $('#menu-char').innerHTML = charEl(myChar, 110, true);
@@ -913,6 +949,7 @@ $('#btn-share').onclick = async () => {
   else { try { await navigator.clipboard.writeText(url); toast(t('copied')); } catch (e) { toast(url); } }
 };
 $('#btn-phone').onclick = () => voiceToggle();
+$('#btn-sound').onclick = () => { unlockAudio(); tick(660); setTimeout(() => tick(880), 150); toast(t('soundOn')); };
 $('#btn-home').onclick = async () => {
   if (view.inRoom) { if (!(await confirmBox(t('leave')))) return; joinSession++; sayBye(); await sleep(200); destroyNet(); history.replaceState(null, '', location.pathname); showScreen('menu'); return; }
   showScreen($('#screen-menu').classList.contains('hidden') ? 'menu' : 'lang');

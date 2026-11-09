@@ -198,3 +198,14 @@ select { border: 3px solid var(--line); border-radius: 10px; padding: 6px 10px; 
 .hint.light { color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,.3); }
 .stars.big { font-size: 40px; }
 @media (max-width: 600px) { .draw-floor { height: 230px; } .vstar { font-size: 36px; } .palette { gap: 3px; } }
+
+/* ---- wer hat wie bewertet ---- */
+.voter-chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 6px; }
+.voter-chips span { background: rgba(255,255,255,.85); color: var(--ink); border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: 14px; }
+.voter-chips span.ok { background: #d9f7e5; }
+.vlist { display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 360px; margin: 6px auto 0; }
+.vline { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.9); color: var(--ink); border-radius: 10px; padding: 2px 10px; font-weight: 900; }
+.vline .vn { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vline .vs { color: #f5a400; letter-spacing: 2px; }
+#snd-btn { animation: pulse 1.6s infinite; }
+#btn-sound { margin-left: auto; margin-right: 6px; }
