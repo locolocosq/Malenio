@@ -267,3 +267,24 @@ body.emo-on main { padding-bottom: 80px; }
 .timer-wait { font-size: 22px; font-weight: 900; color: var(--muted); }
 .vline.best { background: #fff6c8; }
 .vline .vp small { color: var(--muted); font-weight: 800; }
+
+/* ---- Strichmännchen ---- */
+.hang-top { display: flex; align-items: flex-end; gap: 10px; }
+.stick { width: 130px; height: auto; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; fill: none; color: var(--ink); }
+.stick .ground { stroke: #c9bfe6; }
+.stick .off { opacity: .08; }
+.stick .new { animation: cdpop .6s ease-out; transform-origin: 60px 80px; stroke: #ff3b5c; }
+.on-stage .stick { stroke: #fff; color: #fff; width: 100px; }
+.h-miss { font-weight: 900; color: #d33; }
+.h-word { display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center; width: 100%; max-width: 560px; }
+.h-word .hw { display: flex; gap: 4px; flex-wrap: nowrap; max-width: 100%; }
+.h-word span { width: min(34px, calc((min(100vw, 560px) - 60px) / var(--n) - 4px)); height: 42px; border-bottom: 4px solid var(--ink); font-size: min(30px, calc((min(100vw, 560px) - 60px) / var(--n) * .8)); font-weight: 900; display: grid; place-items: center; color: var(--bg1); }
+.h-word .sp { width: 16px; }
+.hint.myturn { color: var(--green-d); font-size: 19px; animation: pulse 1.6s infinite; border-radius: 10px; padding: 2px 8px; }
+.keyb { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; width: 100%; max-width: 560px; }
+.keyb.am { grid-template-columns: repeat(9, 1fr); }
+.key { height: 40px; border-radius: 8px; border: 2px solid var(--line); background: #faf8ff; font-weight: 900; font-size: 17px; padding: 0; color: var(--ink); }
+.key:disabled { opacity: .45; }
+.key.hit { background: #d9f7e5; border-color: var(--green); opacity: 1; }
+.key.miss { background: #ffd6de; border-color: #ff3b5c; color: #c4203e; opacity: 1; }
+.hang-res { display: flex; align-items: center; gap: 12px; justify-content: center; }

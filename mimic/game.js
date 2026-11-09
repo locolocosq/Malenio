@@ -25,6 +25,8 @@ const CHOOSE_TIME = 12;     // Malen & Raten: Zeit, ein Wort auszuwählen
 const GUESS_TIME = 80;      // Malen & Raten: Zeit zum Malen/Raten
 const LOGO_TIME = 40;       // Logo-Quiz: so lange dauert es, bis das Logo ganz zu sehen ist
 const LOGO_GRID = 10;       // Logo-Quiz: 10×10 Kärtchen decken das Logo zu
+const HANG_TURN = 15;       // Strichmännchen: Zeit pro Buchstabe
+const HANG_MAX = 8;         // Strichmännchen: so viele Fehler, dann ist es fertig
 const LOGO_POINTS = [100, 80, 65, 50, 40, 30, 25, 20];
 const EMOJIS = ['😆', '😂', '😍', '🔥', '👍', '😳', '😢', '👎'];
 const WORDS = window.WORDS || [];
@@ -62,6 +64,7 @@ const T = {
     guessPh: 'Dein Tipp…', guessedIt: '{name} hat es erraten! 🎉', youGuessed: 'Richtig! 🎉', almost: 'Fast! 🤏', guessedBtn: '✅ Erraten!', whoGuessed: 'Wer hat es erraten?', nobodyLeft: 'Alle haben es schon.', wordWas: 'Das Wort war:',
     logoQ: 'Welche Marke ist das?', logoPh: 'Tippe die ersten Buchstaben…', youPicked: 'Deine Wahl:', logoWas: 'Das war:', noPick: 'nichts gewählt', lobbyMode: 'Spielmodus:', loadingLogos: 'Lade Logos…',
     modeTimer: '⏱️ Stoppuhr', timerGoal: 'Stoppe genau bei', seconds: 'Sekunden', timerHint: 'Drück START und zähle im Kopf – danach siehst du nur noch den STOPP-Knopf!', startBtn: 'START', stopBtn: 'STOPP', stopped: 'Gestoppt! Warte auf die anderen…', target: 'Ziel', perfect: 'Perfekt!', notStopped: 'nicht gestoppt',
+    modeHang: '🧍 Strichmännchen', chooseHang: 'Wähle ein Wort zum Erraten:', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
@@ -83,6 +86,7 @@ const T = {
     guessPh: 'ግምትዎ…', guessedIt: '{name} ገመተው! 🎉', youGuessed: 'ትክክል! 🎉', almost: 'ተቃርበዋል! 🤏', guessedBtn: '✅ ተገመተ!', whoGuessed: 'ማን ገመተው?', nobodyLeft: 'ሁሉም ገምተዋል።', wordWas: 'ቃሉ፦',
     logoQ: 'ይህ የየትኛው ብራንድ ነው?', logoPh: 'የመጀመሪያ ፊደላትን ይጻፉ…', youPicked: 'ምርጫዎ፦', logoWas: 'ይህ ነበር፦', noPick: 'ምንም አልተመረጠም', lobbyMode: 'የጨዋታ ዓይነት፦', loadingLogos: 'አርማዎች እየተጫኑ ነው…',
     modeTimer: '⏱️ የሰዓት ቆጣሪ', timerGoal: 'በትክክል ያቁሙ በ', seconds: 'ሰከንድ', timerHint: 'ጀምርን ይጫኑና በአእምሮዎ ይቁጠሩ – ከዚያ የማቆሚያ ቁልፉን ብቻ ያያሉ!', startBtn: 'ጀምር', stopBtn: 'አቁም', stopped: 'ቆሟል! ሌሎችን ይጠብቁ…', target: 'ዒላማ', perfect: 'ፍጹም!', notStopped: 'አላቆመም',
+    modeHang: '🧍 የመስመር ሰው', chooseHang: 'የሚገመት ቃል ይምረጡ፦', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -373,7 +377,7 @@ async function joinParty(name, code, tries = 0) {
 const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
-  drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(),
+  drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -398,7 +402,20 @@ const host = {
         const now = Date.now(); if (now - (p.lastEmo || 0) < 180) return; p.lastEmo = now;
         if (EMOJIS[msg.e | 0]) broadcast({ t: 'emo', e: msg.e | 0, pid: from }); return;
       }
-      case 'choose': if (this.phase === 'choose' && from === this.drawer && this.choices.includes(msg.w)) this.chooseWord(msg.w); return;
+      case 'choose':
+        if (this.phase !== 'choose' || from !== this.drawer) return;
+        if (this.mode === 'hang' && msg.own) { const w = cleanHangWord(msg.own, p.lang); if (w) this.startHang(w, p.lang); return; }
+        if (this.choices.includes(msg.w)) this.chooseWord(msg.w); return;
+      case 'letter': {
+        if (this.phase !== 'hang' || from !== this.hCur()) return;
+        const k = String(msg.k || ''); if (this.hGuessed.has(k) || !(this.hLang === 'am' ? KEYS_AM : KEYS_DE).includes(k)) return;
+        this.hGuessed.add(k);
+        const hits = [...this.hWord].filter((c) => hangKey(c) === k).length;
+        if (hits) this.hCount[from] = (this.hCount[from] || 0) + hits; else this.hMiss++;
+        if ([...this.hWord].every((c) => !hangKey(c) || this.hGuessed.has(hangKey(c)))) { this.endHang(true); return; }
+        if (this.hMiss >= HANG_MAX) { this.endHang(false); return; }
+        this.hNext(); return;
+      }
       case 'ops': {
         if (this.phase !== 'guess' || from !== this.drawer || msg.turn !== this.turn || !Array.isArray(msg.ops)) return;
         const ops = msg.ops.slice(0, 200).map(cleanOp).filter(Boolean);
@@ -486,7 +503,8 @@ const host = {
     if (this.phase !== 'lobby' && this.phase !== 'end' && this.players.length < 2) { this.toLobby(); broadcast({ t: 'sys', key: 'notEnough' }); return; }
     if (this.phase === 'record' && this.players.every((x) => this.recs.has(x.id))) this.startShow();
     if (this.phase === 'draw' && this.players.every((x) => this.recs.has(x.id))) this.startPresent();
-    if ((this.phase === 'choose' || this.phase === 'guess') && id === this.drawer) { this.endTurn(); return; }
+    if ((this.phase === 'choose' || this.phase === 'guess' || this.phase === 'hang') && id === this.drawer) { this.endTurn(); return; }
+    if (this.phase === 'hang') { const cur = this.hOrder[this.hIdx % this.hOrder.length]; this.hOrder = this.hOrder.filter((x) => x !== id); if (cur === id) { this.hIdx--; this.hNext(); return; } this.hIdx = Math.max(0, this.hOrder.indexOf(cur)); }
     if (this.phase === 'guess' && this.allGuessed()) { this.endTurn(); return; }
     if (this.phase === 'logo' && this.players.every((x) => this.picks.has(x.id))) { this.endLogo(); return; }
     if (this.phase === 'timer' && this.players.every((x) => this.stops.has(x.id))) { this.endTimer(); return; }
@@ -511,6 +529,11 @@ const host = {
   pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, this.stateFor(p, s)); },
   // Malen & Raten: das Wort sieht nur, wer malt oder es schon erraten hat – alle anderen nur die Striche
   stateFor(p, s) {
+    if (this.mode === 'hang') {
+      if (s.phase === 'choose') return Object.assign({}, s, { choices: p.id === this.drawer ? this.choices : null });
+      if (s.phase === 'hang' || s.phase === 'results') return Object.assign({}, s, { hang: this.hangView(p.id === this.drawer || s.phase === 'results') });
+      return s;
+    }
     if (this.mode !== 'guess' || (s.phase !== 'choose' && s.phase !== 'guess' && s.phase !== 'results')) return s;
     const w = this.wordIdx, knows = p.id === this.drawer || this.guessed.has(p.id) || s.phase === 'results';
     const word = WORDS[w] ? WORDS[w][p.lang === 'am' ? 1 : 0] : '';
@@ -523,7 +546,7 @@ const host = {
   },
   startGame() {
     this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.departed = new Map();
-    if (this.mode === 'guess') { this.turnOrder = []; this.turnIdx = 0; this.nextTurn(); return; }
+    if (this.mode === 'guess' || this.mode === 'hang') { this.turnOrder = []; this.turnIdx = 0; this.nextTurn(); return; }
     this.nextRound();
   },
   toLobby() { this.stop(); this.phase = 'lobby'; this.recs = new Map(); this.gains = {}; this.drawer = null; this.picks = new Map(); this.guessed = new Map(); this.pushState(); },
@@ -625,10 +648,11 @@ const host = {
     }
     this.turn++; this.wordIdx = -1; this.live = []; this.livePts = 0; this.guessed = new Map(); this.gains = {};
     this.choices = [1, 2, 3].map((d) => this.pickWord(d));
-    this.setPhase('choose', CHOOSE_TIME, () => this.chooseWord(this.choices[rnd(3)]));
+    this.setPhase('choose', this.mode === 'hang' ? 25 : CHOOSE_TIME, () => this.chooseWord(this.choices[rnd(3)]));
   },
   chooseWord(w) {
     if (this.phase !== 'choose') return;
+    if (this.mode === 'hang') { const d = this.get(this.drawer), lg = d && d.lang === 'am' ? 'am' : 'de'; this.used.add(w); this.startHang(cleanHangWord(WORDS[w][lg === 'am' ? 1 : 0], lg) || 'MALENIO', lg); return; }
     this.wordIdx = w; this.used.add(w);
     this.setPhase('guess', GUESS_TIME, () => this.endTurn());
   },
@@ -640,15 +664,45 @@ const host = {
     const pts = Math.round((40 + 80 * f) * mult) + Math.max(0, 20 - 5 * this.guessed.size);
     this.guessed.set(pid, pts);
     broadcast({ t: 'chat', sys: 'guessedIt', name: p.name, pid });
-    if (this.allGuessed()) this.endTurn(); else this.pushState();
+    this.endTurn(); // wie im alten Spiel: sobald einer es hat, ist der Zug vorbei
+  },
+  // ---- Strichmännchen: einer wählt ein Wort, die anderen wählen reihum Buchstaben
+  startHang(word, lg) {
+    this.hWord = word; this.hLang = lg; this.hGuessed = new Set(); this.hMiss = 0; this.hCount = {}; this.hSolved = false;
+    this.hOrder = this.players.filter((x) => x.id !== this.drawer).map((x) => x.id); this.hIdx = -1;
+    this.hNext();
+  },
+  hCur() { return this.hOrder.length ? this.hOrder[this.hIdx % this.hOrder.length] : null; },
+  hNext() {
+    this.hOrder = this.hOrder.filter((id) => this.get(id));
+    if (!this.hOrder.length) { this.endHang(false); return; }
+    this.hIdx = (this.hIdx + 1) % this.hOrder.length;
+    this.setPhase('hang', HANG_TURN, () => this.hNext()); // wer nicht wählt, wird übersprungen
+  },
+  hangView(full) {
+    return { mask: [...this.hWord].map((c) => (!hangKey(c) || this.hGuessed.has(hangKey(c)) || full ? c : '_')), guessed: [...this.hGuessed],
+      wrong: [...this.hGuessed].filter((k) => ![...this.hWord].some((c) => hangKey(c) === k)), misses: this.hMiss, cur: this.hCur(), counts: this.hCount,
+      lang: this.hLang, full: !!full, solved: this.hSolved };
+  },
+  endHang(solved) {
+    this.stop(); this.gains = {}; this.hSolved = solved;
+    const best = Math.max(0, ...Object.values(this.hCount));
+    for (const p of this.players) {
+      let g = 0;
+      if (p.id === this.drawer) g = solved ? this.hMiss * 10 : 150;
+      else if (solved) g = 30 + 20 * (this.hCount[p.id] || 0) + (best > 0 && this.hCount[p.id] === best ? 40 : 0);
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', 7, () => this.nextTurn());
   },
   endTurn() {
+    if (this.mode === 'hang') { if (this.phase === 'choose' || this.phase === 'hang') { this.stop(); this.gains = {}; this.hWord = ''; this.setPhase('results', 4, () => this.nextTurn()); } return; }
     if (this.phase !== 'choose' && this.phase !== 'guess') return;
     this.stop(); this.gains = {};
     const mult = [1, 1.25, 1.5][((WORDS[this.wordIdx] || [])[2] || 1) - 1];
     for (const p of this.players) {
       let g = this.guessed.get(p.id) || 0;
-      if (p.id === this.drawer) g = Math.round(this.guessed.size * 30 * mult);
+      if (p.id === this.drawer) g = Math.round([...this.guessed.values()].reduce((a, b) => a + b, 0) * 0.6);
       p.score += g; this.gains[p.id] = g;
     }
     if (this.wordIdx < 0) this.wordIdx = this.choices[0];
@@ -716,6 +770,7 @@ const view = {
     else if (st.phase === 'logo' || st.phase === 'timer') this.updateDone();
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
+    else if (st.phase === 'hang') this.updateHang();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
     this.updateTimer();
   },
@@ -727,13 +782,13 @@ const view = {
     $('#lobby-wait').classList.toggle('hidden', net.isHost);
     const b = $('#btn-start'); b.disabled = st.players.length < 2; b.textContent = st.players.length < 2 ? t('needTwo') : t('start');
     const lm = $('#lobby-mode'); lm.classList.toggle('hidden', net.isHost);
-    lm.textContent = t('lobbyMode') + ' ' + t({ sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer' }[st.mode] || 'modeSound');
+    lm.textContent = t('lobbyMode') + ' ' + t({ sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang' }[st.mode] || 'modeSound');
     if (net.isHost && $('#set-mode').value !== st.mode && !this.modeTouched) { $('#set-mode').value = st.mode; setRoundOpts(st.mode); }
   },
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose') && p.id === st.drawer ? '✏️' : ''));
+    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -780,6 +835,8 @@ const view = {
       this.renderLogo();
     } else if (st.phase === 'timer') {
       this.renderTimer();
+    } else if (st.phase === 'hang') {
+      this.renderHang();
     } else if (st.phase === 'present') {
       this.renderPresent();
     } else if (st.phase === 'show') {
@@ -822,7 +879,8 @@ const view = {
       const sorted = [...st.players].sort((a, b) => b.score - a.score);
       stage.innerHTML = scoreCards(st, null, true) + `<div class="floor"><div class="speaker-box left">🔊</div><div class="speaker-box right">🔊</div>
         <div class="crowd">${sorted.map((p) => `<div class="crowd-p">${charEl(p.char, 70, true)}<div class="gain">+${st.gains[p.id] || 0}</div></div>`).join('')}</div></div>
-        ${st.mode === 'guess' && st.word >= 0 ? `<div class="cat light">${t('wordWas')}</div><div class="meme-title light">${esc(wordName(st.word))}</div>` : `<h2>${t('results')}</h2>`}`;
+        ${st.mode === 'hang' && st.hang ? `<div class="hang-res">${stickSVG(st.hang.misses, !st.hang.solved)}<div><div class="cat light">${st.hang.solved ? t('solved') : esc(t('notSolved', { name: (st.players.find((x) => x.id === st.drawer) || {}).name || '?' }))}</div><div class="meme-title light">${esc(st.hang.mask.join(''))}</div></div></div>` :
+          st.mode === 'guess' && st.word >= 0 ? `<div class="cat light">${t('wordWas')}</div><div class="meme-title light">${esc(wordName(st.word))}</div>` : `<h2>${t('results')}</h2>`}`;
     } else if (st.phase === 'end') {
       const s = [...st.players].sort((a, b) => b.score - a.score);
       const pod = [s[1], s[0], s[2]].map((p, i) => p ? `<div class="pl">${charEl(p.char, i === 1 ? 100 : 74, true)}<div>${esc(p.name)}</div><div class="block" style="height:${[60, 90, 44][i]}px;background:${['#c0c0c0', '#ffc107', '#cd7f32'][i]}">${[2, 1, 3][i]}</div></div>` : '').join('');
@@ -973,7 +1031,9 @@ const view = {
   renderChoose() {
     const st = this.state, stage = $('#stage'), dr = st.players.find((x) => x.id === st.drawer);
     if (st.drawer === net.myId) {
-      stage.innerHTML = `<div class="cat">${t('chooseWord')}</div><div class="choices" id="choices"></div>`;
+      stage.innerHTML = `<div class="cat">${t(st.mode === 'hang' ? 'chooseHang' : 'chooseWord')}</div><div class="choices" id="choices"></div>` + (st.mode === 'hang' ? `<div class="cat">${t('ownWord')}</div>
+        <form class="g-form" id="own-f"><input id="own-w" maxlength="24" autocomplete="off" spellcheck="false" placeholder="${t('ownPh')}"><button class="btn small primary">OK</button></form>` : '');
+      const of = $('#own-f'); if (of) of.onsubmit = (e) => { e.preventDefault(); const w = cleanHangWord($('#own-w').value, lang); if (!w) { toast(t('badWord')); return; } if (this.chooseSent === st.turn) return; this.chooseSent = st.turn; toHost({ t: 'choose', own: w }); of.querySelector('button').disabled = true; };
       this.updateChoose();
     } else {
       stage.innerHTML = `<div class="choose-wait">${dr ? charEl(dr.char, 120, true) : ''}<h2>${esc(t('choosing', { name: dr ? dr.name : '?' }))}</h2></div>`;
@@ -1018,7 +1078,7 @@ const view = {
     const st = this.state; if (!st || st.phase !== 'guess') return;
     const left = st.players.filter((x) => x.id !== net.myId && !x.done);
     const b = modal(`<h3>${t('whoGuessed')}</h3>${left.length ? `<div class="mark-list">${left.map((x) => `<button class="btn mark" data-id="${esc(x.id)}">${charEl(x.char, 30, false)}<span>${esc(x.name)}</span></button>`).join('')}</div>` : `<p>${t('nobodyLeft')}</p>`}<button class="btn" id="cl">${t('close')}</button>`);
-    b.querySelectorAll('.mark').forEach((x) => x.onclick = () => { toHost({ t: 'mark', pid: x.dataset.id }); x.remove(); });
+    b.querySelectorAll('.mark').forEach((x) => x.onclick = () => { toHost({ t: 'mark', pid: x.dataset.id }); closeModal(); });
     b.querySelector('#cl').onclick = closeModal;
   },
   applyLive(turn, ops) {
@@ -1051,6 +1111,33 @@ const view = {
     const el = $('#g-chat'); if (!el) return;
     el.innerHTML = this.chat.map((c) => c.sys ? `<div class="sys">${esc(c.text)}</div>` : `<div><b>${esc(c.name)}:</b> ${esc(c.text)}</div>`).join('');
     el.scrollTop = el.scrollHeight;
+  },
+  // ---------------- Strichmännchen ----------------
+  renderHang() {
+    const st = this.state, stage = $('#stage'), me = st.drawer === net.myId, dr = st.players.find((x) => x.id === st.drawer), h = st.hang; if (!h) return;
+    const keys = h.lang === 'am' ? KEYS_AM : KEYS_DE;
+    stage.innerHTML = `<div class="g-who">${me ? t('yourWord') : esc(t('hangChose', { name: dr ? dr.name : '?' }))}</div>
+      <div class="hang-top"><div id="h-stick"></div><div class="h-miss" id="h-miss"></div></div>
+      <div class="h-word" id="h-word"></div><div class="hint" id="h-turn"></div>
+      <div class="keyb${h.lang === 'am' ? ' am' : ''}" id="keyb">${keys.map((k) => `<button class="key" data-k="${k}">${k}</button>`).join('')}</div>
+      <div class="done-list" id="h-counts"></div>`;
+    stage.querySelectorAll('.key').forEach((b) => b.onclick = () => { const s2 = this.state; if (!s2.hang || s2.hang.cur !== net.myId || b.disabled) return; stage.querySelectorAll('.key').forEach((x) => x.disabled = true); toHost({ t: 'letter', k: b.dataset.k }); });
+    this.hangMiss = -1; this.updateHang();
+  },
+  updateHang() {
+    const st = this.state, h = st.hang; if (!h || !$('#h-word')) return;
+    if (h.misses !== this.hangMiss) { $('#h-stick').innerHTML = stickSVG(h.misses, false); if (this.hangMiss >= 0 && h.misses > this.hangMiss) tick(220); this.hangMiss = h.misses; }
+    $('#h-miss').textContent = `${t('misses')} ${h.misses}/${HANG_MAX}`;
+    const groups = h.mask.join('\u0001').split('\u0001 \u0001'); // Wörter nicht mitten drin umbrechen
+    const longest = Math.max(...groups.map((g) => g.split('\u0001').length));
+    const el = $('#h-word'); el.style.setProperty('--n', Math.max(8, longest));
+    el.innerHTML = groups.map((g) => `<div class="hw">${g.split('\u0001').map((c) => `<span>${c === '_' ? '' : esc(c)}</span>`).join('')}</div>`).join('');
+    const cur = st.players.find((x) => x.id === h.cur), myTurn = h.cur === net.myId;
+    const tu = $('#h-turn'); tu.textContent = myTurn ? t('yourLetter') : (cur ? t('letterTurn', { name: cur.name }) : ''); tu.classList.toggle('myturn', myTurn);
+    if (myTurn && this.hangTurnTick !== st.remaining) { this.hangTurnTick = st.remaining; }
+    document.querySelectorAll('#keyb .key').forEach((b) => { const k = b.dataset.k, used = h.guessed.includes(k);
+      b.classList.toggle('hit', used && !h.wrong.includes(k)); b.classList.toggle('miss', h.wrong.includes(k)); b.disabled = used || !myTurn; });
+    $('#h-counts').innerHTML = st.players.filter((x) => x.id !== st.drawer).map((x) => `<span class="${x.id === h.cur ? 'ok' : ''}">${x.id === h.cur ? '👉 ' : ''}${esc(x.name)}: ${h.counts[x.id] || 0}</span>`).join('');
   },
   // ---------------- Stoppuhr ----------------
   renderTimer() {
@@ -1098,15 +1185,39 @@ const view = {
     if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', (st.phase === 'record' || st.phase === 'draw' || st.phase === 'guess' || st.phase === 'logo') && s <= 5);
+    el.textContent = s; el.classList.toggle('low', (st.phase === 'record' || st.phase === 'draw' || st.phase === 'guess' || st.phase === 'logo' || st.phase === 'hang') && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
 // ---- Spielmodi, Logos, Raten
-const MODES = ['sound', 'draw', 'guess', 'logo', 'timer'];
+const MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang'];
+// Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
+const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
+const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
+const AM_EXTRA = { 0x1248: 0x1240, 0x1288: 0x1280, 0x12B0: 0x12A8, 0x1310: 0x1308 };
+function hangKey(ch) {
+  const c = ch.charCodeAt(0);
+  if (c >= 0x1200 && c <= 0x135A) { let base = 0x1200 + Math.floor((c - 0x1200) / 8) * 8; base = AM_EXTRA[base] || base; return KEYS_AM.includes(String.fromCharCode(base)) ? String.fromCharCode(base) : null; }
+  if (ch === 'ß') return 'ß';
+  const u = ch.toUpperCase(); return KEYS_DE.includes(u) ? u : null;
+}
+function cleanHangWord(w, lng) {
+  let x = String(w || '').trim().replace(/\s+/g, ' ');
+  x = lng === 'am' ? x.replace(/[^\u1200-\u137f \-]/g, '') : [...x].map((c) => (c === 'ß' ? c : c.toUpperCase())).join('').replace(/[^A-ZÄÖÜß \-]/g, '');
+  x = x.trim(); const letters = [...x].filter((c) => hangKey(c)).length;
+  return letters >= 2 && [...x].length <= 24 ? x : '';
+}
+function stickSVG(n, lost) {
+  const parts = [
+    '<circle cx="60" cy="38" r="16"/>', '<line x1="60" y1="54" x2="60" y2="104"/>', '<line x1="60" y1="66" x2="36" y2="88"/>', '<line x1="60" y1="66" x2="84" y2="88"/>',
+    '<line x1="60" y1="104" x2="40" y2="140"/>', '<line x1="60" y1="104" x2="80" y2="140"/>',
+    lost ? '<path d="M50 30l6 6M56 30l-6 6M64 30l6 6M70 30l-6 6"/>' : '<circle cx="54" cy="34" r="1.5" fill="currentColor"/><circle cx="66" cy="34" r="1.5" fill="currentColor"/>',
+    '<path d="M51 47q9-7 18 0"/>'];
+  return `<svg viewBox="0 0 120 150" class="stick"><line x1="16" y1="145" x2="104" y2="145" class="ground"/>${parts.map((p, i) => `<g class="${i < n ? 'on' + (i === n - 1 ? ' new' : '') : 'off'}">${p}</g>`).join('')}</svg>`;
+}
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -1413,7 +1524,7 @@ $('#btn-credits').onclick = () => {
 };
 $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
 window.addEventListener('pagehide', sayBye);
-if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS };
+if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey };
 
 const urlCode = cleanCode(new URLSearchParams(location.search).get('code') || '');
 if (urlCode) $('#in-code').value = urlCode;
