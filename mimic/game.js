@@ -26,7 +26,8 @@ const GUESS_TIME = 80;      // Malen & Raten: Zeit zum Malen/Raten
 const LOGO_TIME = 40;       // Logo-Quiz: so lange dauert es, bis das Logo ganz zu sehen ist
 const LOGO_GRID = 10;       // Logo-Quiz: 10×10 Kärtchen decken das Logo zu
 const HANG_TURN = 15;       // Strichmännchen: Zeit pro Buchstabe
-const HANG_MAX = 8;         // Strichmännchen: so viele Fehler, dann ist es fertig
+const HANG_MAX = 10;        // Galgenmännchen: so viele Fehler, dann ist es fertig
+const EST_TIME = 30;        // Schätzen: Zeit für den Tipp
 const LOGO_POINTS = [100, 80, 65, 50, 40, 30, 25, 20];
 const EMOJIS = ['😆', '😂', '😍', '🔥', '👍', '😳', '😢', '👎'];
 const WORDS = window.WORDS || [];
@@ -64,7 +65,10 @@ const T = {
     guessPh: 'Dein Tipp…', guessedIt: '{name} hat es erraten! 🎉', youGuessed: 'Richtig! 🎉', almost: 'Fast! 🤏', guessedBtn: '✅ Erraten!', whoGuessed: 'Wer hat es erraten?', nobodyLeft: 'Alle haben es schon.', wordWas: 'Das Wort war:',
     logoQ: 'Welche Marke ist das?', logoPh: 'Tippe die ersten Buchstaben…', youPicked: 'Deine Wahl:', logoWas: 'Das war:', noPick: 'nichts gewählt', lobbyMode: 'Spielmodus:', loadingLogos: 'Lade Logos…',
     modeTimer: '⏱️ Stoppuhr', timerGoal: 'Stoppe genau bei', seconds: 'Sekunden', timerHint: 'Drück START und zähle im Kopf – danach siehst du nur noch den STOPP-Knopf!', startBtn: 'START', stopBtn: 'STOPP', stopped: 'Gestoppt! Warte auf die anderen…', target: 'Ziel', perfect: 'Perfekt!', notStopped: 'nicht gestoppt',
-    modeHang: '🧍 Strichmännchen', chooseHang: 'Wähle ein Wort zum Erraten:', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
+    modeHang: '🪢 Galgenmännchen', chooseHang: 'Wähle ein Wort zum Erraten:',
+    modeEst: '🔢 Schätzen', modeMix: '🎲 Mix (alle Spiele)', estPh: 'Deine Schätzung', estSend: 'Tipp abgeben', yourEst: 'Dein Tipp:', answer: 'Richtige Antwort', bullseye: 'Volltreffer!', noEst: 'kein Tipp', badNum: 'Bitte eine Zahl eingeben.', loadingQ: 'Lade Fragen…',
+    nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
+    abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
@@ -86,7 +90,10 @@ const T = {
     guessPh: 'ግምትዎ…', guessedIt: '{name} ገመተው! 🎉', youGuessed: 'ትክክል! 🎉', almost: 'ተቃርበዋል! 🤏', guessedBtn: '✅ ተገመተ!', whoGuessed: 'ማን ገመተው?', nobodyLeft: 'ሁሉም ገምተዋል።', wordWas: 'ቃሉ፦',
     logoQ: 'ይህ የየትኛው ብራንድ ነው?', logoPh: 'የመጀመሪያ ፊደላትን ይጻፉ…', youPicked: 'ምርጫዎ፦', logoWas: 'ይህ ነበር፦', noPick: 'ምንም አልተመረጠም', lobbyMode: 'የጨዋታ ዓይነት፦', loadingLogos: 'አርማዎች እየተጫኑ ነው…',
     modeTimer: '⏱️ የሰዓት ቆጣሪ', timerGoal: 'በትክክል ያቁሙ በ', seconds: 'ሰከንድ', timerHint: 'ጀምርን ይጫኑና በአእምሮዎ ይቁጠሩ – ከዚያ የማቆሚያ ቁልፉን ብቻ ያያሉ!', startBtn: 'ጀምር', stopBtn: 'አቁም', stopped: 'ቆሟል! ሌሎችን ይጠብቁ…', target: 'ዒላማ', perfect: 'ፍጹም!', notStopped: 'አላቆመም',
-    modeHang: '🧍 የመስመር ሰው', chooseHang: 'የሚገመት ቃል ይምረጡ፦', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
+    modeHang: '🪢 የገመድ ሰው', chooseHang: 'የሚገመት ቃል ይምረጡ፦',
+    modeEst: '🔢 ግምት', modeMix: '🎲 ድብልቅ (ሁሉም ጨዋታዎች)', estPh: 'ግምትዎ', estSend: 'ግምት ላክ', yourEst: 'ግምትዎ፦', answer: 'ትክክለኛው መልስ', bullseye: 'በትክክል!', noEst: 'ግምት የለም', badNum: 'እባክዎ ቁጥር ያስገቡ።', loadingQ: 'ጥያቄዎች እየተጫኑ ነው…',
+    nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
+    abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -105,19 +112,23 @@ function confirmBox(text) {
 
 // ------------------------------------------------------------------ Figuren
 const OPTS = {
-  color: ['#ff6b6b', '#ff9f43', '#feca57', '#1dd1a1', '#48dbfb', '#54a0ff', '#5f27cd', '#ff9ff3', '#c8d6e5', '#8d6e63', '#576574', '#10ac84'],
-  eyes: ['rund', 'froh', 'muede', 'stern', 'brille', 'herz'],
-  mouth: ['laecheln', 'grinsen', 'oh', 'zunge', 'zaehne'],
-  hat: ['keiner', 'kappe', 'krone', 'zylinder', 'blume', 'muetze', 'kopfhoerer', 'haare'],
-  extra: ['keins', 'fliege', 'schal', 'kette'],
-  dance: ['huepfen', 'wackeln', 'drehen', 'roboter', 'disco'],
+  color: ['#ff6b6b', '#ff9f43', '#feca57', '#1dd1a1', '#48dbfb', '#54a0ff', '#5f27cd', '#ff9ff3', '#c8d6e5', '#8d6e63', '#576574', '#10ac84', '#e84393', '#00cec9', '#fdcb6e', '#6c5ce7', '#b33939', '#218c74', '#f5f6fa', '#2d3436'],
+  eyes: ['rund', 'froh', 'muede', 'stern', 'brille', 'herz', 'zwinkern', 'gross', 'schlaf', 'alien', 'schielen'],
+  mouth: ['laecheln', 'grinsen', 'oh', 'zunge', 'zaehne', 'kuss', 'schnurrbart', 'bart', 'schief'],
+  hat: ['keiner', 'kappe', 'krone', 'zylinder', 'blume', 'muetze', 'kopfhoerer', 'haare', 'cowboy', 'party', 'hase', 'katze', 'einhorn', 'zopf', 'koch', 'heiligenschein', 'antenne', 'afro'],
+  extra: ['keins', 'fliege', 'schal', 'kette', 'krawatte', 'umhang', 'rucksack', 'funkeln', 'herzchen'],
+  pattern: ['keins', 'punkte', 'streifen', 'bauch', 'sterne', 'flecken'],
+  feet: ['dunkel', 'rot', 'weiss', 'gold', 'blau'],
+  dance: ['huepfen', 'wackeln', 'drehen', 'roboter', 'disco', 'jubeln', 'schaukeln', 'kreisel', 'zappeln'],
 };
 const OPT_ICON = {
-  eyes: { rund: '👀', froh: '😊', muede: '😪', stern: '🤩', brille: '😎', herz: '😍' },
-  mouth: { laecheln: '🙂', grinsen: '😁', oh: '😮', zunge: '😛', zaehne: '😬' },
-  hat: { keiner: '—', kappe: '🧢', krone: '👑', zylinder: '🎩', blume: '🌸', muetze: '🧶', kopfhoerer: '🎧', haare: '💇' },
-  extra: { keins: '—', fliege: '🎀', schal: '🧣', kette: '📿' },
-  dance: { huepfen: '🦘', wackeln: '〰️', drehen: '🌀', roboter: '🤖', disco: '🕺' },
+  eyes: { rund: '👀', froh: '😊', muede: '😪', stern: '🤩', brille: '😎', herz: '😍', zwinkern: '😉', gross: '🥺', schlaf: '😴', alien: '👁️', schielen: '🤪' },
+  mouth: { laecheln: '🙂', grinsen: '😁', oh: '😮', zunge: '😛', zaehne: '😬', kuss: '😗', schnurrbart: '🥸', bart: '🧔', schief: '😏' },
+  hat: { keiner: '—', kappe: '🧢', krone: '👑', zylinder: '🎩', blume: '🌸', muetze: '🧶', kopfhoerer: '🎧', haare: '💇', cowboy: '🤠', party: '🥳', hase: '🐰', katze: '🐱', einhorn: '🦄', zopf: '👧', koch: '👨‍🍳', heiligenschein: '😇', antenne: '👽', afro: '🧑🏾‍🦱' },
+  extra: { keins: '—', fliege: '🎀', schal: '🧣', kette: '📿', krawatte: '👔', umhang: '🦸', rucksack: '🎒', funkeln: '✨', herzchen: '💕' },
+  pattern: { keins: '—', punkte: '⚪', streifen: '🦓', bauch: '🥚', sterne: '⭐', flecken: '🐄' },
+  feet: { dunkel: '⚫', rot: '🔴', weiss: '⚪', gold: '🟡', blau: '🔵' },
+  dance: { huepfen: '🦘', wackeln: '〰️', drehen: '🌀', roboter: '🤖', disco: '🕺', jubeln: '🙌', schaukeln: '🌊', kreisel: '🌪️', zappeln: '⚡' },
 };
 function randomChar() { const c = {}; for (const k in OPTS) c[k] = OPTS[k][rnd(OPTS[k].length)]; return c; }
 function validChar(c) { const o = {}; for (const k in OPTS) o[k] = c && OPTS[k].includes(c[k]) ? c[k] : OPTS[k][0]; return o; }
@@ -133,6 +144,11 @@ function charSVG(c) {
     stern: '<path d="M47 64 l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z" fill="#ffd600" stroke="#222" stroke-width="1"/><path d="M73 64 l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z" fill="#ffd600" stroke="#222" stroke-width="1"/>',
     brille: '<rect x="36" y="66" width="21" height="13" rx="5" fill="#222"/><rect x="63" y="66" width="21" height="13" rx="5" fill="#222"/><path d="M57 71 h6" stroke="#222" stroke-width="3"/><path d="M40 69 l6 0" stroke="#fff" stroke-width="2" opacity=".6"/>',
     herz: '<path d="M47 79 l-7-7 a4 4 0 0 1 7-5 a4 4 0 0 1 7 5z" fill="#ff2e63"/><path d="M73 79 l-7-7 a4 4 0 0 1 7-5 a4 4 0 0 1 7 5z" fill="#ff2e63"/>',
+    zwinkern: '<circle cx="47" cy="72" r="7" fill="#fff"/><circle cx="48" cy="73" r="3.5" fill="#222"/><path d="M66 74 q7 -7 14 0" stroke="#222" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
+    gross: '<circle cx="46" cy="70" r="11" fill="#fff" stroke="#222" stroke-width="1.5"/><circle cx="74" cy="70" r="11" fill="#fff" stroke="#222" stroke-width="1.5"/><circle cx="47" cy="72" r="6" fill="#222"/><circle cx="75" cy="72" r="6" fill="#222"/><circle cx="49" cy="69" r="2" fill="#fff"/><circle cx="77" cy="69" r="2" fill="#fff"/>',
+    schlaf: '<path d="M40 71 q7 7 14 0" stroke="#222" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M66 71 q7 7 14 0" stroke="#222" stroke-width="3.5" fill="none" stroke-linecap="round"/><text x="84" y="56" font-size="13" font-weight="900" fill="#222" font-family="sans-serif">z</text><text x="92" y="46" font-size="10" font-weight="900" fill="#222" font-family="sans-serif">z</text>',
+    alien: '<circle cx="60" cy="70" r="14" fill="#fff" stroke="#222" stroke-width="2"/><circle cx="61" cy="72" r="7" fill="#222"/><circle cx="64" cy="68" r="2.5" fill="#fff"/>',
+    schielen: '<circle cx="47" cy="72" r="8" fill="#fff"/><circle cx="73" cy="72" r="8" fill="#fff"/><circle cx="51" cy="73" r="3.5" fill="#222"/><circle cx="69" cy="73" r="3.5" fill="#222"/>',
   }[c.eyes];
   const mouth = {
     laecheln: '<path d="M50 92 q10 10 20 0" stroke="#222" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
@@ -140,6 +156,10 @@ function charSVG(c) {
     oh: '<ellipse cx="60" cy="96" rx="6" ry="8" fill="#5a1a1a" stroke="#222" stroke-width="2.5"/>',
     zunge: '<path d="M48 91 q12 12 24 0 z" fill="#5a1a1a" stroke="#222" stroke-width="2.5"/><path d="M56 97 q4 9 8 0 z" fill="#ff7aa2"/>',
     zaehne: '<rect x="47" y="89" width="26" height="12" rx="5" fill="#fff" stroke="#222" stroke-width="2.5"/><path d="M53.5 89 v12 M60 89 v12 M66.5 89 v12 M47 95 h26" stroke="#222" stroke-width="1.3"/>',
+    kuss: '<path d="M60 99 l-6 -5 a3.5 3.5 0 0 1 6 -4 a3.5 3.5 0 0 1 6 4z" fill="#e84393" stroke="#222" stroke-width="1.5"/>',
+    schnurrbart: '<path d="M50 95 q10 8 20 0" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M60 88 q-8 -7 -19 1 q9 4 19 0 q10 4 19 0 q-11 -8 -19 -1z" fill="#3e2723"/>',
+    bart: '<path d="M34 90 q26 46 52 0 q-8 8 -26 8 q-18 0 -26 -8z" fill="#5d4037"/><path d="M52 92 q8 6 16 0" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>',
+    schief: '<path d="M49 97 q12 3 22 -7" stroke="#222" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
   }[c.mouth];
   const hat = {
     keiner: '',
@@ -150,20 +170,44 @@ function charSVG(c) {
     muetze: '<path d="M30 50 q30 -46 60 0 z" fill="#5f27cd"/><rect x="28" y="44" width="64" height="9" rx="4" fill="#fff"/><circle cx="60" cy="10" r="7" fill="#fff"/>',
     kopfhoerer: '<path d="M26 66 q34 -60 68 0" stroke="#222" stroke-width="6" fill="none"/><rect x="18" y="58" width="12" height="20" rx="5" fill="#e53935"/><rect x="90" y="58" width="12" height="20" rx="5" fill="#e53935"/>',
     haare: `<path d="M28 58 q4 -34 32 -32 q28 -2 32 32 q-8 -14 -16 -12 q-6 -12 -16 -6 q-10 -8 -18 4 q-8 -2 -14 14z" fill="#3e2723"/>`,
+    cowboy: '<path d="M40 44 q2 -26 20 -24 q18 -2 20 24z" fill="#a0693a"/><rect x="40" y="37" width="40" height="5" fill="#5d3a1a"/><path d="M18 42 q42 14 84 0 q-4 10 -42 11 q-38 -1 -42 -11z" fill="#8d5a2b"/>',
+    party: '<path d="M47 40 l13 -36 l13 36z" fill="#ff6b6b"/><path d="M52 30 h16 M50 36 h20 M55 22 h10" stroke="#feca57" stroke-width="3"/><circle cx="60" cy="4" r="5" fill="#48dbfb"/>',
+    hase: '<ellipse cx="46" cy="14" rx="8" ry="20" fill="#fff" stroke="#ddd" stroke-width="2"/><ellipse cx="46" cy="16" rx="4" ry="13" fill="#ffb6c9"/><ellipse cx="74" cy="14" rx="8" ry="20" fill="#fff" stroke="#ddd" stroke-width="2"/><ellipse cx="74" cy="16" rx="4" ry="13" fill="#ffb6c9"/>',
+    katze: `<path d="M30 50 l6 -30 l18 16z" fill="${col}" stroke="${dark}" stroke-width="3" stroke-linejoin="round"/><path d="M90 50 l-6 -30 l-18 16z" fill="${col}" stroke="${dark}" stroke-width="3" stroke-linejoin="round"/><path d="M36 42 l3 -14 l8 8z M84 42 l-3 -14 l-8 8z" fill="#ffb6c9"/>`,
+    einhorn: '<path d="M53 36 l7 -34 l7 34z" fill="#ffd6f5" stroke="#d980c4" stroke-width="2" stroke-linejoin="round"/><path d="M55 28 l10 -3 M56.5 19 l7 -2 M58 11 l4 -1" stroke="#d980c4" stroke-width="2"/>',
+    zopf: '<path d="M90 42 q24 12 12 44 q-4 -18 -16 -30z" fill="#f4a261"/><path d="M27 58 q2 -32 33 -32 q31 0 33 32 q-14 -18 -33 -18 q-19 0 -33 18z" fill="#f4a261"/><circle cx="92" cy="42" r="5" fill="#e63946"/>',
+    koch: '<circle cx="46" cy="20" r="11" fill="#fff" stroke="#ddd" stroke-width="2"/><circle cx="74" cy="20" r="11" fill="#fff" stroke="#ddd" stroke-width="2"/><circle cx="60" cy="13" r="13" fill="#fff" stroke="#ddd" stroke-width="2"/><rect x="42" y="24" width="36" height="16" rx="2" fill="#fff" stroke="#ddd" stroke-width="2"/>',
+    heiligenschein: '<ellipse cx="60" cy="16" rx="22" ry="6" fill="none" stroke="#ffd600" stroke-width="5"/>',
+    antenne: '<path d="M50 34 q-4 -14 -12 -22 M70 34 q4 -14 12 -22" stroke="#222" stroke-width="3" fill="none"/><circle cx="38" cy="12" r="5" fill="#1dd1a1"/><circle cx="82" cy="12" r="5" fill="#1dd1a1"/>',
+    afro: '<g fill="#2d1b10"><circle cx="38" cy="40" r="16"/><circle cx="60" cy="28" r="19"/><circle cx="82" cy="40" r="16"/><circle cx="28" cy="56" r="10"/><circle cx="92" cy="56" r="10"/></g>',
   }[c.hat];
   const extra = {
     keins: '',
     fliege: '<path d="M60 116 l-12 -7 v14 z M60 116 l12 -7 v14 z" fill="#e53935"/><circle cx="60" cy="116" r="3.5" fill="#b71c1c"/>',
     schal: '<path d="M30 110 q30 12 60 0 v9 q-30 12 -60 0 z" fill="#1dd1a1"/><rect x="70" y="114" width="10" height="22" rx="3" fill="#10ac84"/>',
     kette: '<path d="M34 108 q26 20 52 0" stroke="#ffd600" stroke-width="3" fill="none"/><circle cx="60" cy="118" r="5" fill="#ffd600" stroke="#c79a00"/>',
+    krawatte: '<path d="M55 108 h10 l-2.5 5 l5 22 l-7.5 8 l-7.5 -8 l5 -22z" fill="#2e86de" stroke="#1b4f8a" stroke-width="1.5"/>',
+    umhang: '<path d="M36 104 q24 10 48 0" stroke="#b71c1c" stroke-width="5" fill="none" stroke-linecap="round"/>',
+    rucksack: '<path d="M38 94 q-2 22 4 42 M82 94 q2 22 -4 42" stroke="#6d4c41" stroke-width="5" fill="none" stroke-linecap="round"/>',
+    funkeln: '<g fill="#ffd600"><path d="M12 40 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/><path d="M106 28 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/><path d="M108 74 l2 4 4 2 -4 2 -2 4 -2 -4 -4 -2 4 -2z"/></g>',
+    herzchen: '<path d="M102 42 l-6 -6 a3.5 3.5 0 0 1 6 -4 a3.5 3.5 0 0 1 6 4z" fill="#ff2e63"/><path d="M16 56 l-5 -5 a3 3 0 0 1 5 -3.5 a3 3 0 0 1 5 3.5z" fill="#ff7aa2"/><path d="M110 64 l-4 -4 a2.5 2.5 0 0 1 4 -3 a2.5 2.5 0 0 1 4 3z" fill="#ff7aa2"/>',
   }[c.extra];
+  const back = { umhang: '<path d="M30 90 q-16 42 -8 60 q38 6 76 0 q8 -18 -8 -60z" fill="#e53935"/>', rucksack: '<rect x="84" y="86" width="24" height="44" rx="8" fill="#8d6e63" stroke="#5d4037" stroke-width="2"/>' }[c.extra] || '';
+  const pattern = {
+    keins: '', punkte: '<g fill="#fff" opacity=".38"><circle cx="40" cy="110" r="6"/><circle cx="62" cy="122" r="5"/><circle cx="80" cy="104" r="6"/><circle cx="50" cy="134" r="4"/><circle cx="76" cy="132" r="4"/><circle cx="34" cy="96" r="3"/></g>',
+    streifen: `<g fill="${dark}" opacity=".4"><rect x="25" y="103" width="70" height="7" rx="3"/><rect x="29" y="117" width="62" height="7" rx="3"/><rect x="38" y="131" width="44" height="6" rx="3"/></g>`,
+    bauch: '<ellipse cx="60" cy="120" rx="22" ry="19" fill="#fff" opacity=".45"/>',
+    sterne: '<g fill="#fff" opacity=".55"><path d="M42 106 l2 4.5 5 .7 -3.6 3.4 .9 5 -4.3 -2.4 -4.3 2.4 .9 -5 -3.6 -3.4 5 -.7z"/><path d="M72 122 l2 4.5 5 .7 -3.6 3.4 .9 5 -4.3 -2.4 -4.3 2.4 .9 -5 -3.6 -3.4 5 -.7z"/><path d="M80 98 l1.5 3.5 4 .5 -3 2.6 .7 4 -3.2 -1.9 -3.2 1.9 .7 -4 -3 -2.6 4 -.5z"/></g>',
+    flecken: `<g fill="${dark}" opacity=".45"><ellipse cx="40" cy="110" rx="9" ry="6"/><ellipse cx="74" cy="124" rx="10" ry="7"/><ellipse cx="55" cy="137" rx="6" ry="4"/><ellipse cx="82" cy="100" rx="5" ry="4"/></g>`,
+  }[c.pattern];
+  const foot = { dunkel: dark, rot: '#e53935', weiss: '#f5f5f5', gold: '#ffc107', blau: '#1e88e5' }[c.feet];
   return `<svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="60" cy="154" rx="34" ry="5" fill="rgba(0,0,0,.15)"/>
-    <ellipse cx="45" cy="146" rx="13" ry="7" fill="${dark}"/><ellipse cx="75" cy="146" rx="13" ry="7" fill="${dark}"/>
+    ${back}<ellipse cx="45" cy="146" rx="13" ry="7" fill="${foot}" stroke="${shade(foot, 0.7)}" stroke-width="1.5"/><ellipse cx="75" cy="146" rx="13" ry="7" fill="${foot}" stroke="${shade(foot, 0.7)}" stroke-width="1.5"/>
     <g class="arm-l"><path d="M32 86 q-16 10 -18 26" stroke="${dark}" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="14" cy="113" r="6" fill="${col}"/></g>
     <g class="arm-r"><path d="M88 86 q16 10 18 26" stroke="${dark}" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="106" cy="113" r="6" fill="${col}"/></g>
     <path d="M60 32 C 94 32 100 70 98 100 C 96 132 82 146 60 146 C 38 146 24 132 22 100 C 20 70 26 32 60 32 Z" fill="${col}" stroke="${dark}" stroke-width="3"/>
-    <ellipse cx="44" cy="52" rx="9" ry="6" fill="#fff" opacity=".35"/>
+    ${pattern}<ellipse cx="44" cy="52" rx="9" ry="6" fill="#fff" opacity=".35"/>
     <circle cx="38" cy="88" r="5" fill="#ff8fab" opacity=".55"/><circle cx="82" cy="88" r="5" fill="#ff8fab" opacity=".55"/>
     ${eyes}<g class="mouth">${mouth}</g>${extra}${hat}
   </svg>`;
@@ -352,6 +396,7 @@ async function joinParty(name, code, tries = 0) {
     lastHost = Date.now();
     if (!msg) return;
     if (msg.t === 'bye') { net.bye = true; return; }
+    if (msg.t === 'kicked') { gone('kicked'); return; }
     view.onMessage(msg);
   });
   conn.on('close', () => {
@@ -377,7 +422,7 @@ async function joinParty(name, code, tries = 0) {
 const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
-  drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
+  drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -394,10 +439,27 @@ const host = {
       case 'ping': return;
       case 'start':
         if (p.host && this.phase === 'lobby' && this.players.length >= 2) {
-          this.rounds = clamp(+msg.rounds || 5, 1, 30); this.mode = MODES.includes(msg.mode) ? msg.mode : 'sound';
-          if (this.mode === 'logo') ensureLogos().then(() => { if (this.phase === 'lobby') this.startGame(); }).catch(() => toast(t('netError'))); else this.startGame();
+          this.rounds = clamp(+msg.rounds || 5, 1, 30); this.baseMode = this.mode = MODES.includes(msg.mode) ? msg.mode : 'sound';
+          const need = [];
+          if (this.mode === 'logo' || this.mode === 'mix') need.push(ensureLogos());
+          if (this.mode === 'estimate' || this.mode === 'mix') need.push(ensureQuestions());
+          Promise.all(need).then(() => { if (this.phase === 'lobby') this.startGame(); }).catch(() => toast(t('netError')));
         } return;
-      case 'mode': if (p.host && this.phase === 'lobby' && MODES.includes(msg.mode)) { this.mode = msg.mode; this.pushState(); } return;
+      case 'mode': if (p.host && this.phase === 'lobby' && MODES.includes(msg.mode)) { this.baseMode = this.mode = msg.mode; this.pushState(); } return;
+      case 'skip': if (p.host) this.skip(); return;
+      case 'kick': {
+        const v = this.get(msg.pid); if (!p.host || !v || v.host) return;
+        sendTo(v.id, { t: 'kicked' }); const c = net.conns.get(v.id);
+        this.removePlayer(v.id); setTimeout(() => { try { c && c.close(); } catch (e) {} }, 500);
+        return;
+      }
+      case 'est': {
+        if (this.phase !== 'estimate' || msg.round !== this.round || this.ests.has(from)) return;
+        const v = +msg.v; if (!isFinite(v) || v < 0) return;
+        this.ests.set(from, Math.min(v, 1e13)); this.pushState();
+        if (this.players.every((x) => this.ests.has(x.id))) this.endEstimate();
+        return;
+      }
       case 'emo': {
         const now = Date.now(); if (now - (p.lastEmo || 0) < 180) return; p.lastEmo = now;
         if (EMOJIS[msg.e | 0]) broadcast({ t: 'emo', e: msg.e | 0, pid: from }); return;
@@ -508,6 +570,7 @@ const host = {
     if (this.phase === 'guess' && this.allGuessed()) { this.endTurn(); return; }
     if (this.phase === 'logo' && this.players.every((x) => this.picks.has(x.id))) { this.endLogo(); return; }
     if (this.phase === 'timer' && this.players.every((x) => this.stops.has(x.id))) { this.endTimer(); return; }
+    if (this.phase === 'estimate' && this.players.every((x) => this.ests.has(x.id))) { this.endEstimate(); return; }
     this.pushState();
   },
   sweep() { const now = Date.now(); for (const p of [...this.players]) if (!p.host && now - p.seen > 20000) this.removePlayer(p.id); },
@@ -516,8 +579,9 @@ const host = {
       t: 'state', phase: this.phase, round: this.round, rounds: this.rounds, soundIdx: this.soundIdx,
       remaining: Math.max(0, this.deadline - Date.now()), showPid: this.showOrder[this.showIdx] || null, showIdx: this.showIdx, showCount: this.showOrder.length,
       players: this.players.map((p) => ({ id: p.id, name: p.name, char: p.char, score: p.score, voice: p.voice, host: p.host, lang: p.lang,
-        done: this.mode === 'timer' ? this.stops.has(p.id) : this.mode === 'logo' ? this.picks.has(p.id) : this.mode === 'guess' ? this.guessed.has(p.id) : this.recs.has(p.id) })),
-      drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target,
+        done: this.mode === 'estimate' ? this.ests.has(p.id) : this.mode === 'timer' ? this.stops.has(p.id) : this.mode === 'logo' ? this.picks.has(p.id) : this.mode === 'guess' ? this.guessed.has(p.id) : this.recs.has(p.id) })),
+      drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target, mix: !!this.mix, qIdx: this.qIdx,
+      ests: this.mode === 'estimate' && this.phase === 'results' ? Object.fromEntries(this.ests) : null,
       stops: this.mode === 'timer' && this.phase === 'results' ? Object.fromEntries(this.stops) : null,
       picks: this.mode === 'logo' && this.phase === 'results' ? Object.fromEntries([...this.picks].map(([k, v]) => [k, { name: v.name, ok: v.ok }])) : null,
       roundScores: Object.fromEntries([...this.recs].map(([k, v]) => [k, v.score])), gains: this.gains,
@@ -545,14 +609,48 @@ const host = {
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
   startGame() {
-    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.departed = new Map();
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.departed = new Map();
+    this.mix = this.baseMode === 'mix';
+    if (this.mix) { // jedes Spiel einmal, gemischt (bei mehreren Runden mehrmals)
+      this.mixList = []; for (let r = 0; r < this.rounds; r++) this.mixList.push(...shuffle([...GAME_MODES]));
+      this.mixIdx = -1; this.mixDrawn = {}; this.mixNext(); return;
+    }
     if (this.mode === 'guess' || this.mode === 'hang') { this.turnOrder = []; this.turnIdx = 0; this.nextTurn(); return; }
     this.nextRound();
   },
-  toLobby() { this.stop(); this.phase = 'lobby'; this.recs = new Map(); this.gains = {}; this.drawer = null; this.picks = new Map(); this.guessed = new Map(); this.pushState(); },
+  toLobby() { this.stop(); if (this.mix) { this.mix = false; this.mode = this.baseMode || 'mix'; } this.phase = 'lobby'; this.recs = new Map(); this.gains = {}; this.drawer = null; this.picks = new Map(); this.guessed = new Map(); this.pushState(); },
+  mixNext() {
+    this.mixIdx++;
+    if (this.mixIdx >= this.mixList.length) { this.drawer = null; this.setPhase('end', 0); return; }
+    this.mode = this.mixList[this.mixIdx]; this.round = this.mixIdx + 1; this.rounds = this.mixList.length;
+    this.drawer = null; this.gains = {};
+    this.setPhase('intro', 4, () => {
+      if (this.mode === 'guess' || this.mode === 'hang') {
+        const ids = shuffle(this.players.map((p) => p.id)).sort((a, b) => (this.mixDrawn[a] || 0) - (this.mixDrawn[b] || 0));
+        this.drawer = ids[0]; this.mixDrawn[this.drawer] = (this.mixDrawn[this.drawer] || 0) + 1;
+        this.playTurn();
+      } else this.playRound();
+    });
+  },
+  // Runde abbrechen: ohne Punkte direkt weiter
+  skip() {
+    if (this.phase === 'lobby' || this.phase === 'end') return;
+    this.stop(); this.gains = {};
+    if (this.mix) this.mixNext(); else if (this.mode === 'guess' || this.mode === 'hang') this.nextTurn(); else this.nextRound();
+  },
   nextRound() {
+    if (this.mix) { this.mixNext(); return; }
     this.round++;
     if (this.round > this.rounds) { this.setPhase('end', 0); return; }
+    this.playRound();
+  },
+  playRound() {
+    if (this.mode === 'estimate') {
+      const n = QUESTIONS.length; let i = rnd(n); for (let k = 0; k < 300 && this.usedQ.has(i); k++) i = rnd(n);
+      this.usedQ.add(i); this.qIdx = i; this.ests = new Map(); this.gains = {};
+      this.setPhase('estimate', EST_TIME, () => this.endEstimate());
+      return;
+    }
     if (this.mode === 'timer') {
       this.target = TIMER_TARGETS[rnd(TIMER_TARGETS.length)] * 1000; this.stops = new Map(); this.gains = {};
       this.setPhase('timer', 25 + this.target / 1000 * 2, () => this.endTimer());
@@ -605,6 +703,22 @@ const host = {
     this.revealed = true;
     this.setPhase('present', 4, () => { this.showIdx++; this.presentStep(); });
   },
+  // ---- Schätzen: wer am nächsten dran ist, bekommt am meisten
+  endEstimate() {
+    if (this.phase !== 'estimate') return;
+    this.stop(); this.gains = {};
+    const q = QUESTIONS[this.qIdx], ans = q[2], diff = (v) => Math.abs(v - ans);
+    for (const p of this.players) {
+      let g = 0;
+      if (this.ests.has(p.id)) {
+        const d = diff(this.ests.get(p.id)), rank = [...this.ests.values()].filter((v) => diff(v) < d).length; // gleich nah = gleich viele Punkte
+        g = LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)];
+        if (q[5] === 'y' ? d === 0 : d <= ans * 0.01) g += 50;
+      }
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
+  },
   // ---- Stoppuhr: wer am nächsten an der Zielzeit stoppt, gewinnt
   endTimer() {
     if (this.phase !== 'timer') return;
@@ -637,6 +751,7 @@ const host = {
     return w;
   },
   nextTurn() {
+    if (this.mix) { this.mixNext(); return; }
     for (;;) {
       if (this.turnIdx >= this.turnOrder.length) {
         this.round++;
@@ -646,6 +761,9 @@ const host = {
       const id = this.turnOrder[this.turnIdx++];
       if (this.get(id)) { this.drawer = id; break; }
     }
+    this.playTurn();
+  },
+  playTurn() {
     this.turn++; this.wordIdx = -1; this.live = []; this.livePts = 0; this.guessed = new Map(); this.gains = {};
     this.choices = [1, 2, 3].map((d) => this.pickWord(d));
     this.setPhase('choose', this.mode === 'hang' ? 25 : CHOOSE_TIME, () => this.chooseWord(this.choices[rnd(3)]));
@@ -760,14 +878,18 @@ const view = {
     this.deadlineLocal = Date.now() + st.remaining;
     if (st.round !== this.recRound && st.phase !== 'lobby') { this.recs = new Map(); this.recRound = st.round; }
     voiceSync(st); applyVoiceMute(st.phase);
-    if (st.mode === 'logo') ensureLogos().catch(() => {});
-    if (st.phase === 'lobby') { this.timerRun = null; this.myPick = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.mode === 'logo' || st.mode === 'mix' || st.mix) ensureLogos().catch(() => {});
+    if (st.mode === 'estimate' || st.mode === 'mix' || st.mix) ensureQuestions().catch(() => {});
+    $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
+    // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
+    if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
+    if (st.phase === 'lobby') { this.timerRun = null; this.myPick = null; this.myEst = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
     if (key !== this.lastKey) { this.lastKey = key; this.renderStage(prev); }
     else if (st.phase === 'present') this.updateVoteArea();
-    else if (st.phase === 'logo' || st.phase === 'timer') this.updateDone();
+    else if (st.phase === 'logo' || st.phase === 'timer' || st.phase === 'estimate') this.updateDone();
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     else if (st.phase === 'hang') this.updateHang();
@@ -777,23 +899,27 @@ const view = {
   renderLobby() {
     const st = this.state;
     $('#lobby-count').textContent = `(${st.players.length}/${MAX_PLAYERS})`;
-    $('#lobby-players').innerHTML = st.players.map((p) => pcard(p, 86, true)).join('');
+    $('#lobby-players').innerHTML = st.players.map((p) => `<div class="kick-wrap">${pcard(p, 86, true)}${net.isHost && !p.host ? `<button class="kick" data-id="${esc(p.id)}" aria-label="x">✖</button>` : ''}</div>`).join('');
+    $('#lobby-players').querySelectorAll('.kick').forEach((b) => b.onclick = async () => {
+      const p = this.state.players.find((x) => x.id === b.dataset.id); if (!p) return;
+      if (await confirmBox(t('kickQ', { name: p.name }))) { toHost({ t: 'kick', pid: p.id }); toast(t('kickedOut', { name: p.name })); }
+    });
     $('#host-settings').classList.toggle('hidden', !net.isHost);
     $('#lobby-wait').classList.toggle('hidden', net.isHost);
     const b = $('#btn-start'); b.disabled = st.players.length < 2; b.textContent = st.players.length < 2 ? t('needTwo') : t('start');
     const lm = $('#lobby-mode'); lm.classList.toggle('hidden', net.isHost);
-    lm.textContent = t('lobbyMode') + ' ' + t({ sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang' }[st.mode] || 'modeSound');
+    lm.textContent = t('lobbyMode') + ' ' + t(MODE_KEY[st.mode] || 'modeSound');
     if (net.isHost && $('#set-mode').value !== st.mode && !this.modeTouched) { $('#set-mode').value = st.mode; setRoundOpts(st.mode); }
   },
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
     const st = this.state, stage = $('#stage');
-    $('#info-round').textContent = st.phase === 'end' ? '' : t('round', { a: Math.min(st.round, st.rounds), b: st.rounds });
+    $('#info-round').textContent = st.phase === 'end' ? '' : t(st.mix ? 'game' : 'round', { a: Math.min(st.round, st.rounds), b: st.rounds });
     const onStage = st.phase === 'show' || st.phase === 'present' || st.phase === 'results' || st.phase === 'end';
     stage.classList.toggle('on-stage', onStage);
     if (st.phase !== 'guess') { clearInterval(this.opTimer); this.opTimer = null; }
@@ -837,6 +963,12 @@ const view = {
       this.renderTimer();
     } else if (st.phase === 'hang') {
       this.renderHang();
+    } else if (st.phase === 'intro') {
+      stage.innerHTML = `<div class="cat">${t('nextGame')}</div><div class="intro-title">${esc(t(MODE_KEY[st.mode]))}</div>
+        <div class="crowd-row">${st.players.map((p) => charEl(p.char, 64, true)).join('')}</div>`;
+      tick(660); setTimeout(() => tick(990), 160);
+    } else if (st.phase === 'estimate') {
+      this.renderEstimate();
     } else if (st.phase === 'present') {
       this.renderPresent();
     } else if (st.phase === 'show') {
@@ -862,6 +994,14 @@ const view = {
         await this.playWithHead(r.buf, null, pk, () => $('#wave'), (lv) => { if (mouth) mouth.style.transform = `scaleY(${1 + lv * 2.2}) scaleX(${1 + lv * .4})`; });
         if (this.state.showIdx === myIdx) reveal();
       } else { const e = $('#show-score'); if (e) e.textContent = t('noRec'); setTimeout(reveal, 900); }
+    } else if (st.phase === 'results' && st.mode === 'estimate') {
+      try { await ensureQuestions(); } catch (e) { return; }
+      if (this.state !== st) return;
+      const q = QUESTIONS[st.qIdx], ev = st.ests || {}, diff = (id) => (ev[id] == null ? 1e18 : Math.abs(ev[id] - q[2])), unit = lang === 'am' ? q[4] : q[3];
+      const shown = (v) => (q[5] === 'y' ? String(v) : fmtNum(v)) + (unit ? ' ' + unit : '');
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="cat light">${t('answer')}</div><div class="timer-big light">${esc(shown(q[2]))}</div>
+        <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
+          return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'timer') {
       const sv = st.stops || {}, diff = (id) => (sv[id] == null ? 1e9 : Math.abs(sv[id] - st.target));
       stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('target')}</div><div class="timer-big light">${fmtSec(st.target)} s</div>
@@ -1112,7 +1252,24 @@ const view = {
     el.innerHTML = this.chat.map((c) => c.sys ? `<div class="sys">${esc(c.text)}</div>` : `<div><b>${esc(c.name)}:</b> ${esc(c.text)}</div>`).join('');
     el.scrollTop = el.scrollHeight;
   },
-  // ---------------- Strichmännchen ----------------
+  // ---------------- Schätzen ----------------
+  async renderEstimate() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    stage.innerHTML = `<div class="hint">${t('loadingQ')}</div>`;
+    try { await ensureQuestions(); } catch (e) { toast(t('netError')); return; }
+    if (!this.state || this.state.phase !== 'estimate' || this.state.round !== round) return;
+    const q = QUESTIONS[st.qIdx], unit = lang === 'am' ? q[4] : q[3];
+    stage.innerHTML = `<div class="cat">${t('modeEst')}</div><div class="est-q">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="logo-pick" id="est-box"></div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const box = $('#est-box');
+    const locked = () => { box.innerHTML = `<div class="picked">${t('yourEst')} <b>${esc(q[5] === 'y' ? String(this.myEst.v) : fmtNum(this.myEst.v))}${unit ? ' ' + esc(unit) : ''}</b> 🔒</div>`; };
+    if (this.myEst && this.myEst.round === round && this.myEst.mix === st.mix && this.myEst.q === st.qIdx) { locked(); return; }
+    box.innerHTML = `<form class="g-form" id="est-f"><input id="est-in" inputmode="decimal" autocomplete="off" placeholder="${t('estPh')}"><span class="unit">${esc(unit)}</span></form><button class="btn primary" id="est-send">${t('estSend')}</button>`;
+    const send = (e) => { if (e) e.preventDefault(); const v = parseNum($('#est-in').value); if (v == null) { toast(t('badNum')); return; }
+      this.myEst = { round, v: q[5] === 'y' ? Math.round(v) : v, mix: st.mix, q: st.qIdx }; toHost({ t: 'est', round, v: this.myEst.v }); locked(); };
+    $('#est-f').onsubmit = send; $('#est-send').onclick = send;
+  },
+  // ---------------- Galgenmännchen ----------------
   renderHang() {
     const st = this.state, stage = $('#stage'), me = st.drawer === net.myId, dr = st.players.find((x) => x.id === st.drawer), h = st.hang; if (!h) return;
     const keys = h.lang === 'am' ? KEYS_AM : KEYS_DE;
@@ -1185,12 +1342,14 @@ const view = {
     if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', (st.phase === 'record' || st.phase === 'draw' || st.phase === 'guess' || st.phase === 'logo' || st.phase === 'hang') && s <= 5);
+    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate'].includes(st.phase) && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
 // ---- Spielmodi, Logos, Raten
-const MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate'];
+const MODES = [...GAME_MODES, 'mix'];
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -1208,16 +1367,17 @@ function cleanHangWord(w, lng) {
   return letters >= 2 && [...x].length <= 24 ? x : '';
 }
 function stickSVG(n, lost) {
+  const face = lost ? '<path d="M81 44l5 5M86 44l-5 5M94 44l5 5M99 44l-5 5" stroke-width="3"/><path d="M83 60q7-5 14 0" stroke-width="3"/>'
+    : '<circle cx="84" cy="47" r="2" fill="currentColor" stroke="none"/><circle cx="96" cy="47" r="2" fill="currentColor" stroke="none"/><path d="M84 59q6-5 12 0" stroke-width="3"/>';
   const parts = [
-    '<circle cx="60" cy="38" r="16"/>', '<line x1="60" y1="54" x2="60" y2="104"/>', '<line x1="60" y1="66" x2="36" y2="88"/>', '<line x1="60" y1="66" x2="84" y2="88"/>',
-    '<line x1="60" y1="104" x2="40" y2="140"/>', '<line x1="60" y1="104" x2="80" y2="140"/>',
-    lost ? '<path d="M50 30l6 6M56 30l-6 6M64 30l6 6M70 30l-6 6"/>' : '<circle cx="54" cy="34" r="1.5" fill="currentColor"/><circle cx="66" cy="34" r="1.5" fill="currentColor"/>',
-    '<path d="M51 47q9-7 18 0"/>'];
-  return `<svg viewBox="0 0 120 150" class="stick"><line x1="16" y1="145" x2="104" y2="145" class="ground"/>${parts.map((p, i) => `<g class="${i < n ? 'on' + (i === n - 1 ? ' new' : '') : 'off'}">${p}</g>`).join('')}</svg>`;
+    '<line x1="10" y1="144" x2="62" y2="144"/>', '<line x1="26" y1="144" x2="26" y2="8"/>', '<line x1="24" y1="8" x2="92" y2="8"/><line x1="26" y1="30" x2="48" y2="8"/>', '<line x1="90" y1="8" x2="90" y2="32"/>',
+    `<circle cx="90" cy="49" r="17"/>${face}`, '<line x1="90" y1="66" x2="90" y2="106"/>', '<line x1="90" y1="76" x2="72" y2="96"/>', '<line x1="90" y1="76" x2="108" y2="96"/>',
+    '<line x1="90" y1="106" x2="76" y2="136"/>', '<line x1="90" y1="106" x2="104" y2="136"/>'];
+  return `<svg viewBox="0 0 120 150" class="stick">${parts.map((p, i) => `<g class="${i < n ? 'on' + (i === n - 1 ? ' new' : '') : 'off'}">${p}</g>`).join('')}</svg>`;
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -1226,6 +1386,21 @@ function ensureLogos() {
     el.onload = res; el.onerror = () => { logosP = null; rej(new Error('logos')); }; document.head.appendChild(el);
   });
   return logosP;
+}
+let questionsP = null;
+function ensureQuestions() {
+  if (window.QUESTIONS) return Promise.resolve();
+  if (!questionsP) questionsP = new Promise((res, rej) => {
+    const el = document.createElement('script'); el.src = $('#questions-src').content;
+    el.onload = res; el.onerror = () => { questionsP = null; rej(new Error('questions')); }; document.head.appendChild(el);
+  });
+  return questionsP;
+}
+const fmtNum = (v) => Number(v).toLocaleString(lang === 'am' ? 'en-US' : 'de-DE', { maximumFractionDigits: 3 });
+function parseNum(str) {
+  let x = String(str).replace(/\s/g, '');
+  x = lang === 'am' ? x.replace(/,/g, '') : x.replace(/\./g, '').replace(',', '.');
+  const v = parseFloat(x); return isFinite(v) && v >= 0 ? Math.min(v, 1e13) : null;
 }
 // Markennamen vergleichen: Groß/klein, Akzente und Zeichen egal
 const normB = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9+]/g, '');
@@ -1466,6 +1641,7 @@ function showScreen(s) {
   $('#btn-home').classList.toggle('hidden', s === 'lang');
   $('#btn-phone').classList.toggle('hidden', !inRoom);
   $('#btn-sound').classList.toggle('hidden', !inRoom);
+  if (s !== 'game') $('#btn-stop').classList.add('hidden');
   $('#game-info').classList.toggle('hidden', s !== 'game');
   $('#logo').classList.toggle('hidden', s === 'game');
   if (s === 'menu') $('#menu-char').innerHTML = charEl(myChar, 110, true);
@@ -1513,6 +1689,13 @@ $('#btn-share').onclick = async () => {
   else { try { await navigator.clipboard.writeText(url); toast(t('copied')); } catch (e) { toast(url); } }
 };
 $('#btn-phone').onclick = () => voiceToggle();
+$('#btn-lobby-char').onclick = () => { renderCreator(); showScreen('creator'); };
+$('#btn-stop').onclick = () => {
+  const b = modal(`<h3>${t('abortTitle')}</h3><button class="btn primary" id="ab-skip">${t('skipRound')}</button><button class="btn" id="ab-end">${t('endGame')}</button><button class="btn" id="ab-no">${t('cancel')}</button>`);
+  b.querySelector('#ab-skip').onclick = () => { closeModal(); toHost({ t: 'skip' }); };
+  b.querySelector('#ab-end').onclick = () => { closeModal(); toHost({ t: 'lobby' }); };
+  b.querySelector('#ab-no').onclick = closeModal;
+};
 $('#btn-sound').onclick = () => { unlockAudio(); tick(660); setTimeout(() => tick(880), 150); toast(t('soundOn')); };
 $('#btn-home').onclick = async () => {
   if (view.inRoom) { if (!(await confirmBox(t('leave')))) return; joinSession++; sayBye(); await sleep(200); destroyNet(); history.replaceState(null, '', location.pathname); showScreen('menu'); return; }
