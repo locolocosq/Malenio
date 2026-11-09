@@ -235,7 +235,7 @@ function recordFor(maxSec, onLevel) {
   let stopFn;
   const promise = (async () => {
     const stream = await getMic(), ctx = ac();
-    const srcNode = ctx.createMediaStreamSource(stream), proc = ctx.createScriptProcessor(2048, 1, 1), mute = ctx.createGain();
+    const srcNode = ctx.createMediaStreamSource(stream), proc = ctx.createScriptProcessor(1024, 1, 1), mute = ctx.createGain();
     mute.gain.value = 0; srcNode.connect(proc); proc.connect(mute); mute.connect(ctx.destination);
     const chunks = []; let len = 0; const maxLen = Math.floor(maxSec * ctx.sampleRate);
     return await new Promise((resolve) => {
@@ -248,7 +248,7 @@ function recordFor(maxSec, onLevel) {
       stopFn = finish;
       proc.onaudioprocess = (e) => {
         const d = e.inputBuffer.getChannelData(0); const c = new Float32Array(d); chunks.push(c); len += c.length;
-        let m = 0; for (let i = 0; i < c.length; i += 8) m = Math.max(m, Math.abs(c[i])); onLevel && onLevel(m, len / ctx.sampleRate);
+        let m = 0; for (let i = 0; i < c.length; i += 8) m = Math.max(m, Math.abs(c[i])); onLevel && onLevel(m, len / ctx.sampleRate, c.length / ctx.sampleRate);
         if (len >= maxLen) finish();
       };
     });
@@ -675,15 +675,20 @@ const view = {
     });
     if (!alive()) return;
     { const h0 = $('#rec-hint'); if (h0) h0.textContent = '👀 ' + t('waitLine'); }
-    // Wenn der Zeiger die gestrichelte Linie erreicht: LOS!
-    setTimeout(() => { if (!alive()) return; const cd = $('#wave-cd'); if (cd) { cd.textContent = t('go'); cd.classList.add('go'); setTimeout(() => { cd.textContent = ''; cd.classList.remove('go'); }, 700); } tick(880); const h1 = $('#rec-hint'); if (h1) h1.textContent = '🎙️ ' + t('recording'); }, LEAD * 1000);
     tick(520);
     if (!micOk) { const h2 = $('#rec-hint'); if (h2) h2.textContent = t('micDenied'); toHost({ t: 'rec', round, score: 0, wav: null, sec: 0 }); return; }
     const sec = ref.buf.duration, total = LEAD + sec, N = 120, recPk = new Array(N).fill(0);
-    const t0 = performance.now();
-    let lastI = 0;
-    const rec = recordFor(total + 0.6, (lv, recSec) => {
-      const el = recSec; // Zeitpunkt im aufgenommenen Ton, nicht Ankunftszeit der Daten
+    // Alles läuft nach der Aufnahme-Uhr: Zeiger, LOS! und pinke Welle sind deckungsgleich
+    let lastI = 0, recNow = 0, lastPerf = performance.now(), losShown = false;
+    const showLos = () => {
+      losShown = true; tick(880);
+      const cd = $('#wave-cd'); if (cd) { cd.textContent = t('go'); cd.classList.add('go'); setTimeout(() => { cd.textContent = ''; cd.classList.remove('go'); }, 700); }
+      const h1 = $('#rec-hint'); if (h1) h1.textContent = '🎙️ ' + t('recording');
+    };
+    const rec = recordFor(total + 0.6, (lv, recSec, chunkSec) => {
+      recNow = recSec; lastPerf = performance.now();
+      if (!losShown && recSec >= LEAD) showLos();
+      const el = recSec - chunkSec / 2; // Mitte des gerade aufgenommenen Stücks
       if (el < LEAD) return; // im Vorlauf noch nichts zeichnen – erst ab der gelben Linie
       const i = Math.min(N - 1, Math.floor(el / total * N));
       if (lastI === 0) lastI = Math.floor(LEAD / total * N);
@@ -691,7 +696,7 @@ const view = {
       lastI = i + 1;
     });
     this.recorder = rec;
-    let raf = 0; const loop = () => { const c = $('#wave'); if (c) drawWave(c, ref.peaks, recPk, (performance.now() - t0) / 1000 / total, lf); if (this.recorder === rec) raf = requestAnimationFrame(loop); };
+    let raf = 0; const loop = () => { const c = $('#wave'); if (c) drawWave(c, ref.peaks, recPk, (recNow + Math.min(0.05, (performance.now() - lastPerf) / 1000)) / total, lf); if (this.recorder === rec) raf = requestAnimationFrame(loop); };
     loop();
     const res = await rec.promise; this.recorder = null; cancelAnimationFrame(raf);
     const c2 = $('#wave'); if (c2) drawWave(c2, ref.peaks, recPk, -1, lf);
