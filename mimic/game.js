@@ -678,7 +678,10 @@ const view = {
     const t0 = performance.now();
     let lastI = 0;
     const rec = recordFor(total + 0.6, (lv) => {
-      const i = Math.min(N - 1, Math.floor((performance.now() - t0) / 1000 / total * N));
+      const el = (performance.now() - t0) / 1000;
+      if (el < LEAD) return; // im Vorlauf noch nichts zeichnen – erst ab der gelben Linie
+      const i = Math.min(N - 1, Math.floor(el / total * N));
+      if (lastI === 0) lastI = Math.floor(LEAD / total * N);
       for (let k = lastI; k <= i; k++) recPk[k] = Math.max(recPk[k], Math.min(1, lv * 1.8)); // Lücken füllen
       lastI = i + 1;
     });
