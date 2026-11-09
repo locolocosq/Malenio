@@ -57,3 +57,16 @@ HTTPS ist dort automatisch an. Das braucht man fürs Mikrofon.
 - Der **Host muss die Seite offen lassen**. Schließt er sie oder wechselt er länger in eine andere App (z. B. WhatsApp), kann das Spiel für alle enden. Das Handy des Hosts am besten am Ladekabel lassen.
 - Es wird kein kostenpflichtiger TURN-Server benutzt. In seltenen Netzen (manche Firmen-WLANs, einige Mobilfunknetze) kommt deshalb keine direkte Verbindung zustande. Dann hilft meist ein anderes WLAN.
 - Lokal testen: `python3 -m http.server` im Ordner starten und `http://localhost:8000` öffnen.
+
+---
+
+# 🎤 Echo Party (Ordner `mimic/`)
+
+Ein zweites Spiel im selben Repo: Alle hören einen kurzen Ton (Tierstimme, Lachen, Ansage, Melodie …), jeder macht ihn mit der eigenen Stimme nach. Das Spiel vergleicht die Aufnahme automatisch mit dem Original (Tonhöhen-Verlauf, Lautstärke, Klangfarbe, Länge) und vergibt 0–100 Punkte, plus Bonus für Platz 1 und 2. Danach werden alle Aufnahmen vorgespielt, die Figur des Spielers tanzt und bewegt den Mund dazu.
+
+- Online: `https://locolocosq.github.io/Malenio/mimic/`
+- Bis 8 Spieler, Party-Code, Deutsch/Amharisch, 📞 Sprachchat, 🏠 zurück zum Menü.
+- Jeder gestaltet seine eigene Figur (Farbe, Augen, Mund, Kopf, Extra, Tanz).
+- **Ohne Konto, ohne Datenbank:** Alles läuft über das Gerät des Hosts (WebRTC, Peer-to-Peer). PeerJS wird nur zum ersten Finden genutzt, ein kostenloser TURN-Relay (Metered) sorgt für Verbindungen zwischen verschiedenen Netzen.
+- **Töne:** 103 kurze Töne unter **CC0** (gemeinfrei) von OpenGameArt.org, Quellen im Spiel unter „Quellen der Töne“ und in `mimic/sounds/credits.json`.
+- Bewertung: `mimic/score.js`. Neue Töne: MP3 + Eintrag in `credits.json`, dann `node tools/build-sounds.js && node tools/stamp.js`.

@@ -1,0 +1,1032 @@
+[
+ {
+  "id": "e001",
+  "de": "Katze 1",
+  "am": "ድመት 1",
+  "file": "e001.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "IgnasD",
+  "source": "https://opengameart.org/content/meow"
+ },
+ {
+  "id": "e002",
+  "de": "Katze 2",
+  "am": "ድመት 2",
+  "file": "e002.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "Kerzoven",
+  "source": "https://opengameart.org/content/cat-purr-meow"
+ },
+ {
+  "id": "e003",
+  "de": "Hund 1",
+  "am": "ውሻ 1",
+  "file": "e003.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "qubodup",
+  "source": "https://opengameart.org/content/dog-grunt"
+ },
+ {
+  "id": "e004",
+  "de": "Hund 2",
+  "am": "ውሻ 2",
+  "file": "e004.mp3",
+  "seconds": 2.1,
+  "license": "CC0",
+  "author": "HaelDB",
+  "source": "https://opengameart.org/content/dog-barking-mono"
+ },
+ {
+  "id": "e005",
+  "de": "Schaf",
+  "am": "በግ",
+  "file": "e005.mp3",
+  "seconds": 0.8,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/sheep-baa"
+ },
+ {
+  "id": "e006",
+  "de": "Esel",
+  "am": "አህያ",
+  "file": "e006.mp3",
+  "seconds": 1.7,
+  "license": "CC0",
+  "author": "StarNinjas",
+  "source": "https://opengameart.org/content/donkey-bray"
+ },
+ {
+  "id": "e007",
+  "de": "Pferd",
+  "am": "ፈረስ",
+  "file": "e007.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "EZduzziteh",
+  "source": "https://opengameart.org/content/horse-trotting"
+ },
+ {
+  "id": "e008",
+  "de": "Krähe 1",
+  "am": "ቁራ 1",
+  "file": "e008.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "zeroisnotnull",
+  "source": "https://opengameart.org/content/crow-caw"
+ },
+ {
+  "id": "e009",
+  "de": "Krähe 2",
+  "am": "ቁራ 2",
+  "file": "e009.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "IgnasD",
+  "source": "https://opengameart.org/content/crows-singing"
+ },
+ {
+  "id": "e010",
+  "de": "Möwe",
+  "am": "የባሕር ወፍ",
+  "file": "e010.mp3",
+  "seconds": 3.9,
+  "license": "CC0",
+  "author": "Rango Mango",
+  "source": "https://opengameart.org/content/solo-seagull-sound-effects"
+ },
+ {
+  "id": "e011",
+  "de": "Vogel 1",
+  "am": "ወፍ 1",
+  "file": "e011.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "isaiah658",
+  "source": "https://opengameart.org/content/ambient-bird-sounds"
+ },
+ {
+  "id": "e012",
+  "de": "Vogel 2",
+  "am": "ወፍ 2",
+  "file": "e012.mp3",
+  "seconds": 1.9,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/peacock-chirp"
+ },
+ {
+  "id": "e013",
+  "de": "Grille 1",
+  "am": "ፌንጣ 1",
+  "file": "e013.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "Wolfgang_",
+  "source": "https://opengameart.org/content/crickets-ambient-noise-loopable"
+ },
+ {
+  "id": "e014",
+  "de": "Grille 2",
+  "am": "ፌንጣ 2",
+  "file": "e014.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "syncopika",
+  "source": "https://opengameart.org/content/cricket-sounds"
+ },
+ {
+  "id": "e015",
+  "de": "Kamel",
+  "am": "ግመል",
+  "file": "e015.mp3",
+  "seconds": 1.8,
+  "license": "CC0",
+  "author": "CaveboyTup",
+  "source": "https://opengameart.org/content/fantasy-desert-ride-able-camel"
+ },
+ {
+  "id": "e016",
+  "de": "Lachen",
+  "am": "ሳቅ",
+  "file": "e016.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "Supergeek",
+  "source": "https://opengameart.org/content/do-you-remember-laughter"
+ },
+ {
+  "id": "e017",
+  "de": "Niesen 1",
+  "am": "ማስነጠስ 1",
+  "file": "e017.mp3",
+  "seconds": 1.9,
+  "license": "CC0",
+  "author": "qubodup",
+  "source": "https://opengameart.org/content/genuine-sneeze-sound"
+ },
+ {
+  "id": "e018",
+  "de": "Niesen 2",
+  "am": "ማስነጠስ 2",
+  "file": "e018.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "zarokima",
+  "source": "https://opengameart.org/content/sneeze"
+ },
+ {
+  "id": "e019",
+  "de": "Pfeifen",
+  "am": "ማፏጨት",
+  "file": "e019.mp3",
+  "seconds": 2.1,
+  "license": "CC0",
+  "author": "bart",
+  "source": "https://opengameart.org/content/steam-whistle"
+ },
+ {
+  "id": "e020",
+  "de": "Boing 1",
+  "am": "ቦይንግ 1",
+  "file": "e020.mp3",
+  "seconds": 3.7,
+  "license": "CC0",
+  "author": "Aeva",
+  "source": "https://opengameart.org/content/boing"
+ },
+ {
+  "id": "e021",
+  "de": "Boing 2",
+  "am": "ቦይንግ 2",
+  "file": "e021.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "EZduzziteh",
+  "source": "https://opengameart.org/content/boings"
+ },
+ {
+  "id": "e022",
+  "de": "Trompete",
+  "am": "መለከት",
+  "file": "e022.mp3",
+  "seconds": 1.2,
+  "license": "CC0",
+  "author": "0new4y",
+  "source": "https://opengameart.org/content/game-over-trumpet-sfx"
+ },
+ {
+  "id": "e023",
+  "de": "Hupe",
+  "am": "ጡሩምባ",
+  "file": "e023.mp3",
+  "seconds": 0.8,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/bicycle-horn"
+ },
+ {
+  "id": "e024",
+  "de": "Fahrradklingel",
+  "am": "የብስክሌት ደወል",
+  "file": "e024.mp3",
+  "seconds": 1.4,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/rotating-bicycle-bell"
+ },
+ {
+  "id": "e025",
+  "de": "Telefon",
+  "am": "ስልክ",
+  "file": "e025.mp3",
+  "seconds": 4.3,
+  "license": "CC0",
+  "author": "Dub",
+  "source": "https://opengameart.org/content/doorbell-ring"
+ },
+ {
+  "id": "e026",
+  "de": "Türklingel",
+  "am": "የበር ደወል",
+  "file": "e026.mp3",
+  "seconds": 1.2,
+  "license": "CC0",
+  "author": "frosty ham",
+  "source": "https://opengameart.org/content/doorbell"
+ },
+ {
+  "id": "e027",
+  "de": "Plopp",
+  "am": "ፖፕ",
+  "file": "e027.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "EZduzziteh",
+  "source": "https://opengameart.org/content/a-slide-pop-sound"
+ },
+ {
+  "id": "e028",
+  "de": "Piep",
+  "am": "ቢፕ",
+  "file": "e028.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "Test User",
+  "source": "https://opengameart.org/content/beep-sound"
+ },
+ {
+  "id": "e029",
+  "de": "Roboterstimme 1",
+  "am": "የሮቦት ድምፅ 1",
+  "file": "e029.mp3",
+  "seconds": 2.4,
+  "license": "CC0",
+  "author": "inkedgfx",
+  "source": "https://opengameart.org/content/wavw-2-incomming-robot-voice"
+ },
+ {
+  "id": "e030",
+  "de": "Roboterstimme 2",
+  "am": "የሮቦት ድምፅ 2",
+  "file": "e030.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "SomeUnusualGames",
+  "source": "https://opengameart.org/content/robot-voice"
+ },
+ {
+  "id": "e031",
+  "de": "Ding 1",
+  "am": "ዲንግ 1",
+  "file": "e031.mp3",
+  "seconds": 2.1,
+  "license": "CC0",
+  "author": "PWL",
+  "source": "https://opengameart.org/content/bell-dingschimes"
+ },
+ {
+  "id": "e032",
+  "de": "Ding 2",
+  "am": "ዲንግ 2",
+  "file": "e032.mp3",
+  "seconds": 0.9,
+  "license": "CC0",
+  "author": "fvcalderan",
+  "source": "https://opengameart.org/content/elevator-ding"
+ },
+ {
+  "id": "e033",
+  "de": "Fanfare 1",
+  "am": "የድል ዜማ 1",
+  "file": "e033.mp3",
+  "seconds": 3.2,
+  "license": "CC0",
+  "author": "Haley Halcyon",
+  "source": "https://opengameart.org/content/8bit-fanfare-jingle-the-lick"
+ },
+ {
+  "id": "e034",
+  "de": "Fanfare 2",
+  "am": "የድል ዜማ 2",
+  "file": "e034.mp3",
+  "seconds": 5.0,
+  "license": "CC0",
+  "author": "Zane Little Music",
+  "source": "https://opengameart.org/content/hyper-ultra-fanfare"
+ },
+ {
+  "id": "e035",
+  "de": "Melodie 1",
+  "am": "ዜማ 1",
+  "file": "e035.mp3",
+  "seconds": 3.8,
+  "license": "CC0",
+  "author": "Fupi",
+  "source": "https://opengameart.org/content/win-jingle"
+ },
+ {
+  "id": "e036",
+  "de": "Maus nachgemacht 1",
+  "am": "የአይጥ ድምፅ 1",
+  "file": "e036.mp3",
+  "seconds": 1.0,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/mouse-imitation"
+ },
+ {
+  "id": "e037",
+  "de": "Maus nachgemacht 2",
+  "am": "የአይጥ ድምፅ 2",
+  "file": "e037.mp3",
+  "seconds": 1.0,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/mouse-imitation"
+ },
+ {
+  "id": "e038",
+  "de": "Wachtel nachgemacht 1",
+  "am": "የድርጭት ድምፅ 1",
+  "file": "e038.mp3",
+  "seconds": 1.5,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/quail-imitation"
+ },
+ {
+  "id": "e039",
+  "de": "Wachtel nachgemacht 2",
+  "am": "የድርጭት ድምፅ 2",
+  "file": "e039.mp3",
+  "seconds": 1.5,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/quail-imitation"
+ },
+ {
+  "id": "e040",
+  "de": "Geier nachgemacht 1",
+  "am": "የአሞራ ድምፅ 1",
+  "file": "e040.mp3",
+  "seconds": 1.3,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/vulture-imitation"
+ },
+ {
+  "id": "e041",
+  "de": "Geier nachgemacht 2",
+  "am": "የአሞራ ድምፅ 2",
+  "file": "e041.mp3",
+  "seconds": 1.3,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/vulture-imitation"
+ },
+ {
+  "id": "e042",
+  "de": "Kätzchen 1",
+  "am": "ድመት ግልገል 1",
+  "file": "e042.mp3",
+  "seconds": 1.1,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/kitten-mew"
+ },
+ {
+  "id": "e043",
+  "de": "Kätzchen 2",
+  "am": "ድመት ግልገል 2",
+  "file": "e043.mp3",
+  "seconds": 1.1,
+  "license": "CC0",
+  "author": "AntumDeluge",
+  "source": "https://opengameart.org/content/kitten-mew"
+ },
+ {
+  "id": "e044",
+  "de": "Lämmchen",
+  "am": "ጠቦት",
+  "file": "e044.mp3",
+  "seconds": 1.0,
+  "license": "CC0",
+  "author": "Technopeasant",
+  "source": "https://opengameart.org/content/baby-animals-sounds-pack"
+ },
+ {
+  "id": "e045",
+  "de": "Zicklein",
+  "am": "የፍየል ግልገል",
+  "file": "e045.mp3",
+  "seconds": 0.9,
+  "license": "CC0",
+  "author": "Technopeasant",
+  "source": "https://opengameart.org/content/baby-animals-sounds-pack"
+ },
+ {
+  "id": "e046",
+  "de": "Kätzchen 3",
+  "am": "ድመት ግልገል 3",
+  "file": "e046.mp3",
+  "seconds": 0.9,
+  "license": "CC0",
+  "author": "Technopeasant",
+  "source": "https://opengameart.org/content/baby-animals-sounds-pack"
+ },
+ {
+  "id": "e047",
+  "de": "Kälbchen",
+  "am": "ጥጃ",
+  "file": "e047.mp3",
+  "seconds": 1.5,
+  "license": "CC0",
+  "author": "Technopeasant",
+  "source": "https://opengameart.org/content/baby-animals-sounds-pack"
+ },
+ {
+  "id": "e048",
+  "de": "Tierbaby",
+  "am": "የእንስሳ ግልገል",
+  "file": "e048.mp3",
+  "seconds": 1.5,
+  "license": "CC0",
+  "author": "Technopeasant",
+  "source": "https://opengameart.org/content/baby-animals-sounds-pack"
+ },
+ {
+  "id": "e049",
+  "de": "Küken",
+  "am": "ጫጩት",
+  "file": "e049.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "Technopeasant",
+  "source": "https://opengameart.org/content/baby-animals-sounds-pack"
+ },
+ {
+  "id": "e050",
+  "de": "Ferkel",
+  "am": "የአሳማ ግልገል",
+  "file": "e050.mp3",
+  "seconds": 1.3,
+  "license": "CC0",
+  "author": "Technopeasant",
+  "source": "https://opengameart.org/content/baby-animals-sounds-pack"
+ },
+ {
+  "id": "e051",
+  "de": "Kichern",
+  "am": "ሳቅ ቀስ ብሎ",
+  "file": "e051.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "Nocturnal_Vanguard",
+  "source": "https://opengameart.org/content/group-giggling"
+ },
+ {
+  "id": "e052",
+  "de": "Au yeah",
+  "am": "ኦ የስ",
+  "file": "e052.mp3",
+  "seconds": 1.9,
+  "license": "CC0",
+  "author": "IgnasD",
+  "source": "https://opengameart.org/content/au-yeah"
+ },
+ {
+  "id": "e053",
+  "de": "Begrüßung (Russisch) 1",
+  "am": "ሰላምታ (ሩስያኛ) 1",
+  "file": "e053.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "EmoPreben",
+  "source": "https://opengameart.org/content/greeting-sounds-by-emopreben"
+ },
+ {
+  "id": "e054",
+  "de": "Begrüßung (Russisch) 2",
+  "am": "ሰላምታ (ሩስያኛ) 2",
+  "file": "e054.mp3",
+  "seconds": 0.8,
+  "license": "CC0",
+  "author": "EmoPreben",
+  "source": "https://opengameart.org/content/greeting-sounds-by-emopreben"
+ },
+ {
+  "id": "e055",
+  "de": "Begrüßung (Russisch) 3",
+  "am": "ሰላምታ (ሩስያኛ) 3",
+  "file": "e055.mp3",
+  "seconds": 1.2,
+  "license": "CC0",
+  "author": "EmoPreben",
+  "source": "https://opengameart.org/content/greeting-sounds-by-emopreben"
+ },
+ {
+  "id": "e056",
+  "de": "Begrüßung (Russisch) 4",
+  "am": "ሰላምታ (ሩስያኛ) 4",
+  "file": "e056.mp3",
+  "seconds": 1.3,
+  "license": "CC0",
+  "author": "EmoPreben",
+  "source": "https://opengameart.org/content/greeting-sounds-by-emopreben"
+ },
+ {
+  "id": "e057",
+  "de": "Begrüßung 1",
+  "am": "ሰላምታ 1",
+  "file": "e057.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "EmoPreben",
+  "source": "https://opengameart.org/content/greeting-sounds-by-emopreben"
+ },
+ {
+  "id": "e058",
+  "de": "Begrüßung 2",
+  "am": "ሰላምታ 2",
+  "file": "e058.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "EmoPreben",
+  "source": "https://opengameart.org/content/greeting-sounds-by-emopreben"
+ },
+ {
+  "id": "e059",
+  "de": "Kinderstimme",
+  "am": "የልጅ ድምፅ",
+  "file": "e059.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "Yaroslav_Novikov",
+  "source": "https://opengameart.org/content/children-voices"
+ },
+ {
+  "id": "e060",
+  "de": "Ansage 1",
+  "am": "ማስታወቂያ 1",
+  "file": "e060.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e061",
+  "de": "Ansage 2",
+  "am": "ማስታወቂያ 2",
+  "file": "e061.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e062",
+  "de": "Ansage 3",
+  "am": "ማስታወቂያ 3",
+  "file": "e062.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e063",
+  "de": "Ansage: „Congratulations“",
+  "am": "ማስታወቂያ፦ „Congratulations“",
+  "file": "e063.mp3",
+  "seconds": 1.3,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e064",
+  "de": "Ansage: „Go“",
+  "am": "ማስታወቂያ፦ „Go“",
+  "file": "e064.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e065",
+  "de": "Ansage: „Level Up“ 1",
+  "am": "ማስታወቂያ፦ „Level Up“ 1",
+  "file": "e065.mp3",
+  "seconds": 0.8,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e066",
+  "de": "Ansage: „Objective Achieved“ 1",
+  "am": "ማስታወቂያ፦ „Objective Achieved“ 1",
+  "file": "e066.mp3",
+  "seconds": 1.3,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e067",
+  "de": "Ansage: „Set“ 1",
+  "am": "ማስታወቂያ፦ „Set“ 1",
+  "file": "e067.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e068",
+  "de": "Ansage: „You Win“",
+  "am": "ማስታወቂያ፦ „You Win“",
+  "file": "e068.mp3",
+  "seconds": 0.9,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e069",
+  "de": "Ansage 4",
+  "am": "ማስታወቂያ 4",
+  "file": "e069.mp3",
+  "seconds": 0.8,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e070",
+  "de": "Ansage 5",
+  "am": "ማስታወቂያ 5",
+  "file": "e070.mp3",
+  "seconds": 0.9,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e071",
+  "de": "Ansage: „Correct“",
+  "am": "ማስታወቂያ፦ „Correct“",
+  "file": "e071.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e072",
+  "de": "Ansage: „Hold“",
+  "am": "ማስታወቂያ፦ „Hold“",
+  "file": "e072.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e073",
+  "de": "Ansage: „Level Up“ 2",
+  "am": "ማስታወቂያ፦ „Level Up“ 2",
+  "file": "e073.mp3",
+  "seconds": 0.8,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e074",
+  "de": "Ansage: „Objective Achieved“ 2",
+  "am": "ማስታወቂያ፦ „Objective Achieved“ 2",
+  "file": "e074.mp3",
+  "seconds": 1.4,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e075",
+  "de": "Ansage: „Set“ 2",
+  "am": "ማስታወቂያ፦ „Set“ 2",
+  "file": "e075.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/voiceover-pack-40-lines"
+ },
+ {
+  "id": "e076",
+  "de": "Feenstimme",
+  "am": "የተረት ድምፅ",
+  "file": "e076.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "freestockimages",
+  "source": "https://opengameart.org/content/pixie-voice-saying-game-over"
+ },
+ {
+  "id": "e077",
+  "de": "Roboter",
+  "am": "ሮቦት",
+  "file": "e077.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "Cough-E",
+  "source": "https://opengameart.org/content/robot-voice-pack"
+ },
+ {
+  "id": "e078",
+  "de": "Countdown 1",
+  "am": "ቆጠራ 1",
+  "file": "e078.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "TheStaticTurtle",
+  "source": "https://opengameart.org/content/countdown-voiceover-robotic"
+ },
+ {
+  "id": "e079",
+  "de": "Countdown 2",
+  "am": "ቆጠራ 2",
+  "file": "e079.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "TheStaticTurtle",
+  "source": "https://opengameart.org/content/countdown-voiceover-robotic"
+ },
+ {
+  "id": "e080",
+  "de": "Melodie 2",
+  "am": "ዜማ 2",
+  "file": "e080.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e081",
+  "de": "Melodie 3",
+  "am": "ዜማ 3",
+  "file": "e081.mp3",
+  "seconds": 0.4,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e082",
+  "de": "Melodie 4",
+  "am": "ዜማ 4",
+  "file": "e082.mp3",
+  "seconds": 0.8,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e083",
+  "de": "Melodie 5",
+  "am": "ዜማ 5",
+  "file": "e083.mp3",
+  "seconds": 1.1,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e084",
+  "de": "Melodie 6",
+  "am": "ዜማ 6",
+  "file": "e084.mp3",
+  "seconds": 1.0,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e085",
+  "de": "Melodie 7",
+  "am": "ዜማ 7",
+  "file": "e085.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e086",
+  "de": "Melodie 8",
+  "am": "ዜማ 8",
+  "file": "e086.mp3",
+  "seconds": 1.0,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e087",
+  "de": "Melodie 9",
+  "am": "ዜማ 9",
+  "file": "e087.mp3",
+  "seconds": 1.1,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e088",
+  "de": "Melodie 10",
+  "am": "ዜማ 10",
+  "file": "e088.mp3",
+  "seconds": 0.4,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e089",
+  "de": "Melodie 11",
+  "am": "ዜማ 11",
+  "file": "e089.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e090",
+  "de": "Melodie 12",
+  "am": "ዜማ 12",
+  "file": "e090.mp3",
+  "seconds": 1.0,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e091",
+  "de": "Melodie 13",
+  "am": "ዜማ 13",
+  "file": "e091.mp3",
+  "seconds": 1.0,
+  "license": "CC0",
+  "author": "Kenney",
+  "source": "https://opengameart.org/content/85-short-music-jingles"
+ },
+ {
+  "id": "e092",
+  "de": "Komischer Ton 1",
+  "am": "እንግዳ ድምፅ 1",
+  "file": "e092.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/30-weird-cc0-sfx"
+ },
+ {
+  "id": "e093",
+  "de": "Komischer Ton 2",
+  "am": "እንግዳ ድምፅ 2",
+  "file": "e093.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/30-weird-cc0-sfx"
+ },
+ {
+  "id": "e094",
+  "de": "Komischer Ton 3",
+  "am": "እንግዳ ድምፅ 3",
+  "file": "e094.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/30-weird-cc0-sfx"
+ },
+ {
+  "id": "e095",
+  "de": "Komischer Ton 4",
+  "am": "እንግዳ ድምፅ 4",
+  "file": "e095.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/30-weird-cc0-sfx"
+ },
+ {
+  "id": "e096",
+  "de": "Komischer Ton 5",
+  "am": "እንግዳ ድምፅ 5",
+  "file": "e096.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/30-weird-cc0-sfx"
+ },
+ {
+  "id": "e097",
+  "de": "Komischer Ton 6",
+  "am": "እንግዳ ድምፅ 6",
+  "file": "e097.mp3",
+  "seconds": 0.6,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/30-weird-cc0-sfx"
+ },
+ {
+  "id": "e098",
+  "de": "Glocke",
+  "am": "ደወል",
+  "file": "e098.mp3",
+  "seconds": 1.4,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/100-cc0-sfx"
+ },
+ {
+  "id": "e099",
+  "de": "Tür knallt zu",
+  "am": "በር ሲዘጋ",
+  "file": "e099.mp3",
+  "seconds": 0.5,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/100-cc0-sfx"
+ },
+ {
+  "id": "e100",
+  "de": "Metallklang",
+  "am": "የብረት ድምፅ",
+  "file": "e100.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/100-cc0-sfx"
+ },
+ {
+  "id": "e101",
+  "de": "Topfdeckel",
+  "am": "የድስት ክዳን",
+  "file": "e101.mp3",
+  "seconds": 0.4,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/100-cc0-sfx"
+ },
+ {
+  "id": "e102",
+  "de": "Platsch",
+  "am": "ፕላሽ",
+  "file": "e102.mp3",
+  "seconds": 0.7,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/100-cc0-sfx"
+ },
+ {
+  "id": "e103",
+  "de": "Klospülung",
+  "am": "የሽንት ቤት ውሃ",
+  "file": "e103.mp3",
+  "seconds": 5,
+  "license": "CC0",
+  "author": "rubberduck",
+  "source": "https://opengameart.org/content/100-cc0-sfx"
+ }
+]
