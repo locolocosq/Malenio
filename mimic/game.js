@@ -194,7 +194,7 @@ async function loadSound(i) {
 // spielt einen AudioBuffer; onLevel(0..1) wird ca. 30x pro Sekunde aufgerufen (für den Mund)
 let playing = null;
 function stopPlay() { if (playing) { try { playing.src.stop(); } catch (e) {} playing.done(); playing = null; } }
-function playBuffer(buf, onLevel) {
+function playBuffer(buf, onLevel, when) {
   stopPlay();
   return new Promise((resolve) => {
     const ctx = ac(), src = ctx.createBufferSource(), an = ctx.createAnalyser();
@@ -204,7 +204,7 @@ function playBuffer(buf, onLevel) {
     const done = () => { if (finished) return; finished = true; cancelAnimationFrame(raf); onLevel && onLevel(0); resolve(); };
     playing = { src, done };
     src.onended = () => { if (playing && playing.src === src) playing = null; done(); };
-    src.start(); if (onLevel) loop();
+    src.start(when || 0); if (onLevel) loop();
   });
 }
 function wavToBuffer(ab) { return new Promise((res, rej) => ac().decodeAudioData(ab.slice(0), res, rej)); }
@@ -248,7 +248,7 @@ function recordFor(maxSec, onLevel) {
       stopFn = finish;
       proc.onaudioprocess = (e) => {
         const d = e.inputBuffer.getChannelData(0); const c = new Float32Array(d); chunks.push(c); len += c.length;
-        let m = 0; for (let i = 0; i < c.length; i += 8) m = Math.max(m, Math.abs(c[i])); onLevel && onLevel(m);
+        let m = 0; for (let i = 0; i < c.length; i += 8) m = Math.max(m, Math.abs(c[i])); onLevel && onLevel(m, len / ctx.sampleRate);
         if (len >= maxLen) finish();
       };
     });
@@ -640,10 +640,12 @@ const view = {
   // spielt einen Ton und lässt den roten Strich über die Wellenform laufen
   playWithHead(buf, refPk, recPk, getCanvas, onLevel, lead) {
     lead = lead || 0; const total = lead + buf.duration, lf = lead / total;
-    const t0 = performance.now(); let raf = 0;
-    const loop = () => { const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, (performance.now() - t0) / 1000 / total, lf); raf = requestAnimationFrame(loop); };
+    const ctx = ac(), start = ctx.currentTime + 0.08;           // Zeitpunkt, an dem der Zeiger links startet
+    const lat = ctx.outputLatency || ctx.baseLatency || 0;      // Verzögerung bis der Ton aus dem Lautsprecher kommt
+    let raf = 0;
+    const loop = () => { const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, Math.max(0, ctx.currentTime - start - lat) / total, lf); raf = requestAnimationFrame(loop); };
     loop();
-    return sleep(lead * 1000).then(() => playBuffer(buf, onLevel)).then(() => { cancelAnimationFrame(raf); const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, -1, lf); });
+    return playBuffer(buf, onLevel, start + lead).then(() => { cancelAnimationFrame(raf); const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, -1, lf); });
   },
   updateDone() {
     const el = $('#done-list'); const st = this.state; if (!el || !st) return;
@@ -680,8 +682,8 @@ const view = {
     const sec = ref.buf.duration, total = LEAD + sec, N = 120, recPk = new Array(N).fill(0);
     const t0 = performance.now();
     let lastI = 0;
-    const rec = recordFor(total + 0.6, (lv) => {
-      const el = (performance.now() - t0) / 1000;
+    const rec = recordFor(total + 0.6, (lv, recSec) => {
+      const el = recSec; // Zeitpunkt im aufgenommenen Ton, nicht Ankunftszeit der Daten
       if (el < LEAD) return; // im Vorlauf noch nichts zeichnen – erst ab der gelben Linie
       const i = Math.min(N - 1, Math.floor(el / total * N));
       if (lastI === 0) lastI = Math.floor(LEAD / total * N);
