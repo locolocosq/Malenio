@@ -23,7 +23,8 @@ const DRAW_TIME = 60;       // Sekunden zum Malen
 const VOTE_TIME = 12;       // Sekunden zum Bewerten eines Bildes
 const CHOOSE_TIME = 12;     // Malen & Raten: Zeit, ein Wort auszuwählen
 const GUESS_TIME = 80;      // Malen & Raten: Zeit zum Malen/Raten
-const LOGO_TIME = 20;       // Logo-Quiz: so lange dauert es, bis das Logo ganz zu sehen ist
+const LOGO_TIME = 40;       // Logo-Quiz: so lange dauert es, bis das Logo ganz zu sehen ist
+const LOGO_GRID = 10;       // Logo-Quiz: 10×10 Kärtchen decken das Logo zu
 const LOGO_POINTS = [100, 80, 65, 50, 40, 30, 25, 20];
 const EMOJIS = ['😆', '😂', '😍', '🔥', '👍', '😳', '😢', '👎'];
 const WORDS = window.WORDS || [];
@@ -780,7 +781,7 @@ const view = {
         <div class="vlist">${[...st.players].sort((a, b) => (st.gains[b.id] || 0) - (st.gains[a.id] || 0)).map((x) => { const pk = st.picks && st.picks[x.id];
           return `<div class="vline">${charEl(x.char, 26, false)}<span class="vn">${esc(x.name)}</span><span class="vp ${pk ? (pk.ok ? 'ok' : 'bad') : ''}">${pk ? (pk.ok ? '✅ ' : '❌ ') + esc(pk.name) : '⏳ ' + t('noPick')}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
       try { await ensureLogos(); } catch (e) { return; }
-      const cv = $('#lcv'); if (cv && this.state.phase === 'results') { drawLogo(cv, st.logoIdx, 1); $('#logo-name').textContent = LOGOS[st.logoIdx][0]; }
+      const cv = $('#lcv'); if (cv && this.state.phase === 'results') { drawLogo(cv, st.logoIdx, 1, 0); $('#logo-name').textContent = LOGOS[st.logoIdx][0]; }
     } else if (st.phase === 'results') {
       const sorted = [...st.players].sort((a, b) => b.score - a.score);
       stage.innerHTML = scoreCards(st, null, true) + `<div class="floor"><div class="speaker-box left">🔊</div><div class="speaker-box right">🔊</div>
@@ -1026,7 +1027,7 @@ const view = {
     if (!alive()) return;
     const ld = $('#logo-load'); if (ld) ld.remove();
     const cv = $('#lcv'), idx = st.logoIdx;
-    const loop = () => { if (!alive() || !cv.isConnected) return; drawLogo(cv, idx, 1 - (this.deadlineLocal - Date.now()) / (LOGO_TIME * 1000)); requestAnimationFrame(loop); };
+    const loop = () => { if (!alive() || !cv.isConnected) return; drawLogo(cv, idx, 1 - (this.deadlineLocal - Date.now()) / (LOGO_TIME * 1000), idx * 31 + round); requestAnimationFrame(loop); };
     loop();
     const pick = $('#logo-pick');
     const showPicked = () => { pick.innerHTML = `<div class="picked">${t('youPicked')} <b>${esc(this.myPick.name)}</b> 🔒</div>`; };
@@ -1101,7 +1102,7 @@ function applyOp(strokes, o) {
   else if (o.o === 'x') strokes.length = 0;
 }
 // Logo zeichnen: f = 0 (ganz grob verpixelt) … 1 (ganz scharf)
-function drawLogo(cv, idx, f) {
+function drawLogo(cv, idx, f, seed) {
   const L = window.LOGOS && LOGOS[idx]; if (!L) return;
   const W = cv.width, ctx = cv.getContext('2d');
   if (cv._idx !== idx) {
@@ -1110,14 +1111,26 @@ function drawLogo(cv, idx, f) {
     c.fillStyle = lum > 0.8 ? '#2b2250' : '#ffffff'; c.fillRect(0, 0, W, W);
     const pad = W * 0.16, sc = (W - 2 * pad) / 24; c.translate(pad, pad); c.scale(sc, sc);
     c.fillStyle = '#' + L[1]; try { c.fill(new Path2D(L[2])); } catch (e) {}
-    cv._base = b; cv._idx = idx; cv._small = document.createElement('canvas');
+    cv._base = b; cv._idx = idx;
   }
-  ctx.imageSmoothingEnabled = true;
-  if (f >= 0.995) { ctx.drawImage(cv._base, 0, 0); return; }
-  const cells = Math.max(3, Math.round(3 * Math.pow(W / 3 / 1.2, Math.pow(clamp(f, 0, 1), 1.25))));
-  const sm = cv._small; sm.width = sm.height = cells;
-  const sc = sm.getContext('2d'); sc.imageSmoothingEnabled = true; sc.drawImage(cv._base, 0, 0, cells, cells);
-  ctx.imageSmoothingEnabled = false; ctx.drawImage(sm, 0, 0, W, W);
+  // Kärtchen öffnen sich nacheinander in zufälliger (auf allen Handys gleicher) Reihenfolge
+  if (cv._seed !== seed) {
+    let x = (seed * 2654435761) >>> 0; const r = () => ((x = (x * 1664525 + 1013904223) >>> 0) / 4294967296);
+    const ord = [...Array(LOGO_GRID * LOGO_GRID).keys()];
+    for (let i = ord.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [ord[i], ord[j]] = [ord[j], ord[i]]; }
+    cv._ord = ord; cv._seed = seed;
+  }
+  ctx.drawImage(cv._base, 0, 0);
+  const N = LOGO_GRID * LOGO_GRID, open = clamp(f, 0, 1) * N, ts = W / LOGO_GRID;
+  ctx.font = `900 ${Math.round(ts * 0.5)}px Nunito, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  cv._ord.forEach((cell, k) => {
+    const a = clamp(1 - (open - k), 0, 1); if (a <= 0) return;   // jedes Kärtchen blendet kurz aus
+    const cx = (cell % LOGO_GRID) * ts, cy = Math.floor(cell / LOGO_GRID) * ts;
+    ctx.globalAlpha = a; ctx.fillStyle = (cell + Math.floor(cell / LOGO_GRID)) % 2 ? '#6c3ff0' : '#7f55f5';
+    ctx.fillRect(cx, cy, ts + 0.5, ts + 0.5);
+    ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillText('?', cx + ts / 2, cy + ts / 2 + 1);
+  });
+  ctx.globalAlpha = 1;
 }
 function brandMatches(q) {
   const n = normB(q); if (!n) return [];
