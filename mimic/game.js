@@ -15,7 +15,6 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const PREFIX = 'echoparty-v1-';
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const MAX_PLAYERS = 8;
-const RECORD_TIME = 20;      // Sekunden zum Aufnehmen
 const RESULT_TIME = 7;
 const TURN_USER = '44a0ba51e09545086b4b4ce3', TURN_PASS = 'xA+tBgw5yXc5eCSK';
 const ICE = { iceServers: [
@@ -46,7 +45,7 @@ const T = {
     enterName: 'Bitte gib einen Namen ein.', enterCode: 'Bitte gib den 5-stelligen Code ein.', micDenied: 'Kein Zugriff aufs Mikrofon – bitte erlauben.',
     voiceOn: 'Telefon an – ihr könnt reden', voiceOff: 'Telefon aus', joined: '{name} ist da!', left: '{name} ist gegangen', reconnecting: 'Verbindung weg – verbinde neu…',
     notEnough: 'Zu wenige Spieler – zurück zur Lobby.', you: 'du', creditsTitle: 'Quellen der Töne (Wikimedia Commons, freie Lizenzen)', close: 'Schließen',
-    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…',
+    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
@@ -63,7 +62,7 @@ const T = {
     enterName: 'እባክዎ ስም ያስገቡ።', enterCode: 'እባክዎ ባለ 5 ፊደል ኮዱን ያስገቡ።', micDenied: 'ማይክሮፎን አልተፈቀደም – እባክዎ ይፍቀዱ።',
     voiceOn: 'ስልኩ በርቷል – መነጋገር ትችላላችሁ', voiceOff: 'ስልኩ ጠፍቷል', joined: '{name} መጣ!', left: '{name} ወጣ', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…',
     notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።', you: 'እርስዎ', creditsTitle: 'የድምፆቹ ምንጮች (Wikimedia Commons፣ ነፃ ፈቃድ)', close: 'ዝጋ',
-    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…',
+    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -170,7 +169,7 @@ async function loadSound(i) {
     const ab = await r.arrayBuffer();
     const buf = await new Promise((res, rej) => ac().decodeAudioData(ab, res, rej));
     const ch = buf.getChannelData(0);
-    return { buf, feat: EchoScore.features(ch, buf.sampleRate) };
+    return { buf, feat: EchoScore.features(ch, buf.sampleRate), peaks: peaks(ch, 100) };
   })();
   bufCache.set(i, p);
   p.catch(() => bufCache.delete(i));
@@ -415,7 +414,7 @@ const host = {
     let i = rnd(SOUNDS.length); for (let k = 0; k < 60 && this.used.has(i); k++) i = rnd(SOUNDS.length);
     this.used.add(i); this.soundIdx = i; this.recs = new Map(); this.gains = {}; this.showOrder = []; this.showIdx = 0;
     const sec = (SOUNDS[i] && SOUNDS[i].seconds) || 3;
-    this.setPhase('listen', sec * 2 + 3.5, () => this.setPhase('record', RECORD_TIME, () => this.startShow()));
+    this.setPhase('listen', sec * 2 + 3.5, () => this.setPhase('record', 3 * 0.8 + sec + 0.6 + 6, () => this.startShow()));
   },
   startShow() {
     this.stop();
@@ -426,7 +425,7 @@ const host = {
   showStep() {
     if (this.showIdx >= this.showOrder.length) { this.finishRound(); return; }
     const r = this.recs.get(this.showOrder[this.showIdx]);
-    const sec = r ? clamp(r.sec, 0.5, 8) + 3 : 2.5;
+    const sec = r && r.wav ? clamp(r.sec, 0.5, 8) + 3.8 : 2.5;
     this.setPhase('show', sec, () => { this.showIdx++; this.showStep(); });
   },
   finishRound() {
@@ -444,8 +443,8 @@ const host = {
 // ------------------------------------------------------------------ ANZEIGE
 const view = {
   inRoom: false, state: null, deadlineLocal: 0, tick: null, recs: new Map(), recRound: -1,
-  lastKey: '', myRec: null, sentRound: -1, recorder: null, listenRound: -1,
-  reset() { this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.sentRound = -1; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
+  lastKey: '', myRec: null, recorder: null, listenRound: -1, recRoundStarted: -1,
+  reset() { this.inRoom = false; this.state = null; this.recs = new Map(); this.myRec = null; this.recRoundStarted = -1; this.listenRound = -1; this.lastKey = ''; clearInterval(this.tick); stopPlay(); if (this.recorder) this.recorder.stop(); },
   enterRoom(code) {
     this.inRoom = true; $('#lobby-code').textContent = code;
     history.replaceState(null, '', location.pathname + '?code=' + code);
@@ -498,98 +497,149 @@ const view = {
   async renderStage(prev) {
     const st = this.state, stage = $('#stage');
     $('#info-round').textContent = st.phase === 'end' ? '' : t('round', { a: Math.min(st.round, st.rounds), b: st.rounds });
+    const onStage = st.phase === 'show' || st.phase === 'results' || st.phase === 'end';
+    stage.classList.toggle('on-stage', onStage);
+    $('#game-players').classList.toggle('hidden', onStage);
     if (st.phase === 'listen') {
-      stage.innerHTML = `<h2>${t('listen')}</h2><div class="speaker">🔊</div><div class="meme-title">${esc(soundName(st.soundIdx))}</div>`;
-      if (this.listenRound !== st.round) {
-        this.listenRound = st.round; this.myRec = null;
-        try {
-          const s = await loadSound(st.soundIdx);
-          if (this.state.phase !== 'listen') return;
-          await playBuffer(s.buf); await sleep(700);
-          if (this.state.phase === 'listen') await playBuffer(s.buf);
-        } catch (e) { console.warn(e); }
-      }
+      stage.innerHTML = `<div class="cat">${t('category')}</div><div class="meme-title">${esc(soundName(st.soundIdx))}</div>
+        <div class="wave-box"><canvas id="wave" width="640" height="130"></canvas><div class="wave-cd" id="wave-cd"></div></div>
+        <div class="hint">👂 ${t('listenHint')}</div>${micStream ? '' : `<button class="btn green" id="mic-ok">${t('micBtn')}</button>`}`;
+      const mb = $('#mic-ok'); if (mb) mb.onclick = async () => { try { await getMic(); mb.remove(); } catch (e) { toast(t('micDenied')); } };
+      try {
+        const s = await loadSound(st.soundIdx); if (this.state.phase !== 'listen') return;
+        const cv = $('#wave'); if (cv) drawWave(cv, s.peaks, null, -1);
+        if (this.listenRound !== st.round) {
+          this.listenRound = st.round; const round = st.round;
+          for (let k = 0; k < 2; k++) {
+            if (this.state.phase !== 'listen' || this.state.round !== round) return;
+            await this.playWithHead(s.buf, s.peaks, null, () => $('#wave'));
+            await sleep(600);
+          }
+        }
+      } catch (e) { console.warn(e); }
     } else if (st.phase === 'record') {
-      this.renderRecord();
+      if (this.recRoundStarted !== st.round) { this.recRoundStarted = st.round; this.runRecord(st.round, st.soundIdx); }
+      else this.updateDone();
     } else if (st.phase === 'show') {
-      stopPlay(); if (this.recorder) this.recorder.stop();
+      stopPlay();
       const p = st.players.find((x) => x.id === st.showPid);
       if (!p) { stage.innerHTML = ''; return; }
       const r = this.recs.get(p.id); const score = st.roundScores[p.id] ?? (r ? r.score : 0);
-      stage.innerHTML = `<h2>${t('showTime')}</h2><div id="show-char">${charEl(p.char, 150, true)}</div><div class="meme-title">${esc(p.name)}</div>
-        <div class="big-score" id="show-score">…</div><div class="stars" id="show-stars"></div><div class="note">${st.showIdx + 1} / ${st.showCount}</div>`;
-      const mouth = stage.querySelector('.mouth');
-      const reveal = () => { countUp($('#show-score'), score); $('#show-stars').textContent = '★'.repeat(Math.round(score / 20)) + '☆'.repeat(5 - Math.round(score / 20)); };
+      stage.innerHTML = scoreCards(st, p.id) + `<div class="floor">
+          <div class="speaker-box left">🔊</div><div class="speaker-box right">🔊</div>
+          <div class="backline">${st.players.filter((x) => x.id !== p.id).map((x) => charEl(x.char, 46, false)).join('')}</div>
+          <div class="performer"><div class="mic-stand">${MIC_SVG}</div>${charEl(p.char, 120, true)}</div>
+        </div>
+        <div class="perf-name">🎤 ${esc(p.name)}</div>
+        <div class="wave-box small"><canvas id="wave" width="640" height="90"></canvas></div>
+        <div class="score-row"><span class="big-score" id="show-score"></span><span class="stars" id="show-stars"></span></div>`;
+      const mouth = stage.querySelector('.performer .mouth');
+      const reveal = () => { countUp($('#show-score'), score); const s5 = Math.round(score / 20); $('#show-stars').textContent = '★'.repeat(s5) + '☆'.repeat(5 - s5); };
       const myRound = st.round, myIdx = st.showIdx;
-      if (r && !r.buf) await sleep(400);
+      if (r && !r.buf) await sleep(500);
       if (this.state.showIdx !== myIdx || this.state.round !== myRound) return;
       if (r && r.buf) {
-        await playBuffer(r.buf, (lv) => { if (mouth) mouth.style.transform = `scaleY(${1 + lv * 2.2}) scaleX(${1 + lv * .4})`; });
+        const pk = peaks(r.buf.getChannelData(0), 100);
+        await this.playWithHead(r.buf, null, pk, () => $('#wave'), (lv) => { if (mouth) mouth.style.transform = `scaleY(${1 + lv * 2.2}) scaleX(${1 + lv * .4})`; });
         if (this.state.showIdx === myIdx) reveal();
-      } else { $('#show-score').textContent = ''; stage.querySelector('.meme-title').insertAdjacentHTML('afterend', `<div>${t('noRec')}</div>`); setTimeout(reveal, 600); }
+      } else { $('#show-score').textContent = t('noRec'); setTimeout(reveal, 900); }
     } else if (st.phase === 'results') {
       const sorted = [...st.players].sort((a, b) => b.score - a.score);
-      stage.innerHTML = `<h2>${t('results')}</h2><div class="board">${sorted.map((p, i) => `<div class="line">${charEl(p.char, 40, true)}<span class="n">${i + 1}. ${esc(p.name)}</span><span class="gain">+${st.gains[p.id] || 0}</span><span>${p.score}</span></div>`).join('')}</div>`;
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="floor"><div class="speaker-box left">🔊</div><div class="speaker-box right">🔊</div>
+        <div class="crowd">${sorted.map((p) => `<div class="crowd-p">${charEl(p.char, 70, true)}<div class="gain">+${st.gains[p.id] || 0}</div></div>`).join('')}</div></div>
+        <h2>${t('results')}</h2>`;
     } else if (st.phase === 'end') {
       const s = [...st.players].sort((a, b) => b.score - a.score);
-      const pod = [s[1], s[0], s[2]].map((p, i) => p ? `<div class="pl">${charEl(p.char, i === 1 ? 110 : 80, true)}<div>${esc(p.name)}</div><div class="block" style="height:${[70, 100, 50][i]}px;background:${['#c0c0c0', '#ffc107', '#cd7f32'][i]}">${[2, 1, 3][i]}</div></div>` : '').join('');
-      stage.innerHTML = `<h2>${t('gameOver')}</h2><div class="podium">${pod}</div><div class="board">${s.map((p, i) => `<div class="line"><span class="n">${i + 1}. ${esc(p.name)}</span><span>${p.score} ${t('points')}</span></div>`).join('')}</div>` +
+      const pod = [s[1], s[0], s[2]].map((p, i) => p ? `<div class="pl">${charEl(p.char, i === 1 ? 100 : 74, true)}<div>${esc(p.name)}</div><div class="block" style="height:${[60, 90, 44][i]}px;background:${['#c0c0c0', '#ffc107', '#cd7f32'][i]}">${[2, 1, 3][i]}</div></div>` : '').join('');
+      stage.innerHTML = `<h2>🏆 ${t('gameOver')}</h2><div class="winner">${esc(s[0].name)} ${t('wins')}</div><div class="podium">${pod}</div>
+        <div class="board">${s.map((p, i) => `<div class="line"><span class="n">${i + 1}. ${esc(p.name)}</span><span>${p.score} ${t('points')}</span></div>`).join('')}</div>` +
         (net.isHost ? `<button class="btn primary" id="btn-again">${t('playAgain')}</button>` : '');
       const a = $('#btn-again'); if (a) a.onclick = () => toHost({ t: 'lobby' });
     }
   },
-  renderRecord() {
-    const st = this.state, stage = $('#stage'), me = this.me();
-    const doneList = `<div class="done-list">${st.players.map((p) => `<span class="${p.done ? 'ok' : ''}">${p.done ? '✅' : '⏳'} ${esc(p.name)}</span>`).join('')}</div>`;
-    if (me && me.done) { stage.innerHTML = `<h2>${t('sent')}</h2><div id="sent-char">${charEl(me.char, 120, true)}</div>${doneList}`; return; }
-    if (this.recorder) return; // läuft gerade – nicht neu zeichnen
-    const has = !!this.myRec;
-    stage.innerHTML = `<h2>${t('yourTurn')}</h2><div class="meme-title">${esc(soundName(st.soundIdx))}</div>
-      <button class="rec-btn" id="rec">🎙️<br>${has ? t('retry').replace('🎙️ ', '') : t('tapRec')}</button>
-      <div class="meter"><i id="meter"></i></div>
-      <div class="row"><button class="btn small" id="b-again">${t('again')}</button>${has ? `<button class="btn small" id="b-mine">${t('playMine')}</button>` : ''}</div>
-      ${has ? `<button class="btn green" id="b-send">${t('send')}</button>` : ''}${doneList}`;
-    $('#b-again').onclick = async () => { const s = await loadSound(st.soundIdx); playBuffer(s.buf); };
-    if (has) {
-      $('#b-mine').onclick = () => wavToBuffer(this.myRec.wav).then((b) => playBuffer(b));
-      $('#b-send').onclick = () => this.sendRec();
+  // spielt einen Ton und lässt den roten Strich über die Wellenform laufen
+  playWithHead(buf, refPk, recPk, getCanvas, onLevel) {
+    const t0 = ac().currentTime; let raf = 0;
+    const loop = () => { const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, (ac().currentTime - t0) / buf.duration); raf = requestAnimationFrame(loop); };
+    loop();
+    return playBuffer(buf, onLevel).then(() => { cancelAnimationFrame(raf); const cv = getCanvas(); if (cv) drawWave(cv, refPk, recPk, -1); });
+  },
+  updateDone() {
+    const el = $('#done-list'); const st = this.state; if (!el || !st) return;
+    el.innerHTML = st.players.map((p) => `<span class="${p.done ? 'ok' : ''}">${p.done ? '✅' : '🎙️'} ${esc(p.name)}</span>`).join('');
+  },
+  // Alle gleichzeitig: 3-2-1-LOS, dann genau ein Versuch
+  async runRecord(round, idx) {
+    const stage = $('#stage'); stopPlay();
+    stage.innerHTML = `<div class="cat">${t('category')}</div><div class="meme-title">${esc(soundName(idx))}</div>
+      <div class="wave-box"><canvas id="wave" width="640" height="130"></canvas><div class="wave-cd" id="wave-cd"></div></div>
+      <div class="hint" id="rec-hint">⚡ ${t('oneShot')}</div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const alive = () => this.state && this.state.round === round && this.state.phase === 'record';
+    let ref; try { ref = await loadSound(idx); } catch (e) { toast(t('loading')); return; }
+    const cv = $('#wave'); drawWave(cv, ref.peaks, null, -1);
+    let micOk = true; try { await getMic(); } catch (e) { micOk = false; }
+    for (const n of [3, 2, 1]) {
+      if (!alive()) return;
+      const cd = $('#wave-cd'); if (cd) { cd.textContent = n; cd.classList.remove('pop'); void cd.offsetWidth; cd.classList.add('pop'); }
+      tick(n === 1 ? 660 : 440); await sleep(800);
     }
-    $('#rec').onclick = () => this.startRecording();
-  },
-  async startRecording() {
-    const st = this.state; if (this.recorder || st.phase !== 'record') return;
-    stopPlay();
-    let ref; try { ref = await loadSound(st.soundIdx); } catch (e) { toast(t('loading')); return; }
-    const maxSec = clamp((SOUNDS[st.soundIdx].seconds || 3) + 1.5, 2, 7);
-    try { await getMic(); } catch (e) { toast(t('micDenied')); return; }
-    const btn = $('#rec'); btn.classList.add('recording'); btn.innerHTML = '⏹️<br>' + t('stop');
-    const rec = recordFor(maxSec, (lv) => { const m = $('#meter'); if (m) m.style.width = Math.min(100, lv * 160) + '%'; });
-    this.recorder = rec; btn.onclick = () => rec.stop();
-    const { data, sr } = await rec.promise; this.recorder = null;
-    const feat = EchoScore.features(data, sr);
-    if (!feat) { toast(t('tooQuiet')); this.renderRecord(); return; }
-    const score = EchoScore.compare(ref.feat, feat);
-    const small = EchoScore.resample(data, sr); // 16 kHz zum Verschicken
-    this.myRec = { wav: encodeWav(small, EchoScore.SR), score, sec: small.length / EchoScore.SR, round: st.round };
-    if (this.state.phase === 'record') this.renderRecord();
-  },
-  sendRec() {
-    const st = this.state, r = this.myRec; if (!r || r.round !== st.round) return;
-    this.storeRec(net.myId, st.round, r.wav, r.score);
-    toHost({ t: 'rec', round: st.round, score: r.score, wav: r.wav, sec: r.sec });
+    if (!alive()) return;
+    const cd = $('#wave-cd'); if (cd) { cd.textContent = t('go'); cd.classList.add('go'); setTimeout(() => { cd.textContent = ''; cd.classList.remove('go'); }, 700); }
+    tick(880);
+    if (!micOk) { $('#rec-hint').textContent = t('micDenied'); toHost({ t: 'rec', round, score: 0, wav: null, sec: 0 }); return; }
+    const sec = ref.buf.duration, N = ref.peaks.length, recPk = new Array(N).fill(0);
+    const t0 = performance.now();
+    let lastI = 0;
+    const rec = recordFor(sec + 0.6, (lv) => {
+      const i = Math.min(N - 1, Math.floor((performance.now() - t0) / 1000 / sec * N));
+      for (let k = lastI; k <= i; k++) recPk[k] = Math.max(recPk[k], Math.min(1, lv * 1.8)); // Lücken füllen
+      lastI = i + 1;
+    });
+    this.recorder = rec;
+    let raf = 0; const loop = () => { const c = $('#wave'); if (c) drawWave(c, ref.peaks, recPk, (performance.now() - t0) / 1000 / sec); if (this.recorder === rec) raf = requestAnimationFrame(loop); };
+    loop();
+    $('#rec-hint').textContent = '🎙️ ' + t('recording');
+    const { data, sr } = await rec.promise; this.recorder = null; cancelAnimationFrame(raf);
+    const c2 = $('#wave'); if (c2) drawWave(c2, ref.peaks, recPk, -1);
+    const feat = EchoScore.features(data, sr); const score = feat ? EchoScore.compare(ref.feat, feat) : 0;
+    const small = EchoScore.resample(data, sr); const wav = encodeWav(small, EchoScore.SR);
+    if (this.state.round !== round) return;
+    this.storeRec(net.myId, round, wav, score);
+    toHost({ t: 'rec', round, score, wav, sec: small.length / EchoScore.SR });
+    const h = $('#rec-hint'); if (h) h.textContent = '✅ ' + t('sent');
   },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
     if (!st || st.phase === 'lobby' || st.phase === 'end') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', st.phase === 'record' && s <= 5);
-    // Zeit fast um: vorhandene Aufnahme automatisch abschicken
-    if (st.phase === 'record' && s <= 1 && this.myRec && this.myRec.round === st.round && this.sentRound !== st.round) {
-      const me = this.me(); if (me && !me.done) { this.sentRound = st.round; this.sendRec(); }
-    }
+    el.textContent = s; el.classList.toggle('low', st.phase === 'record' && s <= 3);
   },
 };
+// Wellenform: blau = Original, pink = eigene Stimme, rot = Laufstrich
+function peaks(data, n) {
+  const out = new Array(n).fill(0), step = Math.max(1, Math.floor(data.length / n));
+  for (let i = 0; i < n; i++) { let m = 0; for (let j = i * step; j < Math.min(data.length, (i + 1) * step); j += 4) m = Math.max(m, Math.abs(data[j])); out[i] = m; }
+  const mx = Math.max(...out, 1e-6); return out.map((v) => Math.sqrt(v / mx));
+}
+function drawWave(cv, ref, rec, head) {
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height, n = (ref || rec).length, bw = W / n;
+  c.clearRect(0, 0, W, H);
+  c.fillStyle = '#1d1440'; c.beginPath(); (c.roundRect ? c.roundRect(0, 0, W, H, 18) : c.rect(0, 0, W, H)); c.fill();
+  c.fillStyle = 'rgba(255,255,255,.25)'; c.fillRect(8, H / 2 - 1, W - 16, 2);
+  const bars = (arr, col) => { c.fillStyle = col; arr.forEach((v, i) => { const h = Math.max(1.5, v * H * 0.42); c.fillRect(i * bw + 1.5, H / 2 - h, Math.max(1, bw - 3), h * 2); }); };
+  if (ref) bars(ref, '#7fe3ff');
+  if (rec) bars(rec, 'rgba(255,70,170,.9)');
+  if (head >= 0 && head <= 1.08) { const x = Math.min(1, head) * (W - 8) + 4; c.fillStyle = '#ff2244'; c.fillRect(x - 2.5, 6, 5, H - 12); }
+}
+function tick(f) { try { const ctx = ac(), o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f; g.gain.value = 0.12; o.connect(g); g.connect(ctx.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18); o.stop(ctx.currentTime + 0.2); } catch (e) {} }
+const MIC_SVG = '<svg viewBox="0 0 40 120" width="34"><rect x="18" y="30" width="4" height="84" fill="#333"/><ellipse cx="20" cy="116" rx="16" ry="4" fill="#333"/><rect x="12" y="4" width="16" height="30" rx="8" fill="#444"/><rect x="14" y="7" width="12" height="18" rx="6" fill="#888"/></svg>';
+// Punktekarten oben (wie eine Anzeigetafel)
+function scoreCards(st, activeId, withGain) {
+  const sorted = [...st.players].sort((a, b) => b.score - a.score);
+  return `<div class="cards">${sorted.map((p) => `<div class="scard${p.id === activeId ? ' active' : ''}"><div class="sc-head">${charEl(p.char, 34, false)}</div><div class="sc-name">${esc(p.name)}</div><div class="sc-pts">${p.score}${withGain && st.gains[p.id] ? ` <small>+${st.gains[p.id]}</small>` : ''}</div></div>`).join('')}</div>`;
+}
 function pcard(p, size, dancing, tag) {
   return `<div class="pcard${p.id === net.myId ? ' me' : ''}">${tag ? `<span class="tag">${tag}</span>` : (p.voice ? '<span class="tag">📞</span>' : (p.host ? '<span class="tag">👑</span>' : ''))}
     ${charEl(p.char, size, dancing)}<div class="pname">${esc(p.name)}${p.id === net.myId ? ` (${t('you')})` : ''}</div>${view.state && view.state.phase !== 'lobby' ? `<div class="pts">${p.score}</div>` : ''}</div>`;
