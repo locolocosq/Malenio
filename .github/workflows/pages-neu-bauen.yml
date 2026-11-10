@@ -1,4 +1,6 @@
-# Stößt GitHub Pages nach jedem Push auf main neu an.
+# Veröffentlicht nach jedem Push auf main die Seite:
+# 1. main wird in den Zweig gh-pages übernommen (aus dem GitHub Pages die Seite baut)
+# 2. ein Pages-Neubau wird angefordert
 # Nötig, weil Änderungen, die über eine App (z. B. Claude) hochgeladen werden,
 # den normalen Pages-Neubau nicht auslösen.
 name: Pages neu bauen
@@ -7,13 +9,20 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
+  contents: write
   pages: write
 jobs:
   rebuild:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: main nach gh-pages übernehmen
+        run: git push origin HEAD:refs/heads/gh-pages --force
       - name: Pages-Neubau anfordern
         run: |
+          sleep 5
           curl -sS -f -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
