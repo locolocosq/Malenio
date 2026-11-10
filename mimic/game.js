@@ -28,6 +28,13 @@ const LOGO_GRID = 10;       // Logo-Quiz: 10×10 Kärtchen decken das Logo zu
 const HANG_TURN = 15;       // Strichmännchen: Zeit pro Buchstabe
 const HANG_MAX = 10;        // Galgenmännchen: so viele Fehler, dann ist es fertig
 const EST_TIME = 30;        // Schätzen: Zeit für den Tipp
+const REACT_WINDOW = 5;     // Reaktion: so lange (s) nach dem Grün darf man noch tippen
+const SIMON_TIME = 75;      // Farbfolge: Zeit für alle Level
+const SIMON_LEN = 40;       // Farbfolge: längste Folge
+const SEQ_MODES = ['simon', 'memory', 'cups']; // Hütchenspiel nutzt dieselben Level-Regeln // Farbfolge (4 Farben) und Sequenz-Memory (9 Felder) laufen gleich ab
+const seqPads = (mode) => (mode === 'memory' ? 9 : 4);
+const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
+const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
 const LOGO_POINTS = [100, 80, 65, 50, 40, 30, 25, 20];
 const EMOJIS = ['😆', '😂', '😍', '🔥', '👍', '😳', '😢', '👎'];
 const WORDS = window.WORDS || [];
@@ -69,6 +76,9 @@ const T = {
     modeEst: '🔢 Schätzen', modeMix: '🎲 Mix (alle Spiele)', estPh: 'Deine Schätzung', estSend: 'Tipp abgeben', yourEst: 'Dein Tipp:', answer: 'Richtige Antwort', bullseye: 'Volltreffer!', noEst: 'kein Tipp', badNum: 'Bitte eine Zahl eingeben.', loadingQ: 'Lade Fragen…',
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
+    modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
@@ -94,6 +104,9 @@ const T = {
     modeEst: '🔢 ግምት', modeMix: '🎲 ድብልቅ (ሁሉም ጨዋታዎች)', estPh: 'ግምትዎ', estSend: 'ግምት ላክ', yourEst: 'ግምትዎ፦', answer: 'ትክክለኛው መልስ', bullseye: 'በትክክል!', noEst: 'ግምት የለም', badNum: 'እባክዎ ቁጥር ያስገቡ።', loadingQ: 'ጥያቄዎች እየተጫኑ ነው…',
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
+    modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
@@ -346,7 +359,7 @@ function destroyNet() {
   net.conns.forEach((c) => { try { c.close(); } catch (e) {} });
   try { net.peer && net.peer.destroy(); } catch (e) {}
   Object.assign(net, { peer: null, isHost: false, myId: null, code: null, conns: new Map(), hostConn: null, timers: [], bye: false });
-  view.reset();
+  view.reset(); renderVoiceHeads(null);
 }
 function watchPeer(peer) {
   peer.on('call', (call) => voiceIncoming(call));
@@ -423,8 +436,9 @@ const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
+  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [],
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
-  stop() { clearTimeout(this.timer); this.timer = null; },
+  stop() { clearTimeout(this.timer); this.timer = null; this.eTimers.forEach(clearTimeout); this.eTimers = []; },
   get(id) { return this.players.find((p) => p.id === id); },
   add(id, m, cid) {
     const p = { id, name: String(m.name || '?').slice(0, 14), char: validChar(m.char), lang: m.lang === 'am' ? 'am' : 'de', score: 0, voice: false, host: id === net.myId, cid, seen: Date.now() };
@@ -508,6 +522,40 @@ const host = {
         if (this.players.every((x) => this.picks.has(x.id))) this.endLogo();
         return;
       }
+      case 'react': {
+        if (this.phase !== 'react' || msg.round !== this.round || this.reacts.has(from)) return;
+        let ms = Math.round(+msg.ms);
+        if (!isFinite(ms) || ms < 100) ms = -1;           // zu früh (unter 0,1 s kann niemand reagieren)
+        this.reacts.set(from, Math.min(ms, REACT_WINDOW * 1000)); this.pushState();
+        if (this.players.every((x) => this.reacts.has(x.id))) this.endReact();
+        return;
+      }
+      case 'simon': {
+        if (this.phase !== 'simon' || msg.round !== this.round) return;
+        const e = this.simon.get(from) || { lv: 0, at: Date.now(), done: false }; if (e.done) return;
+        if (msg.lv != null && (msg.lv | 0) === e.lv + 1 && e.lv < SIMON_LEN - 2) {
+          e.lv++; e.at = Date.now();
+          const pts = 10 + 5 * (e.lv - 1); // jedes Level gibt Punkte, schwerere mehr
+          p.score += pts; this.gains[from] = (this.gains[from] || 0) + pts;
+        }
+        e.seen = Date.now();
+        if (msg.done || e.lv >= SIMON_LEN - 2) e.done = true;
+        this.simon.set(from, e); this.pushState();
+        if (this.players.every((x) => (this.simon.get(x.id) || {}).done)) this.endSimon();
+        return;
+      }
+      case 'eguess': {
+        if (this.phase !== 'emoji' || msg.round !== this.round || this.egot.has(from)) return;
+        const now = Date.now(); if (now - (p.lastGuess || 0) < 350) return; p.lastGuess = now;
+        const text = String(msg.text || '').trim().slice(0, 40); if (!text) return;
+        const res = checkGuess(text, this.eWord);
+        if (res === 2) {
+          this.egot.set(from, now); broadcast({ t: 'sys', key: 'guessedIt', name: p.name }, from); sendTo(from, { t: 'sys', key: 'youGuessed' });
+          this.pushState();
+          if (this.players.every((x) => this.egot.has(x.id))) this.endEmoji();
+        } else sendTo(from, { t: 'sys', key: res === 1 ? 'almost' : 'nope' });
+        return;
+      }
       case 'lobby': if (p.host) this.toLobby(); return;
       case 'voice': p.voice = !!msg.on; this.pushState(); return;
       case 'char': p.char = validChar(msg.char); this.pushState(); return;
@@ -571,17 +619,37 @@ const host = {
     if (this.phase === 'logo' && this.players.every((x) => this.picks.has(x.id))) { this.endLogo(); return; }
     if (this.phase === 'timer' && this.players.every((x) => this.stops.has(x.id))) { this.endTimer(); return; }
     if (this.phase === 'estimate' && this.players.every((x) => this.ests.has(x.id))) { this.endEstimate(); return; }
+    if (this.phase === 'react' && this.players.every((x) => this.reacts.has(x.id))) { this.endReact(); return; }
+    if (this.phase === 'simon' && this.players.every((x) => (this.simon.get(x.id) || {}).done)) { this.endSimon(); return; }
+    if (this.phase === 'emoji' && this.players.every((x) => this.egot.has(x.id))) { this.endEmoji(); return; }
     this.pushState();
   },
-  sweep() { const now = Date.now(); for (const p of [...this.players]) if (!p.host && now - p.seen > 20000) this.removePlayer(p.id); },
+  sweep() {
+    const now = Date.now(); for (const p of [...this.players]) if (!p.host && now - p.seen > 20000) this.removePlayer(p.id);
+    if (this.phase === 'simon') {
+      let changed = false;
+      for (const p of this.players) {
+        const e = this.simon.get(p.id) || { lv: 0, at: this.simonStart, done: false };
+        if (e.done) continue;
+        if (now - (e.seen || e.at || this.simonStart) > 45000 + e.lv * 2500) { e.done = true; this.simon.set(p.id, e); changed = true; }
+      }
+      if (changed) { if (this.players.every((x) => (this.simon.get(x.id) || {}).done)) this.endSimon(); else this.pushState(); }
+    }
+  },
   state() {
     return {
       t: 'state', phase: this.phase, round: this.round, rounds: this.rounds, soundIdx: this.soundIdx,
       remaining: Math.max(0, this.deadline - Date.now()), showPid: this.showOrder[this.showIdx] || null, showIdx: this.showIdx, showCount: this.showOrder.length,
       players: this.players.map((p) => ({ id: p.id, name: p.name, char: p.char, score: p.score, voice: p.voice, host: p.host, lang: p.lang,
-        done: this.mode === 'estimate' ? this.ests.has(p.id) : this.mode === 'timer' ? this.stops.has(p.id) : this.mode === 'logo' ? this.picks.has(p.id) : this.mode === 'guess' ? this.guessed.has(p.id) : this.recs.has(p.id) })),
+        done: this.doneOf(p.id) })),
       drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target, mix: !!this.mix, qIdx: this.qIdx,
       ests: this.mode === 'estimate' && this.phase === 'results' ? Object.fromEntries(this.ests) : null,
+      goIn: this.phase === 'react' ? Math.max(0, this.reactGoAt - Date.now()) : 0,
+      reacts: this.mode === 'react' && this.phase === 'results' ? Object.fromEntries(this.reacts) : null,
+      simonSeq: this.phase === 'simon' ? this.simonSeq : null,
+      simonLv: SEQ_MODES.includes(this.mode) && (this.phase === 'simon' || this.phase === 'results') ? Object.fromEntries([...this.simon].map(([k, v]) => [k, v.lv])) : null,
+      eClue: this.mode === 'emoji' && (this.phase === 'emoji' || this.phase === 'results') && EMOJI_LIST[this.emojiIdx] ? EMOJI_LIST[this.emojiIdx][0] : '',
+      egot: this.mode === 'emoji' && this.phase === 'results' ? Object.fromEntries([...this.egot].map(([k, v]) => [k, Math.round((v - this.eStart) / 100) / 10])) : null,
       stops: this.mode === 'timer' && this.phase === 'results' ? Object.fromEntries(this.stops) : null,
       picks: this.mode === 'logo' && this.phase === 'results' ? Object.fromEntries([...this.picks].map(([k, v]) => [k, { name: v.name, ok: v.ok }])) : null,
       roundScores: Object.fromEntries([...this.recs].map(([k, v]) => [k, v.score])), gains: this.gains,
@@ -591,8 +659,27 @@ const host = {
     };
   },
   pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, this.stateFor(p, s)); },
+  doneOf(id) {
+    switch (this.mode) {
+      case 'estimate': return this.ests.has(id);
+      case 'timer': return this.stops.has(id);
+      case 'logo': return this.picks.has(id);
+      case 'guess': return this.guessed.has(id);
+      case 'react': return this.reacts.has(id);
+      case 'simon': case 'memory': case 'cups': return !!(this.simon.get(id) || {}).done;
+      case 'emoji': return this.egot.has(id);
+      default: return this.recs.has(id);
+    }
+  },
   // Malen & Raten: das Wort sieht nur, wer malt oder es schon erraten hat – alle anderen nur die Striche
   stateFor(p, s) {
+    if (this.mode === 'emoji' && (s.phase === 'emoji' || s.phase === 'results')) {
+      // Lösung nur für wer sie schon hat (oder am Ende); sonst nur Länge bzw. erster Buchstabe als Tipp
+      const w = this.eWord, word = WORDS[w] ? [...WORDS[w][p.lang === 'am' ? 1 : 0]] : [];
+      const knows = s.phase === 'results' || this.egot.has(p.id);
+      const hint = this.eHint ? word.map((c, i) => (c === ' ' || c === '-' ? c : (this.eHint >= 2 && i === 0 ? c : '_'))).join('') : '';
+      return Object.assign({}, s, { eWord: knows ? w : -1, eHint: knows ? '' : hint, eLen: this.eHint ? word.filter((c) => c !== ' ' && c !== '-').length : 0 });
+    }
     if (this.mode === 'hang') {
       if (s.phase === 'choose') return Object.assign({}, s, { choices: p.id === this.drawer ? this.choices : null });
       if (s.phase === 'hang' || s.phase === 'results') return Object.assign({}, s, { hang: this.hangView(p.id === this.drawer || s.phase === 'results') });
@@ -609,7 +696,7 @@ const host = {
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
   startGame() {
-    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.departed = new Map();
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.departed = new Map();
     this.mix = this.baseMode === 'mix';
     if (this.mix) { // jedes Spiel einmal, gemischt (bei mehreren Runden mehrmals)
       this.mixList = []; for (let r = 0; r < this.rounds; r++) this.mixList.push(...shuffle([...GAME_MODES]));
@@ -645,6 +732,28 @@ const host = {
     this.playRound();
   },
   playRound() {
+    if (this.mode === 'react') {
+      this.reactWait = 2000 + rnd(4500); this.reacts = new Map(); this.gains = {};
+      this.reactGoAt = Date.now() + this.reactWait;
+      this.setPhase('react', this.reactWait / 1000 + REACT_WINDOW + 1, () => this.endReact());
+      return;
+    }
+    if (SEQ_MODES.includes(this.mode)) {
+      const n = seqPads(this.mode); this.simonSeq = [];
+      for (let i = 0; i < SIMON_LEN; i++) { let v = rnd(n); if (n > 4) while (i && v === this.simonSeq[i - 1]) v = rnd(n); this.simonSeq.push(v); }
+      this.simon = new Map(); this.gains = {};
+      this.simonStart = Date.now();
+      this.setPhase('simon', 20 * 60, () => this.endSimon()); // Notbremse nach 20 Min.; sonst endet es, wenn alle raus sind
+      return;
+    }
+    if (this.mode === 'emoji') {
+      const n = EMOJI_LIST.length; let i = rnd(n); for (let k = 0; k < 300 && this.usedE.has(i); k++) i = rnd(n);
+      this.usedE.add(i); this.emojiIdx = i; this.eWord = EMOJI_LIST[i][1]; this.egot = new Map(); this.gains = {}; this.eHint = 0; this.eStart = Date.now();
+      this.setPhase('emoji', EMOJI_TIME, () => this.endEmoji());
+      const r = this.round, hint = (lv) => () => { if (this.phase === 'emoji' && this.round === r) { this.eHint = lv; this.pushState(); } };
+      this.eTimers.push(setTimeout(hint(1), EMOJI_TIME * 400), setTimeout(hint(2), EMOJI_TIME * 700));
+      return;
+    }
     if (this.mode === 'estimate') {
       const n = QUESTIONS.length; let i = rnd(n); for (let k = 0; k < 300 && this.usedQ.has(i); k++) i = rnd(n);
       this.usedQ.add(i); this.qIdx = i; this.ests = new Map(); this.gains = {};
@@ -732,6 +841,43 @@ const host = {
     }
     this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
   },
+  // ---- Reaktion: wer am schnellsten tippt, gewinnt; zu früh = 0 Punkte
+  endReact() {
+    if (this.phase !== 'react') return;
+    this.stop(); this.gains = {};
+    const ranked = [...this.reacts].filter(([, v]) => v > 0).sort((a, b) => a[1] - b[1]);
+    for (const p of this.players) {
+      const rank = ranked.findIndex(([id]) => id === p.id);
+      let g = rank < 0 ? 0 : LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)];
+      if (rank >= 0 && this.reacts.get(p.id) < 250) g += 30; // blitzschnell: Bonus
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', RESULT_TIME, () => this.nextRound());
+  },
+  // ---- Farbfolge: wer das höchste Level schafft (bei Gleichstand: wer es zuerst hatte)
+  endSimon() {
+    if (this.phase !== 'simon') return;
+    this.stop(); // Level-Punkte gab es schon unterwegs; jetzt noch Bonus für die Besten
+    const ranked = [...this.simon].filter(([, v]) => v.lv > 0).sort((a, b) => b[1].lv - a[1].lv || a[1].at - b[1].at);
+    for (const p of this.players) {
+      const rank = ranked.findIndex(([id]) => id === p.id);
+      const g = rank < 0 ? 0 : [50, 25, 10][rank] || 0;
+      p.score += g; this.gains[p.id] = (this.gains[p.id] || 0) + g;
+    }
+    this.setPhase('results', RESULT_TIME + 1, () => this.nextRound());
+  },
+  // ---- Emoji-Rätsel: wer zuerst richtig rät, bekommt am meisten
+  endEmoji() {
+    if (this.phase !== 'emoji') return;
+    this.stop(); this.gains = {};
+    const right = [...this.egot].sort((a, b) => a[1] - b[1]);
+    for (const p of this.players) {
+      const rank = right.findIndex(([id]) => id === p.id);
+      const g = rank < 0 ? 0 : LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)];
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', RESULT_TIME + 1, () => this.nextRound());
+  },
   // ---- Logo-Quiz: wer zuerst richtig tippt, bekommt am meisten
   endLogo() {
     if (this.phase !== 'logo') return;
@@ -799,6 +945,7 @@ const host = {
   },
   hangView(full) {
     return { mask: [...this.hWord].map((c) => (!hangKey(c) || this.hGuessed.has(hangKey(c)) || full ? c : '_')), guessed: [...this.hGuessed],
+      open: [...this.hWord].map((c) => !hangKey(c) || this.hGuessed.has(hangKey(c))),
       wrong: [...this.hGuessed].filter((k) => ![...this.hWord].some((c) => hangKey(c) === k)), misses: this.hMiss, cur: this.hCur(), counts: this.hCount,
       lang: this.hLang, full: !!full, solved: this.hSolved };
   },
@@ -877,13 +1024,13 @@ const view = {
     const prev = this.state; this.state = st;
     this.deadlineLocal = Date.now() + st.remaining;
     if (st.round !== this.recRound && st.phase !== 'lobby') { this.recs = new Map(); this.recRound = st.round; }
-    voiceSync(st); applyVoiceMute(st.phase);
+    voiceSync(st); applyVoiceMute(st.phase); renderVoiceHeads(st);
     if (st.mode === 'logo' || st.mode === 'mix' || st.mix) ensureLogos().catch(() => {});
     if (st.mode === 'estimate' || st.mode === 'mix' || st.mix) ensureQuestions().catch(() => {});
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.timerRun = null; this.myPick = null; this.myEst = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
@@ -893,6 +1040,9 @@ const view = {
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     else if (st.phase === 'hang') this.updateHang();
+    else if (st.phase === 'react') this.updateDone();
+    else if (st.phase === 'simon') this.updateSimon();
+    else if (st.phase === 'emoji') this.updateEmoji();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
     this.updateTimer();
   },
@@ -914,7 +1064,7 @@ const view = {
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (['react', 'simon', 'emoji'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -969,6 +1119,12 @@ const view = {
       tick(660); setTimeout(() => tick(990), 160);
     } else if (st.phase === 'estimate') {
       this.renderEstimate();
+    } else if (st.phase === 'react') {
+      this.renderReact();
+    } else if (st.phase === 'simon') {
+      if (st.mode === 'cups') this.renderCups(); else this.renderSimon();
+    } else if (st.phase === 'emoji') {
+      this.renderEmoji();
     } else if (st.phase === 'present') {
       this.renderPresent();
     } else if (st.phase === 'show') {
@@ -1002,6 +1158,21 @@ const view = {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="cat light">${t('answer')}</div><div class="timer-big light">${esc(shown(q[2]))}</div>
         <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
           return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'react') {
+      const rv = st.reacts || {}, val = (id) => (rv[id] > 0 ? rv[id] : 1e9);
+      const best = [...st.players].sort((a, b) => val(a.id) - val(b.id));
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeReact')}</div>
+        <div class="vlist">${best.map((x, i) => { const ms = rv[x.id];
+          return `<div class="vline${i === 0 && ms > 0 ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && ms > 0 ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp ${ms === -1 ? 'bad' : ''}">${ms == null ? '⏳ ' + t('noReact') : ms === -1 ? t('tooEarly') : `<b>${ms} ms</b>${ms < 250 ? ' ⚡ ' + t('fast') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && SEQ_MODES.includes(st.mode)) {
+      const lv = st.simonLv || {};
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t(MODE_KEY[st.mode])}</div>
+        <div class="vlist">${[...st.players].sort((a, b) => (st.gains[b.id] || 0) - (st.gains[a.id] || 0)).map((x, i) => `<div class="vline${i === 0 && lv[x.id] ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && lv[x.id] ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp"><b>${t('level')} ${lv[x.id] || 0}</b></span><b class="vg">+${st.gains[x.id] || 0}</b></div>`).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'emoji') {
+      const eg = st.egot || {}, tm = (id) => (eg[id] == null ? 1e9 : eg[id]);
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="emo-clue small">${esc(st.eClue)}</div><div class="cat light">${t('emojiWas')}</div>
+        <div class="meme-title light">${esc(WORDS[st.eWord] ? WORDS[st.eWord][lang === 'am' ? 1 : 0] : '?')}</div><div class="hint light">${esc(WORDS[st.eWord] ? WORDS[st.eWord][lang === 'am' ? 0 : 1] : '')}</div>
+        <div class="vlist">${[...st.players].sort((a, b) => tm(a.id) - tm(b.id)).map((x, i) => `<div class="vline${i === 0 && eg[x.id] != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && eg[x.id] != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp ${eg[x.id] != null ? 'ok' : ''}">${eg[x.id] != null ? `✅ <b>${fmtNum(eg[x.id])} s</b>` : '⏳ ' + t('notGuessed')}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'timer') {
       const sv = st.stops || {}, diff = (id) => (sv[id] == null ? 1e9 : Math.abs(sv[id] - st.target));
       stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('target')}</div><div class="timer-big light">${fmtSec(st.target)} s</div>
@@ -1275,7 +1446,7 @@ const view = {
     const keys = h.lang === 'am' ? KEYS_AM : KEYS_DE;
     stage.innerHTML = `<div class="g-who">${me ? t('yourWord') : esc(t('hangChose', { name: dr ? dr.name : '?' }))}</div>
       <div class="hang-top"><div id="h-stick"></div><div class="h-miss" id="h-miss"></div></div>
-      <div class="h-word" id="h-word"></div><div class="hint" id="h-turn"></div>
+      <div class="h-word" id="h-word"></div>${me ? `<div class="note h-legend"><b class="lg-got">A</b> ${t('hangGot')} · <b class="lg-pend">A</b> ${t('hangPend')}</div>` : ''}<div class="hint" id="h-turn"></div>
       <div class="keyb${h.lang === 'am' ? ' am' : ''}" id="keyb">${keys.map((k) => `<button class="key" data-k="${k}">${k}</button>`).join('')}</div>
       <div class="done-list" id="h-counts"></div>`;
     stage.querySelectorAll('.key').forEach((b) => b.onclick = () => { const s2 = this.state; if (!s2.hang || s2.hang.cur !== net.myId || b.disabled) return; stage.querySelectorAll('.key').forEach((x) => x.disabled = true); toHost({ t: 'letter', k: b.dataset.k }); });
@@ -1285,16 +1456,185 @@ const view = {
     const st = this.state, h = st.hang; if (!h || !$('#h-word')) return;
     if (h.misses !== this.hangMiss) { $('#h-stick').innerHTML = stickSVG(h.misses, false); if (this.hangMiss >= 0 && h.misses > this.hangMiss) tick(220); this.hangMiss = h.misses; }
     $('#h-miss').textContent = `${t('misses')} ${h.misses}/${HANG_MAX}`;
-    const groups = h.mask.join('\u0001').split('\u0001 \u0001'); // Wörter nicht mitten drin umbrechen
-    const longest = Math.max(...groups.map((g) => g.split('\u0001').length));
-    const el = $('#h-word'); el.style.setProperty('--n', Math.max(8, longest));
-    el.innerHTML = groups.map((g) => `<div class="hw">${g.split('\u0001').map((c) => `<span>${c === '_' ? '' : esc(c)}</span>`).join('')}</div>`).join('');
+    // Wörter nicht mitten drin umbrechen; wer das Wort ausgesucht hat (full), sieht erratene Buchstaben grün, offene blass
+    const groups = [[]]; h.mask.forEach((c, i) => { if (c === ' ') groups.push([]); else groups[groups.length - 1].push(i); });
+    const longest = Math.max(...groups.map((g) => g.length));
+    const el = $('#h-word'); el.style.setProperty('--n', Math.max(8, longest)); el.classList.toggle('owner', !!h.full);
+    const cls = (i) => (!h.full || !h.open ? '' : h.open[i] ? 'got' : 'pend');
+    el.innerHTML = groups.map((g) => `<div class="hw">${g.map((i) => `<span class="${cls(i)}">${h.mask[i] === '_' ? '' : esc(h.mask[i])}</span>`).join('')}</div>`).join('');
     const cur = st.players.find((x) => x.id === h.cur), myTurn = h.cur === net.myId;
     const tu = $('#h-turn'); tu.textContent = myTurn ? t('yourLetter') : (cur ? t('letterTurn', { name: cur.name }) : ''); tu.classList.toggle('myturn', myTurn);
     if (myTurn && this.hangTurnTick !== st.remaining) { this.hangTurnTick = st.remaining; }
     document.querySelectorAll('#keyb .key').forEach((b) => { const k = b.dataset.k, used = h.guessed.includes(k);
       b.classList.toggle('hit', used && !h.wrong.includes(k)); b.classList.toggle('miss', h.wrong.includes(k)); b.disabled = used || !myTurn; });
     $('#h-counts').innerHTML = st.players.filter((x) => x.id !== st.drawer).map((x) => `<span class="${x.id === h.cur ? 'ok' : ''}">${x.id === h.cur ? '👉 ' : ''}${esc(x.name)}: ${h.counts[x.id] || 0}</span>`).join('');
+  },
+  // ---------------- Reaktion ----------------
+  renderReact() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    let run = this.reactRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.reactRun = { round, mix: st.mix, goLocal: Date.now() + st.goIn, greenAt: 0, ms: null, tm: 0 };
+    stage.innerHTML = `<div class="cat">${t('modeReact')}</div><div class="react-pad wait" id="r-pad"><span id="r-txt">${t('reactWait')}</span></div>
+      <div class="hint" id="r-hint">${t('reactHint')}</div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const pad = $('#r-pad'), txt = $('#r-txt');
+    const alive = () => this.state && this.state.phase === 'react' && this.state.round === round && pad.isConnected;
+    const finish = (ms) => {
+      run.ms = ms; clearTimeout(run.tm); toHost({ t: 'react', round, ms });
+      pad.className = 'react-pad ' + (ms < 0 ? 'early' : 'done');
+      txt.innerHTML = ms < 0 ? t('tooEarly') : `${t('yourTime')}<br><b>${ms} ms</b>`;
+      tick(ms < 0 ? 180 : 880);
+    };
+    if (run.ms != null) { pad.className = 'react-pad ' + (run.ms < 0 ? 'early' : 'done'); txt.innerHTML = run.ms === -2 ? '⌛ ' + t('noReact') : run.ms < 0 ? t('tooEarly') : `${t('yourTime')}<br><b>${run.ms} ms</b>`; return; }
+    if (run.greenAt) { pad.className = 'react-pad go'; txt.textContent = t('reactNow'); }
+    const goGreen = () => {
+      if (!alive() || run.ms != null) return;
+      pad.className = 'react-pad go'; txt.textContent = t('reactNow');
+      requestAnimationFrame((ts) => { run.greenAt = ts; });     // ab dem Moment, in dem Grün zu sehen ist
+      run.tm = setTimeout(() => { if (alive() && run.ms == null) { run.ms = -2; pad.className = 'react-pad early'; txt.textContent = '⌛ ' + t('noReact'); } }, (REACT_WINDOW - 0.5) * 1000);
+    };
+    pad.onpointerdown = (e) => {
+      e.preventDefault(); if (run.ms != null || !alive()) return;
+      if (!run.greenAt) { if (pad.classList.contains('go')) return; finish(-1); return; }
+      finish(Math.max(1, Math.round(e.timeStamp && e.timeStamp > run.greenAt ? e.timeStamp - run.greenAt : performance.now() - run.greenAt)));
+    };
+    clearTimeout(run.tm);
+    run.tm = setTimeout(goGreen, Math.max(0, run.goLocal - Date.now()));
+  },
+  // ---------------- Farbfolge ----------------
+  renderSimon() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    const mode = st.mode, nPads = seqPads(mode), start = seqStart(mode), nine = nPads === 9;
+    stage.innerHTML = `<div class="cat">${t(MODE_KEY[mode])} · <span id="s-lv"></span></div><div class="hint" id="s-msg">${t('simonReady')}</div>
+      <div class="simon${nine ? ' nine' : ''}" id="simon">${[...Array(nPads).keys()].map((i) => `<button class="sp ${nine ? 'm' : 'c' + i}" data-i="${i}" disabled></button>`).join('')}</div>
+      <div class="note">${t(nine ? 'memHint' : 'simonHint')}</div><div class="done-list" id="done-list"></div>`;
+    const run0 = this.simonRun;
+    if (run0 && run0.round === round && run0.mix === st.mix && run0.mode === mode) { // läuft schon (nur neu gezeichnet)
+      if (!run0.busy && !run0.over) document.querySelectorAll('#simon .sp').forEach((b) => b.disabled = false);
+      this.updateSimon(); return;
+    }
+    const run = this.simonRun = { round, mix: st.mix, mode, seq: st.simonSeq || [], lv: 0, input: [], busy: true, over: false };
+    const alive = () => this.simonRun === run && this.state && this.state.phase === 'simon' && this.state.round === round;
+    const FREQ = nine ? [262, 294, 330, 349, 392, 440, 494, 523, 587] : [392, 523, 659, 784];
+    const pads = () => [...document.querySelectorAll('#simon .sp')];
+    const msg = (k, v) => { const m = $('#s-msg'); if (m) m.textContent = t(k, v); };
+    const flash = async (i, ms) => { const b = pads()[i]; if (b) b.classList.add('lit'); tick(FREQ[i]); await sleep(ms); const b2 = pads()[i]; if (b2) b2.classList.remove('lit'); };
+    const show = async () => {
+      run.busy = true; run.input = []; pads().forEach((b) => b.disabled = true);
+      msg('simonWatch'); this.updateSimon();
+      await sleep(700);
+      const len = run.lv + start, on = nine ? Math.max(300, 520 - run.lv * 20) : Math.max(260, 560 - run.lv * 25);
+      for (let k = 0; k < len; k++) { if (!alive()) return; await flash(run.seq[k], on); await sleep(140); }
+      if (!alive()) return;
+      run.busy = false; pads().forEach((b) => b.disabled = false); msg('simonYour');
+    };
+    stage.onpointerdown = async (e) => {
+      const b = e.target.closest && e.target.closest('.sp'); if (!b || b.disabled || run.busy || run.over || !alive()) return;
+      e.preventDefault();
+      const i = +b.dataset.i, k = run.input.length; run.input.push(i);
+      if (run.seq[k] !== i) {
+        run.over = true; pads().forEach((x) => x.disabled = true); tick(150); setTimeout(() => tick(110), 160);
+        b.classList.add('wrong'); msg('simonOut', { n: run.lv }); toHost({ t: 'simon', round, done: true }); return;
+      }
+      flash(i, 180);
+      if (run.input.length === run.lv + start) {
+        run.lv++; toHost({ t: 'simon', round, lv: run.lv });
+        if (run.lv + start > run.seq.length) { run.over = true; msg('simonMax'); toHost({ t: 'simon', round, done: true }); return; }
+        run.busy = true; pads().forEach((x) => x.disabled = true); msg('simonGood'); await sleep(500); if (alive()) show();
+      }
+    };
+    show();
+  },
+  // ---------------- Hütchenspiel ----------------
+  // Alle bekommen pro Level dieselben Tausch-Züge (aus der Folge vom Host berechnet) – fair für alle.
+  renderCups() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    const run0 = this.simonRun;
+    if (run0 && run0.round === round && run0.mix === st.mix && run0.mode === 'cups' && $('#cups')) { this.updateSimon(); return; }
+    stage.innerHTML = `<div class="cat">${t('modeCups')} · <span id="s-lv"></span></div><div class="hint" id="s-msg">${t('simonReady')}</div>
+      <div class="cups" id="cups"></div><div class="note">${t('cupsHint')}</div><div class="done-list" id="done-list"></div>`;
+    if (run0 && run0.round === round && run0.mix === st.mix && run0.mode === 'cups') { run0.redraw && run0.redraw(); this.updateSimon(); return; }
+    const run = this.simonRun = { round, mix: st.mix, mode: 'cups', seq: st.simonSeq || [], lv: 0, busy: true, over: false };
+    const alive = () => this.simonRun === run && this.state && this.state.phase === 'simon' && this.state.round === round;
+    const msg = (k, v) => { const m = $('#s-msg'); if (m) m.textContent = t(k, v); };
+    let n = 3, slotOf = [], ball = 0, picking = false;
+    const step = () => { const a = $('#cups'); return a ? a.clientWidth / n : 100; };
+    const place = (id, y, sc) => { const w = document.querySelector(`#cups .cupw[data-c="${id}"]`); if (w) w.style.transform = `translate(${slotOf[id] * step()}px, ${y || 0}px) scale(${sc || 1})`; };
+    const draw = () => {
+      const a = $('#cups'); if (!a) return;
+      a.style.setProperty('--n', n);
+      a.innerHTML = [...Array(n).keys()].map((id) => `<div class="cupw" data-c="${id}">${id === ball ? '<div class="ball"></div>' : ''}<div class="cup"></div></div>`).join('');
+      for (let id = 0; id < n; id++) place(id);
+    };
+    run.redraw = draw;
+    const lift = (id, up) => { const c = document.querySelector(`#cups .cupw[data-c="${id}"] .cup`); if (c) c.classList.toggle('up', up); };
+    const speed = (ms) => document.querySelectorAll('#cups .cupw').forEach((w) => w.style.transitionDuration = ms + 'ms');
+    const level = async () => {
+      run.busy = true; picking = false; this.updateSimon();
+      const lv = run.lv;
+      // Zufall für dieses Level: für alle gleich
+      let x = ((run.seq[lv % run.seq.length] + 1) * 7919 + lv * 104729 + round * 31) >>> 0;
+      const r = (k) => { x = (x * 1664525 + 1013904223) >>> 0; return Math.floor(x / 4294967296 * k); };
+      n = lv < 3 ? 3 : lv < 7 ? 4 : 5;
+      const swaps = 3 + lv * 2, dur = Math.max(170, 620 - lv * 55);
+      slotOf = [...Array(n).keys()]; ball = r(n);
+      draw(); msg('cupsWatch');
+      await sleep(400); if (!alive()) return;
+      lift(ball, true); tick(660); await sleep(1100); if (!alive()) return;
+      lift(ball, false); await sleep(450);
+      for (let k = 0; k < swaps; k++) {
+        if (!alive()) return;
+        const a = r(n); let b = r(n - 1); if (b >= a) b++;
+        const ia = a, ib = b, sa = slotOf[a], sb = slotOf[b]; // zwei Becher (IDs) tauschen ihre Plätze
+        // halber Weg: einer vorne, einer hinten – dann tauschen
+        speed(dur / 2); const mid = (sa + sb) / 2;
+        const wa = document.querySelector(`#cups .cupw[data-c="${ia}"]`), wb = document.querySelector(`#cups .cupw[data-c="${ib}"]`);
+        if (wa) { wa.style.zIndex = 3; wa.style.transform = `translate(${mid * step()}px, 14px) scale(1.06)`; }
+        if (wb) { wb.style.zIndex = 1; wb.style.transform = `translate(${mid * step()}px, -14px) scale(.9)`; }
+        await sleep(dur / 2);
+        slotOf[ia] = sb; slotOf[ib] = sa; place(ia); place(ib);
+        await sleep(dur / 2 + 30);
+      }
+      if (!alive()) return;
+      speed(250); run.busy = false; picking = true; msg('cupsPick');
+    };
+    $('#stage').onpointerdown = async (e) => {
+      const w = e.target.closest && e.target.closest('#cups .cupw'); if (!w || !picking || run.over || !alive()) return;
+      e.preventDefault(); picking = false;
+      const id = +w.dataset.c; lift(id, true);
+      if (id === ball) {
+        tick(880); setTimeout(() => tick(1175), 120); w.classList.add('right');
+        run.lv++; toHost({ t: 'simon', round, lv: run.lv }); msg('cupsRight');
+        await sleep(1100); if (alive()) level();
+      } else {
+        tick(150); setTimeout(() => tick(110), 160); w.classList.add('wrong');
+        await sleep(350); lift(ball, true);
+        run.over = true; msg('cupsWrong', { n: run.lv }); toHost({ t: 'simon', round, done: true });
+      }
+    };
+    level();
+  },
+  updateSimon() {
+    const st = this.state, el = $('#done-list'); if (!st || !el) return;
+    const lv = st.simonLv || {}, run = this.simonRun;
+    el.innerHTML = [...st.players].sort((a, b) => (lv[b.id] || 0) - (lv[a.id] || 0)).map((p) => `<span class="${p.done ? 'ok' : ''}">${p.done ? '🏁' : '🎮'} ${esc(p.name)}: ${lv[p.id] || 0}</span>`).join('');
+    const l = $('#s-lv'); if (l && run) l.textContent = `${t('level')} ${run.lv + 1}`;
+  },
+  // ---------------- Emoji-Rätsel ----------------
+  renderEmoji() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    stage.innerHTML = `<div class="cat">${t('emojiQ')}</div><div class="emo-clue">${esc(st.eClue)}</div><div class="e-hint" id="e-hint"></div>
+      <div class="logo-pick" id="e-box"><form class="g-form" id="e-f"><input id="e-in" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${t('emojiPh')}"><button class="btn primary">${t('guessBtn')}</button></form></div>
+      <div class="note">${t('emojiHint')}</div><div class="done-list" id="done-list"></div>`;
+    $('#e-f').onsubmit = (e) => { e.preventDefault(); const inp = $('#e-in'), v = inp.value.trim(); if (!v || !this.state || this.state.phase !== 'emoji') return; toHost({ t: 'eguess', round, text: v }); inp.value = ''; inp.focus(); };
+    this.updateEmoji();
+  },
+  updateEmoji() {
+    const st = this.state; if (!st || !$('#e-box')) return;
+    const me = this.me();
+    if (me && me.done && st.eWord >= 0 && !$('#e-got')) $('#e-box').innerHTML = `<div class="picked" id="e-got">✅ ${t('youGotIt')}<br><b>${esc(wordName(st.eWord))}</b></div>`;
+    const h = $('#e-hint'); if (h) h.innerHTML = st.eHint ? `<span class="e-mask">${esc(st.eHint)}</span> <small>(${t('letters', { n: st.eLen })})</small>` : '';
+    const el = $('#done-list'); if (el) el.innerHTML = st.players.map((p) => `<span class="${p.done ? 'ok' : ''}">${p.done ? '✅' : '🤔'} ${esc(p.name)}</span>`).join('');
   },
   // ---------------- Stoppuhr ----------------
   renderTimer() {
@@ -1339,17 +1679,20 @@ const view = {
   },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
-    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer') { el.textContent = ''; el.classList.add('hidden'); return; }
+    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate'].includes(st.phase) && s <= 5);
+    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji'].includes(st.phase) && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji'];
 const MODES = [...GAME_MODES, 'mix'];
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', mix: 'modeMix' };
+// Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
+const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
+  return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -1377,7 +1720,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -1622,6 +1965,32 @@ function voiceSync(st) {
   }
   for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) try { voice.calls.get(id).close(); } catch (e) {}
 }
+// Wer im Telefonat ist, hüpft als kleine Figur am Telefon-Knopf; wer gerade spricht, hüpft schneller
+let voiceHeadsKey = '';
+function renderVoiceHeads(st) {
+  const box = $('#voice-heads'); if (!box) return;
+  const on = st ? st.players.filter((p) => p.voice) : [];
+  const key = on.map((p) => p.id + JSON.stringify(p.char)).join('|');
+  if (key === voiceHeadsKey) return; voiceHeadsKey = key;
+  box.innerHTML = on.map((p, i) => `<div class="vh" data-id="${esc(p.id)}" style="animation-delay:${-i * 0.23}s" title="${esc(p.name)}">${charEl(p.char, 30, false)}</div>`).join('');
+}
+const meters = new Map(); // Stream -> Analyser (Lautstärke fürs Sprechen)
+function levelOf(stream) {
+  if (!stream) return 0;
+  let m = meters.get(stream);
+  if (!m) { try { const a = ac().createAnalyser(); a.fftSize = 256; ac().createMediaStreamSource(stream).connect(a); m = { a, buf: new Uint8Array(a.fftSize) }; meters.set(stream, m); } catch (e) { return 0; } }
+  m.a.getByteTimeDomainData(m.buf); let s = 0; for (const v of m.buf) s += (v - 128) * (v - 128);
+  return Math.sqrt(s / m.buf.length) / 128;
+}
+setInterval(() => {
+  const box = $('#voice-heads'); if (!box || !box.children.length) return;
+  for (const el of box.children) {
+    const id = el.dataset.id; let lv = 0;
+    if (voice.on) lv = id === net.myId ? (voice.track && voice.track.enabled ? levelOf(voice.stream) : 0) : levelOf((voice.audios.get(id) || {}).srcObject);
+    el.classList.toggle('talk', lv > 0.04);
+  }
+  for (const s of [...meters.keys()]) if (!s.active) meters.delete(s);
+}, 150);
 // Beim Zuhören, Aufnehmen und Vorspielen ist das Telefon stumm (sonst stört es die Töne)
 function applyVoiceMute(phase) {
   const quiet = phase === 'listen' || phase === 'record' || phase === 'show';
