@@ -35,6 +35,7 @@ const SEQ_MODES = ['simon', 'memory', 'cups']; // Hütchenspiel nutzt dieselben 
 const seqPads = (mode) => (mode === 'memory' ? 9 : 4);
 const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
 const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
+const HALVE_TIME = 30;      // Halbieren: Zeit für den Schnitt
 const LOGO_POINTS = [100, 80, 65, 50, 40, 30, 25, 20];
 const EMOJIS = ['😆', '😂', '😍', '🔥', '👍', '😳', '😢', '👎'];
 const WORDS = window.WORDS || [];
@@ -77,7 +78,7 @@ const T = {
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
@@ -105,7 +106,7 @@ const T = {
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -436,7 +437,7 @@ const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
-  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [],
+  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; this.eTimers.forEach(clearTimeout); this.eTimers = []; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -556,6 +557,14 @@ const host = {
         } else sendTo(from, { t: 'sys', key: res === 1 ? 'almost' : 'nope' });
         return;
       }
+      case 'cut': {
+        if (this.phase !== 'halve' || msg.round !== this.round || this.cuts.has(from)) return;
+        const pct = +msg.pct, ln = Array.isArray(msg.line) ? msg.line.slice(0, 4).map(Number) : [];
+        if (!isFinite(pct) || pct <= 0 || pct > 50 || ln.length !== 4 || ln.some((v) => !isFinite(v))) return;
+        this.cuts.set(from, { pct: Math.round(pct * 10) / 10, line: ln.map((v) => Math.round(v * 1000) / 1000) }); this.pushState();
+        if (this.players.every((x) => this.cuts.has(x.id))) this.endHalve();
+        return;
+      }
       case 'lobby': if (p.host) this.toLobby(); return;
       case 'voice': p.voice = !!msg.on; this.pushState(); return;
       case 'char': p.char = validChar(msg.char); this.pushState(); return;
@@ -622,6 +631,7 @@ const host = {
     if (this.phase === 'react' && this.players.every((x) => this.reacts.has(x.id))) { this.endReact(); return; }
     if (this.phase === 'simon' && this.players.every((x) => (this.simon.get(x.id) || {}).done)) { this.endSimon(); return; }
     if (this.phase === 'emoji' && this.players.every((x) => this.egot.has(x.id))) { this.endEmoji(); return; }
+    if (this.phase === 'halve' && this.players.every((x) => this.cuts.has(x.id))) { this.endHalve(); return; }
     this.pushState();
   },
   sweep() {
@@ -644,6 +654,8 @@ const host = {
         done: this.doneOf(p.id) })),
       drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target, mix: !!this.mix, qIdx: this.qIdx,
       ests: this.mode === 'estimate' && this.phase === 'results' ? Object.fromEntries(this.ests) : null,
+      halveObj: this.mode === 'halve' ? (window.HALVE_OBJ || ['🍌'])[this.halveIdx] : '', halveRot: this.halveRot,
+      cuts: this.mode === 'halve' && this.phase === 'results' ? Object.fromEntries(this.cuts) : null,
       goIn: this.phase === 'react' ? Math.max(0, this.reactGoAt - Date.now()) : 0,
       reacts: this.mode === 'react' && this.phase === 'results' ? Object.fromEntries(this.reacts) : null,
       simonSeq: this.phase === 'simon' ? this.simonSeq : null,
@@ -668,6 +680,7 @@ const host = {
       case 'react': return this.reacts.has(id);
       case 'simon': case 'memory': case 'cups': return !!(this.simon.get(id) || {}).done;
       case 'emoji': return this.egot.has(id);
+      case 'halve': return this.cuts.has(id);
       default: return this.recs.has(id);
     }
   },
@@ -696,7 +709,7 @@ const host = {
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
   startGame() {
-    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.departed = new Map();
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.departed = new Map();
     this.mix = this.baseMode === 'mix';
     if (this.mix) { // jedes Spiel einmal, gemischt (bei mehreren Runden mehrmals)
       this.mixList = []; for (let r = 0; r < this.rounds; r++) this.mixList.push(...shuffle([...GAME_MODES]));
@@ -732,6 +745,12 @@ const host = {
     this.playRound();
   },
   playRound() {
+    if (this.mode === 'halve') {
+      const n = (window.HALVE_OBJ || ['🍌']).length; let i = rnd(n); for (let k = 0; k < 300 && this.usedH.has(i); k++) i = rnd(n);
+      this.usedH.add(i); this.halveIdx = i; this.halveRot = rnd(71) - 35; this.cuts = new Map(); this.gains = {};
+      this.setPhase('halve', HALVE_TIME, () => this.endHalve());
+      return;
+    }
     if (this.mode === 'react') {
       this.reactWait = 2000 + rnd(4500); this.reacts = new Map(); this.gains = {};
       this.reactGoAt = Date.now() + this.reactWait;
@@ -837,6 +856,19 @@ const host = {
       const rank = ranked.findIndex(([id]) => id === p.id);
       let g = rank < 0 ? 0 : LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)];
       if (rank >= 0 && Math.abs(this.stops.get(p.id) - this.target) <= 50) g += 50; // fast genau: Bonus
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
+  },
+  // ---- Halbieren: je näher an 50 : 50, desto mehr Punkte; der Genaueste bekommt Bonus
+  endHalve() {
+    if (this.phase !== 'halve') return;
+    this.stop(); this.gains = {};
+    const best = Math.max(0, ...[...this.cuts.values()].map((c) => c.pct));
+    for (const p of this.players) {
+      const c = this.cuts.get(p.id);
+      let g = c ? Math.max(0, Math.round(100 - (50 - c.pct) * 6)) : 0; // 1 % daneben = 94, 5 % = 70, ab 16,7 % = 0
+      if (c && c.pct === best && this.cuts.size > 1) g += 25;
       p.score += g; this.gains[p.id] = g;
     }
     this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
@@ -1030,7 +1062,7 @@ const view = {
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
@@ -1040,7 +1072,7 @@ const view = {
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     else if (st.phase === 'hang') this.updateHang();
-    else if (st.phase === 'react') this.updateDone();
+    else if (st.phase === 'react' || st.phase === 'halve') this.updateDone();
     else if (st.phase === 'simon') this.updateSimon();
     else if (st.phase === 'emoji') this.updateEmoji();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
@@ -1064,7 +1096,7 @@ const view = {
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (['react', 'simon', 'emoji'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (['react', 'simon', 'emoji', 'halve'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -1119,6 +1151,8 @@ const view = {
       tick(660); setTimeout(() => tick(990), 160);
     } else if (st.phase === 'estimate') {
       this.renderEstimate();
+    } else if (st.phase === 'halve') {
+      this.renderHalve();
     } else if (st.phase === 'react') {
       this.renderReact();
     } else if (st.phase === 'simon') {
@@ -1158,6 +1192,15 @@ const view = {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="cat light">${t('answer')}</div><div class="timer-big light">${esc(shown(q[2]))}</div>
         <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
           return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'halve') {
+      const cuts = st.cuts || {}, dev = (id) => (cuts[id] ? 50 - cuts[id].pct : 99);
+      const order = [...st.players].sort((a, b) => dev(a.id) - dev(b.id));
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeHalve')}</div><canvas class="halve-cv small" id="h-cv" width="${HALVE_PX}" height="${HALVE_PX}"></canvas>
+        <div class="vlist">${order.map((x, i) => { const c = cuts[x.id];
+          return `<div class="vline${i === 0 && c ? ' best' : ''}"><i class="h-dot" style="background:${esc(x.char.color)}"></i>${charEl(x.char, 26, false)}<span class="vn">${i === 0 && c ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${c ? `<b>${fmtNum(c.pct)} : ${fmtNum(Math.round((100 - c.pct) * 10) / 10)}</b>${c.pct >= 49.5 ? ' 🎯 ' + t('perfect') : ''}` : '⏳ ' + t('halveNone')}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+      const sh = halveShape(st.halveObj, st.halveRot), cv = $('#h-cv');
+      const mine = cuts[net.myId];
+      drawHalve(cv, sh, mine ? mine.line : null, order.filter((x) => cuts[x.id]).map((x) => ({ line: cuts[x.id].line, color: x.char.color })));
     } else if (st.phase === 'results' && st.mode === 'react') {
       const rv = st.reacts || {}, val = (id) => (rv[id] > 0 ? rv[id] : 1e9);
       const best = [...st.players].sort((a, b) => val(a.id) - val(b.id));
@@ -1469,6 +1512,34 @@ const view = {
       b.classList.toggle('hit', used && !h.wrong.includes(k)); b.classList.toggle('miss', h.wrong.includes(k)); b.disabled = used || !myTurn; });
     $('#h-counts').innerHTML = st.players.filter((x) => x.id !== st.drawer).map((x) => `<span class="${x.id === h.cur ? 'ok' : ''}">${x.id === h.cur ? '👉 ' : ''}${esc(x.name)}: ${h.counts[x.id] || 0}</span>`).join('');
   },
+  // ---------------- Halbieren ----------------
+  renderHalve() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    stage.innerHTML = `<div class="cat">${t('modeHalve')}</div><canvas class="halve-cv" id="h-cv" width="${HALVE_PX}" height="${HALVE_PX}"></canvas>
+      <div class="hint" id="h-msg">${t('halveHint')}</div><div id="h-box"><button class="btn primary big-btn" id="h-go" disabled>${t('halveCut')}</button></div>
+      <div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const cv = $('#h-cv'), sh = halveShape(st.halveObj, st.halveRot);
+    let run = this.halveRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.halveRun = { round, mix: st.mix, line: null, sent: null };
+    const show = () => {
+      if (run.sent) { drawHalve(cv, sh, run.sent.line, []); $('#h-box').innerHTML = `<div class="picked">✅ ${t('halveDone')}</div>`; $('#h-msg').textContent = ''; return; }
+      drawHalve(cv, sh, null, run.line ? [{ line: run.line, color: '#222' }] : []);
+      $('#h-go').disabled = !run.line;
+    };
+    show(); if (run.sent) return;
+    const pos = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+    let a = null;
+    cv.onpointerdown = (e) => { if (run.sent) return; e.preventDefault(); cv.setPointerCapture(e.pointerId); a = pos(e); };
+    cv.onpointermove = (e) => { if (!a || run.sent) return; const b = pos(e); if (Math.hypot(b[0] - a[0], b[1] - a[1]) > 0.04) { run.line = [...a, ...b]; show(); } };
+    cv.onpointerup = cv.onpointercancel = () => { a = null; };
+    $('#h-go').onclick = () => {
+      if (!run.line || run.sent || !this.state || this.state.phase !== 'halve') return;
+      const pct = halveSplit(sh, run.line);
+      if (pct <= 0.5) { $('#h-msg').textContent = t('halveMiss'); tick(180); return; }
+      run.sent = { line: run.line, pct }; toHost({ t: 'cut', round, pct, line: run.line }); tick(1046); show();
+    };
+  },
   // ---------------- Reaktion ----------------
   renderReact() {
     const st = this.state, stage = $('#stage'), round = st.round;
@@ -1682,17 +1753,17 @@ const view = {
     if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji'].includes(st.phase) && s <= 5);
+    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve'].includes(st.phase) && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve'];
 const MODES = [...GAME_MODES, 'mix'];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -1720,7 +1791,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -1964,6 +2035,74 @@ function voiceSync(st) {
     if (!p.voice && has) { try { voice.calls.get(p.id).close(); } catch (e) {} }
   }
   for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) try { voice.calls.get(id).close(); } catch (e) {}
+}
+// ---- Halbieren: die Form ist das Emoji-Bild; gezählt werden die sichtbaren Pixel auf jeder Seite des Schnitts
+const HALVE_PX = 320, HALVE_GRID = 160;
+let halveCache = null;
+function halveShape(ch, rot) {
+  const key = ch + '|' + rot; if (halveCache && halveCache.key === key) return halveCache;
+  const BIG = HALVE_PX * 2, cv = document.createElement('canvas'); cv.width = cv.height = BIG;
+  const g = cv.getContext('2d', { willReadFrequently: true });
+  const paint = (size) => {
+    g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, BIG, BIG);
+    g.translate(BIG / 2, BIG / 2); g.rotate(rot * Math.PI / 180);
+    g.font = `${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(ch, 0, size * 0.04);
+  };
+  // erst zeichnen, dann so vergrößern/verschieben, dass das Objekt die Fläche gut ausfüllt
+  paint(420);
+  let d = g.getImageData(0, 0, BIG, BIG).data, x0 = BIG, y0 = BIG, x1 = 0, y1 = 0;
+  for (let y = 0; y < BIG; y++) for (let x = 0; x < BIG; x++) if (d[(y * BIG + x) * 4 + 3] > 100) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  const img = document.createElement('canvas'); img.width = img.height = HALVE_PX;
+  const gi = img.getContext('2d', { willReadFrequently: true });
+  if (x1 > x0) { gi.imageSmoothingQuality = 'high'; const sc = Math.min(1.5, (HALVE_PX * 0.86) / Math.max(x1 - x0, y1 - y0)), w = (x1 - x0) * sc, h = (y1 - y0) * sc;
+    gi.drawImage(cv, x0, y0, x1 - x0 + 1, y1 - y0 + 1, (HALVE_PX - w) / 2, (HALVE_PX - h) / 2, w, h); }
+  d = gi.getImageData(0, 0, HALVE_PX, HALVE_PX).data;
+  const pts = [], step = HALVE_PX / HALVE_GRID;
+  for (let gy = 0; gy < HALVE_GRID; gy++) for (let gx = 0; gx < HALVE_GRID; gx++) {
+    const px = Math.floor((gx + 0.5) * step), py = Math.floor((gy + 0.5) * step);
+    if (d[(py * HALVE_PX + px) * 4 + 3] > 100) pts.push((gx + 0.5) / HALVE_GRID, (gy + 0.5) / HALVE_GRID);
+  }
+  return (halveCache = { key, img, pts });
+}
+// Anteil der kleineren Hälfte in Prozent (0–50)
+function halveSplit(sh, l) {
+  const [ax, ay, bx, by] = l, dx = bx - ax, dy = by - ay; let left = 0; const n = sh.pts.length / 2; if (!n) return 0;
+  for (let i = 0; i < sh.pts.length; i += 2) if (dx * (sh.pts[i + 1] - ay) - dy * (sh.pts[i] - ax) > 0) left++;
+  return Math.min(left, n - left) / n * 100;
+}
+// Schnitt als Gerade über die ganze Fläche verlängern
+function lineEnds(l) {
+  const [ax, ay, bx, by] = l, dx = bx - ax, dy = by - ay, len = Math.hypot(dx, dy) || 1;
+  return [ax - dx / len * 2, ay - dy / len * 2, ax + dx / len * 2, ay + dy / len * 2];
+}
+function drawHalve(cv, sh, split, lines) {
+  const g = cv.getContext('2d'), W = cv.width; g.clearRect(0, 0, W, W);
+  if (split) { // eigene Hälften einfärben
+    const [x0, y0, x1, y1] = lineEnds(split).map((v) => v * W);
+    const half = (sign, col) => {
+      g.save(); g.beginPath(); const nx = -(y1 - y0), ny = x1 - x0, k = 4 * sign;
+      g.moveTo(x0, y0); g.lineTo(x1, y1); g.lineTo(x1 + nx * k, y1 + ny * k); g.lineTo(x0 + nx * k, y0 + ny * k); g.closePath(); g.clip();
+      g.drawImage(sh.img, 0, 0, W, W); g.globalCompositeOperation = 'source-atop'; g.fillStyle = col; g.fillRect(0, 0, W, W); g.restore();
+    };
+    g.drawImage(sh.img, 0, 0, W, W); half(1, 'rgba(30,120,255,.6)'); half(-1, 'rgba(255,50,80,.55)');
+  } else g.drawImage(sh.img, 0, 0, W, W);
+  const labels = [];
+  if (split) { // Prozent auf jede Hälfte schreiben (in deren Mitte)
+    const [ax, ay, bx, by] = split, dx = bx - ax, dy = by - ay, c = [[0, 0, 0], [0, 0, 0]];
+    for (let i = 0; i < sh.pts.length; i += 2) { const k = dx * (sh.pts[i + 1] - ay) - dy * (sh.pts[i] - ax) > 0 ? 0 : 1; c[k][0] += sh.pts[i]; c[k][1] += sh.pts[i + 1]; c[k][2]++; }
+    const n = c[0][2] + c[1][2];
+    const len = Math.hypot(dx, dy) || 1, ox = -dy / len * W * 0.1, oy = dx / len * W * 0.1; // von der Linie weg auf die eigene Seite
+    if (n) c.forEach(([sx, sy, m], k) => { if (m) labels.push([sx / m * W + (k ? -ox : ox), sy / m * W + (k ? -oy : oy), fmtNum(Math.round(m / n * 1000) / 10) + ' %']); });
+  }
+  for (const { line, color } of (split ? [{ line: split, color: '#111' }] : []).concat(lines)) {
+    const [x0, y0, x1, y1] = lineEnds(line).map((v) => v * W);
+    g.lineCap = 'round'; g.setLineDash([]);
+    g.strokeStyle = 'rgba(0,0,0,.55)'; g.lineWidth = 6; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+    g.strokeStyle = color; g.lineWidth = 3; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+  }
+  g.font = `900 ${Math.round(W / 11)}px Nunito, system-ui, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round';
+  for (const [x, y, txt] of labels) { g.lineWidth = 6; g.strokeStyle = 'rgba(0,0,0,.75)'; g.strokeText(txt, x, y); g.fillStyle = '#fff'; g.fillText(txt, x, y); }
 }
 // Wer im Telefonat ist, hüpft als kleine Figur am Telefon-Knopf; wer gerade spricht, hüpft schneller
 let voiceHeadsKey = '';
