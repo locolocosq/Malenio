@@ -390,3 +390,13 @@ body.emo-on main { padding-bottom: 80px; }
 .mp-list { display: flex; flex-wrap: wrap; gap: 6px; }
 .mp { border: 2px solid #d9d2e9; background: #fff; color: #8a8299; border-radius: 999px; padding: 6px 11px; font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; }
 .mp.on { border-color: var(--purple, #7b2ff7); background: #f1e9ff; color: var(--ink, #2b2250); }
+
+/* ---- Farbe treffen ---- */
+.col-big { width: min(70vw, 260px); aspect-ratio: 1.4; border-radius: 26px; box-shadow: 0 6px 0 rgba(0,0,0,.15), inset 0 0 0 4px rgba(255,255,255,.6); }
+.col-big.small { width: min(50vw, 180px); }
+.col-sl { width: min(88vw, 380px); display: flex; flex-direction: column; gap: 12px; font-weight: 800; }
+.col-sl label { display: flex; flex-direction: column; gap: 4px; }
+.col-sl input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 30px; border-radius: 15px; outline: none; box-shadow: inset 0 0 0 2px rgba(0,0,0,.12); }
+.col-sl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 34px; height: 34px; border-radius: 50%; background: #fff; border: 4px solid #2b2250; box-shadow: 0 2px 4px rgba(0,0,0,.3); }
+.col-sl input[type=range]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 4px solid #2b2250; }
+.col-sw { width: 26px; height: 26px; border-radius: 8px; flex: none; box-shadow: 0 0 0 2px rgba(0,0,0,.2); }

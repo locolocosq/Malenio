@@ -37,6 +37,47 @@ const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
 const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
 const HALVE_TIME = 30;      // Halbieren: Zeit für den Schnitt
 const BAL_TIME = 25;        // Wippe: Zeit zum Hinstellen
+const COL_SHOW = 3;         // Farbe treffen: so lange (s) wird die Farbe gezeigt
+const COL_TIME = 25;        // Farbe treffen: Zeit zum Nachmischen
+const CIRC_TIME = 25;       // Perfekter Kreis: Zeit für alle Versuche
+const CIRC_TRIES = 3;       // Perfekter Kreis: Versuche, der beste zählt
+// Farbe: HSL -> RGB -> Lab; Abstand im Lab-Raum ≈ wie unterschiedlich das Auge die Farben sieht
+function hslRgb(h, s, l) { s /= 100; l /= 100; const k = (n) => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);
+  return [0, 8, 4].map((n) => 255 * (l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1)))); }
+function rgbLab([r, g, b]) {
+  const lin = (c) => { c /= 255; return c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92; };
+  const R = lin(r), G = lin(g), B = lin(b);
+  const f = (v) => (v > 0.008856 ? Math.cbrt(v) : 7.787 * v + 16 / 116);
+  const x = f((R * 0.4124 + G * 0.3576 + B * 0.1805) / 0.95047), y = f(R * 0.2126 + G * 0.7152 + B * 0.0722), z = f((R * 0.0193 + G * 0.1192 + B * 0.9505) / 1.08883);
+  return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
+}
+function colMatch(a, b) { // 0–100 % Treffer
+  const A = rgbLab(hslRgb(a.h, a.s, a.l)), B = rgbLab(hslRgb(b.h, b.s, b.l));
+  const dE = Math.hypot(A[0] - B[0], A[1] - B[1], A[2] - B[2]);
+  return Math.max(0, Math.round((100 - dE * 2) * 10) / 10);
+}
+const hslCss = (c) => `hsl(${Math.round(c.h)} ${Math.round(c.s)}% ${Math.round(c.l)}%)`;
+// Kreis: wie rund? (Punkte gleichmäßig verteilen, Mittelpunkt, Abweichung vom mittleren Radius, Lücke zwischen Anfang und Ende)
+function circleScore(raw) {
+  if (raw.length < 8) return { ok: false };
+  const pts = [raw[0]]; let len = 0;
+  for (let i = 1; i < raw.length; i++) len += Math.hypot(raw[i][0] - raw[i - 1][0], raw[i][1] - raw[i - 1][1]);
+  const N = 120, step = len / N; let acc = 0;
+  for (let i = 1; i < raw.length && pts.length < N; i++) {
+    let [px, py] = raw[i - 1]; const [qx, qy] = raw[i]; let d = Math.hypot(qx - px, qy - py);
+    while (acc + d >= step && pts.length < N) { const t = (step - acc) / d; px += (qx - px) * t; py += (qy - py) * t; pts.push([px, py]); d = Math.hypot(qx - px, qy - py); acc = 0; }
+    acc += d;
+  }
+  const cx = pts.reduce((a, p) => a + p[0], 0) / pts.length, cy = pts.reduce((a, p) => a + p[1], 0) / pts.length;
+  const rs = pts.map((p) => Math.hypot(p[0] - cx, p[1] - cy)), r = rs.reduce((a, v) => a + v, 0) / rs.length;
+  const sd = Math.sqrt(rs.reduce((a, v) => a + (v - r) ** 2, 0) / rs.length);
+  let turn = 0; for (let i = 1; i < pts.length; i++) { let d = Math.atan2(pts[i][1] - cy, pts[i][0] - cx) - Math.atan2(pts[i - 1][1] - cy, pts[i - 1][0] - cx); if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; turn += d; }
+  const gap = Math.hypot(raw[0][0] - raw[raw.length - 1][0], raw[0][1] - raw[raw.length - 1][1]);
+  if (r < 0.12) return { ok: false, why: 'circSmall' };
+  if (Math.abs(turn) < Math.PI * 2 * 0.88) return { ok: false, why: 'circOpen' };
+  const pct = Math.max(0, 100 * (1 - 3 * sd / r) - Math.min(15, gap / r * 15));
+  return { ok: true, pct: Math.round(pct * 10) / 10, cx, cy, r };
+}
 const BAL_HOLD = 8;         // Wippe: so lange (s) muss sie halten – perfekt = hält die ganze Zeit
 const BAL_PERFECT = 0.03;   // Wippe: bis 3 % Abweichung beim Drehmoment gilt als perfekt
 // Wippe: Gegenstände [Emoji, kg]; 'DB' = Hantel (eigenes Bild)
@@ -92,7 +133,7 @@ const T = {
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
@@ -120,7 +161,7 @@ const T = {
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -451,7 +492,7 @@ const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
-  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
+  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], cols: new Map(), colT: null, circs: new Map(), bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; this.eTimers.forEach(clearTimeout); this.eTimers = []; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -574,6 +615,23 @@ const host = {
         } else sendTo(from, { t: 'sys', key: res === 1 ? 'almost' : 'nope' });
         return;
       }
+      case 'col': {
+        if (this.phase !== 'color' || msg.round !== this.round || this.cols.has(from)) return;
+        const c = { h: clamp(+msg.h || 0, 0, 360), s: clamp(+msg.s || 0, 0, 100), l: clamp(+msg.l || 0, 0, 100) };
+        this.cols.set(from, Object.assign(c, { m: colMatch(this.colT, c) })); this.pushState();
+        if (this.players.every((x) => this.cols.has(x.id))) this.endColor();
+        return;
+      }
+      case 'circ': {
+        if (this.phase !== 'circle' || msg.round !== this.round) return;
+        const e = this.circs.get(from) || { tries: 0, pct: -1, pts: [] }; if (e.tries >= CIRC_TRIES) return;
+        const pct = +msg.pct; if (!isFinite(pct) || pct < 0 || pct > 100) return;
+        e.tries++;
+        if (pct > e.pct) { e.pct = Math.round(pct * 10) / 10; e.pts = (Array.isArray(msg.pts) ? msg.pts.slice(0, 160) : []).map((v) => Math.round(clamp(+v || 0, 0, 1) * 1000) / 1000); }
+        this.circs.set(from, e); this.pushState();
+        if (this.players.every((x) => (this.circs.get(x.id) || {}).tries >= CIRC_TRIES)) this.endCircle();
+        return;
+      }
       case 'bal': {
         if (this.phase !== 'balance' || msg.round !== this.round || this.bals.has(from)) return;
         const x = +msg.x; if (!isFinite(x) || x < 0 || x > 1.05) return;
@@ -658,6 +716,8 @@ const host = {
     if (this.phase === 'emoji' && this.players.every((x) => this.egot.has(x.id))) { this.endEmoji(); return; }
     if (this.phase === 'halve' && this.players.every((x) => this.cuts.has(x.id))) { this.endHalve(); return; }
     if (this.phase === 'balance' && this.players.every((x) => this.bals.has(x.id))) { this.endBalance(); return; }
+    if (this.phase === 'color' && this.players.every((x) => this.cols.has(x.id))) { this.endColor(); return; }
+    if (this.phase === 'circle' && this.players.every((x) => (this.circs.get(x.id) || {}).tries >= CIRC_TRIES)) { this.endCircle(); return; }
     this.pushState();
   },
   sweep() {
@@ -680,6 +740,9 @@ const host = {
         done: this.doneOf(p.id) })),
       drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target, mix: !!this.mix, qIdx: this.qIdx,
       ests: this.mode === 'estimate' && this.phase === 'results' ? Object.fromEntries(this.ests) : null,
+      colT: this.mode === 'color' && (this.phase === 'colorshow' || this.phase === 'results') ? this.colT : null,
+      cols: this.mode === 'color' && this.phase === 'results' ? Object.fromEntries(this.cols) : null,
+      circ: this.mode === 'circle' ? Object.fromEntries([...this.circs].map(([k, v]) => [k, this.phase === 'results' ? v : { tries: v.tries, pct: v.pct }])) : null,
       balL: this.mode === 'balance' ? this.balL : null, balObj: this.mode === 'balance' ? this.balObj : null,
       bals: this.mode === 'balance' && this.phase === 'results' ? Object.fromEntries(this.bals) : null,
       halveObj: this.mode === 'halve' ? (window.HALVE_OBJ || ['🍌'])[this.halveIdx] : '', halveRot: this.halveRot,
@@ -710,6 +773,8 @@ const host = {
       case 'emoji': return this.egot.has(id);
       case 'halve': return this.cuts.has(id);
       case 'balance': return this.bals.has(id);
+      case 'color': return this.cols.has(id);
+      case 'circle': return (this.circs.get(id) || {}).tries >= CIRC_TRIES;
       default: return this.recs.has(id);
     }
   },
@@ -775,6 +840,16 @@ const host = {
     this.playRound();
   },
   playRound() {
+    if (this.mode === 'color') {
+      this.colT = { h: rnd(360), s: 35 + rnd(60), l: 30 + rnd(46) }; this.cols = new Map(); this.gains = {};
+      this.setPhase('colorshow', COL_SHOW, () => this.setPhase('color', COL_TIME, () => this.endColor()));
+      return;
+    }
+    if (this.mode === 'circle') {
+      this.circs = new Map(); this.gains = {};
+      this.setPhase('circle', CIRC_TIME, () => this.endCircle());
+      return;
+    }
     if (this.mode === 'balance') {
       // links ein festes Gewicht, rechts ein Gegenstand; die richtige Stelle muss gut erreichbar sein
       let L, oi, x;
@@ -901,6 +976,22 @@ const host = {
       p.score += g; this.gains[p.id] = g;
     }
     this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
+  },
+  // ---- Farbe treffen: Punkte = Treffer in %, die Beste +20
+  endColor() {
+    if (this.phase !== 'color' && this.phase !== 'colorshow') return;
+    this.stop(); this.gains = {};
+    const best = Math.max(-1, ...[...this.cols.values()].map((c) => c.m));
+    for (const p of this.players) { const c = this.cols.get(p.id); const g = c ? Math.round(c.m) + (c.m === best && this.cols.size > 1 ? 20 : 0) : 0; p.score += g; this.gains[p.id] = g; }
+    this.setPhase('results', RESULT_TIME + 1, () => this.nextRound());
+  },
+  // ---- Perfekter Kreis: Punkte = Rundheit in % (bester Versuch), der Rundeste +20
+  endCircle() {
+    if (this.phase !== 'circle') return;
+    this.stop(); this.gains = {};
+    const best = Math.max(-1, ...[...this.circs.values()].map((c) => c.pct));
+    for (const p of this.players) { const c = this.circs.get(p.id); const g = c && c.pct >= 0 ? Math.round(c.pct) + (c.pct === best && this.circs.size > 1 ? 20 : 0) : 0; p.score += g; this.gains[p.id] = g; }
+    this.setPhase('results', RESULT_TIME + 1, () => this.nextRound());
   },
   // ---- Wippe: je länger sie hält, desto mehr Punkte; perfekt = volle Punkte
   endBalance() {
@@ -1118,7 +1209,7 @@ const view = {
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
@@ -1128,7 +1219,7 @@ const view = {
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     else if (st.phase === 'hang') this.updateHang();
-    else if (st.phase === 'react' || st.phase === 'halve' || st.phase === 'balance') this.updateDone();
+    else if (['react', 'halve', 'balance', 'color', 'circle'].includes(st.phase)) this.updateDone();
     else if (st.phase === 'simon') this.updateSimon();
     else if (st.phase === 'emoji') this.updateEmoji();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
@@ -1153,7 +1244,7 @@ const view = {
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -1208,6 +1299,12 @@ const view = {
       tick(660); setTimeout(() => tick(990), 160);
     } else if (st.phase === 'estimate') {
       this.renderEstimate();
+    } else if (st.phase === 'colorshow') {
+      stage.innerHTML = `<div class="cat">${t('modeColor')}</div><div class="col-big" style="background:${hslCss(st.colT)}"></div><div class="meme-title">${t('colMemo')}</div>`;
+    } else if (st.phase === 'color') {
+      this.renderColor();
+    } else if (st.phase === 'circle') {
+      this.renderCircle();
     } else if (st.phase === 'balance') {
       this.renderBalance();
     } else if (st.phase === 'halve') {
@@ -1251,6 +1348,20 @@ const view = {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="cat light">${t('answer')}</div><div class="timer-big light">${esc(shown(q[2]))}</div>
         <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
           return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'color') {
+      const cs = st.cols || {}, order = [...st.players].sort((a, b) => (cs[b.id] ? cs[b.id].m : -1) - (cs[a.id] ? cs[a.id].m : -1));
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('colWas')}</div><div class="col-big small" style="background:${hslCss(st.colT)}"></div>
+        <div class="vlist">${order.map((x, i) => { const c = cs[x.id];
+          return `<div class="vline${i === 0 && c ? ' best' : ''}"><i class="col-sw" style="background:${c ? hslCss(c) : 'transparent'}"></i>${charEl(x.char, 26, false)}<span class="vn">${i === 0 && c ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${c ? `${t('match')} <b>${fmtNum(c.m)} %</b>` : '⏳ ' + t('colNone')}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'circle') {
+      const cs = st.circ || {}, val = (id) => (cs[id] ? cs[id].pct : -1), order = [...st.players].sort((a, b) => val(b.id) - val(a.id));
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeCircle')}</div><canvas class="halve-cv small" id="c-cv" width="320" height="320"></canvas>
+        <div class="vlist">${order.map((x, i) => { const c = cs[x.id], ok = c && c.pct >= 0;
+          return `<div class="vline${i === 0 && ok ? ' best' : ''}"><i class="h-dot" style="background:${esc(x.char.color)}"></i>${charEl(x.char, 26, false)}<span class="vn">${i === 0 && ok ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${ok ? `<b>${t('circRound', { p: fmtNum(c.pct) })}</b>` : '⏳ ' + t('circNone')}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+      const g = $('#c-cv').getContext('2d');
+      for (const x of [...order].reverse()) { const c = cs[x.id]; if (!c || !c.pts || c.pts.length < 4) continue;
+        const P = []; for (let i = 0; i + 1 < c.pts.length; i += 2) P.push([c.pts[i] * 320, c.pts[i + 1] * 320]);
+        drawStroke(g, P, 'rgba(0,0,0,.45)', 9); drawStroke(g, P, x.char.color, 5); }
     } else if (st.phase === 'results' && st.mode === 'balance') {
       const bs = st.bals || {}, val = (id) => (!bs[id] ? -1 : bs[id].perfect ? 99 : bs[id].t);
       const order = [...st.players].sort((a, b) => val(b.id) - val(a.id));
@@ -1579,6 +1690,59 @@ const view = {
       b.classList.toggle('hit', used && !h.wrong.includes(k)); b.classList.toggle('miss', h.wrong.includes(k)); b.disabled = used || !myTurn; });
     $('#h-counts').innerHTML = st.players.filter((x) => x.id !== st.drawer).map((x) => `<span class="${x.id === h.cur ? 'ok' : ''}">${x.id === h.cur ? '👉 ' : ''}${esc(x.name)}: ${h.counts[x.id] || 0}</span>`).join('');
   },
+  // ---------------- Farbe treffen ----------------
+  renderColor() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    let run = this.colRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.colRun = { round, mix: st.mix, h: rnd(360), s: 50, l: 50, sent: false };
+    stage.innerHTML = `<div class="cat">${t('colMix')}</div><div class="col-big" id="c-sw"></div>
+      <div class="col-sl" id="c-sl">${[['h', 'colH', 360], ['s', 'colS', 100], ['l', 'colL', 100]].map(([k, lab, max]) => `<label>${t(lab)}<input type="range" id="c-${k}" min="0" max="${max}" step="1" value="${run[k]}"></label>`).join('')}</div>
+      <div id="c-box"><button class="btn primary" id="c-go">${t('colGo')}</button></div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const paint = () => {
+      $('#c-sw').style.background = hslCss(run);
+      $('#c-h').style.background = `linear-gradient(90deg, ${[0, 60, 120, 180, 240, 300, 360].map((h) => `hsl(${h} ${run.s}% ${run.l}%)`).join(',')})`;
+      $('#c-s').style.background = `linear-gradient(90deg, hsl(${run.h} 0% ${run.l}%), hsl(${run.h} 100% ${run.l}%))`;
+      $('#c-l').style.background = `linear-gradient(90deg, #000, hsl(${run.h} ${run.s}% 50%), #fff)`;
+    };
+    const lock = () => { $('#c-box').innerHTML = `<div class="picked">✅ ${t('colDone')}</div>`; stage.querySelectorAll('#c-sl input').forEach((i) => i.disabled = true); };
+    ['h', 's', 'l'].forEach((k) => { $('#c-' + k).oninput = (e) => { if (run.sent) return; run[k] = +e.target.value; paint(); }; });
+    paint(); if (run.sent) { lock(); return; }
+    $('#c-go').onclick = () => { if (run.sent || !this.state || this.state.phase !== 'color') return; run.sent = true; toHost({ t: 'col', round, h: run.h, s: run.s, l: run.l }); tick(880); lock(); };
+  },
+  // ---------------- Perfekter Kreis ----------------
+  renderCircle() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    let run = this.circRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.circRun = { round, mix: st.mix, tries: 0, best: -1, last: null };
+    stage.innerHTML = `<div class="cat">${t('modeCircle')}</div><canvas class="halve-cv" id="c-cv" width="320" height="320"></canvas>
+      <div class="bal-info" id="c-res"></div><div class="hint" id="c-msg">${t('circHint', { n: CIRC_TRIES })}</div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const cv = $('#c-cv'), g = cv.getContext('2d');
+    const info = () => {
+      const left = CIRC_TRIES - run.tries;
+      $('#c-res').innerHTML = run.last ? `<b class="${run.last.pct >= 90 ? 'ok' : ''}">${t('circRound', { p: fmtNum(run.last.pct) })}</b>` : '';
+      $('#c-msg').textContent = left <= 0 ? `${t('circBest', { p: fmtNum(run.best) })} – ${t('colDone')}` : run.tries ? `${t('circLeft', { n: left })} · ${t('circBest', { p: fmtNum(run.best) })}` : t('circHint', { n: CIRC_TRIES });
+    };
+    const showLast = () => { g.clearRect(0, 0, 320, 320); if (!run.last) return;
+      const { P, cx, cy, r } = run.last; g.setLineDash([6, 6]); g.strokeStyle = '#22b35e'; g.lineWidth = 2; g.beginPath(); g.arc(cx * 320, cy * 320, r * 320, 0, Math.PI * 2); g.stroke(); g.setLineDash([]);
+      drawStroke(g, P.map(([x, y]) => [x * 320, y * 320]), '#7b2ff7', 6); };
+    showLast(); info();
+    const pos = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+    let cur = null;
+    const alive = () => this.circRun === run && this.state && this.state.phase === 'circle' && this.state.round === round;
+    cv.onpointerdown = (e) => { if (run.tries >= CIRC_TRIES || !alive()) return; e.preventDefault(); cv.setPointerCapture(e.pointerId); cur = [pos(e)]; g.clearRect(0, 0, 320, 320); $('#c-res').innerHTML = ''; };
+    cv.onpointermove = (e) => { if (!cur) return; const p = pos(e); cur.push(p); const n = cur.length; if (n > 1) drawStroke(g, [cur[n - 2], p].map(([x, y]) => [x * 320, y * 320]), '#7b2ff7', 6); };
+    cv.onpointerup = cv.onpointercancel = () => {
+      if (!cur) return; const raw = cur; cur = null;
+      const sc = circleScore(raw);
+      if (!sc.ok) { $('#c-msg').textContent = t(sc.why || 'circOpen'); tick(180); setTimeout(() => { if (alive()) { showLast(); info(); } }, 1400); return; }
+      run.tries++; run.last = Object.assign(sc, { P: raw }); run.best = Math.max(run.best, sc.pct);
+      const step = Math.max(1, Math.ceil(raw.length / 80)), pts = []; for (let i = 0; i < raw.length; i += step) pts.push(raw[i][0], raw[i][1]);
+      toHost({ t: 'circ', round, pct: sc.pct, pts }); tick(sc.pct >= 90 ? 1175 : 660);
+      showLast(); info();
+    };
+  },
   // ---------------- Wippe ----------------
   renderBalance() {
     const st = this.state, stage = $('#stage'), round = st.round, L = st.balL, obj = st.balObj;
@@ -1865,17 +2029,17 @@ const view = {
     if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance'].includes(st.phase) && s <= 5);
+    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle'].includes(st.phase) && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle'];
 const MODES = [...GAME_MODES, 'mix'];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -1903,7 +2067,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -2147,6 +2311,10 @@ function voiceSync(st) {
     if (!p.voice && has) { try { voice.calls.get(p.id).close(); } catch (e) {} }
   }
   for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) try { voice.calls.get(id).close(); } catch (e) {}
+}
+function drawStroke(g, P, color, w) {
+  if (P.length < 2) return; g.strokeStyle = color; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round';
+  g.beginPath(); g.moveTo(P[0][0], P[0][1]); for (const p of P.slice(1)) g.lineTo(p[0], p[1]); g.stroke();
 }
 // ---- Wippe zeichnen (viewBox 360×230, Drehpunkt in der Mitte; Arm = 150 Einheiten)
 function balSvg(L, obj, x, ang, o = {}) {
