@@ -37,6 +37,9 @@ const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
 const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
 const HALVE_TIME = 30;      // Halbieren: Zeit für den Schnitt
 const BAL_TIME = 25;        // Wippe: Zeit zum Hinstellen
+const BLUFF_WRITE = 50;     // Bluff: Zeit, eine Lüge zu erfinden
+const BLUFF_VOTE = 30;      // Bluff: Zeit zum Abstimmen
+const BLIND_AFTER = 3;      // Blind-Stopp: so lange (s) nach der Ankunft darf man noch tippen
 const COL_SHOW = 3;         // Farbe treffen: so lange (s) wird die Farbe gezeigt
 const COL_TIME = 25;        // Farbe treffen: Zeit zum Nachmischen
 const CIRC_TIME = 25;       // Perfekter Kreis: Zeit für alle Versuche
@@ -133,7 +136,7 @@ const T = {
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeBluff: '🤥 Bluff', bluffWrite: 'Erfinde eine Antwort, die echt klingt!', bluffPh: 'Deine Lüge…', bluffSend: '✅ Abschicken', bluffWait: 'Abgeschickt! Warte auf die anderen…', bluffTruth: 'Das ist die echte Antwort 😅 – denk dir was anderes aus!', bluffVote: 'Welche Antwort ist die echte?', bluffMine: 'deine', bluffVoted: 'Gewählt! Warte auf die anderen…', bluffIsTrue: '✅ Die Wahrheit', bluffBy: 'Bluff von {name}', bluffHouse: '🏠 Hausbluff', bluffFooled: 'reingefallen:', bluffNobody: 'niemand', modeBlind: '⏱️ Blind-Stopp', blindHint: 'Der Ball rollt hinter die Mauer. Tippe genau dann, wenn er beim 🚩 ankommt!', blindStop: 'STOPP!', blindEarly: '{s} s zu früh', blindLate: '{s} s zu spät', blindExact: 'Genau getroffen! 🎯', blindNone: 'nicht getippt', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
@@ -161,7 +164,7 @@ const T = {
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeBluff: '🤥 ማታለል', bluffWrite: 'እውነት የሚመስል መልስ ይፍጠሩ!', bluffPh: 'ውሸትዎ…', bluffSend: '✅ ላክ', bluffWait: 'ተልኳል! ሌሎችን ይጠብቁ…', bluffTruth: 'ይህ እውነተኛው መልስ ነው 😅 – ሌላ ያስቡ!', bluffVote: 'የትኛው መልስ እውነተኛ ነው?', bluffMine: 'የእርስዎ', bluffVoted: 'ተመርጧል! ሌሎችን ይጠብቁ…', bluffIsTrue: '✅ እውነቱ', bluffBy: 'የ{name} ማታለያ', bluffHouse: '🏠 የቤት ማታለያ', bluffFooled: 'የተታለሉ፦', bluffNobody: 'ማንም', modeBlind: '⏱️ ዕውር ማቆም', blindHint: 'ኳሱ ከግድግዳው ጀርባ ይንከባለላል። 🚩 ላይ ሲደርስ በትክክል ይንኩ!', blindStop: 'አቁም!', blindEarly: '{s} ሰ ቀደም ብሎ', blindLate: '{s} ሰ ዘግይቶ', blindExact: 'በትክክል! 🎯', blindNone: 'አልነኩም', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -492,7 +495,7 @@ const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
-  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], cols: new Map(), colT: null, circs: new Map(), bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
+  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], bq: -1, usedBq: new Set(), fakes: new Map(), bopts: [], bvotes: new Map(), blindP: null, blinds: new Map(), cols: new Map(), colT: null, circs: new Map(), bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; this.eTimers.forEach(clearTimeout); this.eTimers = []; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -615,6 +618,28 @@ const host = {
         } else sendTo(from, { t: 'sys', key: res === 1 ? 'almost' : 'nope' });
         return;
       }
+      case 'bfake': {
+        if (this.phase !== 'bwrite' || msg.round !== this.round || this.fakes.has(from)) return;
+        const text = String(msg.text || '').replace(/\s+/g, ' ').trim().slice(0, 40); if (!text) return;
+        const q = BLUFF_Q[this.bq]; if (sameAns(text, q[2]) || sameAns(text, q[3])) { sendTo(from, { t: 'sys', key: 'bluffTruth' }); return; }
+        this.fakes.set(from, text); this.pushState();
+        if (this.players.every((x) => this.fakes.has(x.id))) this.startVote();
+        return;
+      }
+      case 'bvote': {
+        if (this.phase !== 'bvote' || msg.round !== this.round || this.bvotes.has(from)) return;
+        const o = this.bopts[msg.opt | 0]; if (!o || o.authors.includes(from)) return;
+        this.bvotes.set(from, msg.opt | 0); this.pushState();
+        if (this.players.every((x) => this.bvotes.has(x.id))) this.endBluff();
+        return;
+      }
+      case 'blind': {
+        if (this.phase !== 'blind' || msg.round !== this.round || this.blinds.has(from)) return;
+        const ms = Math.round(+msg.ms); if (!isFinite(ms)) return;
+        this.blinds.set(from, clamp(ms, -9999, 9999)); this.pushState();
+        if (this.players.every((x) => this.blinds.has(x.id))) this.endBlind();
+        return;
+      }
       case 'col': {
         if (this.phase !== 'color' || msg.round !== this.round || this.cols.has(from)) return;
         const c = { h: clamp(+msg.h || 0, 0, 360), s: clamp(+msg.s || 0, 0, 100), l: clamp(+msg.l || 0, 0, 100) };
@@ -717,6 +742,9 @@ const host = {
     if (this.phase === 'halve' && this.players.every((x) => this.cuts.has(x.id))) { this.endHalve(); return; }
     if (this.phase === 'balance' && this.players.every((x) => this.bals.has(x.id))) { this.endBalance(); return; }
     if (this.phase === 'color' && this.players.every((x) => this.cols.has(x.id))) { this.endColor(); return; }
+    if (this.phase === 'bwrite' && this.players.every((x) => this.fakes.has(x.id))) { this.startVote(); return; }
+    if (this.phase === 'bvote' && this.players.every((x) => this.bvotes.has(x.id))) { this.endBluff(); return; }
+    if (this.phase === 'blind' && this.players.every((x) => this.blinds.has(x.id))) { this.endBlind(); return; }
     if (this.phase === 'circle' && this.players.every((x) => (this.circs.get(x.id) || {}).tries >= CIRC_TRIES)) { this.endCircle(); return; }
     this.pushState();
   },
@@ -740,6 +768,11 @@ const host = {
         done: this.doneOf(p.id) })),
       drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target, mix: !!this.mix, qIdx: this.qIdx,
       ests: this.mode === 'estimate' && this.phase === 'results' ? Object.fromEntries(this.ests) : null,
+      bq: this.mode === 'bluff' ? this.bq : -1,
+      bopts: this.mode === 'bluff' && (this.phase === 'bvote' || this.phase === 'results') ? this.bopts.map((o) => ({ k: o.k, i: o.i, text: o.text, authors: this.phase === 'results' ? o.authors : undefined })) : null,
+      bvotes: this.mode === 'bluff' && this.phase === 'results' ? Object.fromEntries(this.bvotes) : null,
+      blindP: this.mode === 'blind' ? Object.assign({}, this.blindP, { goIn: this.phase === 'blind' ? Math.max(0, this.blindGoAt - Date.now()) : 0 }) : null,
+      blinds: this.mode === 'blind' && this.phase === 'results' ? Object.fromEntries(this.blinds) : null,
       colT: this.mode === 'color' && (this.phase === 'colorshow' || this.phase === 'results') ? this.colT : null,
       cols: this.mode === 'color' && this.phase === 'results' ? Object.fromEntries(this.cols) : null,
       circ: this.mode === 'circle' ? Object.fromEntries([...this.circs].map(([k, v]) => [k, this.phase === 'results' ? v : { tries: v.tries, pct: v.pct }])) : null,
@@ -774,12 +807,15 @@ const host = {
       case 'halve': return this.cuts.has(id);
       case 'balance': return this.bals.has(id);
       case 'color': return this.cols.has(id);
+      case 'blind': return this.blinds.has(id);
+      case 'bluff': return this.phase === 'bvote' ? this.bvotes.has(id) : this.fakes.has(id);
       case 'circle': return (this.circs.get(id) || {}).tries >= CIRC_TRIES;
       default: return this.recs.has(id);
     }
   },
   // Malen & Raten: das Wort sieht nur, wer malt oder es schon erraten hat – alle anderen nur die Striche
   stateFor(p, s) {
+    if (s.bopts && s.phase === 'bvote') s = Object.assign({}, s, { bmine: this.bopts.findIndex((o) => o.authors.includes(p.id)) });
     if (this.mode === 'emoji' && (s.phase === 'emoji' || s.phase === 'results')) {
       // Lösung nur für wer sie schon hat (oder am Ende); sonst nur Länge bzw. erster Buchstabe als Tipp
       const w = this.eWord, word = WORDS[w] ? [...WORDS[w][p.lang === 'am' ? 1 : 0]] : [];
@@ -803,7 +839,7 @@ const host = {
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
   startGame() {
-    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.usedB = new Set(); this.departed = new Map();
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.usedB = new Set(); this.usedBq = new Set(); this.departed = new Map();
     this.mix = this.baseMode === 'mix';
     if (this.mix) { // die ausgewählten Spiele in zufälliger Reihenfolge, jedes „Runden“-mal direkt hintereinander
       this.mixList = []; for (const m of shuffle([...(this.mixGames || GAME_MODES)])) for (let r = 0; r < this.rounds; r++) this.mixList.push(m);
@@ -840,6 +876,21 @@ const host = {
     this.playRound();
   },
   playRound() {
+    if (this.mode === 'bluff') {
+      const n = BLUFF_Q.length; let i = rnd(n); for (let k = 0; k < 600 && this.usedBq.has(i); k++) i = rnd(n);
+      this.usedBq.add(i); this.bq = i; this.fakes = new Map(); this.bvotes = new Map(); this.bopts = []; this.gains = {};
+      this.setPhase('bwrite', BLUFF_WRITE, () => this.startVote());
+      return;
+    }
+    if (this.mode === 'blind') {
+      // gleiche Strecke für alle: Ball startet links, Mauer ab „wall“, Ziel „target“ dahinter (Einheiten der 360er Bahn)
+      let v, wall, target;
+      for (let k = 0; k < 100; k++) { v = 70 + rnd(80); wall = 140 + rnd(80); target = wall + 40 + rnd(330 - wall - 40); if ((target - wall) / v >= 0.8) break; }
+      this.blindP = { v, wall, target }; this.blinds = new Map(); this.gains = {};
+      const lead = 1500, travel = (target - 20) / v * 1000; this.blindGoAt = Date.now() + lead;
+      this.setPhase('blind', (lead + travel) / 1000 + BLIND_AFTER + 0.5, () => this.endBlind());
+      return;
+    }
     if (this.mode === 'color') {
       this.colT = { h: rnd(360), s: 35 + rnd(60), l: 30 + rnd(46) }; this.cols = new Map(); this.gains = {};
       this.setPhase('colorshow', COL_SHOW, () => this.setPhase('color', COL_TIME, () => this.endColor()));
@@ -976,6 +1027,32 @@ const host = {
       p.score += g; this.gains[p.id] = g;
     }
     this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
+  },
+  // ---- Bluff: Antworten mischen (Wahrheit, Lügen der Spieler, Hausbluffs bis mindestens 4)
+  startVote() {
+    if (this.phase !== 'bwrite') return;
+    const q = BLUFF_Q[this.bq], opts = [{ k: 't', authors: [] }];
+    for (const [id, text] of this.fakes) { const o = opts.find((x) => x.k === 'f' && sameAns(x.text, text)); if (o) o.authors.push(id); else opts.push({ k: 'f', text, authors: [id] }); }
+    (q[4] || []).forEach((d, i) => { if (opts.length < Math.max(4, this.fakes.size + 1) && !opts.some((x) => x.k === 'f' && (sameAns(x.text, d) || sameAns(x.text, (q[5] || [])[i] || '')))) opts.push({ k: 'd', i, authors: [] }); });
+    this.bopts = shuffle(opts); this.bvotes = new Map();
+    this.setPhase('bvote', BLUFF_VOTE, () => this.endBluff());
+  },
+  endBluff() {
+    if (this.phase !== 'bvote' && this.phase !== 'bwrite') return;
+    if (this.phase === 'bwrite') { this.startVote(); return; }
+    this.stop(); this.gains = {};
+    const add = (id, g) => { this.gains[id] = (this.gains[id] || 0) + g; };
+    for (const [id, oi] of this.bvotes) { const o = this.bopts[oi]; if (!o) continue; if (o.k === 't') add(id, 60); else if (o.k === 'f') o.authors.forEach((a) => add(a, 40)); }
+    for (const p of this.players) { p.score += this.gains[p.id] || 0; this.gains[p.id] = this.gains[p.id] || 0; }
+    this.setPhase('results', RESULT_TIME + 5, () => this.nextRound());
+  },
+  // ---- Blind-Stopp: je näher am richtigen Moment, desto mehr Punkte; der Genaueste +20
+  endBlind() {
+    if (this.phase !== 'blind') return;
+    this.stop(); this.gains = {};
+    const best = Math.min(1e9, ...[...this.blinds.values()].map((v) => Math.abs(v)));
+    for (const p of this.players) { const v = this.blinds.get(p.id); const g = v == null ? 0 : Math.max(0, Math.round(100 - Math.abs(v) / 6)) + (Math.abs(v) === best && this.blinds.size > 1 ? 20 : 0); p.score += g; this.gains[p.id] = g; }
+    this.setPhase('results', RESULT_TIME + 1, () => this.nextRound());
   },
   // ---- Farbe treffen: Punkte = Treffer in %, die Beste +20
   endColor() {
@@ -1209,7 +1286,7 @@ const view = {
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.bluffRun = null; this.blindRun = null; this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
@@ -1219,7 +1296,8 @@ const view = {
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     else if (st.phase === 'hang') this.updateHang();
-    else if (['react', 'halve', 'balance', 'color', 'circle'].includes(st.phase)) this.updateDone();
+    else if (['react', 'halve', 'balance', 'color', 'circle', 'bwrite', 'blind'].includes(st.phase)) this.updateDone();
+    else if (st.phase === 'bvote') this.updateDone();
     else if (st.phase === 'simon') this.updateSimon();
     else if (st.phase === 'emoji') this.updateEmoji();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
@@ -1244,7 +1322,7 @@ const view = {
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote', 'blind'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -1299,6 +1377,12 @@ const view = {
       tick(660); setTimeout(() => tick(990), 160);
     } else if (st.phase === 'estimate') {
       this.renderEstimate();
+    } else if (st.phase === 'bwrite') {
+      this.renderBluffWrite();
+    } else if (st.phase === 'bvote') {
+      this.renderBluffVote();
+    } else if (st.phase === 'blind') {
+      this.renderBlind();
     } else if (st.phase === 'colorshow') {
       stage.innerHTML = `<div class="cat">${t('modeColor')}</div><div class="col-big" style="background:${hslCss(st.colT)}"></div><div class="meme-title">${t('colMemo')}</div>`;
     } else if (st.phase === 'color') {
@@ -1348,6 +1432,23 @@ const view = {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="cat light">${t('answer')}</div><div class="timer-big light">${esc(shown(q[2]))}</div>
         <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
           return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'bluff') {
+      const q = BLUFF_Q[st.bq] || [], L = lang === 'am' ? 1 : 0, vs = st.bvotes || {}, byId = (id) => st.players.find((x) => x.id === id);
+      const optText = (o) => o.k === 't' ? q[2 + L] : o.k === 'd' ? ((q[4 + L] || [])[o.i] || '') : o.text;
+      const voters = (i) => Object.keys(vs).filter((id) => vs[id] === i).map(byId).filter(Boolean);
+      const order = (st.bopts || []).map((o, i) => ({ o, i })).sort((a, b) => (a.o.k === 't' ? -1 : 0) - (b.o.k === 't' ? -1 : 0) || voters(b.i).length - voters(a.i).length);
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="bq light">${bluffQ(q[L], q[2 + L])}</div>
+        <div class="bres">${order.map(({ o, i }) => { const v = voters(i);
+          const who = o.k === 't' ? t('bluffIsTrue') : o.k === 'd' ? t('bluffHouse') : t('bluffBy', { name: o.authors.map((a) => (byId(a) || {}).name || '?').join(' + ') });
+          return `<div class="bopt res ${o.k === 't' ? 'truth' : ''}"><div class="bo-t">${esc(optText(o))}</div><div class="bo-w">${esc(who)}</div>
+            <div class="bo-v">${v.length ? v.map((x) => `<span>${charEl(x.char, 22, false)} ${esc(x.name)}</span>`).join('') : `<i>${t('bluffNobody')}</i>`}</div></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'blind') {
+      const bs = st.blinds || {}, val = (id) => (bs[id] == null ? 1e9 : Math.abs(bs[id]));
+      const order = [...st.players].sort((a, b) => val(a.id) - val(b.id));
+      const fmt = (ms) => (Math.abs(ms) < 15 ? t('blindExact') : t(ms < 0 ? 'blindEarly' : 'blindLate', { s: fmtNum(Math.round(Math.abs(ms) / 10) / 100) }));
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeBlind')}</div>
+        <div class="vlist">${order.map((x, i) => { const v = bs[x.id];
+          return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp"><b>${v == null ? '⏳ ' + t('blindNone') : fmt(v)}</b></span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'color') {
       const cs = st.cols || {}, order = [...st.players].sort((a, b) => (cs[b.id] ? cs[b.id].m : -1) - (cs[a.id] ? cs[a.id].m : -1));
       stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('colWas')}</div><div class="col-big small" style="background:${hslCss(st.colT)}"></div>
@@ -1689,6 +1790,72 @@ const view = {
     document.querySelectorAll('#keyb .key').forEach((b) => { const k = b.dataset.k, used = h.guessed.includes(k);
       b.classList.toggle('hit', used && !h.wrong.includes(k)); b.classList.toggle('miss', h.wrong.includes(k)); b.disabled = used || !myTurn; });
     $('#h-counts').innerHTML = st.players.filter((x) => x.id !== st.drawer).map((x) => `<span class="${x.id === h.cur ? 'ok' : ''}">${x.id === h.cur ? '👉 ' : ''}${esc(x.name)}: ${h.counts[x.id] || 0}</span>`).join('');
+  },
+  // ---------------- Bluff ----------------
+  renderBluffWrite() {
+    const st = this.state, stage = $('#stage'), round = st.round, q = BLUFF_Q[st.bq] || [], L = lang === 'am' ? 1 : 0;
+    let run = this.bluffRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.bluffRun = { round, mix: st.mix, sent: false, vote: null };
+    stage.innerHTML = `<div class="cat">${t('modeBluff')}</div><div class="bq">${bluffQ(q[L])}</div><div class="hint">${t('bluffWrite')}</div>
+      <div id="bl-box"><form class="g-form" id="bl-f"><input id="bl-in" maxlength="40" autocomplete="off" spellcheck="false" placeholder="${t('bluffPh')}"><button class="btn primary">${t('bluffSend')}</button></form></div>
+      <div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const me = this.me();
+    const lock = () => { $('#bl-box').innerHTML = `<div class="picked">✅ ${t('bluffWait')}</div>`; };
+    if (me && me.done) { lock(); return; }
+    $('#bl-f').onsubmit = (e) => { e.preventDefault(); const v = $('#bl-in').value.trim(); if (!v || !this.state || this.state.phase !== 'bwrite') return; toHost({ t: 'bfake', round, text: v }); };
+  },
+  renderBluffVote() {
+    const st = this.state, stage = $('#stage'), round = st.round, q = BLUFF_Q[st.bq] || [], L = lang === 'am' ? 1 : 0;
+    let run = this.bluffRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.bluffRun = { round, mix: st.mix, vote: null };
+    const optText = (o) => o.k === 't' ? q[2 + L] : o.k === 'd' ? ((q[4 + L] || [])[o.i] || '') : o.text;
+    stage.innerHTML = `<div class="cat">${t('bluffVote')}</div><div class="bq">${bluffQ(q[L])}</div>
+      <div class="bres" id="bl-opts">${(st.bopts || []).map((o, i) => `<button class="bopt${i === st.bmine ? ' mine' : ''}${i === run.vote ? ' on' : ''}" data-i="${i}" ${i === st.bmine || run.vote != null ? 'disabled' : ''}>
+        <span class="bo-t">${esc(optText(o))}</span>${i === st.bmine ? `<span class="bo-w">${t('bluffMine')}</span>` : ''}</button>`).join('')}</div>
+      <div class="hint" id="bl-msg">${run.vote != null ? t('bluffVoted') : ''}</div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    stage.querySelectorAll('.bopt').forEach((b) => b.onclick = () => {
+      if (run.vote != null || !this.state || this.state.phase !== 'bvote') return;
+      run.vote = +b.dataset.i; toHost({ t: 'bvote', round, opt: run.vote }); tick(880);
+      stage.querySelectorAll('.bopt').forEach((x) => { x.disabled = true; x.classList.toggle('on', x === b); }); $('#bl-msg').textContent = t('bluffVoted');
+    });
+  },
+  // ---------------- Blind-Stopp ----------------
+  renderBlind() {
+    const st = this.state, stage = $('#stage'), round = st.round, P = st.blindP;
+    let run = this.blindRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.blindRun = { round, mix: st.mix, t0: performance.now() + P.goIn, ms: null };
+    stage.innerHTML = `<div class="cat">${t('modeBlind')}</div><div class="blind-wrap"><svg viewBox="0 0 360 150" class="blind-svg" id="bd-svg"></svg></div>
+      <div class="bal-info" id="bd-res"></div><div class="hint">${t('blindHint')}</div>
+      <button class="btn primary big-btn" id="bd-go">${t('blindStop')}</button><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const arrive = run.t0 + (P.target - 20) / P.v * 1000;
+    const alive = () => this.blindRun === run && this.state && this.state.phase === 'blind' && this.state.round === round && $('#bd-svg');
+    const xAt = (now) => 20 + Math.max(0, now - run.t0) / 1000 * P.v;
+    const draw = (now) => {
+      const sv = $('#bd-svg'); if (!sv) return;
+      const reveal = run.ms != null, bx = run.ms != null ? xAt(run.tapAt) : xAt(now), seen = reveal || bx < P.wall + 0;
+      const bricks = []; for (let y = 40; y < 128; y += 16) for (let x = P.wall + ((y / 16) % 2 ? 0 : -12); x < 360; x += 24) bricks.push(`<rect x="${Math.max(P.wall, x) + 1}" y="${y + 1}" width="${Math.min(22, x + 22 - Math.max(P.wall, x))}" height="14" rx="2"/>`);
+      sv.innerHTML = `<rect x="0" y="126" width="360" height="8" rx="4" fill="#d9d2e9"/>
+        <line x1="${P.target}" y1="10" x2="${P.target}" y2="126" stroke="#22b35e" stroke-width="3" stroke-dasharray="5 4" opacity="${reveal ? 1 : 0}"/>
+        ${seen ? '' : ''}<circle cx="${bx}" cy="113" r="12" fill="#ff4d6d" stroke="#c81e3a" stroke-width="3"/>
+        <g fill="#c26d12" opacity="${reveal ? 0.35 : 1}"><rect x="${P.wall}" y="38" width="${360 - P.wall}" height="90" fill="#ff9f43"/>${bricks.join('')}</g>
+        <g transform="translate(${P.target},38)"><line x1="0" y1="0" x2="0" y2="-30" stroke="#2b2250" stroke-width="3"/><path d="M0 -30 L22 -23 L0 -16 Z" fill="#e0244a"/></g>`;
+    };
+    const finish = () => {
+      if (run.ms == null) return; const r = $('#bd-res'); if (!r) return;
+      r.innerHTML = Math.abs(run.ms) < 15 ? `<b class="ok">${t('blindExact')}</b>` : `<b>${t(run.ms < 0 ? 'blindEarly' : 'blindLate', { s: fmtNum(Math.round(Math.abs(run.ms) / 10) / 100) })}</b>`;
+      $('#bd-go').disabled = true;
+    };
+    const loop = (now) => { if (!alive()) return; draw(now); if (run.ms == null) { if (now > arrive + BLIND_AFTER * 1000 - 300) { run.ms = 'none'; $('#bd-go').disabled = true; return; } requestAnimationFrame(loop); } };
+    if (run.ms != null) { draw(performance.now()); if (run.ms !== 'none') finish(); else $('#bd-go').disabled = true; return; }
+    requestAnimationFrame(loop);
+    $('#bd-go').onpointerdown = (e) => {
+      e.preventDefault(); if (run.ms != null || !alive()) return;
+      const now = e.timeStamp && e.timeStamp > 0 ? e.timeStamp : performance.now(); if (now < run.t0) return;
+      run.tapAt = now; run.ms = Math.round(now - arrive); toHost({ t: 'blind', round, ms: run.ms }); tick(Math.abs(run.ms) < 100 ? 1175 : 660); draw(now); finish();
+    };
   },
   // ---------------- Farbe treffen ----------------
   renderColor() {
@@ -2087,20 +2254,22 @@ const view = {
   },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
-    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon') { el.textContent = ''; el.classList.add('hidden'); return; }
+    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon' || st.phase === 'blind') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle'].includes(st.phase) && s <= 5);
+    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote'].includes(st.phase) && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind'];
 const MODES = [...GAME_MODES, 'mix'];
+// Bluff: [Frage DE, Frage AM, Antwort DE, Antwort AM, [Hausbluffs DE], [Hausbluffs AM]] – „___“ ist die Lücke
+const BLUFF_Q = window.BLUFF_Q || [];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', blind: 'modeBlind', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -2128,7 +2297,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -2165,6 +2334,12 @@ function lev(a, b) {
   let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
   for (let i = 1; i <= a.length; i++) { const cur = [i]; for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = cur; }
   return prev[b.length];
+}
+// Bluff: zwei Antworten gleich? (Groß/klein, Umlaute, kleine Tippfehler egal)
+function sameAns(a, b) {
+  if (!a || !b) return false;
+  for (const x of wordForms(a)) for (const y of wordForms(b)) { if (x && x === y) return true; if (x.length >= 5 && lev(x, y) <= 1) return true; }
+  return false;
 }
 // 2 = richtig, 1 = knapp daneben, 0 = falsch
 function checkGuess(text, w) {
@@ -2372,6 +2547,11 @@ function voiceSync(st) {
     if (!p.voice && has) { try { voice.calls.get(p.id).close(); } catch (e) {} }
   }
   for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) try { voice.calls.get(id).close(); } catch (e) {}
+}
+// Bluff-Frage mit Lücke anzeigen (bei der Auflösung mit der Antwort gefüllt)
+function bluffQ(q, fill) {
+  const parts = String(q || '').split('___');
+  return parts.map(esc).join(fill != null ? `<b class="bq-fill">${esc(fill)}</b>` : '<span class="bq-gap">_____</span>');
 }
 function drawStroke(g, P, color, w) {
   if (P.length < 2) return; g.strokeStyle = color; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round';
