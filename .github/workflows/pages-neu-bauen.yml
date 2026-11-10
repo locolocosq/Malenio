@@ -1,0 +1,20 @@
+# Stößt GitHub Pages nach jedem Push auf main neu an.
+# Nötig, weil Änderungen, die über eine App (z. B. Claude) hochgeladen werden,
+# den normalen Pages-Neubau nicht auslösen.
+name: Pages neu bauen
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  pages: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pages-Neubau anfordern
+        run: |
+          curl -sS -f -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds"
