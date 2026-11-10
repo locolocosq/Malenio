@@ -31,7 +31,7 @@ const EST_TIME = 30;        // Schätzen: Zeit für den Tipp
 const REACT_WINDOW = 5;     // Reaktion: so lange (s) nach dem Grün darf man noch tippen
 const SIMON_TIME = 75;      // Farbfolge: Zeit für alle Level
 const SIMON_LEN = 40;       // Farbfolge: längste Folge
-const SEQ_MODES = ['simon', 'memory', 'cups']; // Hütchenspiel nutzt dieselben Level-Regeln // Farbfolge (4 Farben) und Sequenz-Memory (9 Felder) laufen gleich ab
+const SEQ_MODES = ['simon', 'memory', 'cups', 'stack']; // Hütchenspiel nutzt dieselben Level-Regeln // Farbfolge (4 Farben) und Sequenz-Memory (9 Felder) laufen gleich ab
 const seqPads = (mode) => (mode === 'memory' ? 9 : 4);
 const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
 const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
@@ -133,7 +133,7 @@ const T = {
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
@@ -161,7 +161,7 @@ const T = {
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -594,7 +594,7 @@ const host = {
         const e = this.simon.get(from) || { lv: 0, at: Date.now(), done: false }; if (e.done) return;
         if (msg.lv != null && (msg.lv | 0) === e.lv + 1 && e.lv < SIMON_LEN - 2) {
           e.lv++; e.at = Date.now();
-          const pts = 10 + 5 * (e.lv - 1); // jedes Level gibt Punkte, schwerere mehr
+          const pts = this.mode === 'stack' ? 5 + 2 * (e.lv - 1) : 10 + 5 * (e.lv - 1); // jedes Level gibt Punkte, schwerere mehr
           p.score += pts; this.gains[from] = (this.gains[from] || 0) + pts;
         }
         e.seen = Date.now();
@@ -769,7 +769,7 @@ const host = {
       case 'logo': return this.picks.has(id);
       case 'guess': return this.guessed.has(id);
       case 'react': return this.reacts.has(id);
-      case 'simon': case 'memory': case 'cups': return !!(this.simon.get(id) || {}).done;
+      case 'simon': case 'memory': case 'cups': case 'stack': return !!(this.simon.get(id) || {}).done;
       case 'emoji': return this.egot.has(id);
       case 'halve': return this.cuts.has(id);
       case 'balance': return this.bals.has(id);
@@ -1312,7 +1312,7 @@ const view = {
     } else if (st.phase === 'react') {
       this.renderReact();
     } else if (st.phase === 'simon') {
-      if (st.mode === 'cups') this.renderCups(); else this.renderSimon();
+      if (st.mode === 'cups') this.renderCups(); else if (st.mode === 'stack') this.renderStack(); else this.renderSimon();
     } else if (st.phase === 'emoji') {
       this.renderEmoji();
     } else if (st.phase === 'present') {
@@ -1388,7 +1388,7 @@ const view = {
     } else if (st.phase === 'results' && SEQ_MODES.includes(st.mode)) {
       const lv = st.simonLv || {};
       stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t(MODE_KEY[st.mode])}</div>
-        <div class="vlist">${[...st.players].sort((a, b) => (st.gains[b.id] || 0) - (st.gains[a.id] || 0)).map((x, i) => `<div class="vline${i === 0 && lv[x.id] ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && lv[x.id] ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp"><b>${t('level')} ${lv[x.id] || 0}</b></span><b class="vg">+${st.gains[x.id] || 0}</b></div>`).join('')}</div>`;
+        <div class="vlist">${[...st.players].sort((a, b) => (st.gains[b.id] || 0) - (st.gains[a.id] || 0)).map((x, i) => `<div class="vline${i === 0 && lv[x.id] ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && lv[x.id] ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp"><b>${st.mode === 'stack' ? `${lv[x.id] || 0} 🧱` : `${t('level')} ${lv[x.id] || 0}`}</b></span><b class="vg">+${st.gains[x.id] || 0}</b></div>`).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'emoji') {
       const eg = st.egot || {}, tm = (id) => (eg[id] == null ? 1e9 : eg[id]);
       stage.innerHTML = scoreCards(st, null, true) + `<div class="emo-clue small">${esc(st.eClue)}</div><div class="cat light">${t('emojiWas')}</div>
@@ -1892,6 +1892,67 @@ const view = {
     };
     show();
   },
+  // ---------------- Turm stapeln ----------------
+  // Für alle gleich: gleiche Breite am Start, gleiche Geschwindigkeit pro Level, abwechselnd von links/rechts
+  renderStack() {
+    const st = this.state, stage = $('#stage'), round = st.round, run0 = this.simonRun;
+    const same = run0 && run0.round === round && run0.mix === st.mix && run0.mode === 'stack';
+    if (same && $('#st-cv')) { this.updateSimon(); return; }
+    stage.innerHTML = `<div class="cat">${t('modeStack')} · <span id="s-lv"></span></div><canvas id="st-cv" class="stack-cv" width="320" height="440"></canvas>
+      <div class="hint" id="s-msg">${t('stackHint')}</div><div class="done-list" id="done-list"></div>`;
+    if (same) { this.updateSimon(); return; } // Spiel läuft weiter und malt in die neue Fläche
+    const run = this.simonRun = { round, mix: st.mix, mode: 'stack', lv: 0, over: false };
+    const W = 320, H = 440, BH = 24, cap = SIMON_LEN - 2;
+    const alive = () => this.simonRun === run && this.state && this.state.phase === 'simon' && this.state.round === round;
+    const msg = (k, v) => { const m = $('#s-msg'); if (m) m.textContent = t(k, v); };
+    const blocks = [{ x: 60, w: 200 }], bits = [];
+    let cur = null, cam = 0, flash = 0, last = performance.now();
+    const color = (i) => `hsl(${(i * 24 + 190) % 360} 75% 58%)`;
+    const spawn = () => { const top = blocks[blocks.length - 1], left = blocks.length % 2 === 1;
+      cur = { x: left ? -30 : W - top.w + 30, w: top.w, dir: left ? 1 : -1, v: 150 + run.lv * 18 }; };
+    const yOf = (i) => H - 16 - (i + 1) * BH + cam;
+    const frame = (now) => {
+      if (!alive()) return;
+      const dt = Math.min(50, now - last) / 1000; last = now;
+      if (cur) { cur.x += cur.dir * cur.v * dt; const lo = -30, hi = W - cur.w + 30;
+        if (cur.x < lo) { cur.x = lo; cur.dir = 1; } if (cur.x > hi) { cur.x = hi; cur.dir = -1; } }
+      cam += (Math.max(0, (blocks.length + 1) * BH - (H - 150)) - cam) * Math.min(1, dt * 6);
+      for (const b of bits) { b.vy += 900 * dt; b.y += b.vy * dt; b.x += b.vx * dt; }
+      const cv = $('#st-cv'); if (cv) {
+        const g = cv.getContext('2d'); g.clearRect(0, 0, W, H);
+        g.fillStyle = '#ece6f7'; g.fillRect(0, H - 16 + cam, W, 16 + 999);
+        const box = (x, y, w, c, i) => { g.fillStyle = c; g.fillRect(x, y, w, BH - 2); g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(x, y, w, 5); g.fillStyle = 'rgba(0,0,0,.15)'; g.fillRect(x, y + BH - 7, w, 5); };
+        blocks.forEach((b, i) => { const y = yOf(i); if (y > -BH && y < H) box(b.x, y, b.w, i ? color(i) : '#5d566b', i); });
+        for (const b of bits) box(b.x, b.y + cam, b.w, b.c);
+        if (cur) box(cur.x, yOf(blocks.length), cur.w, color(blocks.length));
+        if (flash > 0) { flash -= dt; const tp = blocks[blocks.length - 1]; g.strokeStyle = `rgba(255,255,255,${flash * 2})`; g.lineWidth = 4; g.strokeRect(tp.x - 3, yOf(blocks.length - 1) - 3, tp.w + 6, BH + 4); }
+        g.fillStyle = '#2b2250'; g.font = '900 28px Nunito, system-ui, sans-serif'; g.textAlign = 'center'; g.fillText(String(run.lv), W / 2, 40);
+      }
+      for (let i = bits.length - 1; i >= 0; i--) if (bits[i].y > H + 200) bits.splice(i, 1);
+      if (!run.over || bits.length) requestAnimationFrame(frame);
+    };
+    const drop = (e) => {
+      if (!cur || run.over || !alive()) return; if (e) e.preventDefault();
+      const top = blocks[blocks.length - 1], c = cur, l = Math.max(c.x, top.x), r = Math.min(c.x + c.w, top.x + top.w), ov = r - l, y = yOf(blocks.length) - cam;
+      cur = null;
+      if (ov <= 2) { // ganz daneben: raus
+        bits.push({ x: c.x, y, w: c.w, c: color(blocks.length), vy: 0, vx: c.dir * 60 });
+        run.over = true; tick(150); setTimeout(() => tick(110), 160); msg('stackOut', { n: run.lv }); toHost({ t: 'simon', round, done: true }); return;
+      }
+      if (Math.abs(c.x - top.x) <= 4) { blocks.push({ x: top.x, w: top.w }); flash = 0.5; tick(1318); msg('stackPerfect'); }
+      else {
+        blocks.push({ x: l, w: ov }); tick(520 + Math.min(600, run.lv * 25));
+        const piece = c.x < top.x ? { x: c.x, w: top.x - c.x } : { x: r, w: c.x + c.w - r };
+        bits.push(Object.assign(piece, { y, c: color(blocks.length - 1), vy: 0, vx: c.x < top.x ? -40 : 40 }));
+        msg('stackHint');
+      }
+      run.lv++; toHost({ t: 'simon', round, lv: run.lv }); this.updateSimon();
+      if (run.lv >= cap) { run.over = true; msg('simonMax'); toHost({ t: 'simon', round, done: true }); return; }
+      setTimeout(() => { if (alive() && !run.over) spawn(); }, 220);
+    };
+    stage.onpointerdown = (e) => { if (e.target.closest && e.target.closest('#st-cv, #s-msg, .cat')) drop(e); };
+    spawn(); requestAnimationFrame(frame); this.updateSimon();
+  },
   // ---------------- Hütchenspiel ----------------
   // Alle bekommen pro Level dieselben Tausch-Züge (aus der Folge vom Host berechnet) – fair für alle.
   renderCups() {
@@ -2034,12 +2095,12 @@ const view = {
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack'];
 const MODES = [...GAME_MODES, 'mix'];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -2067,7 +2128,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
