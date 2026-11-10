@@ -36,6 +36,20 @@ const seqPads = (mode) => (mode === 'memory' ? 9 : 4);
 const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
 const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
 const HALVE_TIME = 30;      // Halbieren: Zeit für den Schnitt
+const BAL_TIME = 25;        // Wippe: Zeit zum Hinstellen
+const BAL_HOLD = 8;         // Wippe: so lange (s) muss sie halten – perfekt = hält die ganze Zeit
+const BAL_PERFECT = 0.03;   // Wippe: bis 3 % Abweichung beim Drehmoment gilt als perfekt
+// Wippe: Gegenstände [Emoji, kg]; 'DB' = Hantel (eigenes Bild)
+const BAL_OBJ = [['DB', 2], ['DB', 5], ['DB', 8], ['DB', 10], ['🍉', 4], ['🎃', 3], ['🐈', 4], ['🐕', 8], ['🧱', 2.5], ['🎳', 6], ['🥁', 3],
+  ['🎸', 3.5], ['💻', 2], ['📺', 7], ['🛹', 2], ['🚲', 12], ['🛴', 5], ['🍍', 1.5], ['🥥', 1], ['🎒', 3], ['🧳', 15], ['🧯', 6], ['🔨', 1],
+  ['🎂', 2], ['🧀', 1.5], ['🥛', 1], ['🍾', 1.5], ['🧺', 2], ['🌵', 3], ['🦃', 7], ['🐓', 2.5], ['🐇', 2], ['🐢', 5], ['👶', 4], ['🏆', 3],
+  ['📚', 2], ['⚓', 10], ['🔔', 5], ['📦', 4], ['💼', 2], ['🎁', 1.5], ['🎷', 2.5], ['🔭', 3], ['🍗', 1], ['🥔', 0.5], ['🍕', 0.8], ['☎️', 1.5]];
+// Wie lange hält die Wippe? (gleiche Rechnung auf dem Host und auf jedem Handy)
+function balHold(L, obj, x) {
+  const want = L.kg * L.d, have = obj[1] * x, err = Math.abs(have - want) / want;
+  if (err <= BAL_PERFECT) return { t: BAL_HOLD, perfect: true, dir: 0, err };
+  return { t: Math.min(BAL_HOLD - 0.5, Math.round(1 / Math.sqrt(err) * 10) / 10), perfect: false, dir: have > want ? 1 : -1, err };
+}
 const LOGO_POINTS = [100, 80, 65, 50, 40, 30, 25, 20];
 const EMOJIS = ['😆', '😂', '😍', '🔥', '👍', '😳', '😢', '👎'];
 const WORDS = window.WORDS || [];
@@ -55,7 +69,7 @@ const SOUNDS_VERSION = SOUNDS.length + '-' + SOUNDS.map((s) => s.id).join('').le
 const T = {
   de: {
     namePh: 'Dein Name', create: 'Party erstellen', or: 'oder', join: 'Beitreten', editChar: '🎨 Figur gestalten',
-    codeNote: 'Der Code besteht nur aus lateinischen Buchstaben (A–Z) und Zahlen.', credits: 'Quellen der Töne',
+    codeNote: 'Der Code besteht nur aus lateinischen Buchstaben (A–Z) und Zahlen.', credits: 'Quellen der Töne', roundsPer: 'Runden pro Spiel', mixGames: 'Diese Spiele im Mix:', mixAll: 'alle / keins', mixSum: '{g} Spiele × {r} Runden = {n} Runden, gleiche Spiele direkt hintereinander', mixMin: 'Mindestens ein Spiel auswählen', reload: '🔄 Neu laden (neue Spiele holen)', newVer: '✨ Neue Version – wird geladen…', version: 'Version',
     makeChar: 'Deine Figur', random: '🎲 Zufall', done: 'Fertig', color: 'Farbe', eyes: 'Augen', mouth: 'Mund', hat: 'Kopf', extra: 'Extra', dance: 'Tanz',
     code: 'Party-Code', copy: 'Kopieren', copied: 'Kopiert!', share: 'Teilen', players: 'Spieler', rounds: 'Anzahl Runden',
     start: 'Party starten', needTwo: 'Mindestens 2 Spieler nötig', waitHost: 'Warte, bis der Host startet…',
@@ -74,16 +88,16 @@ const T = {
     logoQ: 'Welche Marke ist das?', logoPh: 'Tippe die ersten Buchstaben…', youPicked: 'Deine Wahl:', logoWas: 'Das war:', noPick: 'nichts gewählt', lobbyMode: 'Spielmodus:', loadingLogos: 'Lade Logos…',
     modeTimer: '⏱️ Stoppuhr', timerGoal: 'Stoppe genau bei', seconds: 'Sekunden', timerHint: 'Drück START und zähle im Kopf – danach siehst du nur noch den STOPP-Knopf!', startBtn: 'START', stopBtn: 'STOPP', stopped: 'Gestoppt! Warte auf die anderen…', target: 'Ziel', perfect: 'Perfekt!', notStopped: 'nicht gestoppt',
     modeHang: '🪢 Galgenmännchen', chooseHang: 'Wähle ein Wort zum Erraten:',
-    modeEst: '🔢 Schätzen', modeMix: '🎲 Mix (alle Spiele)', estPh: 'Deine Schätzung', estSend: 'Tipp abgeben', yourEst: 'Dein Tipp:', answer: 'Richtige Antwort', bullseye: 'Volltreffer!', noEst: 'kein Tipp', badNum: 'Bitte eine Zahl eingeben.', loadingQ: 'Lade Fragen…',
+    modeEst: '🔢 Schätzen', modeMix: '🎲 Mix (Spiele aussuchen)', estPh: 'Deine Schätzung', estSend: 'Tipp abgeben', yourEst: 'Dein Tipp:', answer: 'Richtige Antwort', bullseye: 'Volltreffer!', noEst: 'kein Tipp', badNum: 'Bitte eine Zahl eingeben.', loadingQ: 'Lade Fragen…',
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
     namePh: 'ስምዎ', create: 'ፓርቲ ፍጠር', or: 'ወይም', join: 'ተቀላቀል', editChar: '🎨 ገጸ ባሕሪ ሥራ',
-    codeNote: 'ኮዱ የላቲን ፊደላት (A–Z) እና ቁጥሮች ብቻ ነው።', credits: 'የድምፆቹ ምንጮች',
+    codeNote: 'ኮዱ የላቲን ፊደላት (A–Z) እና ቁጥሮች ብቻ ነው።', credits: 'የድምፆቹ ምንጮች', roundsPer: 'ዙሮች በአንድ ጨዋታ', mixGames: 'በድብልቁ ውስጥ ያሉ ጨዋታዎች፦', mixAll: 'ሁሉም / አንድም', mixSum: '{g} ጨዋታዎች × {r} ዙሮች = {n} ዙሮች፣ ተመሳሳይ ጨዋታዎች በተከታታይ', mixMin: 'ቢያንስ አንድ ጨዋታ ይምረጡ', reload: '🔄 እንደገና ጫን (አዳዲስ ጨዋታዎች)', newVer: '✨ አዲስ ስሪት – በመጫን ላይ…', version: 'ስሪት',
     makeChar: 'የእርስዎ ገጸ ባሕሪ', random: '🎲 በዘፈቀደ', done: 'ጨርስ', color: 'ቀለም', eyes: 'ዓይኖች', mouth: 'አፍ', hat: 'ራስ', extra: 'ተጨማሪ', dance: 'ዳንስ',
     code: 'የፓርቲ ኮድ', copy: 'ቅዳ', copied: 'ተቀድቷል!', share: 'አጋራ', players: 'ተጫዋቾች', rounds: 'የዙሮች ብዛት',
     start: 'ፓርቲ ጀምር', needTwo: 'ቢያንስ 2 ተጫዋቾች ያስፈልጋሉ', waitHost: 'አስተናጋጁ እስኪጀምር ይጠብቁ…',
@@ -102,11 +116,11 @@ const T = {
     logoQ: 'ይህ የየትኛው ብራንድ ነው?', logoPh: 'የመጀመሪያ ፊደላትን ይጻፉ…', youPicked: 'ምርጫዎ፦', logoWas: 'ይህ ነበር፦', noPick: 'ምንም አልተመረጠም', lobbyMode: 'የጨዋታ ዓይነት፦', loadingLogos: 'አርማዎች እየተጫኑ ነው…',
     modeTimer: '⏱️ የሰዓት ቆጣሪ', timerGoal: 'በትክክል ያቁሙ በ', seconds: 'ሰከንድ', timerHint: 'ጀምርን ይጫኑና በአእምሮዎ ይቁጠሩ – ከዚያ የማቆሚያ ቁልፉን ብቻ ያያሉ!', startBtn: 'ጀምር', stopBtn: 'አቁም', stopped: 'ቆሟል! ሌሎችን ይጠብቁ…', target: 'ዒላማ', perfect: 'ፍጹም!', notStopped: 'አላቆመም',
     modeHang: '🪢 የገመድ ሰው', chooseHang: 'የሚገመት ቃል ይምረጡ፦',
-    modeEst: '🔢 ግምት', modeMix: '🎲 ድብልቅ (ሁሉም ጨዋታዎች)', estPh: 'ግምትዎ', estSend: 'ግምት ላክ', yourEst: 'ግምትዎ፦', answer: 'ትክክለኛው መልስ', bullseye: 'በትክክል!', noEst: 'ግምት የለም', badNum: 'እባክዎ ቁጥር ያስገቡ።', loadingQ: 'ጥያቄዎች እየተጫኑ ነው…',
+    modeEst: '🔢 ግምት', modeMix: '🎲 ድብልቅ (ጨዋታዎችን ይምረጡ)', estPh: 'ግምትዎ', estSend: 'ግምት ላክ', yourEst: 'ግምትዎ፦', answer: 'ትክክለኛው መልስ', bullseye: 'በትክክል!', noEst: 'ግምት የለም', badNum: 'እባክዎ ቁጥር ያስገቡ።', loadingQ: 'ጥያቄዎች እየተጫኑ ነው…',
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -437,7 +451,7 @@ const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
-  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
+  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; this.eTimers.forEach(clearTimeout); this.eTimers = []; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -455,9 +469,12 @@ const host = {
       case 'start':
         if (p.host && this.phase === 'lobby' && this.players.length >= 2) {
           this.rounds = clamp(+msg.rounds || 5, 1, 30); this.baseMode = this.mode = MODES.includes(msg.mode) ? msg.mode : 'sound';
+          this.mixGames = Array.isArray(msg.games) ? GAME_MODES.filter((m) => msg.games.includes(m)) : [...GAME_MODES];
+          if (!this.mixGames.length) this.mixGames = [...GAME_MODES];
           const need = [];
-          if (this.mode === 'logo' || this.mode === 'mix') need.push(ensureLogos());
-          if (this.mode === 'estimate' || this.mode === 'mix') need.push(ensureQuestions());
+          const mixHas = (m) => this.mode === 'mix' && this.mixGames.includes(m);
+          if (this.mode === 'logo' || mixHas('logo')) need.push(ensureLogos());
+          if (this.mode === 'estimate' || mixHas('estimate')) need.push(ensureQuestions());
           Promise.all(need).then(() => { if (this.phase === 'lobby') this.startGame(); }).catch(() => toast(t('netError')));
         } return;
       case 'mode': if (p.host && this.phase === 'lobby' && MODES.includes(msg.mode)) { this.baseMode = this.mode = msg.mode; this.pushState(); } return;
@@ -557,6 +574,14 @@ const host = {
         } else sendTo(from, { t: 'sys', key: res === 1 ? 'almost' : 'nope' });
         return;
       }
+      case 'bal': {
+        if (this.phase !== 'balance' || msg.round !== this.round || this.bals.has(from)) return;
+        const x = +msg.x; if (!isFinite(x) || x < 0 || x > 1.05) return;
+        const h = balHold(this.balL, this.balObj, x);
+        this.bals.set(from, { x: Math.round(x * 1000) / 1000, t: h.t, perfect: h.perfect, at: Date.now() }); this.pushState();
+        if (this.players.every((y) => this.bals.has(y.id))) this.endBalance();
+        return;
+      }
       case 'cut': {
         if (this.phase !== 'halve' || msg.round !== this.round || this.cuts.has(from)) return;
         const pct = +msg.pct, ln = Array.isArray(msg.line) ? msg.line.slice(0, 4).map(Number) : [];
@@ -632,6 +657,7 @@ const host = {
     if (this.phase === 'simon' && this.players.every((x) => (this.simon.get(x.id) || {}).done)) { this.endSimon(); return; }
     if (this.phase === 'emoji' && this.players.every((x) => this.egot.has(x.id))) { this.endEmoji(); return; }
     if (this.phase === 'halve' && this.players.every((x) => this.cuts.has(x.id))) { this.endHalve(); return; }
+    if (this.phase === 'balance' && this.players.every((x) => this.bals.has(x.id))) { this.endBalance(); return; }
     this.pushState();
   },
   sweep() {
@@ -654,6 +680,8 @@ const host = {
         done: this.doneOf(p.id) })),
       drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target, mix: !!this.mix, qIdx: this.qIdx,
       ests: this.mode === 'estimate' && this.phase === 'results' ? Object.fromEntries(this.ests) : null,
+      balL: this.mode === 'balance' ? this.balL : null, balObj: this.mode === 'balance' ? this.balObj : null,
+      bals: this.mode === 'balance' && this.phase === 'results' ? Object.fromEntries(this.bals) : null,
       halveObj: this.mode === 'halve' ? (window.HALVE_OBJ || ['🍌'])[this.halveIdx] : '', halveRot: this.halveRot,
       cuts: this.mode === 'halve' && this.phase === 'results' ? Object.fromEntries(this.cuts) : null,
       goIn: this.phase === 'react' ? Math.max(0, this.reactGoAt - Date.now()) : 0,
@@ -681,6 +709,7 @@ const host = {
       case 'simon': case 'memory': case 'cups': return !!(this.simon.get(id) || {}).done;
       case 'emoji': return this.egot.has(id);
       case 'halve': return this.cuts.has(id);
+      case 'balance': return this.bals.has(id);
       default: return this.recs.has(id);
     }
   },
@@ -709,10 +738,10 @@ const host = {
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
   startGame() {
-    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.departed = new Map();
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.usedB = new Set(); this.departed = new Map();
     this.mix = this.baseMode === 'mix';
-    if (this.mix) { // jedes Spiel einmal, gemischt (bei mehreren Runden mehrmals)
-      this.mixList = []; for (let r = 0; r < this.rounds; r++) this.mixList.push(...shuffle([...GAME_MODES]));
+    if (this.mix) { // die ausgewählten Spiele in zufälliger Reihenfolge, jedes „Runden“-mal direkt hintereinander
+      this.mixList = []; for (const m of shuffle([...(this.mixGames || GAME_MODES)])) for (let r = 0; r < this.rounds; r++) this.mixList.push(m);
       this.mixIdx = -1; this.mixDrawn = {}; this.mixNext(); return;
     }
     if (this.mode === 'guess' || this.mode === 'hang') { this.turnOrder = []; this.turnIdx = 0; this.nextTurn(); return; }
@@ -722,9 +751,10 @@ const host = {
   mixNext() {
     this.mixIdx++;
     if (this.mixIdx >= this.mixList.length) { this.drawer = null; this.setPhase('end', 0); return; }
+    const same = this.mixIdx > 0 && this.mixList[this.mixIdx - 1] === this.mixList[this.mixIdx];
     this.mode = this.mixList[this.mixIdx]; this.round = this.mixIdx + 1; this.rounds = this.mixList.length;
     this.drawer = null; this.gains = {};
-    this.setPhase('intro', 4, () => {
+    this.setPhase('intro', same ? 2 : 4, () => { // kurze Ansage; beim gleichen Spiel nochmal nur kurz
       if (this.mode === 'guess' || this.mode === 'hang') {
         const ids = shuffle(this.players.map((p) => p.id)).sort((a, b) => (this.mixDrawn[a] || 0) - (this.mixDrawn[b] || 0));
         this.drawer = ids[0]; this.mixDrawn[this.drawer] = (this.mixDrawn[this.drawer] || 0) + 1;
@@ -745,6 +775,18 @@ const host = {
     this.playRound();
   },
   playRound() {
+    if (this.mode === 'balance') {
+      // links ein festes Gewicht, rechts ein Gegenstand; die richtige Stelle muss gut erreichbar sein
+      let L, oi, x;
+      for (let k = 0; k < 400; k++) {
+        L = { kg: [1, 1.5, 2, 2.5, 3, 4, 5][rnd(7)], d: (3 + rnd(7)) / 10 }; oi = rnd(BAL_OBJ.length);
+        x = L.kg * L.d / BAL_OBJ[oi][1];
+        if (x >= 0.15 && x <= 0.95 && (k > 300 || !this.usedB.has(oi))) break;
+      }
+      this.usedB.add(oi); this.balL = L; this.balObj = BAL_OBJ[oi]; this.bals = new Map(); this.gains = {};
+      this.setPhase('balance', BAL_TIME, () => this.endBalance());
+      return;
+    }
     if (this.mode === 'halve') {
       const n = (window.HALVE_OBJ || ['🍌']).length; let i = rnd(n); for (let k = 0; k < 300 && this.usedH.has(i); k++) i = rnd(n);
       this.usedH.add(i); this.halveIdx = i; this.halveRot = rnd(71) - 35; this.cuts = new Map(); this.gains = {};
@@ -856,6 +898,20 @@ const host = {
       const rank = ranked.findIndex(([id]) => id === p.id);
       let g = rank < 0 ? 0 : LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)];
       if (rank >= 0 && Math.abs(this.stops.get(p.id) - this.target) <= 50) g += 50; // fast genau: Bonus
+      p.score += g; this.gains[p.id] = g;
+    }
+    this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
+  },
+  // ---- Wippe: je länger sie hält, desto mehr Punkte; perfekt = volle Punkte
+  endBalance() {
+    if (this.phase !== 'balance') return;
+    // erst warten, bis die letzte Wippe fertig gewackelt hat bzw. umgekippt ist
+    const now = Date.now(), until = Math.max(0, ...[...this.bals.values()].map((b) => b.at + b.t * 1000 + 900));
+    if (until > now + 150) { clearTimeout(this.timer); this.timer = setTimeout(() => this.endBalance(), until - now); return; }
+    this.stop(); this.gains = {};
+    for (const p of this.players) {
+      const b = this.bals.get(p.id);
+      const g = !b ? 0 : b.perfect ? 100 : Math.round(b.t / BAL_HOLD * 80);
       p.score += g; this.gains[p.id] = g;
     }
     this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
@@ -1062,7 +1118,7 @@ const view = {
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
@@ -1072,7 +1128,7 @@ const view = {
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     else if (st.phase === 'hang') this.updateHang();
-    else if (st.phase === 'react' || st.phase === 'halve') this.updateDone();
+    else if (st.phase === 'react' || st.phase === 'halve' || st.phase === 'balance') this.updateDone();
     else if (st.phase === 'simon') this.updateSimon();
     else if (st.phase === 'emoji') this.updateEmoji();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
@@ -1092,11 +1148,12 @@ const view = {
     const lm = $('#lobby-mode'); lm.classList.toggle('hidden', net.isHost);
     lm.textContent = t('lobbyMode') + ' ' + t(MODE_KEY[st.mode] || 'modeSound');
     if (net.isHost && $('#set-mode').value !== st.mode && !this.modeTouched) { $('#set-mode').value = st.mode; setRoundOpts(st.mode); }
+    if (net.isHost) renderMixPick();
   },
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (['react', 'simon', 'emoji', 'halve'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -1151,6 +1208,8 @@ const view = {
       tick(660); setTimeout(() => tick(990), 160);
     } else if (st.phase === 'estimate') {
       this.renderEstimate();
+    } else if (st.phase === 'balance') {
+      this.renderBalance();
     } else if (st.phase === 'halve') {
       this.renderHalve();
     } else if (st.phase === 'react') {
@@ -1192,6 +1251,14 @@ const view = {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="cat light">${t('answer')}</div><div class="timer-big light">${esc(shown(q[2]))}</div>
         <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
           return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'balance') {
+      const bs = st.bals || {}, val = (id) => (!bs[id] ? -1 : bs[id].perfect ? 99 : bs[id].t);
+      const order = [...st.players].sort((a, b) => val(b.id) - val(a.id));
+      const right = st.balL.kg * st.balL.d / st.balObj[1];
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeBal')}</div>
+        <div class="bal-wrap small">${balSvg(st.balL, st.balObj, null, 0, { right, marks: order.filter((x) => bs[x.id]).map((x) => ({ x: bs[x.id].x, color: x.char.color })) })}</div>
+        <div class="vlist">${order.map((x, i) => { const b = bs[x.id];
+          return `<div class="vline${i === 0 && b ? ' best' : ''}"><i class="h-dot" style="background:${esc(x.char.color)}"></i>${charEl(x.char, 26, false)}<span class="vn">${i === 0 && b ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp ${b && b.perfect ? 'ok' : ''}">${!b ? '⏳ ' + t('balNone') : b.perfect ? '🎯 ' + t('perfect') : `<b>${fmtNum(b.t)} s</b>`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'halve') {
       const cuts = st.cuts || {}, dev = (id) => (cuts[id] ? 50 - cuts[id].pct : 99);
       const order = [...st.players].sort((a, b) => dev(a.id) - dev(b.id));
@@ -1512,6 +1579,51 @@ const view = {
       b.classList.toggle('hit', used && !h.wrong.includes(k)); b.classList.toggle('miss', h.wrong.includes(k)); b.disabled = used || !myTurn; });
     $('#h-counts').innerHTML = st.players.filter((x) => x.id !== st.drawer).map((x) => `<span class="${x.id === h.cur ? 'ok' : ''}">${x.id === h.cur ? '👉 ' : ''}${esc(x.name)}: ${h.counts[x.id] || 0}</span>`).join('');
   },
+  // ---------------- Wippe ----------------
+  renderBalance() {
+    const st = this.state, stage = $('#stage'), round = st.round, L = st.balL, obj = st.balObj;
+    let run = this.balRun;
+    if (!run || run.round !== round || run.mix !== st.mix) run = this.balRun = { round, mix: st.mix, x: 1, sent: null };
+    stage.innerHTML = `<div class="cat">${t('modeBal')}</div><div class="bal-wrap" id="b-wrap"></div>
+      <div class="bal-info" id="b-info"></div><div class="hint" id="b-msg">${t('balHint')}</div>
+      <div id="b-box"><button class="btn primary big-btn" id="b-go">${t('balGo')}</button></div><div class="done-list" id="done-list"></div>`;
+    this.updateDone();
+    const draw = (ang, held) => { const w = $('#b-wrap'); if (w) w.innerHTML = balSvg(L, obj, run.x, ang, { held }); };
+    const alive = () => this.balRun === run && this.state && this.state.phase === 'balance' && this.state.round === round;
+    const play = () => {
+      const h = balHold(L, obj, run.x), maxA = 13, t0 = performance.now() - (Date.now() - run.sent.at);
+      $('#b-box').innerHTML = ''; $('#b-msg').textContent = '';
+      const step = (now) => {
+        if (!alive() || !$('#b-wrap')) return;
+        const tt = Math.min((now - t0) / 1000, BAL_HOLD);
+        let ang;
+        if (h.perfect) ang = Math.sin(tt * 5) * 1.2 * Math.exp(-tt * 0.6);
+        else ang = h.dir * maxA * Math.min(1, (tt / h.t) ** 2);
+        draw(ang, false);
+        const info = $('#b-info');
+        if (h.perfect) info.innerHTML = tt >= BAL_HOLD ? `<b class="ok">${t('balPerfect')}</b>` : t('balHolds', { s: fmtNum(Math.floor(tt * 10) / 10) });
+        else if (tt < h.t) info.textContent = t('balHolds', { s: fmtNum(Math.floor(tt * 10) / 10) });
+        else { if (!run.bumped) { run.bumped = true; tick(130); } info.innerHTML = `<b class="bad">${t('balFell', { s: fmtNum(h.t) })}</b>`; return; }
+        if (tt >= BAL_HOLD) { if (!run.won) { run.won = true; tick(1046); setTimeout(() => tick(1318), 130); } return; }
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    draw(0, true);
+    $('#b-info').innerHTML = `<b>${fmtNum(L.kg)} kg</b> ⟷ <b>${obj[0] === 'DB' ? '🏋️' : obj[0]} ${fmtNum(obj[1])} kg</b>`;
+    if (run.sent) { play(); return; }
+    // Gegenstand mit dem Finger auf dem rechten Arm verschieben
+    const wrap = $('#b-wrap'); let dragging = false;
+    const setX = (e) => { const sv = wrap.querySelector('svg'), r = sv.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width * 360;
+      run.x = Math.max(0.05, Math.min(1, (px - 180) / 150)); draw(0, true); };
+    wrap.onpointerdown = (e) => { if (run.sent) return; e.preventDefault(); dragging = true; wrap.setPointerCapture(e.pointerId); setX(e); };
+    wrap.onpointermove = (e) => { if (dragging && !run.sent) setX(e); };
+    wrap.onpointerup = wrap.onpointercancel = () => { dragging = false; };
+    $('#b-go').onclick = () => {
+      if (run.sent || !alive()) return;
+      run.sent = { x: run.x, at: Date.now() }; toHost({ t: 'bal', round, x: run.x }); tick(660); play();
+    };
+  },
   // ---------------- Halbieren ----------------
   renderHalve() {
     const st = this.state, stage = $('#stage'), round = st.round;
@@ -1753,17 +1865,17 @@ const view = {
     if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve'].includes(st.phase) && s <= 5);
+    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance'].includes(st.phase) && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance'];
 const MODES = [...GAME_MODES, 'mix'];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -1791,7 +1903,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -2036,6 +2148,29 @@ function voiceSync(st) {
   }
   for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) try { voice.calls.get(id).close(); } catch (e) {}
 }
+// ---- Wippe zeichnen (viewBox 360×230, Drehpunkt in der Mitte; Arm = 150 Einheiten)
+function balSvg(L, obj, x, ang, o = {}) {
+  const cx = 180, py = 170, arm = 150, ticks = [];
+  for (let i = 1; i <= 10; i++) ticks.push(`<line x1="${cx - i * 15}" y1="${py - 4}" x2="${cx - i * 15}" y2="${py + 4}"/><line x1="${cx + i * 15}" y1="${py - 4}" x2="${cx + i * 15}" y2="${py + 4}"/>`);
+  const lx = cx - L.d * arm, kg = (v) => fmtNum(v) + ' kg';
+  const weight = `<g transform="translate(${lx},${py - 6})"><path d="M-17 0 L-12 -30 L12 -30 L17 0 Z" fill="#3d3a4b"/><rect x="-6" y="-38" width="12" height="9" rx="4" fill="none" stroke="#3d3a4b" stroke-width="4"/>
+    <text y="-11" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">${kg(L.kg)}</text></g>`;
+  const thing = (xx, ghost) => {
+    const X = cx + xx * arm, op = ghost ? ' opacity=".9"' : '';
+    const pic = obj[0] === 'DB'
+      ? `<g transform="translate(0,-14)"><rect x="-20" y="-3" width="40" height="6" rx="3" fill="#8a8f98"/><rect x="-24" y="-13" width="9" height="26" rx="3" fill="#2b2d33"/><rect x="15" y="-13" width="9" height="26" rx="3" fill="#2b2d33"/><rect x="-29" y="-9" width="6" height="18" rx="2" fill="#44474f"/><rect x="23" y="-9" width="6" height="18" rx="2" fill="#44474f"/></g>`
+      : `<text y="-4" text-anchor="middle" font-size="38">${obj[0]}</text>`;
+    return `<g transform="translate(${X},${py - 6})"${op}>${pic}<g transform="translate(0,-44)"><rect x="-22" y="-9" width="44" height="16" rx="8" fill="#fff" stroke="#7b2ff7" stroke-width="2"/><text y="3.5" text-anchor="middle" font-size="10" font-weight="900" fill="#7b2ff7">${kg(obj[1])}</text></g></g>`;
+  };
+  const marks = (o.marks || []).map((m) => `<circle cx="${cx + m.x * arm}" cy="${py}" r="5.5" fill="${esc(m.color)}" stroke="#111" stroke-width="1.5"/>`).join('');
+  const right = o.right != null ? `<g transform="translate(${cx + o.right * arm},${py})"><path d="M0 -2 L-7 -16 L7 -16 Z" fill="#22b35e"/><text y="-20" text-anchor="middle" font-size="9" font-weight="900" fill="#22b35e">${t('balRight')}</text></g>` : '';
+  const supports = o.held ? `<rect x="${cx - arm - 12}" y="${py + 5}" width="20" height="${222 - py - 5}" fill="#c9a26b" rx="3"/><rect x="${cx + arm - 8}" y="${py + 5}" width="20" height="${222 - py - 5}" fill="#c9a26b" rx="3"/>` : '';
+  return `<svg viewBox="0 0 360 230" class="bal-svg"><rect x="0" y="222" width="360" height="8" rx="4" fill="#d9d2e9"/>${supports}
+    <path d="M${cx} ${py + 2} L${cx - 26} 222 L${cx + 26} 222 Z" fill="#7b2ff7"/>
+    <g transform="rotate(${ang || 0} ${cx} ${py})"><rect x="${cx - arm - 12}" y="${py - 6}" width="${2 * arm + 24}" height="11" rx="5" fill="#ff9f43" stroke="#c26d12" stroke-width="2"/>
+      <g stroke="#c26d12" stroke-width="2">${ticks.join('')}</g>${weight}${marks}${right}${x != null ? thing(x) : ''}</g>
+    <circle cx="${cx}" cy="${py}" r="5" fill="#fff" stroke="#7b2ff7" stroke-width="3"/></svg>`;
+}
 // ---- Halbieren: die Form ist das Emoji-Bild; gezählt werden die sichtbaren Pixel auf jeder Seite des Schnitts
 const HALVE_PX = 320, HALVE_GRID = 160;
 let halveCache = null;
@@ -2184,12 +2319,31 @@ $('#btn-join').onclick = async () => {
   const c = cleanCode($('#in-code').value); if (c.length !== 5) { setStatus(t('enterCode')); return; }
   joinSession++; busy = true; try { await joinParty(n, c); } finally { busy = false; }
 };
-$('#btn-start').onclick = () => toHost({ t: 'start', rounds: +$('#set-rounds').value, mode: $('#set-mode').value });
+$('#btn-start').onclick = () => toHost({ t: 'start', rounds: +$('#set-rounds').value, mode: $('#set-mode').value, games: mixPicked() });
+// Mix: welche Spiele sollen dabei sein? (wird auf dem Gerät gemerkt)
+function mixPicked() { try { const v = JSON.parse(localStorage.getItem('echo-mix') || 'null'); if (Array.isArray(v)) { const ok = GAME_MODES.filter((m) => v.includes(m)); if (ok.length) return ok; } } catch (e) {} return [...GAME_MODES]; }
+function renderMixPick() {
+  const box = $('#mix-pick'), mix = $('#set-mode').value === 'mix'; if (!box) return;
+  box.classList.toggle('hidden', !mix); $('#lbl-rounds').textContent = t(mix ? 'roundsPer' : 'rounds');
+  if (!mix) return;
+  const on = mixPicked();
+  box.innerHTML = `<div class="mp-head"><b>${t('mixGames')}</b> <button class="linkbtn" id="mp-all">${t('mixAll')}</button></div><div class="mp-list">${GAME_MODES.map((m) => `<button class="mp${on.includes(m) ? ' on' : ''}" data-m="${m}">${t(MODE_KEY[m])}</button>`).join('')}</div>
+    <p class="note">${t('mixSum', { g: on.length, r: $('#set-rounds').value, n: on.length * +$('#set-rounds').value })}</p>`;
+  box.querySelectorAll('.mp').forEach((b) => b.onclick = () => {
+    let cur = mixPicked(); const m = b.dataset.m;
+    cur = cur.includes(m) ? cur.filter((x) => x !== m) : [...cur, m];
+    if (!cur.length) { toast(t('mixMin')); return; }
+    try { localStorage.setItem('echo-mix', JSON.stringify(cur)); } catch (e) {}
+    renderMixPick();
+  });
+  $('#mp-all').onclick = () => { const all = mixPicked().length === GAME_MODES.length; try { localStorage.setItem('echo-mix', JSON.stringify(all ? [GAME_MODES[0]] : GAME_MODES)); } catch (e) {} renderMixPick(); };
+}
+$('#set-rounds').addEventListener('change', renderMixPick);
 function setRoundOpts(mode) {
   const [opts, def] = ROUND_OPTS[mode] || ROUND_OPTS.sound, sel = $('#set-rounds');
   sel.innerHTML = opts.map((n) => `<option${n === def ? ' selected' : ''}>${n}</option>`).join('');
 }
-$('#set-mode').onchange = () => { view.modeTouched = true; const m = $('#set-mode').value; setRoundOpts(m); toHost({ t: 'mode', mode: m }); };
+$('#set-mode').onchange = () => { view.modeTouched = true; const m = $('#set-mode').value; setRoundOpts(m); renderMixPick(); toHost({ t: 'mode', mode: m }); };
 $('#btn-copy').onclick = async () => { try { await navigator.clipboard.writeText(net.code); toast(t('copied')); } catch (e) { toast(net.code); } };
 $('#btn-share').onclick = async () => {
   const url = location.origin + location.pathname + '?code=' + net.code;
@@ -2209,6 +2363,26 @@ $('#btn-home').onclick = async () => {
   if (view.inRoom) { if (!(await confirmBox(t('leave')))) return; joinSession++; sayBye(); await sleep(200); destroyNet(); history.replaceState(null, '', location.pathname); showScreen('menu'); return; }
   showScreen($('#screen-menu').classList.contains('hidden') ? 'menu' : 'lang');
 };
+// ---- Neu laden: holt die neueste Version (wichtig, wenn die Seite als App auf dem Startbildschirm liegt)
+const MY_VER = ((document.querySelector('script[src*="game.js"]') || {}).getAttribute?.('src') || '').match(/v=([0-9a-f]+)/)?.[1] || '';
+async function hardReload() {
+  try { if (window.caches) for (const k of await caches.keys()) await caches.delete(k); } catch (e) {}
+  try { if (navigator.serviceWorker) for (const r of await navigator.serviceWorker.getRegistrations()) await r.update().catch(() => {}); } catch (e) {}
+  const u = new URL(location.href); u.searchParams.set('v', Date.now().toString(36)); location.replace(u.toString());
+}
+$('#btn-reload').onclick = hardReload;
+$('#ver').textContent = MY_VER ? `${t('version')} ${MY_VER.slice(0, 6)}` : '';
+// Gibt es eine neuere Version? Dann (nur im Startmenü, nicht mitten im Spiel) einmal automatisch neu laden
+async function checkUpdate() {
+  try {
+    if (!MY_VER || view.inRoom) return;
+    const html = await (await fetch(location.pathname + '?check=' + Date.now(), { cache: 'no-store' })).text();
+    const v = (html.match(/game\.js\?v=([0-9a-f]+)/) || [])[1];
+    if (v && v !== MY_VER && sessionStorage.getItem('echo-upd') !== v) { sessionStorage.setItem('echo-upd', v); setStatus(t('newVer')); setTimeout(hardReload, 600); }
+  } catch (e) {}
+}
+setTimeout(checkUpdate, 1500);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') checkUpdate(); });
 $('#btn-credits').onclick = () => {
   const b = modal(`<h3>${t('creditsTitle')}</h3><div class="credits">${SOUNDS.map((s) => `<div>${esc(s[lang === 'am' ? 'am' : 'de'])} – ${esc(s.author)} – <a href="${esc(s.source)}" target="_blank" rel="noopener">${esc(s.license)}</a></div>`).join('')}</div><button class="btn" id="cl">${t('close')}</button>`);
   b.querySelector('#cl').onclick = closeModal;
