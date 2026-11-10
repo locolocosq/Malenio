@@ -31,7 +31,7 @@ const EST_TIME = 30;        // Schätzen: Zeit für den Tipp
 const REACT_WINDOW = 5;     // Reaktion: so lange (s) nach dem Grün darf man noch tippen
 const SIMON_TIME = 75;      // Farbfolge: Zeit für alle Level
 const SIMON_LEN = 40;       // Farbfolge: längste Folge
-const SEQ_MODES = ['simon', 'memory']; // Farbfolge (4 Farben) und Sequenz-Memory (9 Felder) laufen gleich ab
+const SEQ_MODES = ['simon', 'memory', 'cups']; // Hütchenspiel nutzt dieselben Level-Regeln // Farbfolge (4 Farben) und Sequenz-Memory (9 Felder) laufen gleich ab
 const seqPads = (mode) => (mode === 'memory' ? 9 : 4);
 const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
 const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
@@ -77,7 +77,7 @@ const T = {
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft.', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft.', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft.', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
@@ -105,7 +105,7 @@ const T = {
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል።', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል።', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል።', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -650,7 +650,7 @@ const host = {
       case 'logo': return this.picks.has(id);
       case 'guess': return this.guessed.has(id);
       case 'react': return this.reacts.has(id);
-      case 'simon': case 'memory': return !!(this.simon.get(id) || {}).done;
+      case 'simon': case 'memory': case 'cups': return !!(this.simon.get(id) || {}).done;
       case 'emoji': return this.egot.has(id);
       default: return this.recs.has(id);
     }
@@ -726,7 +726,7 @@ const host = {
       const n = seqPads(this.mode); this.simonSeq = [];
       for (let i = 0; i < SIMON_LEN; i++) { let v = rnd(n); if (n > 4) while (i && v === this.simonSeq[i - 1]) v = rnd(n); this.simonSeq.push(v); }
       this.simon = new Map(); this.gains = {};
-      this.setPhase('simon', SIMON_TIME, () => this.endSimon());
+      this.setPhase('simon', this.mode === 'cups' ? 100 : SIMON_TIME, () => this.endSimon());
       return;
     }
     if (this.mode === 'emoji') {
@@ -1105,7 +1105,7 @@ const view = {
     } else if (st.phase === 'react') {
       this.renderReact();
     } else if (st.phase === 'simon') {
-      this.renderSimon();
+      if (st.mode === 'cups') this.renderCups(); else this.renderSimon();
     } else if (st.phase === 'emoji') {
       this.renderEmoji();
     } else if (st.phase === 'present') {
@@ -1528,6 +1528,75 @@ const view = {
     };
     show();
   },
+  // ---------------- Hütchenspiel ----------------
+  // Alle bekommen pro Level dieselben Tausch-Züge (aus der Folge vom Host berechnet) – fair für alle.
+  renderCups() {
+    const st = this.state, stage = $('#stage'), round = st.round;
+    const run0 = this.simonRun;
+    if (run0 && run0.round === round && run0.mix === st.mix && run0.mode === 'cups' && $('#cups')) { this.updateSimon(); return; }
+    stage.innerHTML = `<div class="cat">${t('modeCups')} · <span id="s-lv"></span></div><div class="hint" id="s-msg">${t('simonReady')}</div>
+      <div class="cups" id="cups"></div><div class="note">${t('cupsHint')}</div><div class="done-list" id="done-list"></div>`;
+    if (run0 && run0.round === round && run0.mix === st.mix && run0.mode === 'cups') { run0.redraw && run0.redraw(); this.updateSimon(); return; }
+    const run = this.simonRun = { round, mix: st.mix, mode: 'cups', seq: st.simonSeq || [], lv: 0, busy: true, over: false };
+    const alive = () => this.simonRun === run && this.state && this.state.phase === 'simon' && this.state.round === round;
+    const msg = (k, v) => { const m = $('#s-msg'); if (m) m.textContent = t(k, v); };
+    let n = 3, slotOf = [], ball = 0, picking = false;
+    const step = () => { const a = $('#cups'); return a ? a.clientWidth / n : 100; };
+    const place = (id, y, sc) => { const w = document.querySelector(`#cups .cupw[data-c="${id}"]`); if (w) w.style.transform = `translate(${slotOf[id] * step()}px, ${y || 0}px) scale(${sc || 1})`; };
+    const draw = () => {
+      const a = $('#cups'); if (!a) return;
+      a.style.setProperty('--n', n);
+      a.innerHTML = [...Array(n).keys()].map((id) => `<div class="cupw" data-c="${id}">${id === ball ? '<div class="ball"></div>' : ''}<div class="cup"></div></div>`).join('');
+      for (let id = 0; id < n; id++) place(id);
+    };
+    run.redraw = draw;
+    const lift = (id, up) => { const c = document.querySelector(`#cups .cupw[data-c="${id}"] .cup`); if (c) c.classList.toggle('up', up); };
+    const speed = (ms) => document.querySelectorAll('#cups .cupw').forEach((w) => w.style.transitionDuration = ms + 'ms');
+    const level = async () => {
+      run.busy = true; picking = false; this.updateSimon();
+      const lv = run.lv;
+      // Zufall für dieses Level: für alle gleich
+      let x = ((run.seq[lv % run.seq.length] + 1) * 7919 + lv * 104729 + round * 31) >>> 0;
+      const r = (k) => { x = (x * 1664525 + 1013904223) >>> 0; return Math.floor(x / 4294967296 * k); };
+      n = lv < 3 ? 3 : lv < 7 ? 4 : 5;
+      const swaps = 3 + lv * 2, dur = Math.max(170, 620 - lv * 55);
+      slotOf = [...Array(n).keys()]; ball = r(n);
+      draw(); msg('cupsWatch');
+      await sleep(400); if (!alive()) return;
+      lift(ball, true); tick(660); await sleep(1100); if (!alive()) return;
+      lift(ball, false); await sleep(450);
+      for (let k = 0; k < swaps; k++) {
+        if (!alive()) return;
+        const a = r(n); let b = r(n - 1); if (b >= a) b++;
+        const ia = a, ib = b, sa = slotOf[a], sb = slotOf[b]; // zwei Becher (IDs) tauschen ihre Plätze
+        // halber Weg: einer vorne, einer hinten – dann tauschen
+        speed(dur / 2); const mid = (sa + sb) / 2;
+        const wa = document.querySelector(`#cups .cupw[data-c="${ia}"]`), wb = document.querySelector(`#cups .cupw[data-c="${ib}"]`);
+        if (wa) { wa.style.zIndex = 3; wa.style.transform = `translate(${mid * step()}px, 14px) scale(1.06)`; }
+        if (wb) { wb.style.zIndex = 1; wb.style.transform = `translate(${mid * step()}px, -14px) scale(.9)`; }
+        await sleep(dur / 2);
+        slotOf[ia] = sb; slotOf[ib] = sa; place(ia); place(ib);
+        await sleep(dur / 2 + 30);
+      }
+      if (!alive()) return;
+      speed(250); run.busy = false; picking = true; msg('cupsPick');
+    };
+    $('#stage').onpointerdown = async (e) => {
+      const w = e.target.closest && e.target.closest('#cups .cupw'); if (!w || !picking || run.over || !alive()) return;
+      e.preventDefault(); picking = false;
+      const id = +w.dataset.c; lift(id, true);
+      if (id === ball) {
+        tick(880); setTimeout(() => tick(1175), 120); w.classList.add('right');
+        run.lv++; toHost({ t: 'simon', round, lv: run.lv }); msg('cupsRight');
+        await sleep(1100); if (alive()) level();
+      } else {
+        tick(150); setTimeout(() => tick(110), 160); w.classList.add('wrong');
+        await sleep(350); lift(ball, true);
+        run.over = true; msg('cupsWrong', { n: run.lv }); toHost({ t: 'simon', round, done: true });
+      }
+    };
+    level();
+  },
   updateSimon() {
     const st = this.state, el = $('#done-list'); if (!st || !el) return;
     const lv = st.simonLv || {}, run = this.simonRun;
@@ -1601,12 +1670,12 @@ const view = {
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'emoji'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji'];
 const MODES = [...GAME_MODES, 'mix'];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -1634,7 +1703,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
