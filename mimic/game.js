@@ -1033,7 +1033,7 @@ const host = {
     if (this.phase !== 'bwrite') return;
     const q = BLUFF_Q[this.bq], opts = [{ k: 't', authors: [] }];
     for (const [id, text] of this.fakes) { const o = opts.find((x) => x.k === 'f' && sameAns(x.text, text)); if (o) o.authors.push(id); else opts.push({ k: 'f', text, authors: [id] }); }
-    (q[4] || []).forEach((d, i) => { if (opts.length < Math.max(4, this.fakes.size + 1) && !opts.some((x) => x.k === 'f' && (sameAns(x.text, d) || sameAns(x.text, (q[5] || [])[i] || '')))) opts.push({ k: 'd', i, authors: [] }); });
+    (q[4] || []).forEach((d, i) => { if (opts.length < Math.max(4, this.fakes.size + 1) && !opts.some((x) => x.k === 'f' && (sameAns(x.text, d) || ((q[5] || [])[i] && sameAns(x.text, q[5][i]))))) opts.push({ k: 'd', i, authors: [] }); });
     this.bopts = shuffle(opts); this.bvotes = new Map();
     this.setPhase('bvote', BLUFF_VOTE, () => this.endBluff());
   },
@@ -1433,11 +1433,11 @@ const view = {
         <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
           return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'bluff') {
-      const q = BLUFF_Q[st.bq] || [], L = lang === 'am' ? 1 : 0, vs = st.bvotes || {}, byId = (id) => st.players.find((x) => x.id === id);
-      const optText = (o) => o.k === 't' ? q[2 + L] : o.k === 'd' ? ((q[4 + L] || [])[o.i] || '') : o.text;
+      const q = BLUFF_Q[st.bq] || [], vs = st.bvotes || {}, byId = (id) => st.players.find((x) => x.id === id);
+      const optText = (o) => o.k === 't' ? bluffText(q, 'a') : o.k === 'd' ? bluffText(q, 'd', o.i) : o.text;
       const voters = (i) => Object.keys(vs).filter((id) => vs[id] === i).map(byId).filter(Boolean);
       const order = (st.bopts || []).map((o, i) => ({ o, i })).sort((a, b) => (a.o.k === 't' ? -1 : 0) - (b.o.k === 't' ? -1 : 0) || voters(b.i).length - voters(a.i).length);
-      stage.innerHTML = scoreCards(st, null, true) + `<div class="bq light">${bluffQ(q[L], q[2 + L])}</div>
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="bq light">${bluffQ(bluffText(q, 'q'), bluffText(q, 'a'))}</div>
         <div class="bres">${order.map(({ o, i }) => { const v = voters(i);
           const who = o.k === 't' ? t('bluffIsTrue') : o.k === 'd' ? t('bluffHouse') : t('bluffBy', { name: o.authors.map((a) => (byId(a) || {}).name || '?').join(' + ') });
           return `<div class="bopt res ${o.k === 't' ? 'truth' : ''}"><div class="bo-t">${esc(optText(o))}</div><div class="bo-w">${esc(who)}</div>
@@ -1793,10 +1793,10 @@ const view = {
   },
   // ---------------- Bluff ----------------
   renderBluffWrite() {
-    const st = this.state, stage = $('#stage'), round = st.round, q = BLUFF_Q[st.bq] || [], L = lang === 'am' ? 1 : 0;
+    const st = this.state, stage = $('#stage'), round = st.round, q = BLUFF_Q[st.bq] || [];
     let run = this.bluffRun;
     if (!run || run.round !== round || run.mix !== st.mix) run = this.bluffRun = { round, mix: st.mix, sent: false, vote: null };
-    stage.innerHTML = `<div class="cat">${t('modeBluff')}</div><div class="bq">${bluffQ(q[L])}</div><div class="hint">${t('bluffWrite')}</div>
+    stage.innerHTML = `<div class="cat">${t('modeBluff')}</div><div class="bq">${bluffQ(bluffText(q, 'q'))}</div><div class="hint">${t('bluffWrite')}</div>
       <div id="bl-box"><form class="g-form" id="bl-f"><input id="bl-in" maxlength="40" autocomplete="off" spellcheck="false" placeholder="${t('bluffPh')}"><button class="btn primary">${t('bluffSend')}</button></form></div>
       <div class="done-list" id="done-list"></div>`;
     this.updateDone();
@@ -1806,11 +1806,11 @@ const view = {
     $('#bl-f').onsubmit = (e) => { e.preventDefault(); const v = $('#bl-in').value.trim(); if (!v || !this.state || this.state.phase !== 'bwrite') return; toHost({ t: 'bfake', round, text: v }); };
   },
   renderBluffVote() {
-    const st = this.state, stage = $('#stage'), round = st.round, q = BLUFF_Q[st.bq] || [], L = lang === 'am' ? 1 : 0;
+    const st = this.state, stage = $('#stage'), round = st.round, q = BLUFF_Q[st.bq] || [];
     let run = this.bluffRun;
     if (!run || run.round !== round || run.mix !== st.mix) run = this.bluffRun = { round, mix: st.mix, vote: null };
-    const optText = (o) => o.k === 't' ? q[2 + L] : o.k === 'd' ? ((q[4 + L] || [])[o.i] || '') : o.text;
-    stage.innerHTML = `<div class="cat">${t('bluffVote')}</div><div class="bq">${bluffQ(q[L])}</div>
+    const optText = (o) => o.k === 't' ? bluffText(q, 'a') : o.k === 'd' ? bluffText(q, 'd', o.i) : o.text;
+    stage.innerHTML = `<div class="cat">${t('bluffVote')}</div><div class="bq">${bluffQ(bluffText(q, 'q'))}</div>
       <div class="bres" id="bl-opts">${(st.bopts || []).map((o, i) => `<button class="bopt${i === st.bmine ? ' mine' : ''}${i === run.vote ? ' on' : ''}" data-i="${i}" ${i === st.bmine || run.vote != null ? 'disabled' : ''}>
         <span class="bo-t">${esc(optText(o))}</span>${i === st.bmine ? `<span class="bo-w">${t('bluffMine')}</span>` : ''}</button>`).join('')}</div>
       <div class="hint" id="bl-msg">${run.vote != null ? t('bluffVoted') : ''}</div><div class="done-list" id="done-list"></div>`;
@@ -2338,7 +2338,8 @@ function lev(a, b) {
 // Bluff: zwei Antworten gleich? (Groß/klein, Umlaute, kleine Tippfehler egal)
 function sameAns(a, b) {
   if (!a || !b) return false;
-  for (const x of wordForms(a)) for (const y of wordForms(b)) { if (x && x === y) return true; if (x.length >= 5 && lev(x, y) <= 1) return true; }
+  const num = /\d/.test(a) || /\d/.test(b); // Zahlen: nur genau gleich (12.000 ≠ 13.000)
+  for (const x of wordForms(a)) for (const y of wordForms(b)) { if (x && x === y) return true; if (!num && x.length >= 7 && lev(x, y) <= 1) return true; }
   return false;
 }
 // 2 = richtig, 1 = knapp daneben, 0 = falsch
@@ -2549,6 +2550,12 @@ function voiceSync(st) {
   for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) try { voice.calls.get(id).close(); } catch (e) {}
 }
 // Bluff-Frage mit Lücke anzeigen (bei der Auflösung mit der Antwort gefüllt)
+function bluffText(q, what, i) {
+  const am = lang === 'am';
+  if (what === 'q') return (am && q[1]) || q[0] || '';
+  if (what === 'a') return (am && q[3]) || q[2] || '';
+  return (am && (q[5] || [])[i]) || (q[4] || [])[i] || '';
+}
 function bluffQ(q, fill) {
   const parts = String(q || '').split('___');
   return parts.map(esc).join(fill != null ? `<b class="bq-fill">${esc(fill)}</b>` : '<span class="bq-gap">_____</span>');
