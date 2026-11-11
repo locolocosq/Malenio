@@ -423,3 +423,25 @@ body.emo-on main { padding-bottom: 80px; }
 /* ---- Blind-Stopp ---- */
 .blind-wrap { width: 100%; max-width: 460px; }
 .blind-svg { width: 100%; display: block; }
+
+/* ---- Koch-Auktion ---- */
+.dish-title { font-size: 26px; font-weight: 900; } .dish-title.small { font-size: 18px; }
+.dish-svg { display: block; overflow: visible; }
+.ing-card { display: flex; flex-direction: column; align-items: center; gap: 4px; background: #fff7e6; border: 3px solid #ffd27a; border-radius: 20px; padding: 10px 22px; font-size: 20px; }
+.ing-card .ing-em { font-size: 46px; line-height: 1; } .ing-card .ing-dot { width: 44px; height: 44px; }
+.ing-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(0,0,0,.15); vertical-align: middle; }
+.bid-info { font-weight: 900; font-size: 17px; } .bid-info.big { font-size: 20px; text-align: center; }
+.bid-turn { font-weight: 800; color: #8a8299; } .bid-turn.me { color: #e0244a; font-size: 18px; animation: pulse 1s infinite; }
+.bid-ctl { display: flex; align-items: center; gap: 10px; } .bid-v { font-size: 28px; min-width: 70px; text-align: center; }
+.bid-go { display: flex; gap: 10px; }
+.dish-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
+.dish-card { color: #2b2250; display: flex; flex-direction: column; align-items: center; background: #fff; border-radius: 16px; padding: 6px 6px 8px; box-shadow: 0 2px 0 rgba(0,0,0,.08); border: 3px solid transparent; }
+.dish-card.me { border-color: #7b2ff7; } .dish-card.turn { border-color: #ffb020; } .dish-card.best { border-color: #ffd23f; background: #fffbe6; }
+.dc-n { font-weight: 900; font-size: 14px; } .dc-m { font-size: 12px; font-weight: 800; color: #5d566b; } .dc-s { color: #f5a400; font-size: 16px; } .dc-g { font-weight: 900; color: #22b35e; }
+.ing-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 420px; }
+.ing-list span { background: #f4f0fb; border-radius: 999px; padding: 4px 10px; font-weight: 800; font-size: 14px; }
+.ing-list .ing-em { font-size: 16px; }
+.rate-stars { display: flex; gap: 6px; } .star { font-size: 38px; background: none; border: none; filter: grayscale(1) opacity(.5); cursor: pointer; }
+.star.on, .star:hover { filter: none; }
+.fill-line { font-size: 15px; text-align: center; }
+@keyframes pulse { 50% { opacity: .55; } }

@@ -37,6 +37,10 @@ const seqStart = (mode) => (mode === 'memory' ? 2 : 3);
 const EMOJI_TIME = 45;      // Emoji-Rätsel: Zeit zum Raten
 const HALVE_TIME = 30;      // Halbieren: Zeit für den Schnitt
 const BAL_TIME = 25;        // Wippe: Zeit zum Hinstellen
+const DISH_NEED = 5;        // Koch-Auktion: Zutaten pro Teller
+const DISH_MONEY = 20;      // Koch-Auktion: Budget pro Gericht (Euro)
+const DISH_TURN = 15;       // Koch-Auktion: Zeit pro Zug beim Bieten
+const DISH_RATE = 25;       // Koch-Auktion: Zeit zum Bewerten eines Tellers
 const BLUFF_WRITE = 50;     // Bluff: Zeit, eine Lüge zu erfinden
 const BLUFF_VOTE = 30;      // Bluff: Zeit zum Abstimmen
 const BLIND_AFTER = 3;      // Blind-Stopp: so lange (s) nach der Ankunft darf man noch tippen
@@ -136,7 +140,7 @@ const T = {
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeBluff: '🤥 Bluff', bluffWrite: 'Erfinde eine Antwort, die echt klingt!', bluffPh: 'Deine Lüge…', bluffSend: '✅ Abschicken', bluffWait: 'Abgeschickt! Warte auf die anderen…', bluffTruth: 'Das ist die echte Antwort 😅 – denk dir was anderes aus!', bluffVote: 'Welche Antwort ist die echte?', bluffMine: 'deine', bluffVoted: 'Gewählt! Warte auf die anderen…', bluffIsTrue: '✅ Die Wahrheit', bluffBy: 'Bluff von {name}', bluffHouse: '🏠 Hausbluff', bluffFooled: 'reingefallen:', bluffNobody: 'niemand', modeBlind: '⏱️ Blind-Stopp', blindHint: 'Der Ball rollt hinter die Mauer. Tippe genau dann, wenn er beim 🚩 ankommt!', blindStop: 'STOPP!', blindEarly: '{s} s zu früh', blindLate: '{s} s zu spät', blindExact: 'Genau getroffen! 🎯', blindNone: 'nicht getippt', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeDish: '🍝 Koch-Auktion', dishIntro: 'Jeder hat {m} € und braucht {n} Zutaten. Biete auf die Zutaten!', dishStart: '{name} muss anfangen zu bieten', dishHigh: 'Höchstgebot: {b} € von {name}', dishTurn: '{name} ist dran', dishYour: 'Du bist dran!', dishBid: 'Bieten', dishPass: 'Passen', dishMustBid: 'Du fängst an – du musst bieten!', dishWon: '{name} kauft {ing} für {b} €', dishFill: 'Wer kein Geld mehr hat, bekommt Zufallszutaten:', dishRateQ: 'Wie gut ist das Gericht von {name}?', dishRateOwn: 'Das ist dein Gericht – die anderen bewerten.', dishRated: 'Bewertet! Warte auf die anderen…', dishFull: 'voll', dishBroke: 'pleite', dishNoFill: 'Alle Teller sind voll!', modeBluff: '🤥 Bluff', bluffWrite: 'Erfinde eine Antwort, die echt klingt!', bluffPh: 'Deine Lüge…', bluffSend: '✅ Abschicken', bluffWait: 'Abgeschickt! Warte auf die anderen…', bluffTruth: 'Das ist die echte Antwort 😅 – denk dir was anderes aus!', bluffVote: 'Welche Antwort ist die echte?', bluffMine: 'deine', bluffVoted: 'Gewählt! Warte auf die anderen…', bluffIsTrue: '✅ Die Wahrheit', bluffBy: 'Bluff von {name}', bluffHouse: '🏠 Hausbluff', bluffFooled: 'reingefallen:', bluffNobody: 'niemand', modeBlind: '⏱️ Blind-Stopp', blindHint: 'Der Ball rollt hinter die Mauer. Tippe genau dann, wenn er beim 🚩 ankommt!', blindStop: 'STOPP!', blindEarly: '{s} s zu früh', blindLate: '{s} s zu spät', blindExact: 'Genau getroffen! 🎯', blindNone: 'nicht getippt', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
@@ -164,7 +168,7 @@ const T = {
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeBluff: '🤥 ማታለል', bluffWrite: 'እውነት የሚመስል መልስ ይፍጠሩ!', bluffPh: 'ውሸትዎ…', bluffSend: '✅ ላክ', bluffWait: 'ተልኳል! ሌሎችን ይጠብቁ…', bluffTruth: 'ይህ እውነተኛው መልስ ነው 😅 – ሌላ ያስቡ!', bluffVote: 'የትኛው መልስ እውነተኛ ነው?', bluffMine: 'የእርስዎ', bluffVoted: 'ተመርጧል! ሌሎችን ይጠብቁ…', bluffIsTrue: '✅ እውነቱ', bluffBy: 'የ{name} ማታለያ', bluffHouse: '🏠 የቤት ማታለያ', bluffFooled: 'የተታለሉ፦', bluffNobody: 'ማንም', modeBlind: '⏱️ ዕውር ማቆም', blindHint: 'ኳሱ ከግድግዳው ጀርባ ይንከባለላል። 🚩 ላይ ሲደርስ በትክክል ይንኩ!', blindStop: 'አቁም!', blindEarly: '{s} ሰ ቀደም ብሎ', blindLate: '{s} ሰ ዘግይቶ', blindExact: 'በትክክል! 🎯', blindNone: 'አልነኩም', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeDish: '🍝 የምግብ ጨረታ', dishIntro: 'እያንዳንዱ {m} € አለው፤ {n} ግብዓቶች ያስፈልጉታል። ለግብዓቶቹ ይጫረቱ!', dishStart: '{name} መጫረት መጀመር አለበት', dishHigh: 'ከፍተኛ ጨረታ፦ {b} € በ{name}', dishTurn: 'ተራው የ{name} ነው', dishYour: 'የእርስዎ ተራ ነው!', dishBid: 'ተጫረት', dishPass: 'እለፍ', dishMustBid: 'እርስዎ ይጀምራሉ – መጫረት አለብዎት!', dishWon: '{name} {ing}ን በ{b} € ገዛ', dishFill: 'ገንዘብ ያለቀባቸው በዕጣ ግብዓቶችን ያገኛሉ፦', dishRateQ: 'የ{name} ምግብ ምን ያህል ጥሩ ነው?', dishRateOwn: 'ይህ የእርስዎ ምግብ ነው – ሌሎች ይገመግማሉ።', dishRated: 'ተገምግሟል! ሌሎችን ይጠብቁ…', dishFull: 'ሞልቷል', dishBroke: 'ገንዘብ የለም', dishNoFill: 'ሁሉም ሳህኖች ሞልተዋል!', modeBluff: '🤥 ማታለል', bluffWrite: 'እውነት የሚመስል መልስ ይፍጠሩ!', bluffPh: 'ውሸትዎ…', bluffSend: '✅ ላክ', bluffWait: 'ተልኳል! ሌሎችን ይጠብቁ…', bluffTruth: 'ይህ እውነተኛው መልስ ነው 😅 – ሌላ ያስቡ!', bluffVote: 'የትኛው መልስ እውነተኛ ነው?', bluffMine: 'የእርስዎ', bluffVoted: 'ተመርጧል! ሌሎችን ይጠብቁ…', bluffIsTrue: '✅ እውነቱ', bluffBy: 'የ{name} ማታለያ', bluffHouse: '🏠 የቤት ማታለያ', bluffFooled: 'የተታለሉ፦', bluffNobody: 'ማንም', modeBlind: '⏱️ ዕውር ማቆም', blindHint: 'ኳሱ ከግድግዳው ጀርባ ይንከባለላል። 🚩 ላይ ሲደርስ በትክክል ይንኩ!', blindStop: 'አቁም!', blindEarly: '{s} ሰ ቀደም ብሎ', blindLate: '{s} ሰ ዘግይቶ', blindExact: 'በትክክል! 🎯', blindNone: 'አልነኩም', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -495,7 +499,7 @@ const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
-  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], bq: -1, usedBq: new Set(), fakes: new Map(), bopts: [], bvotes: new Map(), blindP: null, blinds: new Map(), cols: new Map(), colT: null, circs: new Map(), bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
+  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], dsh: null, usedD: new Set(), dStart: 0, bq: -1, usedBq: new Set(), fakes: new Map(), bopts: [], bvotes: new Map(), blindP: null, blinds: new Map(), cols: new Map(), colT: null, circs: new Map(), bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; this.eTimers.forEach(clearTimeout); this.eTimers = []; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -616,6 +620,25 @@ const host = {
           this.pushState();
           if (this.players.every((x) => this.egot.has(x.id))) this.endEmoji();
         } else sendTo(from, { t: 'sys', key: res === 1 ? 'almost' : 'nope' });
+        return;
+      }
+      case 'dbid': case 'dpass': {
+        const d = this.dsh; if (this.phase !== 'dbid' || !d || msg.round !== this.round || d.turn !== from) return;
+        if (msg.t === 'dbid') {
+          const b = Math.floor(+msg.amount); if (!(b > d.high && b >= 1 && b <= d.money[from])) return;
+          d.high = b; d.highBy = from;
+        } else {
+          if (!d.highBy) return; // wer anfängt, muss bieten
+          d.active = d.active.filter((x) => x !== from);
+        }
+        this.dishAdvance(from);
+        return;
+      }
+      case 'drate': {
+        const d = this.dsh; if (this.phase !== 'drate' || !d || msg.round !== this.round || from === d.owner || d.rates.has(from)) return;
+        const v = Math.floor(+msg.stars); if (!(v >= 1 && v <= 5)) return;
+        d.rates.set(from, v); this.pushState();
+        if (this.players.every((x) => x.id === d.owner || d.rates.has(x.id))) this.dishRateEnd();
         return;
       }
       case 'bfake': {
@@ -745,6 +768,12 @@ const host = {
     if (this.phase === 'bwrite' && this.players.every((x) => this.fakes.has(x.id))) { this.startVote(); return; }
     if (this.phase === 'bvote' && this.players.every((x) => this.bvotes.has(x.id))) { this.endBluff(); return; }
     if (this.phase === 'blind' && this.players.every((x) => this.blinds.has(x.id))) { this.endBlind(); return; }
+    if (this.dsh && ['dbid', 'drate'].includes(this.phase)) {
+      const d = this.dsh;
+      if (this.phase === 'dbid') { const wasTurn = d.turn === id; d.active = d.active.filter((x) => x !== id); if (d.highBy === id) { d.highBy = null; d.high = 0; }
+        if (!d.active.length) { this.dishNext(); return; } if (wasTurn || (d.active.length === 1 && d.highBy)) { d.turn = d.active[0]; this.dishAdvance(null); return; } }
+      if (this.phase === 'drate') { if (d.owner === id) { this.dishRateEnd(); return; } if (this.players.every((x) => x.id === d.owner || d.rates.has(x.id))) { this.dishRateEnd(); return; } }
+    }
     if (this.phase === 'circle' && this.players.every((x) => (this.circs.get(x.id) || {}).tries >= CIRC_TRIES)) { this.endCircle(); return; }
     this.pushState();
   },
@@ -768,6 +797,7 @@ const host = {
         done: this.doneOf(p.id) })),
       drawer: this.drawer, turn: this.turn, logoIdx: this.logoIdx, target: this.target, mix: !!this.mix, qIdx: this.qIdx,
       ests: this.mode === 'estimate' && this.phase === 'results' ? Object.fromEntries(this.ests) : null,
+      dsh: this.mode === 'dish' && this.dsh ? (() => { const d = this.dsh; return { i: d.i, ing: d.ing, high: d.high, highBy: d.highBy, turn: d.turn, starter: d.starter, active: d.active, plates: d.plates, money: d.money, owner: d.owner, rated: d.rates ? d.rates.size : 0, avgs: d.avgs, rnd: d.rnd, last: d.last }; })() : null,
       bq: this.mode === 'bluff' ? this.bq : -1,
       bopts: this.mode === 'bluff' && (this.phase === 'bvote' || this.phase === 'results') ? this.bopts.map((o) => ({ k: o.k, i: o.i, text: o.text, authors: this.phase === 'results' ? o.authors : undefined })) : null,
       bvotes: this.mode === 'bluff' && this.phase === 'results' ? Object.fromEntries(this.bvotes) : null,
@@ -808,6 +838,7 @@ const host = {
       case 'balance': return this.bals.has(id);
       case 'color': return this.cols.has(id);
       case 'blind': return this.blinds.has(id);
+      case 'dish': { const d = this.dsh; if (!d) return false; if (this.phase === 'drate') return id === d.owner || d.rates.has(id); return d.plates[id] && d.plates[id].length >= DISH_NEED; }
       case 'bluff': return this.phase === 'bvote' ? this.bvotes.has(id) : this.fakes.has(id);
       case 'circle': return (this.circs.get(id) || {}).tries >= CIRC_TRIES;
       default: return this.recs.has(id);
@@ -839,7 +870,7 @@ const host = {
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
   startGame() {
-    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.usedB = new Set(); this.usedBq = new Set(); this.departed = new Map();
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.usedB = new Set(); this.usedBq = new Set(); this.usedD = new Set(); this.dStart = 0; this.departed = new Map();
     this.mix = this.baseMode === 'mix';
     if (this.mix) { // die ausgewählten Spiele in zufälliger Reihenfolge, jedes „Runden“-mal direkt hintereinander
       this.mixList = []; for (const m of shuffle([...(this.mixGames || GAME_MODES)])) for (let r = 0; r < this.rounds; r++) this.mixList.push(m);
@@ -876,6 +907,15 @@ const host = {
     this.playRound();
   },
   playRound() {
+    if (this.mode === 'dish') {
+      const n = DISHES.length; let i = rnd(n); for (let k = 0; k < 300 && this.usedD.has(i); k++) i = rnd(n);
+      this.usedD.add(i);
+      const d = this.dsh = { i, pool: shuffle([...Array(DISHES[i].g.length).keys()]), plates: {}, money: {}, ing: -1, high: 0, highBy: null, turn: null, starter: null, active: [], owner: null, rates: new Map(), avgs: {}, order: [], rnd: {}, last: null };
+      for (const p of this.players) { d.plates[p.id] = []; d.money[p.id] = DISH_MONEY; }
+      this.gains = {};
+      this.setPhase('dintro', 4, () => this.dishNext());
+      return;
+    }
     if (this.mode === 'bluff') {
       const n = BLUFF_Q.length; let i = rnd(n); for (let k = 0; k < 600 && this.usedBq.has(i); k++) i = rnd(n);
       this.usedBq.add(i); this.bq = i; this.fakes = new Map(); this.bvotes = new Map(); this.bopts = []; this.gains = {};
@@ -1027,6 +1067,71 @@ const host = {
       p.score += g; this.gains[p.id] = g;
     }
     this.setPhase('results', RESULT_TIME + 2, () => this.nextRound());
+  },
+  // ---- Koch-Auktion
+  dishCan(id) { const d = this.dsh; return d.plates[id] && d.plates[id].length < DISH_NEED && d.money[id] >= 1; },
+  dishNext() { // nächste Zutat versteigern (oder auffüllen, wenn keiner mehr bieten kann)
+    const d = this.dsh, ids = this.players.map((p) => p.id);
+    const can = ids.filter((id) => this.dishCan(id));
+    if (!can.length || !d.pool.length) { this.dishFill(); return; }
+    d.ing = d.pool.pop();
+    // Startspieler rotiert: der nächste, der noch bieten kann
+    let k = 0, start = null;
+    while (k < ids.length) { const id = ids[(this.dStart + k) % ids.length]; k++; if (this.dishCan(id)) { start = id; break; } }
+    this.dStart = (ids.indexOf(start) + 1) % ids.length;
+    const si = ids.indexOf(start);
+    d.active = [...ids.slice(si), ...ids.slice(0, si)].filter((id) => this.dishCan(id));
+    d.starter = start; d.turn = start; d.high = 0; d.highBy = null; d.last = null;
+    this.setPhase('dbid', DISH_TURN, () => this.dishTimeout());
+  },
+  dishTimeout() { // Zeit um: Anfänger bietet automatisch 1 €, alle anderen passen
+    const d = this.dsh; if (this.phase !== 'dbid') return;
+    if (!d.highBy && d.money[d.turn] >= 1) { d.high = 1; d.highBy = d.turn; } else d.active = d.active.filter((x) => x !== d.turn);
+    this.dishAdvance(d.turn);
+  },
+  dishAdvance(prev) {
+    const d = this.dsh;
+    // nur noch der Höchstbietende übrig → er bekommt die Zutat
+    if (d.highBy && d.active.every((x) => x === d.highBy)) { this.dishWin(); return; }
+    // sonst: nächster aktiver Spieler im Uhrzeigersinn (nicht der aktuelle Höchstbietende)
+    const seat = this.players.map((p) => p.id), n = seat.length;
+    let i = seat.indexOf(prev); if (i < 0) i = Math.max(0, seat.indexOf(d.turn) - 1);
+    for (let k = 1; k <= n; k++) { const id = seat[(i + k) % n]; if (d.active.includes(id) && id !== d.highBy) { d.turn = id; break; } }
+    this.setPhase('dbid', DISH_TURN, () => this.dishTimeout());
+  },
+  dishWin() {
+    const d = this.dsh, w = d.highBy;
+    d.money[w] -= d.high; d.plates[w].push(d.ing); d.last = { by: w, ing: d.ing, b: d.high }; d.turn = null;
+    this.setPhase('dwon', 2.5, () => this.dishNext());
+  },
+  dishFill() { // wer kein Geld mehr hat, bekommt zufällige Zutaten bis zum vollen Teller
+    const d = this.dsh, all = DISHES[d.i].g.length;
+    const used = new Set(Object.values(d.plates).flat());
+    let rest = shuffle([...Array(all).keys()].filter((x) => !used.has(x)));
+    d.rnd = {}; d.ing = -1;
+    for (const p of this.players) while (d.plates[p.id] && d.plates[p.id].length < DISH_NEED) { if (!rest.length) rest = shuffle([...Array(all).keys()]); const x = rest.pop(); d.plates[p.id].push(x); (d.rnd[p.id] = d.rnd[p.id] || []).push(x); }
+    d.order = this.players.map((p) => p.id);
+    this.setPhase('dfill', Object.keys(d.rnd).length ? 5 : 2, () => this.dishRateNext());
+  },
+  dishRateNext() {
+    const d = this.dsh;
+    if (this.players.length < 2) { this.dishEnd(); return; }
+    d.owner = d.order.shift(); while (d.owner && !this.players.some((p) => p.id === d.owner)) d.owner = d.order.shift();
+    if (!d.owner) { this.dishEnd(); return; }
+    d.rates = new Map();
+    this.setPhase('drate', DISH_RATE, () => this.dishRateEnd());
+  },
+  dishRateEnd() {
+    const d = this.dsh; if (this.phase !== 'drate') return;
+    const v = [...d.rates.values()]; d.avgs[d.owner] = v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 10) / 10 : 0;
+    this.stop();
+    if (d.order.length) this.dishRateNext(); else this.dishEnd();
+  },
+  dishEnd() {
+    const d = this.dsh; this.stop(); this.gains = {}; d.owner = null;
+    const best = Math.max(0, ...Object.values(d.avgs));
+    for (const p of this.players) { const a = d.avgs[p.id] || 0; const g = Math.round(a * 20) + (a > 0 && a === best ? 20 : 0); p.score += g; this.gains[p.id] = g; }
+    this.setPhase('results', RESULT_TIME + 6, () => this.nextRound());
   },
   // ---- Bluff: Antworten mischen (Wahrheit, Lügen der Spieler, Hausbluffs bis mindestens 4)
   startVote() {
@@ -1286,7 +1391,7 @@ const view = {
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.bluffRun = null; this.blindRun = null; this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.dBid = null; this.bluffRun = null; this.blindRun = null; this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
@@ -1298,6 +1403,7 @@ const view = {
     else if (st.phase === 'hang') this.updateHang();
     else if (['react', 'halve', 'balance', 'color', 'circle', 'bwrite', 'blind'].includes(st.phase)) this.updateDone();
     else if (st.phase === 'bvote') this.updateDone();
+    else if (['dbid', 'dwon', 'drate'].includes(st.phase)) this.renderDish();
     else if (st.phase === 'simon') this.updateSimon();
     else if (st.phase === 'emoji') this.updateEmoji();
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
@@ -1377,6 +1483,8 @@ const view = {
       tick(660); setTimeout(() => tick(990), 160);
     } else if (st.phase === 'estimate') {
       this.renderEstimate();
+    } else if (['dintro', 'dbid', 'dwon', 'dfill', 'drate'].includes(st.phase)) {
+      this.renderDish();
     } else if (st.phase === 'bwrite') {
       this.renderBluffWrite();
     } else if (st.phase === 'bvote') {
@@ -1432,6 +1540,12 @@ const view = {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(q[lang === 'am' ? 1 : 0])}</div><div class="cat light">${t('answer')}</div><div class="timer-big light">${esc(shown(q[2]))}</div>
         <div class="vlist">${[...st.players].sort((a, b) => diff(a.id) - diff(b.id)).map((x, i) => { const v = ev[x.id]; const hit = v != null && (q[5] === 'y' ? v === q[2] : Math.abs(v - q[2]) <= q[2] * 0.01);
           return `<div class="vline${i === 0 && v != null ? ' best' : ''}">${charEl(x.char, 26, false)}<span class="vn">${i === 0 && v != null ? '🏆 ' : ''}${esc(x.name)}</span><span class="vp">${v == null ? '⏳ ' + t('noEst') : `<b>${esc(shown(v))}</b>${hit ? ' 🎯 ' + t('bullseye') : ''}`}</span><b class="vg">+${st.gains[x.id] || 0}</b></div>`; }).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'dish') {
+      const d = st.dsh, def = DISHES[d.i], av = d.avgs || {};
+      const order = [...st.players].sort((a, b) => (av[b.id] || 0) - (av[a.id] || 0));
+      stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${esc(def.n)}</div><div class="dish-grid">${order.map((x, i) => `
+        <div class="dish-card${i === 0 ? ' best' : ''}">${dishSvg(def, d.plates[x.id] || [], 150)}<div class="dc-n">${i === 0 ? '🏆 ' : ''}${esc(x.name)}</div>
+        <div class="dc-s">${stars(av[x.id] || 0)} <b>${fmtNum(av[x.id] || 0)}</b></div><div class="dc-g">+${st.gains[x.id] || 0}</div></div>`).join('')}</div>`;
     } else if (st.phase === 'results' && st.mode === 'bluff') {
       const q = BLUFF_Q[st.bq] || [], vs = st.bvotes || {}, byId = (id) => st.players.find((x) => x.id === id);
       const optText = (o) => o.k === 't' ? bluffText(q, 'a') : o.k === 'd' ? bluffText(q, 'd', o.i) : o.text;
@@ -1790,6 +1904,45 @@ const view = {
     document.querySelectorAll('#keyb .key').forEach((b) => { const k = b.dataset.k, used = h.guessed.includes(k);
       b.classList.toggle('hit', used && !h.wrong.includes(k)); b.classList.toggle('miss', h.wrong.includes(k)); b.disabled = used || !myTurn; });
     $('#h-counts').innerHTML = st.players.filter((x) => x.id !== st.drawer).map((x) => `<span class="${x.id === h.cur ? 'ok' : ''}">${x.id === h.cur ? '👉 ' : ''}${esc(x.name)}: ${h.counts[x.id] || 0}</span>`).join('');
+  },
+  // ---------------- Koch-Auktion ----------------
+  renderDish() {
+    const st = this.state, stage = $('#stage'), d = st.dsh; if (!d) return;
+    const def = DISHES[d.i]; if (!def) return;
+    const me = net.myId, byId = (id) => st.players.find((x) => x.id === id) || { name: '?', char: {} };
+    const ingName = (i) => (def.g[i] || [''])[0];
+    const card = (i) => `<div class="ing-card">${ingIcon(def.g[i])}<b>${esc(ingName(i))}</b></div>`;
+    const plates = (big) => `<div class="dish-grid small">${st.players.map((x) => { const pl = d.plates[x.id] || [];
+      return `<div class="dish-card${x.id === me ? ' me' : ''}${x.id === d.turn ? ' turn' : ''}">${dishSvg(def, pl, x.id === me ? 150 : 110)}<div class="dc-n">${esc(x.name)}</div>
+        <div class="dc-m">💶 ${d.money[x.id] ?? 0} € · ${pl.length}/${DISH_NEED}${pl.length >= DISH_NEED ? ' ✅' : (d.money[x.id] || 0) < 1 ? ' · ' + t('dishBroke') : ''}</div></div>`; }).join('')}</div>`;
+    let top = '';
+    if (st.phase === 'dintro') top = `<div class="dish-title">${esc(def.n)}</div>${dishSvg(def, [], 190)}<div class="hint">${t('dishIntro', { m: DISH_MONEY, n: DISH_NEED })}</div>`;
+    else if (st.phase === 'dbid') {
+      const mine = d.turn === me, max = d.money[me] || 0, min = d.high + 1;
+      if (!this.dBid || this.dBid.key !== d.ing + ':' + d.high) this.dBid = { key: d.ing + ':' + d.high, v: Math.min(max, min) };
+      const v = this.dBid.v;
+      top = `<div class="dish-title small">${esc(def.n)}</div>${card(d.ing)}
+        <div class="bid-info">${d.highBy ? t('dishHigh', { b: d.high, name: esc(byId(d.highBy).name) }) : t('dishStart', { name: esc(byId(d.starter).name) })}</div>
+        <div class="bid-turn ${mine ? 'me' : ''}">${mine ? (d.highBy ? t('dishYour') : t('dishMustBid')) : t('dishTurn', { name: esc(byId(d.turn).name) })}</div>
+        ${mine ? `<div class="bid-ctl"><button class="btn small" id="b-m">−</button><b class="bid-v">${v} €</b><button class="btn small" id="b-p">+</button><button class="btn small" id="b-all">${max} €</button></div>
+          <div class="bid-go"><button class="btn primary" id="b-bid" ${v < min || v > max ? 'disabled' : ''}>${t('dishBid')} ${v} €</button>${d.highBy ? `<button class="btn" id="b-pass">${t('dishPass')}</button>` : ''}</div>` : ''}`;
+    } else if (st.phase === 'dwon') top = `<div class="dish-title small">${esc(def.n)}</div>${card(d.last ? d.last.ing : d.ing)}<div class="bid-info big">${d.last ? t('dishWon', { name: esc(byId(d.last.by).name), ing: esc(ingName(d.last.ing)), b: d.last.b }) : ''}</div>`;
+    else if (st.phase === 'dfill') { const r = d.rnd || {}, ks = Object.keys(r);
+      top = `<div class="dish-title small">${esc(def.n)}</div><div class="hint">${ks.length ? t('dishFill') : t('dishNoFill')}</div>${ks.map((id) => `<div class="fill-line"><b>${esc(byId(id).name)}:</b> ${r[id].map((i) => esc(ingName(i))).join(', ')}</div>`).join('')}`; }
+    else if (st.phase === 'drate') {
+      const o = byId(d.owner), pl = d.plates[d.owner] || [], mineOwn = d.owner === me, rated = this.dRated === st.round + ':' + d.owner;
+      stage.innerHTML = `<div class="cat">${esc(def.n)}</div><div class="dish-title small">${t('dishRateQ', { name: esc(o.name) })}</div>${dishSvg(def, pl, 220)}
+        <div class="ing-list">${pl.map((i) => `<span>${ingIcon(def.g[i])} ${esc(ingName(i))}</span>`).join('')}</div>
+        ${mineOwn ? `<div class="hint">${t('dishRateOwn')}</div>` : rated ? `<div class="picked">✅ ${t('dishRated')}</div>` : `<div class="rate-stars">${[1, 2, 3, 4, 5].map((n) => `<button class="star" data-n="${n}">⭐</button>`).join('')}</div>`}`;
+      stage.querySelectorAll('.star').forEach((b) => { b.onmouseenter = () => stage.querySelectorAll('.star').forEach((x) => x.classList.toggle('on', +x.dataset.n <= +b.dataset.n));
+        b.onclick = () => { this.dRated = st.round + ':' + d.owner; toHost({ t: 'drate', round: st.round, stars: +b.dataset.n }); tick(880); this.renderDish(); }; });
+      return;
+    }
+    stage.innerHTML = `<div class="cat">${t('modeDish')}</div>${top}${plates()}`;
+    const set = (v) => { this.dBid.v = Math.max(1, Math.min(d.money[me] || 0, v)); this.renderDish(); };
+    if ($('#b-m')) { $('#b-m').onclick = () => set(this.dBid.v - 1); $('#b-p').onclick = () => set(this.dBid.v + 1); $('#b-all').onclick = () => set(d.money[me]);
+      $('#b-bid').onclick = () => { toHost({ t: 'dbid', round: st.round, amount: this.dBid.v }); tick(880); };
+      if ($('#b-pass')) $('#b-pass').onclick = () => { toHost({ t: 'dpass', round: st.round }); tick(330); }; }
   },
   // ---------------- Bluff ----------------
   renderBluffWrite() {
@@ -2254,7 +2407,7 @@ const view = {
   },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
-    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon' || st.phase === 'blind') { el.textContent = ''; el.classList.add('hidden'); return; }
+    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon' || st.phase === 'blind' || st.phase === 'dwon' || st.phase === 'dfill' || st.phase === 'dintro') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
     el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote'].includes(st.phase) && s <= 5);
@@ -2262,14 +2415,16 @@ const view = {
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind', 'dish'];
 const MODES = [...GAME_MODES, 'mix'];
 // Bluff: [Frage DE, Frage AM, Antwort DE, Antwort AM, [Hausbluffs DE], [Hausbluffs AM]] – „___“ ist die Lücke
 const BLUFF_Q = window.BLUFF_Q || [];
+// Koch-Auktion: Gerichte {n: Name, s: Darstellung, b: Grundlage, g: [[Zutat, Schicht, Bild]]}
+const DISHES = window.DISHES || [];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', blind: 'modeBlind', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', dish: 'modeDish', blind: 'modeBlind', emoji: 'modeEmoji', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -2297,7 +2452,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], dish: [[1, 2, 3, 5], 2], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -2548,6 +2703,76 @@ function voiceSync(st) {
     if (!p.voice && has) { try { voice.calls.get(p.id).close(); } catch (e) {} }
   }
   for (const id of [...voice.calls.keys()]) if (!others.some((p) => p.id === id)) try { voice.calls.get(id).close(); } catch (e) {}
+}
+// ---- Koch-Auktion: Teller zeichnen. Schichten: s=Soße, c=Käse/Belag, k=Kugel, m=Hauptzutat, v=Beilage, t=Topping/Drizzle, g=Garnitur
+const LAYER = ['s', 'c', 'k', 'm', 'v', 't', 'g'];
+const isCol = (x) => /^#|^rgb|^hsl/.test(x || '');
+function hashN(str, n) { let h = 2166136261; for (const ch of String(str)) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) % n; }
+function ingIcon(g) { if (!g) return ''; const v = g[2] || ''; return isCol(v) ? `<i class="ing-dot" style="background:${esc(v)}"></i>` : `<span class="ing-em">${esc(v.split(',')[0])}</span>`; }
+function stars(v) { return '★'.repeat(Math.round(v)) + '☆'.repeat(5 - Math.round(v)); }
+function dishSvg(def, idxs, size) {
+  const items = idxs.map((i) => def.g[i]).filter(Boolean).sort((a, b) => LAYER.indexOf(a[1]) - LAYER.indexOf(b[1]));
+  const st = def.s, base = def.b || '', out = [];
+  const em = (e, x, y, fs, rot) => isCol(e) ? `<ellipse cx="${x}" cy="${y}" rx="${fs / 2.4}" ry="${fs / 3.4}" fill="${e}" stroke="rgba(0,0,0,.18)" stroke-width="1.5" transform="rotate(${rot || 0} ${x} ${y})"/>` : `<text x="${x}" y="${y}" font-size="${fs}" text-anchor="middle" dominant-baseline="central"${rot ? ` transform="rotate(${rot} ${x} ${y})"` : ''}>${esc(e)}</text>`;
+  const blob = (cx, cy, r, col, seed, op) => { const n = 9, pts = []; for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2, rr = r * (0.82 + ((hashN(seed + k, 100)) / 100) * 0.3); pts.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr]); }
+    let dd = `M${pts[0][0]},${pts[0][1]}`; for (let k = 0; k < n; k++) { const p1 = pts[(k + 1) % n], mx = (pts[k][0] + p1[0]) / 2, my = (pts[k][1] + p1[1]) / 2; dd += ` Q${pts[k][0]},${pts[k][1]} ${mx},${my}`; }
+    return `<path d="${dd}Z" fill="${col}" opacity="${op || 0.95}"/>`; };
+  const dots = (col, seed, n, cx, cy, r) => { let o = ''; for (let k = 0; k < n; k++) { const a = hashN(seed + 'a' + k, 628) / 100, rr = Math.sqrt(hashN(seed + 'r' + k, 100) / 100) * r; o += `<circle cx="${(cx + Math.cos(a) * rr).toFixed(1)}" cy="${(cy + Math.sin(a) * rr).toFixed(1)}" r="2.2" fill="${col}"/>`; } return o; };
+  const drizzle = (col, seed, cx, cy, w) => { let dd = `M${cx - w},${cy - w * 0.6}`; for (let k = 0; k < 7; k++) dd += ` L${cx - w + (k + 1) * w / 3.5},${cy - w * 0.6 + (k % 2 ? 0 : 1) * w * 1.2}`; return `<path d="${dd}" stroke="${col}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>`; };
+  if (st === 'stack') { // Sandwich / Burger / Toast: von unten nach oben stapeln
+    const W = 200, bun = base === 'burger', cx = 100; let y = 175;
+    out.push(`<ellipse cx="100" cy="186" rx="90" ry="10" fill="#e9e3f3"/>`);
+    out.push(bun ? `<path d="M22 ${y} Q22 ${y - 22} 100 ${y - 22} Q178 ${y - 22} 178 ${y} Z" fill="#d9a35a"/>` : `<rect x="20" y="${y - 16}" width="160" height="16" rx="5" fill="#e8c38a" stroke="#c99a55" stroke-width="2"/>`);
+    y -= bun ? 22 : 16;
+    for (const g of items) {
+      const v = g[2] || '', col = isCol(v) ? v : '#c9a26b', thin = g[1] === 's' || g[1] === 't';
+      const emo = !(g[1] === 'c' || g[1] === 's' || g[1] === 't' || g[1] === 'k'), h = thin ? 6 : g[1] === 'g' ? 0 : emo ? 22 : 14;
+      if (g[1] === 'g') { out.push(isCol(v) ? dots(v, g[0], 14, cx, y - 2, 60) : [40, 100, 160].map((x) => em(v.split(',')[0], x, y - 6, 13)).join('')); continue; }
+      if (g[1] === 'c' || g[1] === 's' || g[1] === 't' || g[1] === 'k') out.push(`<path d="M18 ${y} Q60 ${y - h - 4} 100 ${y - h} T182 ${y} Z" fill="${col}"/>`);
+      else out.push([32, 66, 100, 134, 168].map((x, k) => em(v.split(',')[k % (v.split(',').length)] || v, x, y - 11, 19, hashN(g[0] + k, 40) - 20)).join(''));
+      y -= h;
+    }
+    out.push(bun ? `<path d="M20 ${y} Q20 ${y - 50} 100 ${y - 52} Q180 ${y - 50} 180 ${y} Z" fill="#e0a85c"/>${dots('#fff7d6', 'sesam', 14, 100, y - 25, 45)}` : `<rect x="18" y="${y - 18}" width="164" height="18" rx="6" fill="#efcf96" stroke="#c99a55" stroke-width="2"/>`);
+    return `<svg viewBox="0 ${Math.min(0, y - 70)} 200 ${200 - Math.min(0, y - 70)}" width="${size}" height="${size}" class="dish-svg">${out.join('')}</svg>`;
+  }
+  if (st === 'cup') { // Eisbecher / Glas: Becher, Kugeln obendrauf
+    out.push(`<path d="M55 110 L145 110 L130 175 L70 175 Z" fill="#e9f4ff" stroke="#b9d3ea" stroke-width="3"/><rect x="88" y="175" width="24" height="10" fill="#b9d3ea"/><ellipse cx="100" cy="190" rx="40" ry="6" fill="#b9d3ea"/>`);
+    const ks = items.filter((g) => g[1] === 'k' || g[1] === 'c'), sp = [[100, 92], [78, 100], [122, 100], [100, 70], [82, 78]];
+    items.filter((g) => g[1] === 's').forEach((g, k) => out.push(`<path d="M${62 + k * 3} ${150 - k * 14} L${138 - k * 3} ${150 - k * 14} L${133 - k * 2} ${170 - k * 14} L${67 + k * 2} ${170 - k * 14} Z" fill="${g[2]}" opacity=".85"/>`));
+    ks.forEach((g, k) => { const [x, y] = sp[k % sp.length]; out.push(`<circle cx="${x}" cy="${y}" r="24" fill="${isCol(g[2]) ? g[2] : '#fff3d6'}"/><circle cx="${x - 7}" cy="${y - 8}" r="6" fill="#fff" opacity=".35"/>`); });
+    items.filter((g) => g[1] === 't').forEach((g) => out.push(drizzle(g[2], g[0], 100, 82, 34)));
+    items.filter((g) => g[1] === 'm' || g[1] === 'v').forEach((g, k) => out.push(em(g[2].split(',')[0], [100, 72, 128, 88, 114][k % 5], [52, 66, 66, 40, 40][k % 5], 22, hashN(g[0], 40) - 20)));
+    items.filter((g) => g[1] === 'g').forEach((g) => out.push(isCol(g[2]) ? dots(g[2], g[0], 18, 100, 80, 34) : [80, 100, 120].map((x, k) => em(g[2].split(',')[0], x, 58 + k * 6, 12)).join('')));
+    return `<svg viewBox="0 0 200 200" width="${size}" height="${size}" class="dish-svg">${out.join('')}</svg>`;
+  }
+  // runde Darstellungen: Teller, Schüssel, Pizza, Kuchen
+  const cx = 100, cy = 100;
+  if (st === 'bowl') out.push(`<circle cx="100" cy="100" r="92" fill="#f3efe8" stroke="#d8cfc0" stroke-width="4"/><circle cx="100" cy="100" r="76" fill="${isCol(base) ? base : '#f6e3b4'}"/>`);
+  else if (st === 'pizza') out.push(`<circle cx="100" cy="100" r="94" fill="#fff" stroke="#e7e2ee" stroke-width="3"/><circle cx="100" cy="100" r="84" fill="#e3b36a"/><circle cx="100" cy="100" r="72" fill="#f2d08f"/>`);
+  else if (st === 'cake') out.push(`<circle cx="100" cy="100" r="94" fill="#fff" stroke="#e7e2ee" stroke-width="3"/><circle cx="100" cy="100" r="80" fill="${isCol(base) ? base : '#f1d3a0'}" stroke="#c9975e" stroke-width="4"/>`);
+  else {
+    out.push(`<circle cx="100" cy="100" r="94" fill="#fff" stroke="#e7e2ee" stroke-width="3"/><circle cx="100" cy="100" r="74" fill="none" stroke="#f1edf6" stroke-width="2"/>`);
+    if (base === 'spaghetti') { for (let k = 0; k < 14; k++) out.push(`<ellipse cx="${100 + (hashN('x' + k, 30) - 15)}" cy="${100 + (hashN('y' + k, 30) - 15)}" rx="${40 + hashN('r' + k, 14)}" ry="${24 + hashN('q' + k, 14)}" transform="rotate(${hashN('a' + k, 180)} 100 100)" fill="none" stroke="#f0d27a" stroke-width="3.2"/>`); }
+    else if (base === 'rice') out.push(blob(100, 100, 52, '#fbf8f0', 'rice') + dots('#e9e1cc', 'ricegrain', 40, 100, 100, 46));
+    else if (base === 'mash') out.push(blob(100, 100, 50, '#f6e7b8', 'mash'));
+    else if (base === 'salad') out.push(blob(100, 100, 56, '#8fd16a', 'salad') + dots('#5fae3c', 'salat', 30, 100, 100, 50));
+    else if (base === 'noodles') { for (let k = 0; k < 16; k++) out.push(`<path d="M${50 + k * 6} 70 q 10 15 0 30 t 0 30" stroke="#f3dc93" stroke-width="3" fill="none"/>`); }
+    else if (base === 'pancake') out.push(`<circle cx="100" cy="104" r="56" fill="#d99a4e"/><circle cx="100" cy="98" r="56" fill="#e8b46a"/><circle cx="100" cy="92" r="56" fill="#f0c47c"/>`);
+    else if (base === 'fries') out.push([...Array(14)].map((_, k) => `<rect x="${60 + k * 6}" y="${70 + hashN('f' + k, 30)}" width="7" height="45" rx="2" fill="#f7cf5a" transform="rotate(${hashN('fr' + k, 50) - 25} 100 100)"/>`).join(''));
+    else if (base === 'toast') out.push(`<rect x="52" y="52" width="96" height="96" rx="18" fill="#e7b46b" stroke="#c4893f" stroke-width="5"/>`);
+    else if (base === 'tortilla') out.push(`<circle cx="100" cy="100" r="66" fill="#f1dca6"/>${dots('#d4b26e', 'tort', 24, 100, 100, 60)}`);
+    else if (isCol(base)) out.push(blob(100, 100, 52, base, 'base'));
+  }
+  const by = (t) => items.filter((g) => g[1] === t);
+  by('s').forEach((g, k) => out.push(blob(cx + (k ? (k % 2 ? 14 : -14) : 0), cy + (k ? 8 : 0), st === 'pizza' ? 66 - k * 8 : 46 - k * 6, g[2], g[0])));
+  by('c').forEach((g, k) => out.push(st === 'pizza' ? [...Array(9)].map((_, j) => blob(100 + Math.cos(j * 0.7 + k) * (20 + j * 5), 100 + Math.sin(j * 0.7 + k) * (20 + j * 5), 11, g[2], g[0] + j, 0.95)).join('') : blob(cx + (k % 2 ? 8 : -8), cy - 6 + k * 6, 30, g[2], g[0], 0.92) + dots(g[2], g[0] + 'c', 10, cx, cy, 44)));
+  by('k').forEach((g, k) => [0, 1, 2].forEach((j) => { const a = (j * 2.1 + k * 0.9), r = 20; out.push(`<circle cx="${(cx + Math.cos(a) * r).toFixed(1)}" cy="${(cy + Math.sin(a) * r).toFixed(1)}" r="13" fill="${isCol(g[2]) ? g[2] : '#c0703a'}"/><circle cx="${(cx + Math.cos(a) * r - 4).toFixed(1)}" cy="${(cy + Math.sin(a) * r - 4).toFixed(1)}" r="4" fill="#fff" opacity=".3"/>`); }));
+  // Hauptzutaten in die Mitte, Beilagen außen herum
+  by('m').forEach((g, k) => { const es = g[2].split(','); [0, 1, 2].forEach((j) => { const a = j * 2.1 + k * 1.3, r = 16 + k * 6; out.push(em(es[j % es.length], cx + Math.cos(a) * r, cy + Math.sin(a) * r, 30 - k * 2, hashN(g[0] + j, 40) - 20)); }); });
+  by('v').forEach((g, k) => { const es = g[2].split(','); [0, 1, 2].forEach((j) => { const a = k * 1.25 + j * 2.09 + 0.6, r = st === 'bowl' ? 50 : 58; out.push(em(es[j % es.length], cx + Math.cos(a) * r, cy + Math.sin(a) * r, 22, hashN(g[0] + j, 60) - 30)); }); });
+  by('t').forEach((g) => out.push(drizzle(g[2], g[0], cx, cy, 40)));
+  by('g').forEach((g) => out.push(isCol(g[2]) ? dots(g[2], g[0], 26, cx, cy, 55) : [0, 1, 2, 3].map((j) => em(g[2].split(',')[0], cx + Math.cos(j * 1.6 + 0.4) * 34, cy + Math.sin(j * 1.6 + 0.4) * 34, 13)).join('')));
+  return `<svg viewBox="0 0 200 200" width="${size}" height="${size}" class="dish-svg">${out.join('')}</svg>`;
 }
 // Bluff-Frage mit Lücke anzeigen (bei der Auflösung mit der Antwort gefüllt)
 function bluffText(q, what, i) {
