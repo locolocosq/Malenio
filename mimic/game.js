@@ -1576,7 +1576,7 @@ const view = {
       const g = $('#c-cv').getContext('2d');
       for (const x of [...order].reverse()) { const c = cs[x.id]; if (!c || !c.pts || c.pts.length < 4) continue;
         const P = []; for (let i = 0; i + 1 < c.pts.length; i += 2) P.push([c.pts[i] * 320, c.pts[i + 1] * 320]);
-        drawStroke(g, P, 'rgba(0,0,0,.45)', 9); drawStroke(g, P, x.char.color, 5); }
+        drawPath(g, P, 'rgba(0,0,0,.45)', 9); drawPath(g, P, x.char.color, 5); }
     } else if (st.phase === 'results' && st.mode === 'balance') {
       const bs = st.bals || {}, val = (id) => (!bs[id] ? -1 : bs[id].perfect ? 99 : bs[id].t);
       const order = [...st.players].sort((a, b) => val(b.id) - val(a.id));
@@ -2046,13 +2046,13 @@ const view = {
     };
     const showLast = () => { g.clearRect(0, 0, 320, 320); if (!run.last) return;
       const { P, cx, cy, r } = run.last; g.setLineDash([6, 6]); g.strokeStyle = '#22b35e'; g.lineWidth = 2; g.beginPath(); g.arc(cx * 320, cy * 320, r * 320, 0, Math.PI * 2); g.stroke(); g.setLineDash([]);
-      drawStroke(g, P.map(([x, y]) => [x * 320, y * 320]), '#7b2ff7', 6); };
+      drawPath(g, P.map(([x, y]) => [x * 320, y * 320]), '#7b2ff7', 6); };
     showLast(); info();
     const pos = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
     let cur = null;
     const alive = () => this.circRun === run && this.state && this.state.phase === 'circle' && this.state.round === round;
     cv.onpointerdown = (e) => { if (run.tries >= CIRC_TRIES || !alive()) return; e.preventDefault(); cv.setPointerCapture(e.pointerId); cur = [pos(e)]; g.clearRect(0, 0, 320, 320); $('#c-res').innerHTML = ''; };
-    cv.onpointermove = (e) => { if (!cur) return; const p = pos(e); cur.push(p); const n = cur.length; if (n > 1) drawStroke(g, [cur[n - 2], p].map(([x, y]) => [x * 320, y * 320]), '#7b2ff7', 6); };
+    cv.onpointermove = (e) => { if (!cur) return; const p = pos(e); cur.push(p); const n = cur.length; if (n > 1) drawPath(g, [cur[n - 2], p].map(([x, y]) => [x * 320, y * 320]), '#7b2ff7', 6); };
     cv.onpointerup = cv.onpointercancel = () => {
       if (!cur) return; const raw = cur; cur = null;
       const sc = circleScore(raw);
@@ -2785,7 +2785,7 @@ function bluffQ(q, fill) {
   const parts = String(q || '').split('___');
   return parts.map(esc).join(fill != null ? `<b class="bq-fill">${esc(fill)}</b>` : '<span class="bq-gap">_____</span>');
 }
-function drawStroke(g, P, color, w) {
+function drawPath(g, P, color, w) {
   if (P.length < 2) return; g.strokeStyle = color; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round';
   g.beginPath(); g.moveTo(P[0][0], P[0][1]); for (const p of P.slice(1)) g.lineTo(p[0], p[1]); g.stroke();
 }
@@ -2899,6 +2899,8 @@ function levelOf(stream) {
 }
 setInterval(() => {
   const box = $('#voice-heads'); if (!box || !box.children.length) return;
+  // Beim Zuhören, Aufnehmen und Vorspielen das Mikrofon nicht anfassen (stört auf dem iPhone die Aufnahme)
+  if (view.state && ['listen', 'record', 'show'].includes(view.state.phase)) { for (const el of box.children) el.classList.remove('talk'); return; }
   for (const el of box.children) {
     const id = el.dataset.id; let lv = 0;
     if (voice.on) lv = id === net.myId ? (voice.track && voice.track.enabled ? levelOf(voice.stream) : 0) : levelOf((voice.audios.get(id) || {}).srcObject);
