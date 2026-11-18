@@ -729,7 +729,7 @@ const host = {
     const cid = String(msg.cid || from).slice(0, 40);
     const old = this.players.find((x) => x.cid === cid && x.id !== from);
     let p = this.get(from);
-    if (!p && old) { old.id = from; p = old; } // gleiches Gerät, neue Verbindung -> übernehmen
+    if (!p && old) { const was = old.id; net.conns.delete(was); this.renameId(was, from); p = old; } // gleiches Gerät, neue Verbindung -> übernehmen (überall die neue Kennung)
     if (!p) {
       if (this.players.length >= MAX_PLAYERS) { sendTo(from, { t: 'full' }); return; }
       p = this.add(from, msg, cid);
@@ -743,6 +743,25 @@ const host = {
     if (this.phase === 'draw' || this.phase === 'present') for (const [pid, r] of this.recs) if (pid !== from) sendTo(from, { t: 'drawing', pid, round: this.round, strokes: r.strokes });
     if (this.phase === 'guess' && from !== this.drawer) sendTo(from, { t: 'sync', turn: this.turn, strokes: this.live });
     this.pushState();
+  },
+  // Kommt ein Spieler mit neuer Verbindung zurück (Seite neu geladen, Funkloch), bekommt er eine neue Kennung.
+  // Die alte Kennung steckt überall im Spielstand (wer malt, wer schon fertig ist, wer dran ist …) – alles umschreiben,
+  // sonst hängt z. B. der Zug, weil der Host auf die alte Kennung wartet.
+  renameId(was, now) {
+    if (!was || was === now) return;
+    const seen = new Set();
+    const fix = (v) => {
+      if (v === was) return now;
+      if (!v || typeof v !== 'object' || seen.has(v)) return v;
+      seen.add(v);
+      if (Array.isArray(v)) { for (let i = 0; i < v.length; i++) v[i] = fix(v[i]); return v; }
+      if (v instanceof Map) { const e = [...v]; v.clear(); for (const [k, x] of e) v.set(fix(k), fix(x)); return v; }
+      if (v instanceof Set) { const e = [...v]; v.clear(); for (const x of e) v.add(fix(x)); return v; }
+      if (Object.getPrototypeOf(v) !== Object.prototype) return v;
+      for (const k of Object.keys(v)) { const x = fix(v[k]); if (k === was) { delete v[k]; v[now] = x; } else v[k] = x; }
+      return v;
+    };
+    for (const k of Object.keys(this)) if (k !== 'timer' && k !== 'eTimers' && typeof this[k] !== 'function') this[k] = fix(this[k]);
   },
   removePlayer(id) {
     const p = this.get(id); if (!p || p.host) return;

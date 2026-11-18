@@ -15,7 +15,8 @@ for (const [page, files] of PAGES) {
   for (const f of files) {
     const fp = path.join(path.dirname(pagePath), f);
     if (!fs.existsSync(fp)) continue;
-    const v = crypto.createHash('sha1').update(fs.readFileSync(fp)).digest('hex').slice(0, 8);
+    // Zeilenenden (Windows \r\n / sonst \n) zählen nicht – sonst bekäme jede Datei auf Windows eine neue Kennung
+    const v = crypto.createHash('sha1').update(fs.readFileSync(fp).toString('latin1').replace(/\r\n/g, '\n'), 'latin1').digest('hex').slice(0, 8);
     html = html.replace(new RegExp('(["\'])' + f.replace(/[.\/]/g, (c) => '\\' + c) + '(\\?v=[0-9a-f]+)?\\1'), `$1${f}?v=${v}$1`);
     console.log(page, f, v);
   }
