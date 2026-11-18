@@ -138,7 +138,7 @@ const T = {
     modeHang: '🪢 Galgenmännchen', chooseHang: 'Wähle ein Wort zum Erraten:',
     modeEst: '🔢 Schätzen', modeMix: '🎲 Mix (Spiele aussuchen)', estPh: 'Deine Schätzung', estSend: 'Tipp abgeben', yourEst: 'Dein Tipp:', answer: 'Richtige Antwort', bullseye: 'Volltreffer!', noEst: 'kein Tipp', badNum: 'Bitte eine Zahl eingeben.', loadingQ: 'Lade Fragen…',
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
-    abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
+    abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', body: 'Form', brows: 'Augenbrauen', cheeks: 'Wangen', held: 'In der Hand', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
     modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeDish: '🍝 Koch-Auktion', dishIntro: 'Jeder hat {m} € und braucht {n} Zutaten. Biete auf die Zutaten!', dishStart: '{name} muss anfangen zu bieten', dishHigh: 'Höchstgebot: {b} € von {name}', dishTurn: '{name} ist dran', dishYour: 'Du bist dran!', dishBid: 'Bieten', dishPass: 'Passen', dishMustBid: 'Du fängst an – du musst bieten!', dishWon: '{name} kauft {ing} für {b} €', dishFill: 'Wer kein Geld mehr hat, bekommt Zufallszutaten:', dishRateQ: 'Wie gut ist das Gericht von {name}?', dishRateOwn: 'Das ist dein Gericht – die anderen bewerten.', dishRated: 'Bewertet! Warte auf die anderen…', dishFull: 'voll', dishBroke: 'pleite', dishNoFill: 'Alle Teller sind voll!', modeBluff: '🤥 Bluff', bluffWrite: 'Erfinde eine Antwort, die echt klingt!', bluffPh: 'Deine Lüge…', bluffSend: '✅ Abschicken', bluffWait: 'Abgeschickt! Warte auf die anderen…', bluffTruth: 'Das ist die echte Antwort 😅 – denk dir was anderes aus!', bluffVote: 'Welche Antwort ist die echte?', bluffMine: 'deine', bluffVoted: 'Gewählt! Warte auf die anderen…', bluffIsTrue: '✅ Die Wahrheit', bluffBy: 'Bluff von {name}', bluffHouse: '🏠 Hausbluff', bluffFooled: 'reingefallen:', bluffNobody: 'niemand', modeBlind: '⏱️ Blind-Stopp', blindHint: 'Der Ball rollt hinter die Mauer. Tippe genau dann, wenn er beim 🚩 ankommt!', blindStop: 'STOPP!', blindEarly: '{s} s zu früh', blindLate: '{s} s zu spät', blindExact: 'Genau getroffen! 🎯', blindNone: 'nicht getippt', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
@@ -166,7 +166,7 @@ const T = {
     modeHang: '🪢 የገመድ ሰው', chooseHang: 'የሚገመት ቃል ይምረጡ፦',
     modeEst: '🔢 ግምት', modeMix: '🎲 ድብልቅ (ጨዋታዎችን ይምረጡ)', estPh: 'ግምትዎ', estSend: 'ግምት ላክ', yourEst: 'ግምትዎ፦', answer: 'ትክክለኛው መልስ', bullseye: 'በትክክል!', noEst: 'ግምት የለም', badNum: 'እባክዎ ቁጥር ያስገቡ።', loadingQ: 'ጥያቄዎች እየተጫኑ ነው…',
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
-    abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
+    abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', body: 'ቅርጽ', brows: 'ቅንድብ', cheeks: 'ጉንጭ', held: 'በእጅ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
     modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeDish: '🍝 የምግብ ጨረታ', dishIntro: 'እያንዳንዱ {m} € አለው፤ {n} ግብዓቶች ያስፈልጉታል። ለግብዓቶቹ ይጫረቱ!', dishStart: '{name} መጫረት መጀመር አለበት', dishHigh: 'ከፍተኛ ጨረታ፦ {b} € በ{name}', dishTurn: 'ተራው የ{name} ነው', dishYour: 'የእርስዎ ተራ ነው!', dishBid: 'ተጫረት', dishPass: 'እለፍ', dishMustBid: 'እርስዎ ይጀምራሉ – መጫረት አለብዎት!', dishWon: '{name} {ing}ን በ{b} € ገዛ', dishFill: 'ገንዘብ ያለቀባቸው በዕጣ ግብዓቶችን ያገኛሉ፦', dishRateQ: 'የ{name} ምግብ ምን ያህል ጥሩ ነው?', dishRateOwn: 'ይህ የእርስዎ ምግብ ነው – ሌሎች ይገመግማሉ።', dishRated: 'ተገምግሟል! ሌሎችን ይጠብቁ…', dishFull: 'ሞልቷል', dishBroke: 'ገንዘብ የለም', dishNoFill: 'ሁሉም ሳህኖች ሞልተዋል!', modeBluff: '🤥 ማታለል', bluffWrite: 'እውነት የሚመስል መልስ ይፍጠሩ!', bluffPh: 'ውሸትዎ…', bluffSend: '✅ ላክ', bluffWait: 'ተልኳል! ሌሎችን ይጠብቁ…', bluffTruth: 'ይህ እውነተኛው መልስ ነው 😅 – ሌላ ያስቡ!', bluffVote: 'የትኛው መልስ እውነተኛ ነው?', bluffMine: 'የእርስዎ', bluffVoted: 'ተመርጧል! ሌሎችን ይጠብቁ…', bluffIsTrue: '✅ እውነቱ', bluffBy: 'የ{name} ማታለያ', bluffHouse: '🏠 የቤት ማታለያ', bluffFooled: 'የተታለሉ፦', bluffNobody: 'ማንም', modeBlind: '⏱️ ዕውር ማቆም', blindHint: 'ኳሱ ከግድግዳው ጀርባ ይንከባለላል። 🚩 ላይ ሲደርስ በትክክል ይንኩ!', blindStop: 'አቁም!', blindEarly: '{s} ሰ ቀደም ብሎ', blindLate: '{s} ሰ ዘግይቶ', blindExact: 'በትክክል! 🎯', blindNone: 'አልነኩም', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
@@ -188,22 +188,30 @@ function confirmBox(text) {
 
 // ------------------------------------------------------------------ Figuren
 const OPTS = {
-  color: ['#ff6b6b', '#ff9f43', '#feca57', '#1dd1a1', '#48dbfb', '#54a0ff', '#5f27cd', '#ff9ff3', '#c8d6e5', '#8d6e63', '#576574', '#10ac84', '#e84393', '#00cec9', '#fdcb6e', '#6c5ce7', '#b33939', '#218c74', '#f5f6fa', '#2d3436'],
+  color: ['#ff6b6b', '#ff9f43', '#feca57', '#1dd1a1', '#48dbfb', '#54a0ff', '#5f27cd', '#ff9ff3', '#c8d6e5', '#8d6e63', '#576574', '#10ac84', '#e84393', '#00cec9', '#fdcb6e', '#6c5ce7', '#b33939', '#218c74', '#f5f6fa', '#2d3436', '#ffb8b8', '#ffeaa7', '#b8f2e6', '#a29bfe', '#fab1a0', '#81ecec', '#55efc4', '#e17055', '#0984e3', '#fd79a8', '#badc58', '#f8a5c2'],
+  body: ['ei', 'rund', 'eckig', 'birne', 'schmal'],
   eyes: ['rund', 'froh', 'muede', 'stern', 'brille', 'herz', 'zwinkern', 'gross', 'schlaf', 'alien', 'schielen'],
+  brows: ['keine', 'normal', 'hoch', 'dick', 'besorgt', 'frech'],
   mouth: ['laecheln', 'grinsen', 'oh', 'zunge', 'zaehne', 'kuss', 'schnurrbart', 'bart', 'schief'],
-  hat: ['keiner', 'kappe', 'krone', 'zylinder', 'blume', 'muetze', 'kopfhoerer', 'haare', 'cowboy', 'party', 'hase', 'katze', 'einhorn', 'zopf', 'koch', 'heiligenschein', 'antenne', 'afro'],
-  extra: ['keins', 'fliege', 'schal', 'kette', 'krawatte', 'umhang', 'rucksack', 'funkeln', 'herzchen'],
-  pattern: ['keins', 'punkte', 'streifen', 'bauch', 'sterne', 'flecken'],
-  feet: ['dunkel', 'rot', 'weiss', 'gold', 'blau'],
+  cheeks: ['rosa', 'keine', 'sommersprossen', 'herz', 'gross'],
+  hat: ['keiner', 'kappe', 'krone', 'zylinder', 'blume', 'muetze', 'kopfhoerer', 'haare', 'cowboy', 'party', 'hase', 'katze', 'einhorn', 'zopf', 'koch', 'heiligenschein', 'antenne', 'afro', 'schleife', 'barett', 'sonnenhut', 'stirnband', 'locken', 'dutt'],
+  extra: ['keins', 'fliege', 'schal', 'kette', 'krawatte', 'umhang', 'rucksack', 'funkeln', 'herzchen', 'medaille', 'fluegel', 'blumenkette'],
+  held: ['nichts', 'ballon', 'eis', 'blume', 'mikro', 'zauberstab', 'lolli', 'herzballon'],
+  pattern: ['keins', 'punkte', 'streifen', 'bauch', 'sterne', 'flecken', 'herzen', 'zickzack', 'regenbogen'],
+  feet: ['dunkel', 'rot', 'weiss', 'gold', 'blau', 'gruen', 'pink', 'lila'],
   dance: ['huepfen', 'wackeln', 'drehen', 'roboter', 'disco', 'jubeln', 'schaukeln', 'kreisel', 'zappeln'],
 };
 const OPT_ICON = {
   eyes: { rund: '👀', froh: '😊', muede: '😪', stern: '🤩', brille: '😎', herz: '😍', zwinkern: '😉', gross: '🥺', schlaf: '😴', alien: '👁️', schielen: '🤪' },
+  body: { ei: '🥚', rund: '🔵', eckig: '🟦', birne: '🍐', schmal: '🥒' },
+  brows: { keine: '—', normal: '😐', hoch: '😮', dick: '🤨', besorgt: '🥺', frech: '😏' },
+  cheeks: { rosa: '☺️', keine: '—', sommersprossen: '🟤', herz: '💗', gross: '😊' },
+  held: { nichts: '—', ballon: '🎈', eis: '🍦', blume: '🌷', mikro: '🎤', zauberstab: '🪄', lolli: '🍭', herzballon: '💖' },
   mouth: { laecheln: '🙂', grinsen: '😁', oh: '😮', zunge: '😛', zaehne: '😬', kuss: '😗', schnurrbart: '🥸', bart: '🧔', schief: '😏' },
-  hat: { keiner: '—', kappe: '🧢', krone: '👑', zylinder: '🎩', blume: '🌸', muetze: '🧶', kopfhoerer: '🎧', haare: '💇', cowboy: '🤠', party: '🥳', hase: '🐰', katze: '🐱', einhorn: '🦄', zopf: '👧', koch: '👨‍🍳', heiligenschein: '😇', antenne: '👽', afro: '🧑🏾‍🦱' },
-  extra: { keins: '—', fliege: '🎀', schal: '🧣', kette: '📿', krawatte: '👔', umhang: '🦸', rucksack: '🎒', funkeln: '✨', herzchen: '💕' },
-  pattern: { keins: '—', punkte: '⚪', streifen: '🦓', bauch: '🥚', sterne: '⭐', flecken: '🐄' },
-  feet: { dunkel: '⚫', rot: '🔴', weiss: '⚪', gold: '🟡', blau: '🔵' },
+  hat: { keiner: '—', kappe: '🧢', krone: '👑', zylinder: '🎩', blume: '🌸', muetze: '🧶', kopfhoerer: '🎧', haare: '💇', cowboy: '🤠', party: '🥳', hase: '🐰', katze: '🐱', einhorn: '🦄', zopf: '👧', koch: '👨‍🍳', heiligenschein: '😇', antenne: '👽', afro: '🧑🏾‍🦱', schleife: '🎀', barett: '🎨', sonnenhut: '👒', stirnband: '🏃', locken: '🌀', dutt: '🍡' },
+  extra: { keins: '—', fliege: '🎀', schal: '🧣', kette: '📿', krawatte: '👔', umhang: '🦸', rucksack: '🎒', funkeln: '✨', herzchen: '💕', medaille: '🏅', fluegel: '🪽', blumenkette: '🌺' },
+  pattern: { keins: '—', punkte: '⚪', streifen: '🦓', bauch: '🥚', sterne: '⭐', flecken: '🐄', herzen: '💗', zickzack: '⚡', regenbogen: '🌈' },
+  feet: { dunkel: '⚫', rot: '🔴', weiss: '⚪', gold: '🟡', blau: '🔵', gruen: '🟢', pink: '🩷', lila: '🟣' },
   dance: { huepfen: '🦘', wackeln: '〰️', drehen: '🌀', roboter: '🤖', disco: '🕺', jubeln: '🙌', schaukeln: '🌊', kreisel: '🌪️', zappeln: '⚡' },
 };
 function randomChar() { const c = {}; for (const k in OPTS) c[k] = OPTS[k][rnd(OPTS[k].length)]; return c; }
@@ -256,6 +264,12 @@ function charSVG(c) {
     heiligenschein: '<ellipse cx="60" cy="16" rx="22" ry="6" fill="none" stroke="#ffd600" stroke-width="5"/>',
     antenne: '<path d="M50 34 q-4 -14 -12 -22 M70 34 q4 -14 12 -22" stroke="#222" stroke-width="3" fill="none"/><circle cx="38" cy="12" r="5" fill="#1dd1a1"/><circle cx="82" cy="12" r="5" fill="#1dd1a1"/>',
     afro: '<g fill="#2d1b10"><circle cx="38" cy="40" r="16"/><circle cx="60" cy="28" r="19"/><circle cx="82" cy="40" r="16"/><circle cx="28" cy="56" r="10"/><circle cx="92" cy="56" r="10"/></g>',
+    schleife: '<g transform="translate(60 33)"><path d="M0 0 l-17 -11 v22z M0 0 l17 -11 v22z" fill="#ff4d6d" stroke="#c9184a" stroke-width="2" stroke-linejoin="round"/><circle r="4.5" fill="#c9184a"/></g>',
+    barett: '<path d="M24 46 q2 -24 38 -24 q32 2 36 18 q-30 12 -74 6z" fill="#2d3436"/><path d="M60 23 v-7" stroke="#2d3436" stroke-width="3.5" stroke-linecap="round"/>',
+    sonnenhut: '<ellipse cx="60" cy="42" rx="47" ry="9" fill="#f6d365" stroke="#d4a017" stroke-width="1.5"/><path d="M38 42 q2 -27 22 -27 q20 0 22 27z" fill="#f6d365" stroke="#d4a017" stroke-width="1.5"/><rect x="38.5" y="33" width="43" height="6" fill="#ff7ab6"/>',
+    stirnband: '<path d="M24 62 q36 -24 72 0" stroke="#1dd1a1" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M24 62 q36 -24 72 0" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="4 5" opacity=".7"/>',
+    locken: '<g fill="#6d4c41"><circle cx="33" cy="52" r="10"/><circle cx="44" cy="39" r="11"/><circle cx="60" cy="34" r="12"/><circle cx="76" cy="39" r="11"/><circle cx="87" cy="52" r="10"/></g>',
+    dutt: '<path d="M27 58 q2 -31 33 -31 q31 0 33 31 q-14 -17 -33 -17 q-19 0 -33 17z" fill="#4e342e"/><circle cx="60" cy="20" r="11" fill="#4e342e"/><path d="M50 26 q10 4 20 0" stroke="#ff7ab6" stroke-width="3" fill="none"/>',
   }[c.hat];
   const extra = {
     keins: '',
@@ -267,25 +281,61 @@ function charSVG(c) {
     rucksack: '<path d="M38 94 q-2 22 4 42 M82 94 q2 22 -4 42" stroke="#6d4c41" stroke-width="5" fill="none" stroke-linecap="round"/>',
     funkeln: '<g fill="#ffd600"><path d="M12 40 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/><path d="M106 28 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/><path d="M108 74 l2 4 4 2 -4 2 -2 4 -2 -4 -4 -2 4 -2z"/></g>',
     herzchen: '<path d="M102 42 l-6 -6 a3.5 3.5 0 0 1 6 -4 a3.5 3.5 0 0 1 6 4z" fill="#ff2e63"/><path d="M16 56 l-5 -5 a3 3 0 0 1 5 -3.5 a3 3 0 0 1 5 3.5z" fill="#ff7aa2"/><path d="M110 64 l-4 -4 a2.5 2.5 0 0 1 4 -3 a2.5 2.5 0 0 1 4 3z" fill="#ff7aa2"/>',
+    medaille: '<path d="M50 102 l10 16 l10 -16" stroke="#2e86de" stroke-width="4" fill="none" stroke-linejoin="round"/><circle cx="60" cy="123" r="7.5" fill="#ffd600" stroke="#c79a00" stroke-width="2"/><path d="M60 119 l1.2 2.6 2.8.4 -2 2 .5 2.8 -2.5 -1.3 -2.5 1.3 .5 -2.8 -2 -2 2.8 -.4z" fill="#c79a00"/>',
+    fluegel: '',
+    blumenkette: '<g>' + [[34, 106], [41, 112], [49, 116], [57, 118], [65, 118], [73, 116], [80, 112], [87, 106]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="4.5" fill="${['#ff7ab6', '#feca57', '#48dbfb', '#ff6b6b'][i % 4]}"/><circle cx="${x}" cy="${y}" r="1.6" fill="#fff"/>`).join('') + '</g>',
   }[c.extra];
-  const back = { umhang: '<path d="M30 90 q-16 42 -8 60 q38 6 76 0 q8 -18 -8 -60z" fill="#e53935"/>', rucksack: '<rect x="84" y="86" width="24" height="44" rx="8" fill="#8d6e63" stroke="#5d4037" stroke-width="2"/>' }[c.extra] || '';
+  const back = { fluegel: '<path d="M30 92 q-30 -30 -24 6 q4 16 26 10z M90 92 q30 -30 24 6 q-4 16 -26 10z" fill="#eef5ff" stroke="#8fa6c4" stroke-width="2.5"/><path d="M14 92 q6 6 14 8 M106 92 q-6 6 -14 8" stroke="#8fa6c4" stroke-width="1.5" fill="none"/>', umhang: '<path d="M30 90 q-16 42 -8 60 q38 6 76 0 q8 -18 -8 -60z" fill="#e53935"/>', rucksack: '<rect x="84" y="86" width="24" height="44" rx="8" fill="#8d6e63" stroke="#5d4037" stroke-width="2"/>' }[c.extra] || '';
   const pattern = {
     keins: '', punkte: '<g fill="#fff" opacity=".38"><circle cx="40" cy="110" r="6"/><circle cx="62" cy="122" r="5"/><circle cx="80" cy="104" r="6"/><circle cx="50" cy="134" r="4"/><circle cx="76" cy="132" r="4"/><circle cx="34" cy="96" r="3"/></g>',
     streifen: `<g fill="${dark}" opacity=".4"><rect x="25" y="103" width="70" height="7" rx="3"/><rect x="29" y="117" width="62" height="7" rx="3"/><rect x="38" y="131" width="44" height="6" rx="3"/></g>`,
     bauch: '<ellipse cx="60" cy="120" rx="22" ry="19" fill="#fff" opacity=".45"/>',
     sterne: '<g fill="#fff" opacity=".55"><path d="M42 106 l2 4.5 5 .7 -3.6 3.4 .9 5 -4.3 -2.4 -4.3 2.4 .9 -5 -3.6 -3.4 5 -.7z"/><path d="M72 122 l2 4.5 5 .7 -3.6 3.4 .9 5 -4.3 -2.4 -4.3 2.4 .9 -5 -3.6 -3.4 5 -.7z"/><path d="M80 98 l1.5 3.5 4 .5 -3 2.6 .7 4 -3.2 -1.9 -3.2 1.9 .7 -4 -3 -2.6 4 -.5z"/></g>',
     flecken: `<g fill="${dark}" opacity=".45"><ellipse cx="40" cy="110" rx="9" ry="6"/><ellipse cx="74" cy="124" rx="10" ry="7"/><ellipse cx="55" cy="137" rx="6" ry="4"/><ellipse cx="82" cy="100" rx="5" ry="4"/></g>`,
+    herzen: '<g fill="#fff" opacity=".5">' + [[42, 108, 1], [74, 102, .8], [64, 128, 1.1], [44, 132, .7], [82, 124, .7]].map(([x, y, k]) => `<path transform="translate(${x} ${y}) scale(${k})" d="M0 5 l-6 -6 a3.5 3.5 0 0 1 6 -4 a3.5 3.5 0 0 1 6 4z"/>`).join('') + '</g>',
+    zickzack: `<path d="M27 114 l8.25 -8 8.25 8 8.25 -8 8.25 8 8.25 -8 8.25 8 8.25 -8 8.25 8" stroke="${dark}" stroke-width="4.5" fill="none" stroke-linejoin="round" opacity=".45"/>`,
+    regenbogen: '<g fill="none" stroke-width="4.5" opacity=".7" stroke-linecap="round"><path d="M38 134 a22 22 0 0 1 44 0" stroke="#ff6b6b"/><path d="M44 134 a16 16 0 0 1 32 0" stroke="#feca57"/><path d="M50 134 a10 10 0 0 1 20 0" stroke="#48dbfb"/></g>',
   }[c.pattern];
-  const foot = { dunkel: dark, rot: '#e53935', weiss: '#f5f5f5', gold: '#ffc107', blau: '#1e88e5' }[c.feet];
+  const foot = { dunkel: dark, rot: '#e53935', weiss: '#f5f5f5', gold: '#ffc107', blau: '#1e88e5', gruen: '#43a047', pink: '#ff7ab6', lila: '#7e57c2' }[c.feet];
+  const bodyPath = {
+    ei: 'M60 32 C 94 32 100 70 98 100 C 96 132 82 146 60 146 C 38 146 24 132 22 100 C 20 70 26 32 60 32 Z',
+    rund: 'M60 36 C 98 36 104 72 102 100 C 100 134 84 146 60 146 C 36 146 20 134 18 100 C 16 72 22 36 60 36 Z',
+    eckig: 'M44 34 H76 Q98 34 98 56 V124 Q98 146 76 146 H44 Q22 146 22 124 V56 Q22 34 44 34 Z',
+    birne: 'M60 34 C 80 34 86 58 88 74 C 106 96 104 146 60 146 C 16 146 14 96 32 74 C 34 58 40 34 60 34 Z',
+    schmal: 'M60 30 C 86 30 90 70 89 100 C 88 132 78 146 60 146 C 42 146 32 132 31 100 C 30 70 34 30 60 30 Z',
+  }[c.body];
+  const brows = {
+    keine: '', normal: '<path d="M40 59 q7 -5 14 0 M66 59 q7 -5 14 0" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>',
+    hoch: '<path d="M40 55 q7 -9 14 0 M66 55 q7 -9 14 0" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>',
+    dick: '<path d="M39 59 q8 -4 16 0 M65 59 q8 -4 16 0" stroke="#3e2723" stroke-width="6" fill="none" stroke-linecap="round"/>',
+    besorgt: '<path d="M40 60 l14 -5 M80 60 l-14 -5" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>',
+    frech: '<path d="M40 59 q7 -4 14 0 M66 55 q7 -7 14 1" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>',
+  }[c.brows];
+  const cheeks = {
+    rosa: '<circle cx="38" cy="88" r="5" fill="#ff8fab" opacity=".55"/><circle cx="82" cy="88" r="5" fill="#ff8fab" opacity=".55"/>',
+    keine: '', gross: '<ellipse cx="37" cy="88" rx="8" ry="6" fill="#ff8fab" opacity=".6"/><ellipse cx="83" cy="88" rx="8" ry="6" fill="#ff8fab" opacity=".6"/>',
+    sommersprossen: '<g fill="#8d5a2b" opacity=".7"><circle cx="34" cy="86" r="1.6"/><circle cx="39" cy="89" r="1.6"/><circle cx="36" cy="92" r="1.4"/><circle cx="42" cy="85" r="1.3"/><circle cx="86" cy="86" r="1.6"/><circle cx="81" cy="89" r="1.6"/><circle cx="84" cy="92" r="1.4"/><circle cx="78" cy="85" r="1.3"/></g>',
+    herz: '<path d="M38 92 l-5 -5 a3 3 0 0 1 5 -3.5 a3 3 0 0 1 5 3.5z M82 92 l-5 -5 a3 3 0 0 1 5 -3.5 a3 3 0 0 1 5 3.5z" fill="#ff5c8a" opacity=".75"/>',
+  }[c.cheeks];
+  const held = {
+    nichts: '',
+    ballon: '<path d="M106 110 q7 -18 2 -38" stroke="#555" stroke-width="1.5" fill="none"/><ellipse cx="108" cy="58" rx="11" ry="13" fill="#ff4d6d"/><path d="M105.5 70.5 l2.5 4 2.5 -4z" fill="#ff4d6d"/><ellipse cx="104" cy="53" rx="3" ry="4" fill="#fff" opacity=".5"/>',
+    eis: '<path d="M99 106 l7 19 l7 -19z" fill="#e0a96d" stroke="#b07a3c" stroke-width="1.2"/><circle cx="106" cy="101" r="8" fill="#ffb6c9"/><circle cx="103" cy="98" r="2" fill="#fff" opacity=".6"/>',
+    blume: '<path d="M106 112 v-24" stroke="#2e7d32" stroke-width="2.5"/><g transform="translate(106 84)"><circle cy="-6" r="4.5" fill="#ff7ab6"/><circle cx="6" r="4.5" fill="#ff7ab6"/><circle cy="6" r="4.5" fill="#ff7ab6"/><circle cx="-6" r="4.5" fill="#ff7ab6"/><circle r="4" fill="#ffd600"/></g>',
+    mikro: '<rect x="103" y="98" width="6" height="18" rx="2" fill="#333"/><circle cx="106" cy="95" r="7" fill="#9e9e9e" stroke="#333" stroke-width="1.5"/>',
+    zauberstab: '<path d="M106 114 l4 -26" stroke="#5d4037" stroke-width="3" stroke-linecap="round"/><path d="M110 76 l2.6 5.4 5.9.8 -4.3 4.1 1 5.8 -5.2 -2.8 -5.2 2.8 1 -5.8 -4.3 -4.1 5.9 -.8z" fill="#ffd600" stroke="#c79a00" stroke-width="1"/>',
+    lolli: '<path d="M106 114 v-22" stroke="#eee" stroke-width="2.5" stroke-linecap="round"/><circle cx="106" cy="86" r="9" fill="#ff7ab6"/><path d="M106 86 m-5 0 a5 5 0 1 1 5 5 a3 3 0 1 1 -3 -3" stroke="#fff" stroke-width="2" fill="none"/>',
+    herzballon: '<path d="M106 110 q7 -18 2 -38" stroke="#555" stroke-width="1.5" fill="none"/><path d="M108 72 l-12 -12 a7 7 0 0 1 12 -9 a7 7 0 0 1 12 9z" fill="#e84393"/>',
+  }[c.held];
   return `<svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="60" cy="154" rx="34" ry="5" fill="rgba(0,0,0,.15)"/>
     ${back}<ellipse cx="45" cy="146" rx="13" ry="7" fill="${foot}" stroke="${shade(foot, 0.7)}" stroke-width="1.5"/><ellipse cx="75" cy="146" rx="13" ry="7" fill="${foot}" stroke="${shade(foot, 0.7)}" stroke-width="1.5"/>
     <g class="arm-l"><path d="M32 86 q-16 10 -18 26" stroke="${dark}" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="14" cy="113" r="6" fill="${col}"/></g>
-    <g class="arm-r"><path d="M88 86 q16 10 18 26" stroke="${dark}" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="106" cy="113" r="6" fill="${col}"/></g>
-    <path d="M60 32 C 94 32 100 70 98 100 C 96 132 82 146 60 146 C 38 146 24 132 22 100 C 20 70 26 32 60 32 Z" fill="${col}" stroke="${dark}" stroke-width="3"/>
+    <g class="arm-r"><path d="M88 86 q16 10 18 26" stroke="${dark}" stroke-width="9" fill="none" stroke-linecap="round"/>${held}<circle cx="106" cy="113" r="6" fill="${col}"/></g>
+    <path d="${bodyPath}" fill="${col}" stroke="${dark}" stroke-width="3"/>
     ${pattern}<ellipse cx="44" cy="52" rx="9" ry="6" fill="#fff" opacity=".35"/>
-    <circle cx="38" cy="88" r="5" fill="#ff8fab" opacity=".55"/><circle cx="82" cy="88" r="5" fill="#ff8fab" opacity=".55"/>
-    ${eyes}<g class="mouth">${mouth}</g>${extra}${hat}
+    ${cheeks}
+    ${eyes}${brows}<g class="mouth">${mouth}</g>${extra}${hat}
   </svg>`;
 }
 function charEl(c, size, dancing) {
@@ -3051,7 +3101,7 @@ $('#btn-credits').onclick = () => {
 };
 $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
 window.addEventListener('pagehide', sayBye);
-if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey };
+if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey, OPTS, charEl, validChar };
 
 const urlCode = cleanCode(new URLSearchParams(location.search).get('code') || '');
 if (urlCode) $('#in-code').value = urlCode;
