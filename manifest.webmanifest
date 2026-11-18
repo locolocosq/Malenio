@@ -1,12 +1,12 @@
 {
-  "name": "Malenio – Malen & Raten",
-  "short_name": "Malenio",
-  "start_url": "./",
+  "name": "Echo Party",
+  "short_name": "Echo Party",
+  "start_url": "./mimic/",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#2b59c3",
-  "theme_color": "#2b59c3",
+  "background_color": "#e9f1ff",
+  "theme_color": "#e9f1ff",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },

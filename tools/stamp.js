@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 // Hängt an die eingebundenen Dateien eine Versions-Kennung (?v=...), damit Handys nach einem
-// Update nie eine alte, gespeicherte Datei verwenden. Gilt für Malenio und Echo Party (mimic/).
+// Update nie eine alte, gespeicherte Datei verwenden. Gilt für Echo Party (mimic/); die Wurzel-Seite leitet nur dorthin weiter.
 // Vor jedem Veröffentlichen ausführen:  node tools/build-words.js && node tools/build-sounds.js && node tools/stamp.js
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const root = path.join(__dirname, '..');
 const PAGES = [
-  ['index.html', ['app.js', 'words.js', 'style.css']],
   ['mimic/index.html', ['game.js', 'score.js', 'style.css', 'sounds/sounds.js', '../words.js', 'logos/logos.js', 'questions/questions.js', 'emoji/emoji.js', 'emoji/halve.js', 'bluff/bluff.js', 'dish/dishes.js']],
 ];
 for (const [page, files] of PAGES) {

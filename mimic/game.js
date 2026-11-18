@@ -130,7 +130,7 @@ const T = {
     enterName: 'Bitte gib einen Namen ein.', enterCode: 'Bitte gib den 5-stelligen Code ein.', micDenied: 'Kein Zugriff aufs Mikrofon – bitte erlauben.', micBlocked: 'Mikrofon ist blockiert. iPhone: „aA“ in der Adressleiste → Website-Einstellungen → Mikrofon → Erlauben, dann Seite neu laden.',
     voiceOn: 'Telefon an – ihr könnt reden', voiceOff: 'Telefon aus', joined: '{name} ist da!', left: '{name} ist gegangen', reconnecting: 'Verbindung weg – verbinde neu…',
     notEnough: 'Zu wenige Spieler – zurück zur Lobby.', you: 'du', creditsTitle: 'Quellen der Töne (Wikimedia Commons, freie Lizenzen)', close: 'Schließen',
-    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!', startRec: 'Start', waitLine: 'Gleich… los, wenn der Strich die gelbe Linie erreicht!', soundBtn: '🔊 Ton aktivieren', soundOn: 'Ton ist an 🔊', autoIn: 'Startet automatisch in {n} s', mode: 'Spielmodus', modeSound: '🎤 Töne nachmachen', modeDraw: '🎨 Malen & bewerten', drawThis: 'Male:', drawDone: 'Fertig', drawSent: 'Abgeschickt! Warte auf die anderen…', eraser: 'Radierer', undo: 'Rückgängig', clear: 'Alles löschen', rateIt: 'Wie gut ist das Bild? Gib Sterne:', thanksVote: 'Danke für deine Bewertung!', othersRate: 'Die anderen bewerten gerade dein Bild…', votedCount: 'haben bewertet',
+    tooQuiet: 'Zu leise – nochmal lauter!', loading: 'Lade Ton…', category: 'Mach es nach!', listenHint: 'Hör gut zu – gleich seid ihr alle dran!', oneShot: 'Alle gleichzeitig – nur ein Versuch!', go: 'LOS!', recording: 'Jetzt nachmachen!', micBtn: '🎤 Mikrofon erlauben', wins: 'gewinnt!', startRec: 'Start', waitLine: 'Gleich… los, wenn der Strich die gelbe Linie erreicht!', soundBtn: '🔊 Ton aktivieren', soundOn: 'Ton ist an 🔊', autoIn: 'Startet automatisch in {n} s', mode: 'Spielmodus', modeSound: '🎤 Töne nachmachen', modeDraw: '🎨 Malen & bewerten', drawThis: 'Male:', drawDone: 'Fertig', drawSent: 'Abgeschickt! Warte auf die anderen…', eraser: 'Radierer', fill: 'Füllen', undo: 'Rückgängig', clear: 'Alles löschen', rateIt: 'Wie gut ist das Bild? Gib Sterne:', thanksVote: 'Danke für deine Bewertung!', othersRate: 'Die anderen bewerten gerade dein Bild…', votedCount: 'haben bewertet',
     modeGuess: '✏️ Malen & Raten', modeLogo: '🏷️ Logo-Quiz', chooseWord: 'Wähle ein Wort zum Malen:', choosing: '{name} wählt ein Wort…', drawsNow: '{name} malt – rate!', youDraw: 'Du malst:',
     guessPh: 'Dein Tipp…', guessedIt: '{name} hat es erraten! 🎉', youGuessed: 'Richtig! 🎉', almost: 'Fast! 🤏', guessedBtn: '✅ Erraten!', whoGuessed: 'Wer hat es erraten?', nobodyLeft: 'Alle haben es schon.', wordWas: 'Das Wort war:',
     logoQ: 'Welche Marke ist das?', logoPh: 'Tippe die ersten Buchstaben…', youPicked: 'Deine Wahl:', logoWas: 'Das war:', noPick: 'nichts gewählt', lobbyMode: 'Spielmodus:', loadingLogos: 'Lade Logos…',
@@ -158,7 +158,7 @@ const T = {
     enterName: 'እባክዎ ስም ያስገቡ።', enterCode: 'እባክዎ ባለ 5 ፊደል ኮዱን ያስገቡ።', micDenied: 'ማይክሮፎን አልተፈቀደም – እባክዎ ይፍቀዱ።', micBlocked: 'ማይክሮፎኑ ታግዷል። iPhone፦ በአድራሻ መስመሩ „aA“ → የድር ጣቢያ ቅንብሮች → ማይክሮፎን → ፍቀድ፣ ከዚያ ገጹን እንደገና ይጫኑ።',
     voiceOn: 'ስልኩ በርቷል – መነጋገር ትችላላችሁ', voiceOff: 'ስልኩ ጠፍቷል', joined: '{name} መጣ!', left: '{name} ወጣ', reconnecting: 'ግንኙነቱ ተቋርጧል – እንደገና በማገናኘት ላይ…',
     notEnough: 'ተጫዋቾች በቂ አይደሉም – ወደ ሎቢ።', you: 'እርስዎ', creditsTitle: 'የድምፆቹ ምንጮች (Wikimedia Commons፣ ነፃ ፈቃድ)', close: 'ዝጋ',
-    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!', startRec: 'ጀምር', waitLine: 'ቆይ… መስመሩ ቢጫውን መስመር ሲደርስ ይጀምሩ!', soundBtn: '🔊 ድምፅ አብራ', soundOn: 'ድምፁ በርቷል 🔊', autoIn: 'በ{n} ሰከንድ ውስጥ በራሱ ይጀምራል', mode: 'የጨዋታ ዓይነት', modeSound: '🎤 ድምፅ መድገም', modeDraw: '🎨 መሳልና መገምገም', drawThis: 'ይሳሉ፦', drawDone: 'ጨርሻለሁ', drawSent: 'ተልኳል! ሌሎችን ይጠብቁ…', eraser: 'ማጥፊያ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ', rateIt: 'ሥዕሉ ምን ያህል ጥሩ ነው? ኮከብ ይስጡ፦', thanksVote: 'ስለ ግምገማዎ እናመሰግናለን!', othersRate: 'ሌሎች ሥዕልዎን እየገመገሙ ነው…', votedCount: 'ገምግመዋል',
+    tooQuiet: 'በጣም ዝቅ ያለ ነው – እንደገና ጮክ ብለው!', loading: 'ድምፁ እየተጫነ ነው…', category: 'ይድገሙት!', listenHint: 'በደንብ ያዳምጡ – በቅርቡ ሁላችሁም ተራ ይደርሳችኋል!', oneShot: 'ሁሉም በአንድ ጊዜ – አንድ ሙከራ ብቻ!', go: 'ጀምር!', recording: 'አሁን ይድገሙ!', micBtn: '🎤 ማይክሮፎን ይፍቀዱ', wins: 'አሸነፈ!', startRec: 'ጀምር', waitLine: 'ቆይ… መስመሩ ቢጫውን መስመር ሲደርስ ይጀምሩ!', soundBtn: '🔊 ድምፅ አብራ', soundOn: 'ድምፁ በርቷል 🔊', autoIn: 'በ{n} ሰከንድ ውስጥ በራሱ ይጀምራል', mode: 'የጨዋታ ዓይነት', modeSound: '🎤 ድምፅ መድገም', modeDraw: '🎨 መሳልና መገምገም', drawThis: 'ይሳሉ፦', drawDone: 'ጨርሻለሁ', drawSent: 'ተልኳል! ሌሎችን ይጠብቁ…', eraser: 'ማጥፊያ', fill: 'ሙላ', undo: 'መልስ', clear: 'ሁሉንም አጥፋ', rateIt: 'ሥዕሉ ምን ያህል ጥሩ ነው? ኮከብ ይስጡ፦', thanksVote: 'ስለ ግምገማዎ እናመሰግናለን!', othersRate: 'ሌሎች ሥዕልዎን እየገመገሙ ነው…', votedCount: 'ገምግመዋል',
     modeGuess: '✏️ መሳልና መገመት', modeLogo: '🏷️ የአርማ ጥያቄ', chooseWord: 'የሚስሉትን ቃል ይምረጡ፦', choosing: '{name} ቃል እየመረጠ ነው…', drawsNow: '{name} እየሳለ ነው – ይገምቱ!', youDraw: 'እርስዎ ይሳሉ፦',
     guessPh: 'ግምትዎ…', guessedIt: '{name} ገመተው! 🎉', youGuessed: 'ትክክል! 🎉', almost: 'ተቃርበዋል! 🤏', guessedBtn: '✅ ተገመተ!', whoGuessed: 'ማን ገመተው?', nobodyLeft: 'ሁሉም ገምተዋል።', wordWas: 'ቃሉ፦',
     logoQ: 'ይህ የየትኛው ብራንድ ነው?', logoPh: 'የመጀመሪያ ፊደላትን ይጻፉ…', youPicked: 'ምርጫዎ፦', logoWas: 'ይህ ነበር፦', noPick: 'ምንም አልተመረጠም', lobbyMode: 'የጨዋታ ዓይነት፦', loadingLogos: 'አርማዎች እየተጫኑ ነው…',
@@ -1440,7 +1440,7 @@ const view = {
       case 'emo': flyEmoji(msg.e, msg.pid); break;
       case 'chat': this.addChat(msg); break;
       case 'ops': this.applyLive(msg.turn, msg.ops); break;
-      case 'sync': this.live = []; this.liveTurn = msg.turn; for (const o of msg.strokes || []) this.live.push({ c: o.c, w: o.w, p: o.p.slice() }); this.redrawLive(); break;
+      case 'sync': this.live = []; this.liveTurn = msg.turn; for (const o of msg.strokes || []) this.live.push({ c: o.c, w: o.w, p: o.p.slice(), ...(o.f ? { f: 1 } : {}) }); this.redrawLive(); break;
     }
   },
   storeRec(pid, round, wav, score) {
@@ -2580,13 +2580,13 @@ function checkGuess(text, w) {
 function cleanOp(o) {
   if (!o || typeof o !== 'object') return null;
   const pts = (a) => Array.isArray(a) ? a.slice(0, 400).map((v) => clamp(Math.round(+v || 0), 0, 800)) : [];
-  if (o.o === 's') return { o: 's', c: /^#[0-9a-f]{6}$/i.test(o.c) ? o.c : '#111111', w: clamp(+o.w || 12, 1, 60), p: pts(o.p).slice(0, 2) };
+  if (o.o === 's') return { o: 's', c: /^#[0-9a-f]{6}$/i.test(o.c) ? o.c : '#111111', w: clamp(+o.w || 12, 1, 60), p: pts(o.p).slice(0, 2), ...(o.f ? { f: 1 } : {}) };
   if (o.o === 'p') return { o: 'p', p: pts(o.p) };
   if (o.o === 'u' || o.o === 'x') return { o: o.o };
   return null;
 }
 function applyOp(strokes, o) {
-  if (o.o === 's') strokes.push({ c: o.c, w: o.w, p: o.p.slice() });
+  if (o.o === 's') strokes.push({ c: o.c, w: o.w, p: o.p.slice(), ...(o.f ? { f: 1 } : {}) });
   else if (o.o === 'p') { const s = strokes[strokes.length - 1]; if (s) s.p.push(...o.p); }
   else if (o.o === 'u') strokes.pop();
   else if (o.o === 'x') strokes.length = 0;
@@ -2641,7 +2641,7 @@ function flyEmoji(e, pid) {
 function paletteHTML() {
   return `<div class="palette">${PALETTE.map((c, i) => `<button class="sw${i === 0 ? ' on' : ''}" data-c="${c}" style="background:${c}"></button>`).join('')}</div>
     <div class="dtools"><button class="tl sz" data-s="5">•</button><button class="tl sz on" data-s="12">●</button><button class="tl sz" data-s="28">⬤</button>
-    <button class="tl" id="t-er" title="${t('eraser')}">🧽</button><button class="tl" id="t-undo" title="${t('undo')}">↩️</button><button class="tl" id="t-clear" title="${t('clear')}">🗑️</button></div>`;
+    <button class="tl" id="t-fill" title="${t('fill')}">🪣</button><button class="tl" id="t-er" title="${t('eraser')}">🧽</button><button class="tl" id="t-undo" title="${t('undo')}">↩️</button><button class="tl" id="t-clear" title="${t('clear')}">🗑️</button></div>`;
 }
 // Malfläche mit Werkzeugen verbinden; emit (optional) schickt jeden Schritt live an die anderen
 function bindPainter(stage, cv, d, emit) {
@@ -2651,7 +2651,9 @@ function bindPainter(stage, cv, d, emit) {
   const pos = (e) => { const r = cv.getBoundingClientRect(); return [clamp(Math.round((e.clientX - r.left) / r.width * 800), 0, 800), clamp(Math.round((e.clientY - r.top) / r.height * 600), 0, 600)]; };
   cv.addEventListener('pointerdown', (e) => {
     if (d.sent) return; e.preventDefault(); cv.setPointerCapture(e.pointerId);
-    const [x, y] = pos(e); d.cur = { c: d.eraser ? '#ffffff' : d.color, w: d.eraser ? Math.max(24, d.size) : d.size, p: [x, y] };
+    const [x, y] = pos(e);
+    if (d.fill) { const s = { c: d.color, w: 1, p: [x, y], f: 1 }; d.strokes.push(s); drawStroke(ctx, s); if (emit) emit({ o: 's', c: s.c, w: 1, p: [x, y], f: 1 }); return; }
+    d.cur = { c: d.eraser ? '#ffffff' : d.color, w: d.eraser ? Math.max(24, d.size) : d.size, p: [x, y] };
     d.strokes.push(d.cur); drawStroke(ctx, d.cur);
     if (emit) emit({ o: 's', c: d.cur.c, w: d.cur.w, p: [x, y] });
   });
@@ -2666,8 +2668,9 @@ function bindPainter(stage, cv, d, emit) {
   const end = () => { d.cur = null; };
   cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
   stage.querySelectorAll('.sw').forEach((b) => b.onclick = () => { d.color = b.dataset.c; d.eraser = false; stage.querySelectorAll('.sw').forEach((x) => x.classList.toggle('on', x === b)); $('#t-er').classList.remove('on'); });
+  const fb = $('#t-fill'); if (fb) fb.onclick = () => { d.fill = !d.fill; d.eraser = false; fb.classList.toggle('on', d.fill); $('#t-er').classList.remove('on'); };
   stage.querySelectorAll('.sz').forEach((b) => b.onclick = () => { d.size = +b.dataset.s; stage.querySelectorAll('.sz').forEach((x) => x.classList.toggle('on', x === b)); });
-  $('#t-er').onclick = () => { d.eraser = !d.eraser; $('#t-er').classList.toggle('on', d.eraser); };
+  $('#t-er').onclick = () => { d.eraser = !d.eraser; d.fill = false; $('#t-er').classList.toggle('on', d.eraser); if (fb) fb.classList.remove('on'); };
   $('#t-undo').onclick = () => { if (!d.sent && d.strokes.length) { d.strokes.pop(); redraw(); if (emit) emit({ o: 'u' }); } };
   $('#t-clear').onclick = () => { if (!d.sent) { d.strokes = []; redraw(); if (emit) emit({ o: 'x' }); } };
 }
@@ -2676,9 +2679,32 @@ const PALETTE = ['#111111', '#ffffff', '#e53935', '#fb8c00', '#fdd835', '#43a047
 const wordName = (i) => (WORDS[i] ? WORDS[i][lang === 'am' ? 1 : 0] : '?');
 function drawStroke(ctx, s, upto) {
   const p = s.p, n = upto == null ? p.length : Math.min(p.length, upto);
+  if (s.f) { if (n >= 2) floodFill(ctx, p[0], p[1], s.c); return; }
   ctx.strokeStyle = s.c; ctx.fillStyle = s.c; ctx.lineWidth = s.w; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   if (n <= 2) { ctx.beginPath(); ctx.arc(p[0], p[1], s.w / 2, 0, Math.PI * 2); ctx.fill(); return; }
   ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (let i = 2; i < n; i += 2) ctx.lineTo(p[i], p[i + 1]); ctx.stroke();
+}
+// Farbeimer: zusammenhängende Fläche mit einer Farbe füllen
+function floodFill(ctx, x0, y0, color) {
+  const W = ctx.canvas.width, H = ctx.canvas.height;
+  x0 = Math.floor(x0); y0 = Math.floor(y0); if (x0 < 0 || y0 < 0 || x0 >= W || y0 >= H) return;
+  const img = ctx.getImageData(0, 0, W, H), d = img.data, n = parseInt(color.slice(1), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  const i0 = (y0 * W + x0) * 4, sr = d[i0], sg = d[i0 + 1], sb = d[i0 + 2];
+  if (Math.abs(sr - r) + Math.abs(sg - g) + Math.abs(sb - b) < 10) return;
+  const match = (i) => Math.abs(d[i] - sr) + Math.abs(d[i + 1] - sg) + Math.abs(d[i + 2] - sb) <= 110; // weiche Kanten mitnehmen
+  const seen = new Uint8Array(W * H), stack = [x0, y0];
+  while (stack.length) {
+    const y = stack.pop(), x = stack.pop();
+    let xl = x; while (xl >= 0 && !seen[y * W + xl] && match((y * W + xl) * 4)) xl--; xl++;
+    let up = false, down = false;
+    for (let xi = xl; xi < W; xi++) {
+      const pi = y * W + xi; if (seen[pi] || !match(pi * 4)) break;
+      seen[pi] = 1; const i = pi * 4; d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = 255;
+      if (y > 0) { const q = pi - W, ok = !seen[q] && match(q * 4); if (ok && !up) { stack.push(xi, y - 1); up = true; } else if (!ok) up = false; }
+      if (y < H - 1) { const q = pi + W, ok = !seen[q] && match(q * 4); if (ok && !down) { stack.push(xi, y + 1); down = true; } else if (!ok) down = false; }
+    }
+  }
+  ctx.putImageData(img, 0, 0);
 }
 function replayStrokes(cv, strokes, ms) {
   const ctx = cv.getContext('2d'); const total = strokes.reduce((a, s) => a + s.p.length, 0) || 1; const t0 = performance.now();
@@ -3101,7 +3127,7 @@ $('#btn-credits').onclick = () => {
 };
 $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
 window.addEventListener('pagehide', sayBye);
-if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey, OPTS, charEl, validChar };
+if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey, OPTS, charEl, validChar, drawStroke };
 
 const urlCode = cleanCode(new URLSearchParams(location.search).get('code') || '');
 if (urlCode) $('#in-code').value = urlCode;

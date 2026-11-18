@@ -1,4 +1,6 @@
-# 🎨 Malenio
+# 🎉 Echo Party
+
+> **Hinweis:** Das frühere Spiel Malenio ist jetzt Teil von Echo Party (Spiel „✏️ Malen & Raten“, inkl. Farbeimer). Die Adresse https://locolocosq.github.io/Malenio/ leitet automatisch zu Echo Party weiter. Der alte Malenio-Code steht in der Git-Geschichte (vor dem Zusammenlegen). Die Beschreibung unten zu Malenio ist deshalb nur noch Geschichte.
 
 Ein kostenloses Online-Mal- und Ratespiel für bis zu 8 Leute (ähnlich wie skribbl.io), auf **Deutsch** und **Amharisch** (🇩🇪 / 🇪🇹), auch gemischt.
 

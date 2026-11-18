@@ -26,7 +26,7 @@ Repo `locolocosq/malenio` (GitHub), online über **GitHub Pages**:
 
 | Spiel | Ordner | Online |
 |---|---|---|
-| **Malenio** – Malen & Raten wie skribbl (ältestes Spiel) | Repo-Wurzel (`index.html`, `app.js`, `style.css`, `words.js`, `sw.js`) | https://locolocosq.github.io/Malenio/ |
+| ~~Malenio~~ – ist jetzt in Echo Party aufgegangen (Modus „Malen & Raten“). `index.html` in der Wurzel leitet nur noch nach `mimic/` weiter; `words.js` (Wortliste) und `sw.js` bleiben. | Repo-Wurzel | https://locolocosq.github.io/Malenio/ → leitet weiter |
 | **Echo Party** – Party-Spiel mit vielen Modi (Hauptarbeit zuletzt) | `mimic/` | https://locolocosq.github.io/Malenio/mimic/ |
 
 Reines HTML/CSS/JavaScript, **kein Build-System, kein Framework**. `README.md` beschreibt beide Spiele für den Nutzer.
