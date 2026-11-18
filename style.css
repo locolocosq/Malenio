@@ -246,3 +246,68 @@ button, .swatch, .tool { touch-action: manipulation; user-select: none; -webkit-
   #overlay .reveal-word { font-size: 26px; }
   #overlay .reveal-sub { font-size: 16px; }
 }
+
+/* =====================================================================
+   DESIGN "Sticker-Heft" (wie Echo Party) – Punktpapier, dicke schwarze Ränder,
+   harte Schatten, leicht schiefe Aufkleber. Überschreibt die Farben/Formen von oben.
+   ===================================================================== */
+:root { --ink:#151515; --muted:#4f5568; --primary:#ff5a36; --primary-d:#151515; --blue:#2f6bff; --yellow:#ffd23f; --green:#1fb35a; --green-d:#13803f; --line:#151515; --bg1:#2f6bff; --bg2:#ff5a36; --paper:#e9f1ff; --radius:16px; --bd:2.5px solid #151515; --sh:4px 4px 0 #151515; --sh2:2px 2px 0 #151515; }
+body { background-color: var(--paper); background-image: radial-gradient(#b9c9ea 1.3px, transparent 1.4px); background-size: 16px 16px; background-attachment: scroll; }
+#logo, .big-title, .btn, .code, h3, #overlay h2, #overlay .reveal-word, .choice { font-family: "Lilita One","Noto Sans Ethiopic","Nunito",sans-serif; font-weight: 400; letter-spacing: .02em; }
+body.lang-am .btn, body.lang-am h3, body.lang-am #overlay h2, body.lang-am .choice, body.lang-am .big-title { font-family: "Noto Sans Ethiopic","Lilita One",sans-serif; font-weight: 900; }
+
+/* Kopfleiste */
+#top-center { color: var(--ink); }
+#logo { font-size: 26px; color: var(--primary); -webkit-text-stroke: 1.5px #151515; text-shadow: 2px 2px 0 #151515; transform: rotate(-2deg); display: inline-block; }
+#info-hint { background: #fff; border: var(--bd); box-shadow: var(--sh2); color: var(--ink); }
+#info-hint.word { color: var(--primary); }
+#info-timer { background: var(--yellow); border: var(--bd); box-shadow: var(--sh2); font-family: "Lilita One",sans-serif; font-weight: 400; }
+#info-timer.low { background: #ff3b5c; color: #fff; }
+.icon-btn { border: var(--bd); box-shadow: var(--sh2); }
+.icon-btn:active { transform: translate(2px,2px); box-shadow: none; }
+.icon-btn svg { fill: #151515; }
+
+/* Karten + Knöpfe */
+.card, #modal-box, #game-players, #toolbar, #chat { border: var(--bd); box-shadow: var(--sh); border-radius: var(--radius); }
+.big-title { color: var(--primary); -webkit-text-stroke: 2px #151515; text-shadow: 3px 3px 0 #151515; transform: rotate(-3deg); }
+.sub, .divider, .lbl { color: var(--ink); }
+.btn { border: var(--bd); border-radius: 12px; background: #fff; color: var(--ink); box-shadow: var(--sh); }
+.btn:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 #151515; }
+.btn.primary { background: var(--primary); color: #fff; box-shadow: var(--sh); }
+.btn.green { background: var(--blue); color: #fff; box-shadow: var(--sh); }
+.btn.small { box-shadow: var(--sh2); }
+input, select { border: var(--bd); background: #fff; }
+input:focus { border-color: var(--primary); }
+.divider::before, .divider::after { height: 2.5px; background: #151515; }
+.flag-btn { border: var(--bd); box-shadow: var(--sh); }
+.flag-btn:nth-child(1) { transform: rotate(-2deg); } .flag-btn:nth-child(2) { transform: rotate(2deg); }
+.flag-btn:hover { border-color: #151515; }
+.flag-btn:active { transform: translate(3px,3px); box-shadow: none; }
+.flag { border: 2px solid #151515; box-shadow: none; }
+.lang-chip { border: var(--bd); background: #fff; box-shadow: var(--sh2); }
+
+/* Lobby + Spieler */
+.code-box { background: var(--yellow); border: var(--bd); box-shadow: var(--sh2); transform: rotate(1deg); }
+.code { color: var(--ink); }
+.pitem { background: #fff; border: 2px solid #151515; box-shadow: var(--sh2); }
+.pitem.me { outline: none; background: var(--yellow); }
+.pitem.drawing { background: #ffd9cf; }
+.pitem.winner { background: #b7f0cc; }
+.avatar { border: 2px solid #151515; }
+.pscore { color: var(--primary); }
+.badge { background: var(--blue); border: 1.5px solid #151515; }
+
+/* Spiel */
+#board-wrap { border: var(--bd); box-shadow: var(--sh); }
+#overlay { background: rgba(21,21,21,.84); }
+#overlay .reveal-word { color: var(--yellow); }
+.choice { border: var(--bd); box-shadow: var(--sh); }
+.choice:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 #151515; }
+.podium div { background: #fff; color: var(--ink); border: 2px solid #151515; }
+.swatch { border: 2px solid #151515; }
+.tool { border: 2px solid #151515; background: #fff; }
+.tool.active { background: var(--yellow); border-color: #151515; box-shadow: var(--sh2); }
+.sep { background: #151515; }
+#chat-log .msg b { color: var(--blue); }
+#chat-form { border-top: var(--bd); }
+#toast { border: var(--bd); box-shadow: var(--sh2); }
