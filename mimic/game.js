@@ -47,6 +47,10 @@ const BLIND_AFTER = 3;      // Blind-Stopp: so lange (s) nach der Ankunft darf m
 const COL_SHOW = 3;         // Farbe treffen: so lange (s) wird die Farbe gezeigt
 const COL_TIME = 25;        // Farbe treffen: Zeit zum Nachmischen
 const CIRC_TIME = 25;       // Perfekter Kreis: Zeit für alle Versuche
+const IMP_ANSWER = 45;      // Imposter Wort: Zeit für eine Antwort
+const IMP_VOTE = 30;        // Imposter Wort: Zeit zum Antippen der verdächtigen Antwort
+const IMP_GUESS = 40;       // Imposter Wort: Zeit, in der der Imposter das Wort rät
+const IMP_HIT = 100;        // Imposter Wort: Punkte pro Treffer (erst am Ende sichtbar); richtig geraten = 5 × so viel
 const CIRC_TRIES = 3;       // Perfekter Kreis: Versuche, der beste zählt
 // Farbe: HSL -> RGB -> Lab; Abstand im Lab-Raum ≈ wie unterschiedlich das Auge die Farben sieht
 function hslRgb(h, s, l) { s /= 100; l /= 100; const k = (n) => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);
@@ -140,7 +144,11 @@ const T = {
     nextGame: 'Nächstes Spiel', game: 'Spiel {a}/{b}', kickQ: '{name} aus der Party entfernen?', kicked: 'Du wurdest vom Host aus der Party entfernt. Du kannst wieder beitreten.', kickedOut: '{name} wurde entfernt',
     abortTitle: 'Was möchtest du tun?', skipRound: '⏭ Diese Runde abbrechen', endGame: '⏹ Spiel abbrechen (zur Lobby)', cancel: 'Abbrechen', pattern: 'Muster', feet: 'Schuhe', body: 'Form', brows: 'Augenbrauen', cheeks: 'Wangen', held: 'In der Hand', ownWord: 'oder eigenes Wort:', ownPh: 'Dein Wort…', badWord: 'Nur Buchstaben, 2–24 Zeichen.', hangChose: '{name} hat ein Wort ausgesucht', yourWord: 'Dein Wort:', yourLetter: 'Du bist dran – wähle einen Buchstaben!', letterTurn: '{name} wählt einen Buchstaben…', misses: 'Fehler', solved: 'Erraten! 🎉', notSolved: 'Nicht erraten – {name} gewinnt!', lettersFound: 'Buchstaben',
     modeReact: '⚡ Reaktion', reactWait: 'Warte auf Grün…', reactHint: 'Tippe so schnell du kannst, sobald es grün wird – aber nicht zu früh!', reactNow: 'JETZT!', tooEarly: 'Zu früh! 😅', yourTime: 'Deine Zeit:', noReact: 'nicht getippt', fast: 'Blitzschnell!',
-    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeDish: '🍝 Koch-Auktion', dishIntro: 'Jeder hat {m} € und braucht {n} Zutaten. Biete auf die Zutaten!', dishStart: '{name} muss anfangen zu bieten', dishHigh: 'Höchstgebot: {b} € von {name}', dishTurn: '{name} ist dran', dishYour: 'Du bist dran!', dishBid: 'Bieten', dishPass: 'Passen', dishMustBid: 'Du fängst an – du musst bieten!', dishWon: '{name} kauft {ing} für {b} €', dishFill: 'Wer kein Geld mehr hat, bekommt Zufallszutaten:', dishRateQ: 'Wie gut ist das Gericht von {name}?', dishRateOwn: 'Das ist dein Gericht – die anderen bewerten.', dishRated: 'Bewertet! Warte auf die anderen…', dishFull: 'voll', dishBroke: 'pleite', dishNoFill: 'Alle Teller sind voll!', modeBluff: '🤥 Bluff', bluffWrite: 'Erfinde eine Antwort, die echt klingt!', bluffPh: 'Deine Lüge…', bluffSend: '✅ Abschicken', bluffWait: 'Abgeschickt! Warte auf die anderen…', bluffTruth: 'Das ist die echte Antwort 😅 – denk dir was anderes aus!', bluffVote: 'Welche Antwort ist die echte?', bluffMine: 'deine', bluffVoted: 'Gewählt! Warte auf die anderen…', bluffIsTrue: '✅ Die Wahrheit', bluffBy: 'Bluff von {name}', bluffHouse: '🏠 Hausbluff', bluffFooled: 'reingefallen:', bluffNobody: 'niemand', modeBlind: '⏱️ Blind-Stopp', blindHint: 'Der Ball rollt hinter die Mauer. Tippe genau dann, wenn er beim 🚩 ankommt!', blindStop: 'STOPP!', blindEarly: '{s} s zu früh', blindLate: '{s} s zu spät', blindExact: 'Genau getroffen! 🎯', blindNone: 'nicht getippt', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
+    modeSimon: '🟢 Farbfolge', simonWatch: 'Merk dir die Folge!', simonYour: 'Jetzt du – tippe nach!', simonOut: 'Falsch! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', simonGood: 'Richtig! 🎉', level: 'Level', simonMax: 'Alles geschafft! 🏆', simonReady: 'Gleich geht’s los…', simonHint: 'Jedes Level wird die Folge länger. Ein Fehler – dann ist Schluss.', modeDish: '🍝 Koch-Auktion', dishIntro: 'Jeder hat {m} € und braucht {n} Zutaten. Biete auf die Zutaten!', dishStart: '{name} muss anfangen zu bieten', dishHigh: 'Höchstgebot: {b} € von {name}', dishTurn: '{name} ist dran', dishYour: 'Du bist dran!', dishBid: 'Bieten', dishPass: 'Passen', dishMustBid: 'Du fängst an – du musst bieten!', dishWon: '{name} kauft {ing} für {b} €', dishFill: 'Wer kein Geld mehr hat, bekommt Zufallszutaten:', dishRateQ: 'Wie gut ist das Gericht von {name}?', dishRateOwn: 'Das ist dein Gericht – die anderen bewerten.', dishRated: 'Bewertet! Warte auf die anderen…', dishFull: 'voll', dishBroke: 'pleite', dishNoFill: 'Alle Teller sind voll!', modeBluff: '🤥 Bluff', modeImp: '🕵️ Imposter Wort', impYourWord: 'Dein Wort', impYouAre: '🕵️ Du bist der Imposter!', impHint: 'Dein Hinweis (nur ungefähr):',
+    impTipCrew: 'Beantworte 5 Fragen passend zu deinem Wort – aber nicht zu deutlich, sonst errät der Imposter es!', impTipImp: 'Die anderen kennen das Wort, du nur einen groben Hinweis. Antworte so, dass du nicht auffällst. Am Ende darfst du das Wort raten!',
+    impQ: 'Frage {a}/{b}', impAnsPh: 'Deine Antwort', impSend: 'Senden', impWait: 'Warte auf die anderen…', impVote: 'Welche Antwort ist vom Imposter? Tippe sie an!', impVoted: '✅ Gewählt – warte auf die anderen',
+    impNoAns: '(keine Antwort)', impGuessQ: 'Welches Wort war es? Rate!', impGuessPh: 'Das Wort', impGuessWait: '🕵️ Der Imposter rät jetzt das Wort …', impWas: 'Der Imposter war', impWordWas: 'Das Wort war', impHintWas: 'Hinweis',
+    impGuessed: 'geraten: „{w}“', impRight: 'Richtig! +{n}', impWrong: '❌ falsch', impNoGuess: 'nichts geraten', impNobody: 'niemand hat ihn erwischt', impNeed3: 'Imposter Wort braucht mindestens 3 Spieler', impLeft: 'Der Imposter ist gegangen – nächste Runde', bluffWrite: 'Erfinde eine Antwort, die echt klingt!', bluffPh: 'Deine Lüge…', bluffSend: '✅ Abschicken', bluffWait: 'Abgeschickt! Warte auf die anderen…', bluffTruth: 'Das ist die echte Antwort 😅 – denk dir was anderes aus!', bluffVote: 'Welche Antwort ist die echte?', bluffMine: 'deine', bluffVoted: 'Gewählt! Warte auf die anderen…', bluffIsTrue: '✅ Die Wahrheit', bluffBy: 'Bluff von {name}', bluffHouse: '🏠 Hausbluff', bluffFooled: 'reingefallen:', bluffNobody: 'niemand', modeBlind: '⏱️ Blind-Stopp', blindHint: 'Der Ball rollt hinter die Mauer. Tippe genau dann, wenn er beim 🚩 ankommt!', blindStop: 'STOPP!', blindEarly: '{s} s zu früh', blindLate: '{s} s zu spät', blindExact: 'Genau getroffen! 🎯', blindNone: 'nicht getippt', modeStack: '🗼 Turm stapeln', stackHint: 'Tippe, um den Block fallen zu lassen. Was übersteht, fällt ab – der Turm wird schmaler. Ganz daneben = raus!', stackOut: 'Daneben! {n} Blöcke geschafft. Schau zu, wer am höchsten baut!', stackPerfect: 'Perfekt! ✨', modeColor: '🎨 Farbe treffen', colMemo: 'Merk dir diese Farbe!', colMix: 'Misch die Farbe nach!', colH: 'Farbton', colS: 'Sättigung', colL: 'Helligkeit', colGo: '✅ Fertig', colDone: 'Abgegeben! Warte auf die anderen…', colWas: 'Die Farbe war:', colNone: 'nicht abgegeben', match: 'Treffer', modeCircle: '⭕ Perfekter Kreis', circHint: 'Mal einen Kreis in einem Zug – so rund wie möglich! {n} Versuche, der beste zählt.', circRound: '{p} % rund', circLeft: 'Noch {n} Versuche', circBest: 'Bester: {p} %', circSmall: 'Zu klein – mal größer!', circOpen: 'Nicht geschlossen – einmal ganz rum!', circNone: 'kein Kreis', modeBal: '⚖️ Wippe', balHint: 'Schieb den Gegenstand auf der rechten Seite so hin, dass die Wippe im Gleichgewicht bleibt – dann loslassen!', balGo: '✋ Loslassen!', balHolds: 'Hält: {s} s', balPerfect: 'Perfekt im Gleichgewicht! 🎯', balFell: 'Umgekippt nach {s} s', balNone: 'nicht losgelassen', balRight: 'richtige Stelle', modeHalve: '🔪 Halbieren', halveHint: 'Zieh einen geraden Schnitt durch – so genau wie möglich in zwei gleich große Hälften! Du kannst neu ziehen, bis du auf Schneiden tippst.', halveCut: '🔪 Schneiden!', halveMiss: 'Der Schnitt muss ganz durch gehen', halveDone: 'Geschnitten! Warte auf die anderen…', halveNone: 'nicht geschnitten', perfect: 'Perfekt!', modeCups: '🥤 Hütchenspiel', cupsWatch: 'Wo ist der Ball? Gut aufpassen!', cupsPick: 'Wo ist der Ball? Tippe auf einen Becher!', cupsRight: 'Richtig! 🎉 Jetzt wird’s schwerer…', cupsWrong: 'Daneben! Du hast Level {n} geschafft. Schau zu, wer am längsten durchhält!', cupsHint: 'Jedes Level: schneller, mehr Tauschen – und später mehr Becher.', hangGot: 'schon erraten', hangPend: 'noch offen', modeMemory: '🧠 Sequenz-Memory', memHint: 'Die Felder leuchten nacheinander auf – drück sie in derselben Reihenfolge. Jedes Level eins mehr!',
     modeEmoji: '😀 Emoji-Rätsel', emojiQ: 'Welches Wort ist das?', emojiPh: 'Dein Tipp…', guessBtn: 'Raten', nope: 'Leider falsch', letters: '{n} Zeichen', emojiWas: 'Die Lösung:', notGuessed: 'nicht erraten', youGotIt: 'Richtig! Warte auf die anderen…', emojiHint: 'Deutsch oder Amharisch – beides zählt!',
   },
   am: {
@@ -168,7 +176,11 @@ const T = {
     nextGame: 'ቀጣዩ ጨዋታ', game: 'ጨዋታ {a}/{b}', kickQ: '{name}ን ከፓርቲው ይወገድ?', kicked: 'አስተናጋጁ ከፓርቲው አስወጥቶዎታል። እንደገና መቀላቀል ይችላሉ።', kickedOut: '{name} ተወግዷል',
     abortTitle: 'ምን ማድረግ ይፈልጋሉ?', skipRound: '⏭ ይህን ዙር አቋርጥ', endGame: '⏹ ጨዋታውን አቋርጥ (ወደ ሎቢ)', cancel: 'ሰርዝ', pattern: 'ንድፍ', feet: 'ጫማ', body: 'ቅርጽ', brows: 'ቅንድብ', cheeks: 'ጉንጭ', held: 'በእጅ', ownWord: 'ወይም የራስዎ ቃል፦', ownPh: 'ቃልዎ…', badWord: 'ፊደላት ብቻ፣ 2–24።', hangChose: '{name} ቃል መርጧል', yourWord: 'ቃልዎ፦', yourLetter: 'ተራዎ ነው – ፊደል ይምረጡ!', letterTurn: '{name} ፊደል እየመረጠ ነው…', misses: 'ስህተት', solved: 'ተገመተ! 🎉', notSolved: 'አልተገመተም – {name} አሸነፈ!', lettersFound: 'ፊደላት',
     modeReact: '⚡ የምላሽ ፍጥነት', reactWait: 'አረንጓዴ እስኪሆን ይጠብቁ…', reactHint: 'አረንጓዴ ሲሆን በተቻለ ፍጥነት ይንኩ – ግን ቀድመው አይንኩ!', reactNow: 'አሁን!', tooEarly: 'በጣም ቀደሙ! 😅', yourTime: 'ጊዜዎ፦', noReact: 'አልነኩም', fast: 'በጣም ፈጣን!',
-    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeDish: '🍝 የምግብ ጨረታ', dishIntro: 'እያንዳንዱ {m} € አለው፤ {n} ግብዓቶች ያስፈልጉታል። ለግብዓቶቹ ይጫረቱ!', dishStart: '{name} መጫረት መጀመር አለበት', dishHigh: 'ከፍተኛ ጨረታ፦ {b} € በ{name}', dishTurn: 'ተራው የ{name} ነው', dishYour: 'የእርስዎ ተራ ነው!', dishBid: 'ተጫረት', dishPass: 'እለፍ', dishMustBid: 'እርስዎ ይጀምራሉ – መጫረት አለብዎት!', dishWon: '{name} {ing}ን በ{b} € ገዛ', dishFill: 'ገንዘብ ያለቀባቸው በዕጣ ግብዓቶችን ያገኛሉ፦', dishRateQ: 'የ{name} ምግብ ምን ያህል ጥሩ ነው?', dishRateOwn: 'ይህ የእርስዎ ምግብ ነው – ሌሎች ይገመግማሉ።', dishRated: 'ተገምግሟል! ሌሎችን ይጠብቁ…', dishFull: 'ሞልቷል', dishBroke: 'ገንዘብ የለም', dishNoFill: 'ሁሉም ሳህኖች ሞልተዋል!', modeBluff: '🤥 ማታለል', bluffWrite: 'እውነት የሚመስል መልስ ይፍጠሩ!', bluffPh: 'ውሸትዎ…', bluffSend: '✅ ላክ', bluffWait: 'ተልኳል! ሌሎችን ይጠብቁ…', bluffTruth: 'ይህ እውነተኛው መልስ ነው 😅 – ሌላ ያስቡ!', bluffVote: 'የትኛው መልስ እውነተኛ ነው?', bluffMine: 'የእርስዎ', bluffVoted: 'ተመርጧል! ሌሎችን ይጠብቁ…', bluffIsTrue: '✅ እውነቱ', bluffBy: 'የ{name} ማታለያ', bluffHouse: '🏠 የቤት ማታለያ', bluffFooled: 'የተታለሉ፦', bluffNobody: 'ማንም', modeBlind: '⏱️ ዕውር ማቆም', blindHint: 'ኳሱ ከግድግዳው ጀርባ ይንከባለላል። 🚩 ላይ ሲደርስ በትክክል ይንኩ!', blindStop: 'አቁም!', blindEarly: '{s} ሰ ቀደም ብሎ', blindLate: '{s} ሰ ዘግይቶ', blindExact: 'በትክክል! 🎯', blindNone: 'አልነኩም', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
+    modeSimon: '🟢 የቀለም ቅደም ተከተል', simonWatch: 'ቅደም ተከተሉን ያስታውሱ!', simonYour: 'አሁን እርስዎ – ይድገሙት!', simonOut: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', simonGood: 'ትክክል! 🎉', level: 'ደረጃ', simonMax: 'ሁሉንም ጨረሱ! 🏆', simonReady: 'በቅርቡ ይጀምራል…', simonHint: 'በእያንዳንዱ ደረጃ ቅደም ተከተሉ ይረዝማል። አንድ ስህተት – ያበቃል።', modeDish: '🍝 የምግብ ጨረታ', dishIntro: 'እያንዳንዱ {m} € አለው፤ {n} ግብዓቶች ያስፈልጉታል። ለግብዓቶቹ ይጫረቱ!', dishStart: '{name} መጫረት መጀመር አለበት', dishHigh: 'ከፍተኛ ጨረታ፦ {b} € በ{name}', dishTurn: 'ተራው የ{name} ነው', dishYour: 'የእርስዎ ተራ ነው!', dishBid: 'ተጫረት', dishPass: 'እለፍ', dishMustBid: 'እርስዎ ይጀምራሉ – መጫረት አለብዎት!', dishWon: '{name} {ing}ን በ{b} € ገዛ', dishFill: 'ገንዘብ ያለቀባቸው በዕጣ ግብዓቶችን ያገኛሉ፦', dishRateQ: 'የ{name} ምግብ ምን ያህል ጥሩ ነው?', dishRateOwn: 'ይህ የእርስዎ ምግብ ነው – ሌሎች ይገመግማሉ።', dishRated: 'ተገምግሟል! ሌሎችን ይጠብቁ…', dishFull: 'ሞልቷል', dishBroke: 'ገንዘብ የለም', dishNoFill: 'ሁሉም ሳህኖች ሞልተዋል!', modeBluff: '🤥 ማታለል', modeImp: '🕵️ ኢምፖስተር ቃል', impYourWord: 'የእርስዎ ቃል', impYouAre: '🕵️ እርስዎ ኢምፖስተሩ ነዎት!', impHint: 'የእርስዎ ፍንጭ (ግምታዊ ብቻ)፦',
+    impTipCrew: 'ከቃልዎ ጋር የሚስማማ መልስ ለ5 ጥያቄዎች ይስጡ – ግን በጣም ግልጽ አይሁን፣ አለበለዚያ ኢምፖስተሩ ቃሉን ይገምታል!', impTipImp: 'ሌሎቹ ቃሉን ያውቃሉ፣ እርስዎ ግን ሩቅ ፍንጭ ብቻ። እንዳይታወቁ ይመልሱ። በመጨረሻ ቃሉን መገመት ይችላሉ!',
+    impQ: 'ጥያቄ {a}/{b}', impAnsPh: 'የእርስዎ መልስ', impSend: 'ላክ', impWait: 'ሌሎቹን ይጠብቁ…', impVote: 'የኢምፖስተሩ መልስ የቱ ነው? ይንኩት!', impVoted: '✅ መርጠዋል – ሌሎቹን ይጠብቁ',
+    impNoAns: '(መልስ የለም)', impGuessQ: 'ቃሉ ምን ነበር? ይገምቱ!', impGuessPh: 'ቃሉ', impGuessWait: '🕵️ ኢምፖስተሩ አሁን ቃሉን እየገመተ ነው …', impWas: 'ኢምፖስተሩ', impWordWas: 'ቃሉ', impHintWas: 'ፍንጭ',
+    impGuessed: 'የገመተው፦ «{w}»', impRight: 'ትክክል! +{n}', impWrong: '❌ ተሳስቷል', impNoGuess: 'አልገመተም', impNobody: 'ማንም አላገኘውም', impNeed3: 'ኢምፖስተር ቃል ቢያንስ 3 ተጫዋቾች ያስፈልገዋል', impLeft: 'ኢምፖስተሩ ወጥቷል – ቀጣይ ዙር', bluffWrite: 'እውነት የሚመስል መልስ ይፍጠሩ!', bluffPh: 'ውሸትዎ…', bluffSend: '✅ ላክ', bluffWait: 'ተልኳል! ሌሎችን ይጠብቁ…', bluffTruth: 'ይህ እውነተኛው መልስ ነው 😅 – ሌላ ያስቡ!', bluffVote: 'የትኛው መልስ እውነተኛ ነው?', bluffMine: 'የእርስዎ', bluffVoted: 'ተመርጧል! ሌሎችን ይጠብቁ…', bluffIsTrue: '✅ እውነቱ', bluffBy: 'የ{name} ማታለያ', bluffHouse: '🏠 የቤት ማታለያ', bluffFooled: 'የተታለሉ፦', bluffNobody: 'ማንም', modeBlind: '⏱️ ዕውር ማቆም', blindHint: 'ኳሱ ከግድግዳው ጀርባ ይንከባለላል። 🚩 ላይ ሲደርስ በትክክል ይንኩ!', blindStop: 'አቁም!', blindEarly: '{s} ሰ ቀደም ብሎ', blindLate: '{s} ሰ ዘግይቶ', blindExact: 'በትክክል! 🎯', blindNone: 'አልነኩም', modeStack: '🗼 ማማ መደርደር', stackHint: 'ብሎኩን ለመጣል ይንኩ። የተረፈው ይወድቃል – ማማው ይጠብባል። ሙሉ በሙሉ ካመለጠ = ውጭ!', stackOut: 'አመለጠ! {n} ብሎኮች ደርሰዋል። ማን ከፍ እንደሚገነባ ይመልከቱ!', stackPerfect: 'ፍጹም! ✨', modeColor: '🎨 ቀለም ማግኘት', colMemo: 'ይህን ቀለም ያስታውሱ!', colMix: 'ቀለሙን ቀላቅለው ይስሩ!', colH: 'የቀለም ዓይነት', colS: 'ጥልቀት', colL: 'ብርሃን', colGo: '✅ ጨርስ', colDone: 'ተልኳል! ሌሎችን ይጠብቁ…', colWas: 'ቀለሙ ይህ ነበር፦', colNone: 'አልላኩም', match: 'ተመሳሳይነት', modeCircle: '⭕ ፍጹም ክብ', circHint: 'በአንድ ጊዜ ክብ ይሳሉ – በተቻለ መጠን ክብ! {n} ሙከራዎች፣ ምርጡ ይቆጠራል።', circRound: '{p} % ክብ', circLeft: 'ገና {n} ሙከራዎች', circBest: 'ምርጥ፦ {p} %', circSmall: 'በጣም ትንሽ – ትልቅ ይሳሉ!', circOpen: 'አልተዘጋም – ሙሉ ዙር ይሳሉ!', circNone: 'ክብ የለም', modeBal: '⚖️ ሚዛን', balHint: 'ሚዛኑ እንዲጠበቅ ዕቃውን በቀኝ በኩል ያንቀሳቅሱ – ከዚያ ይልቀቁ!', balGo: '✋ ልቀቅ!', balHolds: 'ቆይቷል፦ {s} ሰ', balPerfect: 'ፍጹም ሚዛን! 🎯', balFell: 'ከ{s} ሰ በኋላ ወደቀ', balNone: 'አልለቀቁም', balRight: 'ትክክለኛው ቦታ', modeHalve: '🔪 ለሁለት መክፈል', halveHint: 'ቀጥ ያለ መስመር ይሳሉ – በተቻለ መጠን በሁለት እኩል ግማሽ! ቁረጥ እስኪነኩ ድረስ እንደገና መሳል ይችላሉ።', halveCut: '🔪 ቁረጥ!', halveMiss: 'መስመሩ ሙሉ በሙሉ ማቋረጥ አለበት', halveDone: 'ተቆርጧል! ሌሎችን ይጠብቁ…', halveNone: 'አልቆረጡም', perfect: 'ፍጹም!', modeCups: '🥤 የኩባያ ጨዋታ', cupsWatch: 'ኳሱ የት ነው? በደንብ ይከታተሉ!', cupsPick: 'ኳሱ የት ነው? አንድ ኩባያ ይንኩ!', cupsRight: 'ትክክል! 🎉 አሁን ይከብዳል…', cupsWrong: 'ተሳስተዋል! ደረጃ {n} ደርሰዋል። ማን በረጅሙ እንደሚቆይ ይመልከቱ!', cupsHint: 'በየደረጃው፦ ፍጥነቱ እና መለዋወጡ ይጨምራሉ – በኋላም ኩባያዎቹ ይበዛሉ።', hangGot: 'ተገምቷል', hangPend: 'ገና አልተገመተም', modeMemory: '🧠 የቅደም ተከተል ማስታወሻ', memHint: 'ሳጥኖቹ አንድ በአንድ ይበራሉ – በዚያው ቅደም ተከተል ይጫኑ። በየደረጃው አንድ ይጨመራል!',
     modeEmoji: '😀 የኢሞጂ እንቆቅልሽ', emojiQ: 'ይህ የትኛው ቃል ነው?', emojiPh: 'ግምትዎ…', guessBtn: 'ገምት', nope: 'አልሆነም', letters: '{n} ፊደላት', emojiWas: 'መልሱ፦', notGuessed: 'አልገመቱም', youGotIt: 'ትክክል! ሌሎችን ይጠብቁ…', emojiHint: 'በአማርኛም በጀርመንኛም መመለስ ይቻላል!',
   },
 };
@@ -549,7 +561,7 @@ const host = {
   players: [], phase: 'lobby', rounds: 5, round: 0, soundIdx: -1, used: new Set(), deadline: 0, timer: null, mode: 'sound', wordIdx: -1, revealed: false,
   showOrder: [], showIdx: 0, recs: new Map(), gains: {}, departed: new Map(),
   drawer: null, turn: 0, turnOrder: [], turnIdx: 0, choices: [], live: [], livePts: 0, guessed: new Map(), logoIdx: -1, picks: new Map(), target: 0, stops: new Map(), ests: new Map(), qIdx: -1, usedQ: new Set(), mix: false, baseMode: 'sound', mixList: [], mixIdx: -1, mixDrawn: {}, hWord: '', hLang: 'de', hGuessed: new Set(), hMiss: 0, hOrder: [], hIdx: 0, hCount: {}, hSolved: false,
-  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], dsh: null, usedD: new Set(), dStart: 0, bq: -1, usedBq: new Set(), fakes: new Map(), bopts: [], bvotes: new Map(), blindP: null, blinds: new Map(), cols: new Map(), colT: null, circs: new Map(), bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(),
+  reacts: new Map(), reactWait: 0, reactGoAt: 0, simonSeq: [], simon: new Map(), emojiIdx: -1, eWord: -1, egot: new Map(), eStart: 0, usedE: new Set(), eHint: 0, eTimers: [], dsh: null, usedD: new Set(), dStart: 0, bq: -1, usedBq: new Set(), fakes: new Map(), bopts: [], bvotes: new Map(), blindP: null, blinds: new Map(), cols: new Map(), colT: null, circs: new Map(), bals: new Map(), balL: null, balObj: null, usedB: new Set(), cuts: new Map(), halveIdx: 0, halveRot: 0, usedH: new Set(), imp: null, usedIw: new Set(), impCount: {},
   init(me) { this.players = []; this.phase = 'lobby'; this.departed = new Map(); this.add(me.id, me, CLIENT_ID); this.pushState(); },
   stop() { clearTimeout(this.timer); this.timer = null; this.eTimers.forEach(clearTimeout); this.eTimers = []; },
   get(id) { return this.players.find((p) => p.id === id); },
@@ -573,6 +585,7 @@ const host = {
           const mixHas = (m) => this.mode === 'mix' && this.mixGames.includes(m);
           if (this.mode === 'logo' || mixHas('logo')) need.push(ensureLogos());
           if (this.mode === 'estimate' || mixHas('estimate')) need.push(ensureQuestions());
+          if ((this.mode === 'imposter') && this.players.length < 3) { sendTo(from, { t: 'sys', key: 'impNeed3' }); return; }
           Promise.all(need).then(() => { if (this.phase === 'lobby') this.startGame(); }).catch(() => toast(t('netError')));
         } return;
       case 'mode': if (p.host && this.phase === 'lobby' && MODES.includes(msg.mode)) { this.baseMode = this.mode = msg.mode; this.pushState(); } return;
@@ -689,6 +702,25 @@ const host = {
         const v = Math.floor(+msg.stars); if (!(v >= 1 && v <= 5)) return;
         d.rates.set(from, v); this.pushState();
         if (this.players.every((x) => x.id === d.owner || d.rates.has(x.id))) this.dishRateEnd();
+        return;
+      }
+      case 'ians': {
+        const s = this.imp; if (this.phase !== 'iask' || !s || msg.round !== this.round || msg.qi !== s.qi || s.ans.has(from)) return;
+        const text = String(msg.text || '').replace(/\s+/g, ' ').trim().slice(0, 30); if (!text) return;
+        s.ans.set(from, text); this.pushState();
+        if (this.players.every((x) => s.ans.has(x.id))) this.impVote();
+        return;
+      }
+      case 'ivote': {
+        const s = this.imp; if (this.phase !== 'ivote' || !s || msg.round !== this.round || msg.qi !== s.qi || s.votes.has(from)) return;
+        if (msg.pid === from || !s.order.includes(msg.pid)) return;
+        s.votes.set(from, msg.pid); this.pushState();
+        if (this.players.every((x) => s.votes.has(x.id))) this.impNextQ();
+        return;
+      }
+      case 'iguess': {
+        const s = this.imp; if (this.phase !== 'iguess' || !s || from !== s.imp || msg.round !== this.round) return;
+        s.guess = String(msg.text || '').replace(/\s+/g, ' ').trim().slice(0, 40); this.impEnd();
         return;
       }
       case 'bfake': {
@@ -834,6 +866,13 @@ const host = {
     if (this.phase === 'halve' && this.players.every((x) => this.cuts.has(x.id))) { this.endHalve(); return; }
     if (this.phase === 'balance' && this.players.every((x) => this.bals.has(x.id))) { this.endBalance(); return; }
     if (this.phase === 'color' && this.players.every((x) => this.cols.has(x.id))) { this.endColor(); return; }
+    if (this.imp && this.mode === 'imposter' && ['iword', 'iask', 'ivote', 'iguess'].includes(this.phase)) {
+      const s = this.imp;
+      if (id === s.imp) { broadcast({ t: 'sys', key: 'impLeft' }); this.stop(); this.gains = {}; this.nextRound(); return; }
+      s.order = s.order.filter((x) => x !== id);
+      if (this.phase === 'iask' && this.players.every((x) => s.ans.has(x.id))) { this.impVote(); return; }
+      if (this.phase === 'ivote' && this.players.every((x) => s.votes.has(x.id))) { this.impNextQ(); return; }
+    }
     if (this.phase === 'bwrite' && this.players.every((x) => this.fakes.has(x.id))) { this.startVote(); return; }
     if (this.phase === 'bvote' && this.players.every((x) => this.bvotes.has(x.id))) { this.endBluff(); return; }
     if (this.phase === 'blind' && this.players.every((x) => this.blinds.has(x.id))) { this.endBlind(); return; }
@@ -870,6 +909,7 @@ const host = {
       bq: this.mode === 'bluff' ? this.bq : -1,
       bopts: this.mode === 'bluff' && (this.phase === 'bvote' || this.phase === 'results') ? this.bopts.map((o) => ({ k: o.k, i: o.i, text: o.text, authors: this.phase === 'results' ? o.authors : undefined })) : null,
       bvotes: this.mode === 'bluff' && this.phase === 'results' ? Object.fromEntries(this.bvotes) : null,
+      imp: this.mode === 'imposter' && this.imp ? this.impState() : null,
       blindP: this.mode === 'blind' ? Object.assign({}, this.blindP, { goIn: this.phase === 'blind' ? Math.max(0, this.blindGoAt - Date.now()) : 0 }) : null,
       blinds: this.mode === 'blind' && this.phase === 'results' ? Object.fromEntries(this.blinds) : null,
       colT: this.mode === 'color' && (this.phase === 'colorshow' || this.phase === 'results') ? this.colT : null,
@@ -908,6 +948,7 @@ const host = {
       case 'color': return this.cols.has(id);
       case 'blind': return this.blinds.has(id);
       case 'dish': { const d = this.dsh; if (!d) return false; if (this.phase === 'drate') return id === d.owner || d.rates.has(id); return d.plates[id] && d.plates[id].length >= DISH_NEED; }
+      case 'imposter': { const s = this.imp; if (!s) return false; if (this.phase === 'iask') return s.ans.has(id); if (this.phase === 'ivote') return s.votes.has(id); if (this.phase === 'iguess') return id !== s.imp; return false; }
       case 'bluff': return this.phase === 'bvote' ? this.bvotes.has(id) : this.fakes.has(id);
       case 'circle': return (this.circs.get(id) || {}).tries >= CIRC_TRIES;
       default: return this.recs.has(id);
@@ -916,6 +957,8 @@ const host = {
   // Malen & Raten: das Wort sieht nur, wer malt oder es schon erraten hat – alle anderen nur die Striche
   stateFor(p, s) {
     if (s.bopts && s.phase === 'bvote') s = Object.assign({}, s, { bmine: this.bopts.findIndex((o) => o.authors.includes(p.id)) });
+    // Imposter Wort: jeder bekommt nur sein Wort – der Imposter nur den Hinweis (als Text, nicht die Nummer des Worts)
+    if (this.mode === 'imposter' && this.imp && s.phase !== 'results') { const e = IMP_W[this.imp.w] || []; return Object.assign({}, s, { iMe: p.id === this.imp.imp ? { imp: 1, h: [e[2], e[3]] } : { w: this.imp.w } }); }
     if (this.mode === 'emoji' && (s.phase === 'emoji' || s.phase === 'results')) {
       // Lösung nur für wer sie schon hat (oder am Ende); sonst nur Länge bzw. erster Buchstabe als Tipp
       const w = this.eWord, word = WORDS[w] ? [...WORDS[w][p.lang === 'am' ? 1 : 0]] : [];
@@ -939,7 +982,7 @@ const host = {
     if (next) this.timer = setTimeout(next, sec * 1000);
   },
   startGame() {
-    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.usedB = new Set(); this.usedBq = new Set(); this.usedD = new Set(); this.dStart = 0; this.departed = new Map();
+    this.players.forEach((p) => p.score = 0); this.round = 0; this.used = new Set(); this.usedQ = new Set(); this.usedE = new Set(); this.usedH = new Set(); this.usedB = new Set(); this.usedBq = new Set(); this.usedD = new Set(); this.impCount = {}; this.dStart = 0; this.departed = new Map();
     this.mix = this.baseMode === 'mix';
     if (this.mix) { // die ausgewählten Spiele in zufälliger Reihenfolge, jedes „Runden“-mal direkt hintereinander
       this.mixList = []; for (const m of shuffle([...(this.mixGames || GAME_MODES)])) for (let r = 0; r < this.rounds; r++) this.mixList.push(m);
@@ -983,6 +1026,19 @@ const host = {
       for (const p of this.players) { d.plates[p.id] = []; d.money[p.id] = DISH_MONEY; }
       this.gains = {};
       this.setPhase('dintro', 4, () => this.dishNext());
+      return;
+    }
+    if (this.mode === 'imposter') {
+      if (this.players.length < 3) { broadcast({ t: 'sys', key: 'impNeed3' }); this.gains = {}; this.nextRound(); return; }
+      const n = IMP_W.length; let w = rnd(n); for (let k = 0; k < 900 && this.usedIw.has(w); k++) w = rnd(n);
+      if (this.usedIw.size >= n - 1) this.usedIw = new Set();
+      this.usedIw.add(w);
+      // Imposter reihum: wer am seltensten dran war, zuerst
+      const ids = shuffle(this.players.map((p) => p.id)).sort((a, b) => (this.impCount[a] || 0) - (this.impCount[b] || 0));
+      const imp = ids[0]; this.impCount[imp] = (this.impCount[imp] || 0) + 1;
+      this.imp = { w, imp, qs: shuffle(IMP_W[w][4].split(' ')), qi: 0, ans: new Map(), votes: new Map(), order: [], hist: [], guess: '', ok: false };
+      this.gains = {};
+      this.setPhase('iword', 9, () => this.impAsk());
       return;
     }
     if (this.mode === 'bluff') {
@@ -1201,6 +1257,38 @@ const host = {
     const best = Math.max(0, ...Object.values(d.avgs));
     for (const p of this.players) { const a = d.avgs[p.id] || 0; const g = Math.round(a * 20) + (a > 0 && a === best ? 20 : 0); p.score += g; this.gains[p.id] = g; }
     this.setPhase('results', RESULT_TIME + 6, () => this.nextRound());
+  },
+  // ---- Imposter Wort: 5 Fragen; nach jeder Frage tippen alle die verdächtigste Antwort an (Treffer bleiben geheim); am Ende rät der Imposter das Wort
+  impState() {
+    const s = this.imp, o = { qi: s.qi, n: s.qs.length, q: s.qs[s.qi] || '' };
+    if (this.phase === 'ivote') o.list = s.order.map((id) => ({ id, a: s.ans.get(id) || '' }));
+    if (this.phase === 'results') Object.assign(o, { w: s.w, imp: s.imp, guess: s.guess, ok: s.ok, hist: s.hist });
+    return o;
+  },
+  impAsk() {
+    const s = this.imp; s.ans = new Map(); s.votes = new Map();
+    this.setPhase('iask', IMP_ANSWER, () => this.impVote());
+  },
+  impVote() {
+    if (this.phase !== 'iask') return;
+    const s = this.imp; s.order = shuffle(this.players.map((p) => p.id)); s.votes = new Map();
+    this.setPhase('ivote', IMP_VOTE, () => this.impNextQ());
+  },
+  impNextQ() {
+    if (this.phase !== 'ivote') return;
+    const s = this.imp;
+    s.hist.push({ q: s.qs[s.qi], ans: Object.fromEntries(s.ans), votes: Object.fromEntries(s.votes) });
+    s.qi++;
+    if (s.qi < s.qs.length) this.impAsk(); else this.setPhase('iguess', IMP_GUESS, () => this.impEnd());
+  },
+  impEnd() {
+    if (this.phase !== 'iguess') return;
+    const s = this.imp; this.stop(); this.gains = {};
+    s.ok = !!s.guess && impGuessOk(s.guess, s.w);
+    for (const h of s.hist) for (const v in h.votes) if (v !== s.imp && h.votes[v] === s.imp) this.gains[v] = (this.gains[v] || 0) + IMP_HIT;
+    if (s.ok) this.gains[s.imp] = (this.gains[s.imp] || 0) + IMP_HIT * 5;
+    for (const p of this.players) { p.score += this.gains[p.id] || 0; this.gains[p.id] = this.gains[p.id] || 0; }
+    this.setPhase('results', RESULT_TIME + 18, () => this.nextRound());
   },
   // ---- Bluff: Antworten mischen (Wahrheit, Lügen der Spieler, Hausbluffs bis mindestens 4)
   startVote() {
@@ -1460,17 +1548,17 @@ const view = {
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.dBid = null; this.bluffRun = null; this.blindRun = null; this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.dBid = null; this.impRun = null; this.bluffRun = null; this.blindRun = null; this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
-    const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer].join('|');
+    const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer, st.imp ? st.imp.qi : ''].join('|');
     if (key !== this.lastKey) { this.lastKey = key; this.renderStage(prev); }
     else if (st.phase === 'present') this.updateVoteArea();
     else if (st.phase === 'logo' || st.phase === 'timer' || st.phase === 'estimate') this.updateDone();
     else if (st.phase === 'guess') this.updateGuessInfo();
     else if (st.phase === 'choose') this.updateChoose();
     else if (st.phase === 'hang') this.updateHang();
-    else if (['react', 'halve', 'balance', 'color', 'circle', 'bwrite', 'blind'].includes(st.phase)) this.updateDone();
+    else if (['react', 'halve', 'balance', 'color', 'circle', 'bwrite', 'blind', 'iask', 'ivote'].includes(st.phase)) this.updateDone();
     else if (st.phase === 'bvote') this.updateDone();
     else if (['dbid', 'dwon', 'drate'].includes(st.phase)) this.renderDish();
     else if (st.phase === 'simon') this.updateSimon();
@@ -1497,7 +1585,7 @@ const view = {
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote', 'blind'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote', 'blind', 'iask', 'ivote'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -1554,6 +1642,8 @@ const view = {
       this.renderEstimate();
     } else if (['dintro', 'dbid', 'dwon', 'dfill', 'drate'].includes(st.phase)) {
       this.renderDish();
+    } else if (['iword', 'iask', 'ivote', 'iguess'].includes(st.phase)) {
+      this.renderImp();
     } else if (st.phase === 'bwrite') {
       this.renderBluffWrite();
     } else if (st.phase === 'bvote') {
@@ -1615,6 +1705,8 @@ const view = {
       stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${esc(def.n)}</div><div class="dish-grid">${order.map((x, i) => `
         <div class="dish-card${i === 0 ? ' best' : ''}">${dishSvg(def, d.plates[x.id] || [], 150)}<div class="dc-n">${i === 0 ? '🏆 ' : ''}${esc(x.name)}</div>
         <div class="dc-s">${stars(av[x.id] || 0)} <b>${fmtNum(av[x.id] || 0)}</b></div><div class="dc-g">+${st.gains[x.id] || 0}</div></div>`).join('')}</div>`;
+    } else if (st.phase === 'results' && st.mode === 'imposter' && st.imp) {
+      this.renderImpResults();
     } else if (st.phase === 'results' && st.mode === 'bluff') {
       const q = BLUFF_Q[st.bq] || [], vs = st.bvotes || {}, byId = (id) => st.players.find((x) => x.id === id);
       const optText = (o) => o.k === 't' ? bluffText(q, 'a') : o.k === 'd' ? bluffText(q, 'd', o.i) : o.text;
@@ -2012,6 +2104,66 @@ const view = {
     if ($('#b-m')) { $('#b-m').onclick = () => set(this.dBid.v - 1); $('#b-p').onclick = () => set(this.dBid.v + 1); $('#b-all').onclick = () => set(d.money[me]);
       $('#b-bid').onclick = () => { toHost({ t: 'dbid', round: st.round, amount: this.dBid.v }); tick(880); };
       if ($('#b-pass')) $('#b-pass').onclick = () => { toHost({ t: 'dpass', round: st.round }); tick(330); }; }
+  },
+  // ---------------- Imposter Wort ----------------
+  impCard(big) {
+    const me = this.state.iMe || {}, am = lang === 'am';
+    if (me.imp) return `<div class="imp-card imp-bad${big ? ' big' : ''}"><div class="imp-l">${t('impYouAre')}</div><div class="imp-l2">${t('impHint')}</div><div class="imp-w">${esc((am && me.h[1]) || me.h[0] || '?')}</div></div>`;
+    const e = IMP_W[me.w] || [];
+    return `<div class="imp-card${big ? ' big' : ''}"><div class="imp-l2">${t('impYourWord')}</div><div class="imp-w">${esc((am && e[1]) || e[0] || '?')}</div></div>`;
+  },
+  renderImp() {
+    const st = this.state, stage = $('#stage'), s = st.imp || {}, me = st.iMe || {}, round = st.round;
+    let run = this.impRun;
+    if (!run || run.round !== round || run.mix !== st.mix || run.qi !== s.qi || run.phase !== st.phase) run = this.impRun = { round, mix: st.mix, qi: s.qi, phase: st.phase, vote: null };
+    const qq = IMP_Q[s.q] || ['', ''], qText = (lang === 'am' && qq[1]) || qq[0];
+    const head = `<div class="cat">${t('modeImp')}</div>`, meP = st.players.find((p) => p.id === net.myId);
+    if (st.phase === 'iword') { stage.innerHTML = head + this.impCard(true) + `<div class="hint">${t(me.imp ? 'impTipImp' : 'impTipCrew')}</div>`; tick(660); return; }
+    const qn = `<div class="imp-qn">${t('impQ', { a: Math.min((s.qi || 0) + 1, s.n || 5), b: s.n || 5 })}</div>`;
+    const form = (ph, max) => `<div id="imp-box"><form class="g-form" id="imp-f"><input id="imp-in" maxlength="${max}" autocomplete="off" spellcheck="false" placeholder="${ph}"><button class="btn primary">${t('impSend')}</button></form></div>`;
+    if (st.phase === 'iask') {
+      stage.innerHTML = head + this.impCard(false) + qn + `<div class="bq">${esc(qText)}</div>` + form(t('impAnsPh'), 30) + '<div class="done-list" id="done-list"></div>';
+      this.updateDone();
+      const lock = () => { $('#imp-box').innerHTML = `<div class="picked">✅ ${t('impWait')}</div>`; };
+      if (run.sent || (meP && meP.done)) { lock(); return; }
+      $('#imp-f').onsubmit = (e) => { e.preventDefault(); const v = $('#imp-in').value.trim(); if (!v || !this.state || this.state.phase !== 'iask') return; run.sent = true; toHost({ t: 'ians', round, qi: s.qi, text: v }); tick(880); lock(); };
+      return;
+    }
+    if (st.phase === 'ivote') {
+      const byId = (id) => st.players.find((x) => x.id === id) || { name: '?' };
+      const voted = run.vote != null || !!(meP && meP.done);
+      stage.innerHTML = head + this.impCard(false) + qn + `<div class="bq">${esc(qText)}</div><div class="hint">${t('impVote')}</div>
+        <div class="bres">${(s.list || []).map((o) => { const p = byId(o.id), mine = o.id === net.myId;
+          return `<button class="bopt imp-opt${mine ? ' mine' : ''}${run.vote === o.id ? ' on' : ''}" data-id="${esc(o.id)}" ${mine || voted ? 'disabled' : ''}>
+            <span class="bo-w">${p.char ? charEl(p.char, 22, false) : ''} ${esc(p.name)}</span><span class="bo-t">${o.a ? esc(o.a) : `<i>${t('impNoAns')}</i>`}</span></button>`; }).join('')}</div>
+        <div class="hint" id="imp-msg">${voted ? t('impVoted') : ''}</div><div class="done-list" id="done-list"></div>`;
+      this.updateDone();
+      stage.querySelectorAll('.imp-opt').forEach((b) => b.onclick = () => {
+        if (run.vote != null || !this.state || this.state.phase !== 'ivote') return;
+        run.vote = b.dataset.id; toHost({ t: 'ivote', round, qi: s.qi, pid: run.vote }); tick(880);
+        stage.querySelectorAll('.imp-opt').forEach((x) => { x.disabled = true; x.classList.toggle('on', x === b); }); $('#imp-msg').textContent = t('impVoted');
+      });
+      return;
+    }
+    // iguess: nur der Imposter tippt, alle anderen warten
+    if (!me.imp) { stage.innerHTML = head + this.impCard(false) + `<div class="bq">${t('impGuessWait')}</div>`; return; }
+    stage.innerHTML = head + this.impCard(false) + `<div class="bq">${t('impGuessQ')}</div>` + form(t('impGuessPh'), 40);
+    if (run.sent) { $('#imp-box').innerHTML = '<div class="picked">✅</div>'; return; }
+    $('#imp-f').onsubmit = (e) => { e.preventDefault(); const v = $('#imp-in').value.trim(); if (!v || !this.state || this.state.phase !== 'iguess') return; run.sent = true; toHost({ t: 'iguess', round, text: v }); $('#imp-box').innerHTML = '<div class="picked">✅</div>'; };
+  },
+  renderImpResults() {
+    const st = this.state, stage = $('#stage'), s = st.imp, am = lang === 'am', e = IMP_W[s.w] || [];
+    const byId = (id) => st.players.find((x) => x.id === id);
+    const ip = byId(s.imp) || { name: '?' };
+    const hist = (s.hist || []).map((h) => { const qq = IMP_Q[h.q] || ['', ''];
+      const caught = Object.keys(h.votes).filter((v) => v !== s.imp && h.votes[v] === s.imp).map(byId).filter(Boolean);
+      return `<div class="imp-h"><div class="imp-hq">${esc((am && qq[1]) || qq[0])}</div><div class="imp-ha">🕵️ ${h.ans[s.imp] ? esc(h.ans[s.imp]) : `<i>${t('impNoAns')}</i>`}</div>
+        <div class="bo-v">${caught.length ? '🎯 ' + caught.map((x) => `<span>${charEl(x.char, 20, false)} ${esc(x.name)} +${IMP_HIT}</span>`).join('') : `<i>${t('impNobody')}</i>`}</div></div>`; }).join('');
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="imp-res">
+      <div class="imp-who">${ip.char ? charEl(ip.char, 70, true) : ''}<div><div class="imp-l2">${t('impWas')}</div><div class="imp-w">🕵️ ${esc(ip.name)}</div></div></div>
+      <div class="imp-line">${t('impWordWas')}: <b>${esc((am && e[1]) || e[0] || '')}</b> · ${t('impHintWas')}: <b>${esc((am && e[3]) || e[2] || '')}</b></div>
+      <div class="imp-line">🕵️ ${s.guess ? t('impGuessed', { w: esc(s.guess) }) : t('impNoGuess')} ${s.ok ? `<b class="imp-ok">${t('impRight', { n: IMP_HIT * 5 })}</b>` : (s.guess ? `<b class="imp-no">${t('impWrong')}</b>` : '')}</div>
+      <div class="imp-hist">${hist}</div></div>`;
   },
   // ---------------- Bluff ----------------
   renderBluffWrite() {
@@ -2484,16 +2636,18 @@ const view = {
   },
 };
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind', 'dish'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind', 'dish', 'imposter'];
 const MODES = [...GAME_MODES, 'mix'];
 // Bluff: [Frage DE, Frage AM, Antwort DE, Antwort AM, [Hausbluffs DE], [Hausbluffs AM]] – „___“ ist die Lücke
 const BLUFF_Q = window.BLUFF_Q || [];
+// Imposter Wort: [Wort DE, Wort AM, Hinweis DE, Hinweis AM, '5 Fragen'] und die Fragen dazu
+const IMP_W = window.IMP_W || [], IMP_Q = window.IMP_Q || {};
 // Koch-Auktion: Gerichte {n: Name, s: Darstellung, b: Grundlage, g: [[Zutat, Schicht, Bild]]}
 const DISHES = window.DISHES || [];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', dish: 'modeDish', blind: 'modeBlind', emoji: 'modeEmoji', mix: 'modeMix' };
+const MODE_KEY = { sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', dish: 'modeDish', blind: 'modeBlind', emoji: 'modeEmoji', imposter: 'modeImp', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -2521,7 +2675,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], dish: [[1, 2, 3, 5], 2], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], mix: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], dish: [[1, 2, 3, 5], 2], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], imposter: [[1, 2, 3, 4, 5], 1], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -2564,6 +2718,15 @@ function sameAns(a, b) {
   if (!a || !b) return false;
   const num = /\d/.test(a) || /\d/.test(b); // Zahlen: nur genau gleich (12.000 ≠ 13.000)
   for (const x of wordForms(a)) for (const y of wordForms(b)) { if (x && x === y) return true; if (!num && x.length >= 7 && lev(x, y) <= 1) return true; }
+  return false;
+}
+// Imposter Wort: richtig geraten? Groß/klein egal, bis zu 2 Tippfehler (bei kurzen Wörtern weniger)
+function impGuessOk(text, w) {
+  const e = IMP_W[w]; if (!e) return false;
+  for (const target of [e[0], e[1]]) for (const a of wordForms(target)) for (const b of wordForms(text)) {
+    if (!a || !b) continue; if (a === b) return true;
+    const tol = [...a].length >= 5 ? 2 : [...a].length >= 3 ? 1 : 0; if (tol && lev(a, b) <= tol) return true;
+  }
   return false;
 }
 // 2 = richtig, 1 = knapp daneben, 0 = falsch

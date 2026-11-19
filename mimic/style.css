@@ -550,3 +550,26 @@ input:focus { border-color: var(--primary); }
 .emo-bar { border: var(--bd); box-shadow: var(--sh); background: #fff; }
 #toast { border: var(--bd); box-shadow: var(--sh2); }
 .char-strip .pcard { background: #fff; }
+
+/* ---------- Imposter Wort ---------- */
+.imp-card { background: #fff; border: var(--bd); box-shadow: var(--sh2); border-radius: 16px; padding: 8px 16px; text-align: center; margin: 2px auto 6px; max-width: 360px; color: var(--ink); }
+.imp-card.big { padding: 18px 24px; box-shadow: var(--sh); margin: 10px auto; }
+.imp-card.imp-bad { background: var(--yellow); }
+.imp-l { font-family: "Lilita One","Noto Sans Ethiopic",sans-serif; font-size: 20px; }
+.imp-l2 { font-size: 13px; font-weight: 800; color: var(--muted); }
+.imp-w { font-family: "Lilita One","Noto Sans Ethiopic",sans-serif; font-size: 24px; line-height: 1.2; }
+.imp-card.big .imp-w { font-size: 40px; }
+body.lang-am .imp-w, body.lang-am .imp-l { font-family: "Noto Sans Ethiopic","Lilita One",sans-serif; font-weight: 900; }
+.imp-qn { font-weight: 900; font-size: 14px; color: var(--muted); text-align: center; }
+.imp-opt .bo-w { display: inline-flex; align-items: center; gap: 4px; }
+.imp-res { background: #fff; border: var(--bd); box-shadow: var(--sh); border-radius: 18px; padding: 14px; max-width: 460px; width: 100%; color: var(--ink); display: flex; flex-direction: column; gap: 8px; }
+.imp-who { display: flex; align-items: center; gap: 12px; justify-content: center; }
+.imp-line { text-align: center; font-weight: 800; }
+.imp-ok { color: var(--green-d); }
+.imp-no { color: var(--primary); }
+.imp-hist { display: flex; flex-direction: column; gap: 6px; }
+.imp-h { border: 2px solid #151515; border-radius: 12px; padding: 6px 10px; background: var(--paper); }
+.imp-hq { font-size: 13px; font-weight: 800; color: var(--muted); }
+.imp-ha { font-weight: 900; }
+.imp-h .bo-v { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 13px; font-weight: 800; color: #4f5568; }
+.imp-h .bo-v span { display: inline-flex; align-items: center; gap: 3px; }
