@@ -1,0 +1,254 @@
+#!/usr/bin/env python3
+# Baut mimic/most/most.js – Fragen für „Wer würde am ehesten …?“ (nur freundliche, lustige Fragen).
+# Jede Zeile: deutsches Satzende | amharisches Satzende
+#   Deutsch wird zu:  „Wer würde am ehesten <…>?“
+#   Amharisch wird zu: „ከሁላችሁ ማን ይበልጥ <…>?“
+# Aufruf: python3 tools/build-most.py
+import json, os
+
+RAW = """beim Film einschlafen|ፊልም እያየ እንቅልፍ ይወስደዋል
+zu spät zur eigenen Party kommen|ለራሱ ድግስ አርፍዶ ይመጣል
+im Supermarkt etwas vergessen, obwohl er eine Liste hat|ዝርዝር ይዞም በሱቅ ውስጥ አንድ ነገር ይረሳል
+den ganzen Tag im Bett bleiben|ቀኑን ሙሉ አልጋ ላይ ይውላል
+beim Kochen aus Versehen alles anbrennen lassen|ምግብ ሲያበስል ሳያስበው ሁሉንም ያሳርራል
+als Erstes auf der Tanzfläche sein|መጀመሪያ ወደ ጭፈራ ይወጣል
+im Urlaub den Koffer vergessen|ለእረፍት ሲሄድ ሻንጣውን ይረሳል
+mitten in der Nacht Hunger bekommen und kochen|እኩለ ሌሊት ርቦት ምግብ ያበስላል
+eine Katze adoptieren|ድመት ያሳድጋል
+zehn Haustiere haben|አሥር የቤት እንስሳት ይኖሩታል
+berühmt werden|ዝነኛ ይሆናል
+im Fernsehen auftreten|በቴሌቪዥን ይቀርባል
+ein Buch schreiben|መጽሐፍ ይጽፋል
+eine eigene Firma gründen|የራሱን ድርጅት ይከፍታል
+Millionär werden|ሚሊየነር ይሆናል
+im Lotto gewinnen und es allen erzählen|ሎተሪ አሸንፎ ለሁሉም ይናገራል
+im Lotto gewinnen und es niemandem erzählen|ሎተሪ አሸንፎ ለማንም አይናገርም
+den Wecker zehnmal ausschalten|ማንቂያ ሰዓቱን አሥር ጊዜ ያጠፋል
+sich im eigenen Viertel verlaufen|በራሱ ሰፈር ይጠፋል
+mit Pflanzen reden|ከአትክልቶች ጋር ያወራል
+mit Tieren reden|ከእንስሳት ጋር ያወራል
+beim Singen unter der Dusche am lautesten sein|ሻወር ውስጥ ጮክ ብሎ ይዘፍናል
+Karaoke singen, ohne den Text zu kennen|ግጥሙን ሳያውቅ ካራኦኬ ይዘፍናል
+bei einer Hochzeit eine Rede halten|በሠርግ ላይ ንግግር ያደርጋል
+bei einem traurigen Film weinen|በሚያሳዝን ፊልም ያለቅሳል
+bei einem lustigen Video nicht mehr aufhören zu lachen|በአስቂኝ ቪዲዮ ሳቁን ማቆም ያቅተዋል
+das letzte Stück Kuchen essen|የመጨረሻውን የኬክ ቁራጭ ይበላል
+das Essen der anderen probieren|የሌሎችን ምግብ ይቀምሳል
+am meisten Injera auf einmal essen|በአንድ ጊዜ ብዙ እንጀራ ይበላል
+die schärfste Soße essen, ohne zu weinen|በጣም የሚያቃጥል ወጥ ሳያለቅስ ይበላል
+jeden Tag dasselbe essen|በየቀኑ ያንኑ ምግብ ይበላል
+ein neues Gericht erfinden|አዲስ ምግብ ይፈጥራል
+eine Kochsendung moderieren|የምግብ ዝግጅት ፕሮግራም ያቀርባል
+im Restaurant am längsten für die Bestellung brauchen|ምግብ ቤት ውስጥ ለማዘዝ ብዙ ጊዜ ይወስዳል
+vergessen, wo das Auto geparkt ist|መኪናውን የት እንዳቆመ ይረሳል
+das Handy in den Kühlschrank legen|ስልኩን ማቀዝቀዣ ውስጥ ያስቀምጣል
+das Handy suchen, während er telefoniert|በስልክ እያወራ ስልኩን ይፈልጋል
+den ganzen Tag am Handy sein|ቀኑን ሙሉ ስልክ ላይ ይውላል
+tausend Fotos von seinem Essen machen|የምግቡን ብዙ ፎቶዎች ያነሳል
+die meisten Selfies machen|ብዙ ሰልፊ ያነሳል
+in einer Gruppe als Erstes antworten|በቡድን ውይይት መጀመሪያ ይመልሳል
+Nachrichten tagelang nicht beantworten|ለቀናት መልእክት አይመልስም
+Sprachnachrichten von fünf Minuten schicken|አምስት ደቂቃ የሚረዝም የድምፅ መልእክት ይልካል
+über die eigenen Witze am lautesten lachen|በራሱ ቀልድ ጮክ ብሎ ይስቃል
+den schlechtesten Witz erzählen|በጣም የማያስቅ ቀልድ ይናገራል
+ein Geheimnis ausplaudern|ሚስጥር ያወጣል
+ein Geheimnis am besten für sich behalten|ሚስጥር በደንብ ይጠብቃል
+eine Überraschungsparty organisieren|ድንገተኛ ድግስ ያዘጋጃል
+sich verkleiden, ohne dass es einen Anlass gibt|ምንም ምክንያት ሳይኖር ልዩ ልብስ ይለብሳል
+in Pyjama einkaufen gehen|በፒጃማ ሱቅ ይሄዳል
+zwei verschiedene Socken tragen|ሁለት የተለያዩ ካልሲዎች ያደርጋል
+den buntesten Pullover tragen|በጣም ባለ ብዙ ቀለም ሹራብ ይለብሳል
+die meisten Schuhe besitzen|ብዙ ጫማዎች ይኖሩታል
+sich die Haare in einer verrückten Farbe färben|ፀጉሩን በሚገርም ቀለም ይቀባል
+zuerst einen Berg hinauflaufen|መጀመሪያ ተራራ ላይ ይወጣል
+einen Marathon laufen|ማራቶን ይሮጣል
+einen Marathon nach fünf Minuten aufgeben|ማራቶን ከአምስት ደቂቃ በኋላ ያቆማል
+mit dem Fahrrad um die Welt fahren|በብስክሌት ዓለምን ይዞራል
+ins Weltall fliegen|ወደ ጠፈር ይሄዳል
+auf einer einsamen Insel überleben|በብቸኛ ደሴት ላይ በሕይወት ይተርፋል
+auf einer einsamen Insel als Erstes nach WLAN suchen|በብቸኛ ደሴት ላይ መጀመሪያ ዋይፋይ ይፈልጋል
+im Zelt nicht schlafen können|በድንኳን ውስጥ መተኛት ያቅተዋል
+Angst vor einer kleinen Spinne haben|ትንሽ ሸረሪት ያስፈራዋል
+bei Gewitter unter die Decke kriechen|ነጎድጓድ ሲሆን ብርድ ልብስ ውስጥ ይደበቃል
+in der Achterbahn am lautesten schreien|በሮለር ኮስተር ላይ በጣም ይጮኻል
+als Erstes ins kalte Wasser springen|መጀመሪያ ቀዝቃዛ ውሃ ውስጥ ይዘላል
+beim Spielen schummeln|ሲጫወት ያጭበረብራል
+beim Spielen am meisten ärgern, wenn er verliert|ሲሸነፍ በጣም ይናደዳል
+dieses Spiel gewinnen|ይህን ጨዋታ ያሸንፋል
+die Spielregeln nicht lesen|የጨዋታውን ሕግ አያነብም
+eine ganze Serie in einer Nacht schauen|አንድ ሙሉ ተከታታይ ፊልም በአንድ ሌሊት ያያል
+das Ende eines Films verraten|የፊልሙን መጨረሻ ይናገራል
+im Kino laut kommentieren|በሲኒማ ቤት ጮክ ብሎ አስተያየት ይሰጣል
+Popcorn vor dem Film aufessen|ፊልሙ ሳይጀመር ፋንድሻውን ይጨርሳል
+bei einem Quiz alles wissen|በጥያቄና መልስ ሁሉንም ያውቃል
+bei einem Quiz am meisten raten|በጥያቄና መልስ ብዙ ይገምታል
+Lehrer werden|መምህር ይሆናል
+Tierpfleger im Zoo werden|በእንስሳት ማቆያ ውስጥ ተንከባካቢ ይሆናል
+Pilot werden|አብራሪ ይሆናል
+Koch in einem großen Restaurant werden|በትልቅ ምግብ ቤት ውስጥ ሼፍ ይሆናል
+Fußballprofi werden|የእግር ኳስ ተጫዋች ይሆናል
+Sänger werden|ዘፋኝ ይሆናል
+Schauspieler werden|ተዋናይ ይሆናል
+Präsident werden|ፕሬዚዳንት ይሆናል
+Bürgermeister seiner Stadt werden|የከተማው ከንቲባ ይሆናል
+Erfinder werden|ፈጣሪ ይሆናል
+einen Weltrekord aufstellen|የዓለም ክብረ ወሰን ይሰብራል
+einen ungewöhnlichen Weltrekord aufstellen (z. B. die meisten Luftballons aufblasen)|ያልተለመደ የዓለም ክብረ ወሰን ይሰብራል (ለምሳሌ ብዙ ፊኛዎችን መንፋት)
+eine neue Sprache in einem Monat lernen|በአንድ ወር አዲስ ቋንቋ ይማራል
+zehn Sprachen sprechen|አሥር ቋንቋዎችን ይናገራል
+am besten tanzen|በደንብ ይጨፍራል
+Eskista am besten tanzen|እስክስታ በደንብ ይጨፍራል
+die beste Kaffeezeremonie machen|ምርጥ የቡና ሥነ ሥርዓት ያዘጋጃል
+den stärksten Kaffee trinken|በጣም ጠንካራ ቡና ይጠጣል
+fünf Tassen Kaffee am Tag trinken|በቀን አምስት ስኒ ቡና ይጠጣል
+Tee statt Kaffee wählen|ከቡና ይልቅ ሻይ ይመርጣል
+immer Snacks in der Tasche haben|ሁልጊዜ ቦርሳው ውስጥ መክሰስ ይይዛል
+im Bus einschlafen und die Haltestelle verpassen|አውቶቡስ ውስጥ ተኝቶ ፌርማታውን ያልፋል
+den Bus noch in letzter Sekunde erwischen|አውቶቡሱን በመጨረሻው ሰከንድ ይደርስበታል
+den Flug verpassen|በረራውን ያመልጠዋል
+am Flughafen viel zu früh sein|ኤርፖርት በጣም ቀድሞ ይደርሳል
+im Urlaub nur im Hotel bleiben|በእረፍት ጊዜ ሆቴል ውስጥ ብቻ ይቀመጣል
+im Urlaub jeden Tag etwas Neues ausprobieren|በእረፍት ጊዜ በየቀኑ አዲስ ነገር ይሞክራል
+das meiste Gepäck mitnehmen|ብዙ ጓዝ ይይዛል
+mit nur einem kleinen Rucksack auf Weltreise gehen|በትንሽ ቦርሳ ብቻ ዓለምን ይዞራል
+Souvenirs für alle mitbringen|ለሁሉም ስጦታ ይዞ ይመጣል
+jedem zum Geburtstag gratulieren, ohne Erinnerung|ማስታወሻ ሳያስፈልገው ለሁሉም መልካም ልደት ይላል
+den eigenen Geburtstag vergessen|የራሱን የልደት ቀን ይረሳል
+das schönste Geschenk aussuchen|ምርጡን ስጦታ ይመርጣል
+ein Geschenk in letzter Minute kaufen|ስጦታ በመጨረሻው ደቂቃ ይገዛል
+Geschenke schon vor dem Fest aufmachen|ስጦታዎችን በዓሉ ሳይደርስ ይከፍታል
+beim Aufräumen alte Sachen finden und stundenlang anschauen|ሲያጸዳ የድሮ ዕቃዎችን አግኝቶ ለሰዓታት ያያቸዋል
+nie etwas wegwerfen|ምንም ነገር አይጥልም
+das ordentlichste Zimmer haben|በጣም የተስተካከለ ክፍል ይኖረዋል
+das unordentlichste Zimmer haben|በጣም የተዝረከረከ ክፍል ይኖረዋል
+den Schlüssel verlieren|ቁልፉን ይጠፋበታል
+sich selbst aussperren|ራሱን ከቤት ውጭ ይዘጋል
+in ein falsches Auto einsteigen, weil es gleich aussieht|ስለሚመሳሰል የሌላ ሰው መኪና ውስጥ ይገባል
+jemandem zuwinken, der gar nicht ihn meint|ለእሱ ላልሆነ ሰላምታ እጁን ያውለበልባል
+Namen von neuen Leuten sofort vergessen|የአዳዲስ ሰዎችን ስም ወዲያው ይረሳል
+mit jedem Fremden ins Gespräch kommen|ከማንኛውም እንግዳ ጋር ወሬ ይጀምራል
+der beste Freund eines Hundes werden|የውሻ ምርጥ ጓደኛ ይሆናል
+einem Hund zuerst Hallo sagen und dann dem Besitzer|መጀመሪያ ለውሻው ከዚያ ለባለቤቱ ሰላም ይላል
+im Garten Gemüse anbauen|በግቢው ውስጥ አትክልት ይተክላል
+alle Pflanzen vertrocknen lassen|ሁሉንም አትክልቶች ያደርቃል
+den ganzen Tag draußen sein|ቀኑን ሙሉ ውጭ ይውላል
+bei Regen tanzen|ዝናብ ላይ ይጨፍራል
+im Schnee einen riesigen Schneemann bauen|በበረዶ ትልቅ የበረዶ ሰው ይሠራል
+morgens am fröhlichsten sein|ጠዋት ላይ በጣም ደስተኛ ይሆናል
+morgens vor dem Kaffee nicht ansprechbar sein|ጠዋት ቡና ሳይጠጣ አይነጋገርም
+um fünf Uhr morgens aufstehen, freiwillig|በራሱ ፈቃድ ከሌሊቱ አሥራ አንድ ሰዓት ይነሳል
+bis drei Uhr nachts wach bleiben|እስከ ሌሊቱ ዘጠኝ ሰዓት ይቆያል
+beim Einkaufen mehr kaufen als geplant|ሲገበይ ካሰበው በላይ ይገዛል
+immer das Günstigste suchen|ሁልጊዜ ርካሹን ይፈልጋል
+auf dem Markt am besten handeln|በገበያ በደንብ ይከራከራል
+sich etwas Teures kaufen und es nie benutzen|ውድ ነገር ገዝቶ በጭራሽ አይጠቀምበትም
+sein Geld sparen und nie ausgeben|ገንዘቡን ቆጥቦ በጭራሽ አያወጣም
+allen ein Essen ausgeben|ለሁሉም ይጋብዛል
+die beste Ausrede finden|ምርጡን ሰበብ ያገኛል
+immer eine Antwort auf alles haben|ለሁሉም ነገር መልስ ይኖረዋል
+stundenlang über ein Thema reden|ስለ አንድ ርዕስ ለሰዓታት ያወራል
+am längsten still sitzen können|ለረጅም ጊዜ ዝም ብሎ መቀመጥ ይችላል
+in einer Bibliothek laut lachen|ቤተ መጽሐፍት ውስጥ ጮክ ብሎ ይስቃል
+beim Fotografieren immer die Augen zu haben|ፎቶ ሲነሳ ሁልጊዜ ዓይኑን ይጨፍናል
+auf jedem Gruppenfoto eine lustige Grimasse machen|በእያንዳንዱ የቡድን ፎቶ ላይ አስቂኝ ፊት ያሳያል
+ein Video drehen, das berühmt wird|ዝነኛ የሚሆን ቪዲዮ ይሠራል
+einen eigenen YouTube-Kanal starten|የራሱን የዩቲዩብ ቻናል ይከፍታል
+ein Lied über seine Freunde schreiben|ስለ ጓደኞቹ ዘፈን ይጽፋል
+bei einer Talentshow mitmachen|በተሰጥኦ ውድድር ይሳተፋል
+einen Zaubertrick vorführen|አስማት ያሳያል
+ein Instrument in einer Woche lernen|በአንድ ሳምንት የሙዚቃ መሣሪያ ይማራል
+Krar spielen lernen|ክራር መጫወት ይማራል
+mit dem Handy eine ganze Stunde telefonieren|በስልክ አንድ ሙሉ ሰዓት ያወራል
+den Fernseher laut machen und dann einschlafen|ቴሌቪዥኑን ከፍ አድርጎ ይተኛል
+die Fernbedienung nie hergeben|የቴሌቪዥን መቆጣጠሪያውን ለማንም አይሰጥም
+beim Fußballschauen am lautesten jubeln|እግር ኳስ ሲያይ በጣም ይጮኻል
+für eine Mannschaft sein, die immer verliert|ሁልጊዜ የሚሸነፍ ቡድን ይደግፋል
+beim Sport als Erstes außer Atem sein|በስፖርት ጊዜ መጀመሪያ ትንፋሽ ያጥረዋል
+den ganzen Tag Sport machen|ቀኑን ሙሉ ስፖርት ይሠራል
+eine Pizza alleine aufessen|አንድ ሙሉ ፒዛ ብቻውን ይበላል
+mit Ananas auf der Pizza glücklich sein|አናናስ ያለበት ፒዛ ያስደስተዋል
+Süßigkeiten verstecken, damit sie keiner findet|ማንም እንዳያገኛቸው ጣፋጮችን ይደብቃል
+Gemüse heimlich unter den Tisch geben|አትክልቱን በድብቅ ከጠረጴዛ ሥር ይጥላል
+beim Picknick alles fallen lassen|በሽርሽር ጊዜ ሁሉንም ነገር ይጥላል
+am schnellsten essen|በፍጥነት ይበላል
+am langsamsten essen|ቀስ ብሎ ይበላል
+jeden Tag ein neues Hobby anfangen|በየቀኑ አዲስ የትርፍ ጊዜ ማሳለፊያ ይጀምራል
+ein Puzzle mit 1000 Teilen fertig machen|የ1000 ቁራጭ እንቆቅልሽ ይጨርሳል
+beim Schach gewinnen|በቼዝ ያሸንፋል
+beim Kartenspiel bluffen|በካርታ ጨዋታ ያታልላል
+im Bett frühstücken|አልጋ ላይ ቁርስ ይበላል
+das Frühstück auslassen und dann hungrig sein|ቁርስ ሳይበላ ቀርቶ ይርበዋል
+beim Lachen komische Geräusche machen|ሲስቅ እንግዳ ድምፅ ያወጣል
+im Schlaf reden|በእንቅልፍ ያወራል
+am lautesten schnarchen|በጣም ያንኮራፋል
+mitten im Satz einschlafen|በንግግር መሐል እንቅልፍ ይወስደዋል
+einen Mittagsschlaf von drei Stunden machen|የሦስት ሰዓት የቀን እንቅልፍ ይተኛል
+immer gute Laune haben|ሁልጊዜ ደስተኛ ይሆናል
+alle zum Lachen bringen, wenn es jemandem nicht gut geht|አንድ ሰው ሲከፋው ሁሉንም ያስቃል
+den besten Rat geben|ምርጡን ምክር ይሰጣል
+allen bei einem Umzug helfen|ቤት ሲቀየር ሁሉንም ይረዳል
+einen Streit sofort schlichten|ጭቅጭቅን ወዲያው ያበርዳል
+sich bei jedem bedanken, sogar beim Automaten|ለሁሉም፣ ለማሽንም ጭምር፣ አመሰግናለሁ ይላል
+sich für alles entschuldigen|ለሁሉም ነገር ይቅርታ ይጠይቃል
+immer pünktlich sein|ሁልጊዜ በሰዓቱ ይደርሳል
+immer fünf Minuten zu spät sein|ሁልጊዜ አምስት ደቂቃ ያረፍዳል
+einen Plan für alles machen|ለሁሉም ነገር እቅድ ያወጣል
+alles spontan entscheiden|ሁሉንም ነገር በድንገት ይወስናል
+die verrückteste Idee haben|በጣም አስገራሚ ሐሳብ ይኖረዋል
+etwas Verrücktes ausprobieren, nur weil jemand ‚Trau dich!‘ sagt|አንድ ሰው „ደፍረህ ሞክር!“ ስላለ ብቻ እንግዳ ነገር ይሞክራል
+in einem Escape-Room als Erstes das Rätsel lösen|በእስኬፕ ሩም መጀመሪያ እንቆቅልሹን ይፈታል
+in einem Labyrinth verloren gehen|በሽክርክሪት መንገድ ውስጥ ይጠፋል
+einen Schatz finden|ውድ ሀብት ያገኛል
+einen Dinosaurier-Knochen finden|የዳይኖሰር አጥንት ያገኛል
+einem Außerirdischen als Erstes die Stadt zeigen|ለባዕድ ፍጡር መጀመሪያ ከተማውን ያስጎበኛል
+einen Roboter als besten Freund haben|ሮቦት ምርጥ ጓደኛው ይሆናል
+in einem Märchen die Hauptrolle spielen|በተረት ውስጥ ዋና ገጸ ባሕሪ ይሆናል
+mit einem Einhorn befreundet sein|ከዩኒኮርን ጋር ይወዳጃል
+ein Schloss kaufen|ቤተ መንግሥት ይገዛል
+auf einem Bauernhof leben|በእርሻ ቦታ ይኖራል
+in einem Baumhaus wohnen|በዛፍ ላይ ቤት ይኖራል
+in der größten Stadt der Welt wohnen wollen|በዓለም ትልቁ ከተማ መኖር ይፈልጋል
+in ein anderes Land auswandern|ወደ ሌላ አገር ይሄዳል
+jeden in der Nachbarschaft kennen|ሰፈሩ ውስጥ ያለውን ሁሉ ያውቃል
+die Oma von allen zum Lachen bringen|የሁሉንም አያት ያስቃል
+das Familienessen organisieren|የቤተሰብ ምግብ ያዘጋጃል
+beim Familienfest am meisten essen|በቤተሰብ በዓል ላይ ብዙ ይበላል
+bei einem Fest als Letzter nach Hause gehen|ከድግስ መጨረሻ ወደ ቤቱ ይሄዳል
+bei einem Fest als Erster gehen|ከድግስ መጀመሪያ ይሄዳል
+ein Baby als Erstes zum Lachen bringen|ሕፃንን መጀመሪያ ያስቃል
+der Lieblingsonkel oder die Lieblingstante werden|ተወዳጅ አጎት ወይም አክስት ይሆናል
+mit 80 Jahren noch Skateboard fahren|በ80 ዓመቱ ስኬትቦርድ ይነዳል
+mit 80 Jahren noch Videospiele spielen|በ80 ዓመቱ የቪዲዮ ጨዋታ ይጫወታል
+die Hausaufgaben in letzter Minute machen|የቤት ሥራውን በመጨረሻው ደቂቃ ይሠራል
+im Unterricht heimlich etwas essen|በክፍል ውስጥ በድብቅ ይበላል
+der Klassenclown sein|የክፍሉ አስቂኝ ይሆናል
+immer als Erster die Hand heben|ሁልጊዜ መጀመሪያ እጁን ያወጣል
+die meisten Bücher lesen|ብዙ መጻሕፍትን ያነባል
+ein Buch nur wegen des Covers kaufen|ሽፋኑ ስላማረው ብቻ መጽሐፍ ይገዛል
+eine App erfinden, die jeder benutzt|ሁሉም የሚጠቀምበት መተግበሪያ ይፈጥራል
+den Computer von allen reparieren|የሁሉንም ኮምፒውተር ይጠግናል
+das Passwort vergessen, kaum dass er es gemacht hat|የይለፍ ቃሉን ልክ እንደፈጠረው ይረሳል
+mit Sonnenbrille in der Nacht herumlaufen|ማታ የፀሐይ መነጽር አድርጎ ይዞራል
+beim Wandern als Erstes eine Pause wollen|በእግር ጉዞ ጊዜ መጀመሪያ ዕረፍት ይፈልጋል
+im Zoo den ganzen Tag bei den Affen bleiben|በእንስሳት ማቆያ ቀኑን ሙሉ ዝንጀሮዎቹ ጋር ይቆያል
+ein Pferd reiten können|ፈረስ መጋለብ ይችላል
+auf einem Kamel durch die Wüste reiten|በግመል በረሃ ያቋርጣል
+nach Lalibela reisen und Fotos von allem machen|ወደ ላሊበላ ሄዶ የሁሉንም ነገር ፎቶ ያነሳል
+an den Tanasee fahren und Boot fahren|ወደ ጣና ሐይቅ ሄዶ በጀልባ ይጓዛል
+den Sonnenaufgang auf einem Berg anschauen|በተራራ ላይ ሆኖ የፀሐይ መውጣትን ያያል
+nachts die Sterne zählen|ማታ ኮከቦችን ይቆጥራል"""
+
+pairs = [l.split('|') for l in RAW.strip().split('\n')]
+for p in pairs:
+    assert len(p) == 2 and p[0].strip() and p[1].strip(), p
+seen = set()
+out = []
+for de, am in pairs:
+    if de in seen: continue
+    seen.add(de); out.append([de.strip(), am.strip()])
+path = os.path.join(os.path.dirname(__file__), '..', 'mimic', 'most', 'most.js')
+os.makedirs(os.path.dirname(path), exist_ok=True)
+with open(path, 'w', encoding='utf-8') as fh:
+    fh.write('// Generiert von tools/build-most.py – „Wer würde am ehesten …?“ [Satzende Deutsch, Satzende Amharisch]\n')
+    fh.write('window.MOST_Q=' + json.dumps(out, ensure_ascii=False, separators=(',', ':')) + ';\n')
+print(len(out), 'Fragen')
