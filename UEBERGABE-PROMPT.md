@@ -67,7 +67,7 @@ Seit 21.11. gibt es in `mimic/game.js` den Block „Neue Spiele als Plug-ins (XG
 Aktionen schickt der Client mit `xSend('aktion', {…})` (= `{t:'x', a, r: Runde}`). Helfer: `srng(seed)` (gleicher Zufall auf allen Handys), `xFinish(h, punkte)`,
 `xRank(einträge, kleinerIstBesser)`, `xList(st, zeilen)`, `xRun(v, st, init)` (Zustand pro Runde auf dem Handy), `xCountdown`.
 Texte über `Object.assign(T.de, {…})` / `T.am`. Danach eintragen: `GAME_MODES`, `MODE_KEY`, `ROUND_OPTS`, `<option>` in `mimic/index.html`. So gebaut:
-hunt, uniq, photo, diff, sort, geo, bomb, treasure, letters. Daten: `mimic/xgames/xdata.js` (Dinge, Farben, Sortier-Körbe, Bomben-Themen), `mimic/geo/geo.js` (Karte + 250 Orte).
+hunt, uniq, photo, diff, sort, geo, bomb, treasure, letters, wyr, group, balloon, noise, oneword, slf, story. Daten: `mimic/xgames/xtext.js` (Würdest du lieber, Gruppe, Stadt-Land-Fluss, Geschichten), `mimic/xgames/xdata.js` (Dinge, Farben, Sortier-Körbe, Bomben-Themen), `mimic/geo/geo.js` (Karte + 250 Orte).
 
 ## 4. Testen (wichtig, der Nutzer will getestete Änderungen)
 

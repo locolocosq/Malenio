@@ -67,8 +67,8 @@ const only = process.argv.slice(2);
     await start('geo'); await Promise.all(ALL.map((P) => P.waitForSelector('.geo-map', { timeout: 25000 })));
     const pl = await A.evaluate(() => window.GEO.places[__echo.view.state.xs.i]); console.log('    Ort:', pl[0], '/', pl[1], '(' + pl[4] + ')');
     await shot(B, 'geo');
-    const tapAt = async (P, la, lo) => { await P.locator('.geo-map').scrollIntoViewIfNeeded(); const pt = await P.evaluate(([la, lo]) => { const svg = document.querySelector('.geo-map'), p = svg.createSVGPoint(); p.x = (lo + 180) * 4; p.y = (90 - la) * 4; const s = p.matrixTransform(svg.getScreenCTM()); return [s.x, s.y]; }, [la, lo]); await P.mouse.click(pt[0], pt[1]); await P.waitForTimeout(200); await P.locator('#geo-ok').scrollIntoViewIfNeeded(); await P.tap('#geo-ok', { timeout: 5000 }); };
-    const span = { w: 20, eu: 4, af: 6, as: 8, am: 8, de: 0.6, et: 0.8 }[pl[4]];
+    const tapAt = async (P, la, lo) => { await P.evaluate(() => document.querySelector('.geo-map').scrollIntoView({ block: 'center' })); await P.waitForTimeout(150); const pt = await P.evaluate(([la, lo]) => { const svg = document.querySelector('.geo-map'), p = svg.createSVGPoint(), [x0, y0, w, h] = svg.getAttribute('viewBox').split(' ').map(Number); p.x = Math.min(x0 + w * .97, Math.max(x0 + w * .03, (lo + 180) * 4)); p.y = Math.min(y0 + h * .97, Math.max(y0 + h * .03, (90 - la) * 4)); const s = p.matrixTransform(svg.getScreenCTM()); return [s.x, s.y]; }, [la, lo]); await P.mouse.click(pt[0], pt[1]); await P.waitForTimeout(200); await P.locator('#geo-ok').scrollIntoViewIfNeeded(); await P.tap('#geo-ok', { timeout: 5000 }); };
+    const span = { w: 8, eu: 4, af: 6, as: 8, am: 8, de: 0.6, et: 0.8 }[pl[4]];
     await tapAt(A, pl[2], pl[3]); console.log('    nach Tippen: Knopf aktiv?', await A.evaluate(() => !document.querySelector('#geo-ok').disabled)); await tapAt(B, pl[2] + span, pl[3]); await tapAt(C, pl[2] - span * 2, pl[3] + span);
     await waitPhase(A, 'results'); await A.waitForTimeout(500); await shot(A, 'geo-erg'); console.log('   ', await gains(), '| Liste:', (await A.textContent('.vlist')).replace(/\s+/g, ' ').slice(0, 140));
   });
@@ -127,6 +127,71 @@ const only = process.argv.slice(2);
     for (const P of ALL) await P.tap('#let-ok');
     await waitPhase(A, 'results', 8000); await A.waitForTimeout(400); await shot(A, 'letters-erg');
     const g = await gains(); console.log('   ', g, g === 'Anna:+100 Bob:+0 Cem:+0' ? '(richtig: Bobs Wort zählt nicht)' : '(FALSCH: erwartet Anna 100, Bob 0, Cem 0)');
+  });
+  const ids = async () => ({ A: await A.evaluate(() => __echo.net.myId), B: await B.evaluate(() => __echo.net.myId), C: await C.evaluate(() => __echo.net.myId) });
+  const expect = async (want) => { const g = await gains(); console.log('   ', g, g === want ? '(richtig)' : '(FALSCH, erwartet ' + want + ')'); };
+  await run('wyr', async () => {
+    await start('wyr'); await Promise.all(ALL.map((P) => P.waitForSelector('.wyr-b', { timeout: 20000 }))); await shot(B, 'wyr');
+    await A.tap('.wyr-b[data-c="0"]'); await B.tap('.wyr-b[data-c="0"]'); await C.tap('.wyr-b[data-c="1"]');
+    await waitPhase(A, 'results'); await A.waitForTimeout(400); await shot(A, 'wyr-erg'); await expect('Anna:+100 Bob:+100 Cem:+0');
+  });
+  await run('group', async () => {
+    await start('group'); await Promise.all(ALL.map((P) => P.waitForSelector('.grp-b', { timeout: 20000 }))); await shot(A, 'group');
+    await A.tap('.grp-b[data-c="0"]'); await B.tap('.grp-b[data-c="0"]'); await C.tap('.grp-b[data-c="1"]');
+    await waitPhase(A, 'results'); await A.waitForTimeout(400); await shot(A, 'group-erg'); await expect('Anna:+30 Bob:+30 Cem:+0');
+  });
+  await run('balloon', async () => {
+    await start('balloon'); await Promise.all(ALL.map((P) => P.waitForSelector('#b-pump', { timeout: 20000 })));
+    for (let i = 0; i < 2; i++) await A.locator('#b-pump').dispatchEvent('pointerdown');
+    await shot(A, 'balloon'); await A.tap('#b-bank');
+    for (let i = 0; i < 60 && !(await B.isDisabled('#b-pump')); i++) await B.locator('#b-pump').dispatchEvent('pointerdown');
+    await B.waitForTimeout(200); await shot(B, 'balloon-platzt'); await C.tap('#b-bank');
+    await waitPhase(A, 'results'); await A.waitForTimeout(400); await expect('Anna:+10 Bob:+0 Cem:+0');
+  });
+  await run('noise', async () => {
+    await start('noise'); await Promise.all(ALL.map((P) => P.waitForSelector('.grp-b', { timeout: 20000 })));
+    const xs = await A.evaluate(() => __echo.view.state.xs), ok = xs.opts.indexOf(xs.snd); await shot(B, 'noise');
+    await A.tap(`.grp-b[data-o="${ok}"]`); await A.waitForTimeout(150); await B.tap(`.grp-b[data-o="${(ok + 1) % 4}"]`); await C.tap(`.grp-b[data-o="${ok}"]`);
+    await waitPhase(A, 'results'); await A.waitForTimeout(400); await shot(A, 'noise-erg'); await expect('Anna:+100 Bob:+0 Cem:+80');
+  });
+  await run('oneword', async () => {
+    for (const dup of [true, false]) {
+      if (dup) await start('oneword'); else await waitPhase(A, 'xow_hint', 30000);
+      await A.waitForFunction(() => __echo.view.state.phase === 'xow_hint' && __echo.view.state.xs, null, { timeout: 20000 });
+      const I = await ids(), g = await A.evaluate(() => __echo.view.state.xs.guesser), word = await A.evaluate(() => WORDS[__echo.host.xs.w][0]);
+      const givers = [['A', A], ['B', B], ['C', C]].filter(([k]) => I[k] !== g), guesser = [['A', A], ['B', B], ['C', C]].find(([k]) => I[k] === g);
+      for (const [k, P] of givers) { await P.waitForSelector('#ow-in'); await P.fill('#ow-in', dup ? 'Haus' : 'Hinweis' + k); await P.press('#ow-in', 'Enter'); }
+      if (dup) await shot(givers[0][1], 'oneword-hinweis');
+      await guesser[1].waitForSelector('#ow-gi', { timeout: 10000 }); if (dup) await shot(guesser[1], 'oneword-raten');
+      await guesser[1].fill('#ow-gi', word); await guesser[1].press('#ow-gi', 'Enter');
+      await waitPhase(A, 'results'); await A.waitForTimeout(400); if (dup) await shot(A, 'oneword-erg');
+      const gg = await A.evaluate(() => __echo.view.state.gains), pts = [gg[g] || 0, ...givers.map(([k]) => gg[I[k]] || 0)];
+      console.log(`    Wort „${word}“, ${dup ? 'doppelte Hinweise' : 'verschiedene Hinweise'}: Rater +${pts[0]}, Hinweisgeber +${pts[1]} / +${pts[2]}`, (dup ? pts.join() === '100,0,0' : pts.join() === '100,50,50') ? '(richtig)' : '(FALSCH)');
+    }
+  });
+  await run('slf', async () => {
+    await start('slf'); await Promise.all(ALL.map((P) => P.waitForSelector('.slf-form input', { timeout: 20000 })));
+    const xs = await A.evaluate(() => __echo.view.state.xs);
+    const fill = async (P, L, wrong) => { for (let i = 0; i < 5; i++) await P.locator(`.slf-form input[data-i="${i}"]`).fill(i < wrong ? 'Q' + i + 'x' : L + 'wort' + i); };
+    await fill(A, xs.de, 0); await fill(B, xs.am, 0); await fill(C, xs.de, 2); await shot(B, 'slf'); await A.waitForTimeout(900);
+    await A.tap('#slf-stop-b'); await waitPhase(A, 'xslf_rev', 12000); await A.waitForTimeout(600); await shot(A, 'slf-pruefen');
+    const I = await ids(); await B.locator(`.bw-f[data-p="${I.A}"][data-k="0"]`).click(); await C.locator(`.bw-f[data-p="${I.A}"][data-k="0"]`).click(); await A.waitForTimeout(500);
+    for (const P of ALL) await P.tap('#slf-ok');
+    await waitPhase(A, 'results', 8000); await A.waitForTimeout(400); await shot(A, 'slf-erg'); await expect('Anna:+50 Bob:+100 Cem:+30');  // Anna: 1 ungültig, 1 allein (20), 3 gleich wie Cem (je 10)
+  });
+  await run('story', async () => {
+    await start('story'); const I = await ids(), byId = { [I.A]: A, [I.B]: B, [I.C]: C }, nameOf = { [I.A]: 'Anna', [I.B]: 'Bob', [I.C]: 'Cem' };
+    for (let n = 0; n < 6; n++) {
+      await A.waitForFunction((n) => __echo.view.state.phase === 'xst_write' && __echo.view.state.xs && __echo.view.state.xs.n === n, n, { timeout: 15000 });
+      const cur = await A.evaluate(() => __echo.view.state.xs.cur), P = byId[cur];
+      await P.waitForSelector('#st-in', { timeout: 8000 }); if (n === 1) await shot(P, 'story-schreiben');
+      await P.fill('#st-in', `Satz ${n + 1} von ${nameOf[cur]}.`); await P.tap('#st-f button');
+    }
+    await waitPhase(A, 'xst_read'); await A.waitForTimeout(800); await shot(A, 'story-lesen');
+    const lines = await A.evaluate(() => __echo.view.state.xs.lines.map((l) => l.pid));
+    const voteFor = async (P, who) => { const i = lines.findIndex((x) => x === who); await P.locator(`.st-line[data-i="${i}"]`).click(); };
+    await voteFor(A, I.B); await voteFor(B, I.C); await voteFor(C, I.B);
+    await waitPhase(A, 'results'); await A.waitForTimeout(400); await shot(A, 'story-erg'); await expect('Anna:+40 Bob:+120 Cem:+80');
   });
   console.log(errs.length ? 'JS-FEHLER:\n  ' + [...new Set(errs)].join('\n  ') : 'keine JS-Fehler');
   await b.close();
