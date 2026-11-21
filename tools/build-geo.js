@@ -15,6 +15,10 @@ function pathOf(geom, minD, closed) {
     const pts = []; let last = null;
     for (const c of ring) { const p = P(c); if (!last || Math.hypot(p[0] - last[0], p[1] - last[1]) >= minD) { pts.push(p); last = p; } }
     if (pts.length < (closed ? 3 : 2)) continue;
+    // Linien, die über die Datumsgrenze springen (z. B. Fidschi, Ostsibirien), nicht quer über die Karte ziehen
+    const jump = pts.some((p, i) => i && Math.abs(p[0] - pts[i - 1][0]) > 400);
+    if (jump) { let seg = []; const flush = () => { if (seg.length >= 2) d += 'M' + seg.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L'); seg = []; };
+      pts.forEach((p, i) => { if (i && Math.abs(p[0] - pts[i - 1][0]) > 400) flush(); seg.push(p); }); flush(); continue; }
     d += 'M' + pts.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + (closed ? 'Z' : '');
   }
   return d.replace(/\.0(?=[ LMZ]|$)/g, '');

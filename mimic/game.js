@@ -189,7 +189,7 @@ const T = {
   },
 };
 let lang = null; try { lang = localStorage.getItem('echo-lang'); } catch (e) {}
-const t = (k, v) => { let s = (T[lang || 'de'][k]) ?? T.de[k] ?? k; if (v) for (const x in v) s = s.replace('{' + x + '}', v[x]); return s; };
+const t = (k, v) => { let s = (T[lang || 'de'][k]) ?? T.de[k] ?? k; if (v) for (const x in v) s = s.split('{' + x + '}').join(v[x]); return s; };
 const soundName = (i) => (SOUNDS[i] ? SOUNDS[i][lang === 'am' ? 'am' : 'de'] : '?');
 
 function toast(m) { const el = $('#toast'); el.textContent = m; el.classList.remove('hidden'); clearTimeout(toast.tm); toast.tm = setTimeout(() => el.classList.add('hidden'), 2600); }
@@ -952,7 +952,7 @@ const host = {
   },
   pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, this.stateFor(p, s)); },
   // gehört der gespeicherte Zustand der neuen Spiele (xs) wirklich zum aktuellen Spiel?
-  xOk() { return !!(this.xs && this.xs._m === this.mode); },
+  xOk() { return !!(this.xs && this.xsMode === this.mode); },
   doneOf(id) {
     if (XG[this.mode] && XG[this.mode].done) return this.xOk() && !!XG[this.mode].done(this, id);
     switch (this.mode) {
@@ -1041,7 +1041,7 @@ const host = {
     this.playRound();
   },
   playRound() {
-    if (XG[this.mode]) { this.gains = {}; this.xs = {}; XG[this.mode].start(this); if (this.xs) this.xs._m = this.mode; return; }
+    if (XG[this.mode]) { this.gains = {}; this.xsMode = this.mode; XG[this.mode].start(this); return; }
     if (this.mode === 'most') {
       const n = MOST_Q.length; let i = rnd(n); for (let k = 0; k < 600 && this.usedMost.has(i); k++) i = rnd(n);
       if (this.usedMost.size >= n - 1) this.usedMost = new Set();
@@ -1607,7 +1607,7 @@ const view = {
     else if (['dbid', 'dwon', 'drate'].includes(st.phase)) this.renderDish();
     else if (st.phase === 'simon') this.updateSimon();
     else if (st.phase === 'emoji') this.updateEmoji();
-    else if (XG[st.mode] && XG[st.mode].phases.includes(st.phase)) { const g = XG[st.mode]; if (g.update) g.update(this, st); else this.updateDone(); }
+    else if (XG[st.mode] && XG[st.mode].phases.includes(st.phase) && st.xs) { const g = XG[st.mode]; if (g.update) g.update(this, st); else this.updateDone(); }
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
     this.updateTimer();
   },
@@ -1640,6 +1640,7 @@ const view = {
     stage.classList.toggle('on-stage', onStage);
     if (st.phase !== 'guess') { clearInterval(this.opTimer); this.opTimer = null; }
     $('#game-players').classList.toggle('hidden', onStage);
+    if (XG[st.mode] && (XG[st.mode].phases.includes(st.phase) || (st.phase === 'results' && XG[st.mode].results)) && !st.xs) { stage.innerHTML = '<div class="hint">…</div>'; this.lastKey = ''; return; }
     if (XG[st.mode] && XG[st.mode].phases.includes(st.phase)) { XG[st.mode].render(this, st, stage); return; }
     if (st.phase === 'results' && XG[st.mode] && XG[st.mode].results) { XG[st.mode].results(this, st, stage); return; }
     if (st.phase === 'listen') {
@@ -3210,6 +3211,7 @@ XG.bomb = {
     this.update(v, st);
   },
   update(v, st) {
+    if (!$('#bomb-h') || !$('#bomb-ring')) return;
     if (st.phase === 'xbomb') {
       this.placeBomb(st.xs.holder);
       const me = st.xs.holder === net.myId, hp = st.players.find((p) => p.id === st.xs.holder), f = $('#bomb-f');
@@ -3234,8 +3236,215 @@ XG.bomb = {
   },
 };
 
+// ================================================================ 🏴‍☠️ Schatzsuche (wie Schiffe versenken – für alle gleichzeitig)
+// 1. Jeder versteckt geheim seine Schätze auf demselben 6×6-Feld. 2. Reihum-Runden: alle graben gleichzeitig je ein Feld.
+// Wer einen fremden Schatz ausgräbt, bekommt Punkte; Schätze, die bis zum Schluss niemand findet, bringen ihrem Besitzer Punkte.
+const TR_N = 36, TR_COLS = 6, TR_DIGS = 6, TR_FIND = 40, TR_KEEP = 30;
+Object.assign(T.de, { modeTreasure: '🏴‍☠️ Schatzsuche', trHide: 'Verstecke deine {n} Schätze! Tippe auf {n} Felder.', trHidden: '✅ Versteckt – warte auf die anderen…', trDone: 'Fertig',
+  trDig: 'Grabe! Tippe auf ein Feld. Runde {a}/{b}', trDug: '⛏️ Gegraben – warte auf die anderen…', trFound: '{a} fand einen Schatz von {b}! +{n}', trNothing: 'Nichts gefunden …', trMine: 'dein Schatz', trLeft: '{n} Schätze noch versteckt',
+  trSafe: 'Schatz nicht gefunden +{n}', trOwnTip: '💎 = deine Schätze (darauf kannst du nicht graben)' });
+Object.assign(T.am, { modeTreasure: '🏴‍☠️ ሀብት ፍለጋ', trHide: '{n} ሀብቶችዎን ይደብቁ! {n} ሳጥኖችን ይንኩ።', trHidden: '✅ ተደብቋል – ሌሎችን ይጠብቁ…', trDone: 'ጨርሻለሁ',
+  trDig: 'ቆፍሩ! አንድ ሳጥን ይንኩ። ዙር {a}/{b}', trDug: '⛏️ ተቆፍሯል – ሌሎችን ይጠብቁ…', trFound: '{a} የ{b}ን ሀብት አገኘ! +{n}', trNothing: 'ምንም አልተገኘም …', trMine: 'የእርስዎ ሀብት', trLeft: '{n} ሀብቶች አሁንም ተደብቀዋል',
+  trSafe: 'ያልተገኘ ሀብት +{n}', trOwnTip: '💎 = የእርስዎ ሀብቶች (እዚያ መቆፈር አይችሉም)' });
+XG.treasure = {
+  phases: ['xtr_hide', 'xtr_dig', 'xtr_show'],
+  per: (h) => (h.players.length <= 4 ? 3 : 2),
+  start(h) {
+    h.xs = { seed: rnd(1e9), n: this.per(h), hide: new Map(), dug: {}, turn: 0, digs: new Map(), last: [], found: {} };
+    h.setPhase('xtr_hide', 30, () => this.dig(h));
+  },
+  dig(h) {
+    const s = h.xs;
+    if (h.phase === 'xtr_hide') for (const p of h.players) if (!s.hide.has(p.id)) { const free = shuffle([...Array(TR_N).keys()]); s.hide.set(p.id, free.slice(0, s.n)); }
+    const left = [...s.hide].reduce((a, [id, cells]) => a + cells.filter((c) => !(s.dug[c] && s.dug[c].f.includes(id))).length, 0);
+    if (s.turn >= TR_DIGS || left === 0 || Object.keys(s.dug).length >= TR_N) { this.end(h); return; }
+    s.turn++; s.digs = new Map();
+    h.setPhase('xtr_dig', 15, () => this.resolve(h));
+  },
+  resolve(h) {
+    if (h.phase !== 'xtr_dig') return;
+    const s = h.xs; s.last = [];
+    for (const [id, c] of s.digs) {
+      const d = s.dug[c] = s.dug[c] || { by: [], f: [] }; if (!d.by.includes(id)) d.by.push(id);
+      for (const [owner, cells] of s.hide) if (owner !== id && cells.includes(c) && !d.f.includes(owner)) { d.f.push(owner); }
+    }
+    // Punkte: jeder, der auf einem Feld grub, bekommt etwas für jeden fremden Schatz dort (diese Runde)
+    for (const [id, c] of s.digs) { const d = s.dug[c]; for (const owner of d.f) if (owner !== id && !s.last.some((x) => x.by === id && x.owner === owner && x.c === c)) { s.found[id] = (s.found[id] || 0) + TR_FIND; s.last.push({ by: id, owner, c }); } }
+    h.setPhase('xtr_show', 4, () => this.dig(h));
+  },
+  msg(h, from, m) {
+    const s = h.xs;
+    if (m.a === 'hide' && h.phase === 'xtr_hide' && !s.hide.has(from) && Array.isArray(m.c)) {
+      const cells = [...new Set(m.c.map((x) => x | 0))].filter((x) => x >= 0 && x < TR_N).slice(0, s.n); if (cells.length !== s.n) return;
+      s.hide.set(from, cells); h.pushState(); if (xAllDone(h, s.hide)) this.dig(h); return;
+    }
+    if (m.a === 'dig' && h.phase === 'xtr_dig' && !s.digs.has(from)) {
+      const c = m.c | 0; if (c < 0 || c >= TR_N || (s.hide.get(from) || []).includes(c) || s.dug[c]) return;
+      s.digs.set(from, c); h.pushState(); if (xAllDone(h, s.digs)) this.resolve(h);
+    }
+  },
+  done(h, id) { return h.phase === 'xtr_hide' ? h.xs.hide.has(id) : h.phase === 'xtr_dig' ? h.xs.digs.has(id) : false; },
+  left(h, id) { const s = h.xs; s.hide.delete(id); if (h.phase === 'xtr_hide' && xAllDone(h, s.hide)) { this.dig(h); return true; } if (h.phase === 'xtr_dig' && xAllDone(h, s.digs)) { this.resolve(h); return true; } },
+  end(h) {
+    const s = h.xs, g = Object.assign({}, s.found);
+    for (const [id, cells] of s.hide) g[id] = (g[id] || 0) + TR_KEEP * cells.filter((c) => !(s.dug[c] && s.dug[c].f.includes(id))).length;
+    xFinish(h, g, RESULT_TIME + 4);
+  },
+  pub: (h) => { const s = h.xs; return { seed: s.seed, n: s.n, turn: s.turn, max: TR_DIGS, dug: s.dug, last: h.phase === 'xtr_show' || h.phase === 'results' ? s.last : [],
+    found: s.found, hide: h.phase === 'results' ? Object.fromEntries(s.hide) : null }; },
+  priv: (h, p) => ({ mine: h.xs.hide.get(p.id) || null }),
+  board(st, mine, pick, sel) {
+    const s = st.xs, me = net.myId, cell = (i) => {
+      const d = s.dug[i], own = mine && mine.includes(i), foundMine = d && d.f.includes(me), isNew = s.last.some((x) => x.c === i);
+      let txt = '', cls = '';
+      if (d) { cls = 'dug'; txt = d.f.length ? d.f.map((o) => { const p = st.players.find((x) => x.id === o); return `<i style="color:${p ? validChar(p.char).color : '#fa0'}">💎</i>`; }).join('') : '🕳️'; }
+      if (own) { cls += ' own'; txt = foundMine ? '💔' : '💎'; }
+      if (sel && sel.includes(i)) { cls += ' sel'; txt = '💎'; }
+      if (isNew) cls += ' new';
+      return `<button class="tr-c ${cls}" data-i="${i}"${pick ? '' : ' disabled'}>${txt}</button>`;
+    };
+    return `<div class="tr-board">${[...Array(TR_N).keys()].map(cell).join('')}</div>`;
+  },
+  render(v, st, stage) {
+    const s = st.xs, mine = st.xp && st.xp.mine, run = xRun(v, st, () => ({ sel: [], sent: false, dig: {} }));
+    if (st.phase === 'xtr_hide') {
+      const sent = !!mine || run.sent;
+      stage.innerHTML = `<div class="cat">${t('modeTreasure')}</div><div class="hint">${sent ? t('trHidden') : t('trHide', { n: s.n })}</div><div id="tr-b"></div>
+        ${sent ? '' : `<button class="btn primary" id="tr-ok" disabled>${t('trDone')}</button>`}<div class="done-list" id="done-list"></div>`;
+      const draw = () => {
+        $('#tr-b').innerHTML = this.board(st, sent ? (mine || run.sel) : null, !sent, sent ? null : run.sel);
+        const ok = $('#tr-ok'); if (ok) ok.disabled = run.sel.length !== s.n;
+        $('#tr-b').querySelectorAll('.tr-c').forEach((b) => b.onclick = () => { const i = +b.dataset.i, k = run.sel.indexOf(i); if (k >= 0) run.sel.splice(k, 1); else if (run.sel.length < s.n) run.sel.push(i); tick(700); draw(); });
+      };
+      draw();
+      const ok = $('#tr-ok'); if (ok) ok.onclick = () => { if (run.sel.length !== s.n) return; run.sent = true; xSend('hide', { c: run.sel }); tick(880); this.render(v, st, stage); };
+    } else if (st.phase === 'xtr_dig') {
+      const done = run.dig[s.turn] != null;
+      stage.innerHTML = `<div class="cat">${t('modeTreasure')}</div><div class="hint">${done ? t('trDug') : t('trDig', { a: s.turn, b: s.max })}</div><div id="tr-b"></div><div class="note">${t('trOwnTip')}</div><div class="done-list" id="done-list"></div>`;
+      $('#tr-b').innerHTML = this.board(st, mine, !done);
+      $('#tr-b').querySelectorAll('.tr-c').forEach((b) => { const i = +b.dataset.i; if ((mine && mine.includes(i)) || s.dug[i]) { b.disabled = true; return; }
+        if (run.dig[s.turn] === i) b.classList.add('sel');
+        b.onclick = () => { if (run.dig[s.turn] != null) return; run.dig[s.turn] = i; xSend('dig', { c: i }); tick(500); this.render(v, st, stage); }; });
+    } else {
+      const lines = s.last.length ? s.last.map((x) => { const a = st.players.find((p) => p.id === x.by), b = st.players.find((p) => p.id === x.owner);
+        return `<div class="tr-msg">⛏️ ${esc(t('trFound', { a: a ? a.name : '?', b: b ? b.name : '?', n: TR_FIND }))}</div>`; }).join('') : `<div class="tr-msg">${t('trNothing')}</div>`;
+      stage.innerHTML = `<div class="cat">${t('modeTreasure')}</div>${lines}<div id="tr-b">${this.board(st, mine, false)}</div>`;
+      if (s.last.length) tick(990);
+    }
+    v.updateDone();
+  },
+  results(v, st, stage) {
+    const s = st.xs, hide = s.hide || {}, sorted = [...st.players].sort((a, b) => (st.gains[b.id] || 0) - (st.gains[a.id] || 0));
+    const all = {}; for (const [id, cells] of Object.entries(hide)) for (const c of cells) (all[c] = all[c] || []).push(id);
+    const board = `<div class="tr-board small">${[...Array(TR_N).keys()].map((i) => { const own = all[i] || [], d = s.dug[i];
+      return `<div class="tr-c ${d ? 'dug' : ''}">${own.map((o) => { const p = st.players.find((x) => x.id === o), gone = d && d.f.includes(o); return `<i style="color:${p ? validChar(p.char).color : '#fa0'};opacity:${gone ? .35 : 1}">💎</i>`; }).join('') || (d ? '🕳️' : '')}</div>`; }).join('')}</div>`;
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeTreasure')}</div>${board}`
+      + xList(st, sorted.map((p, i) => { const safe = (hide[p.id] || []).filter((c) => !(s.dug[c] && s.dug[c].f.includes(p.id))).length;
+        return { p, best: i === 0 && (st.gains[p.id] || 0) > 0, html: `⛏️ ${(s.found[p.id] || 0) / TR_FIND} · 💎 ${safe}/${(hide[p.id] || []).length}` }; }));
+  },
+};
+
+// ================================================================ 🔤 Buchstaben-Jagd
+// 3 zufällige Buchstaben (auch Umlaute; Amharisch: Fidel-Reihen). Wer zuerst ein Wort mit allen dreien abgibt, bekommt am meisten.
+// Ist nur noch einer übrig, endet die Runde sofort – er bekommt 0. Danach kurze Abstimmung „zählt nicht“ (Mehrheit), dann geht es von allein weiter.
+const LET_TIME = 60, LET_REVIEW = 15;
+Object.assign(T.de, { modeLetters: '🔤 Buchstaben-Jagd', letTip: 'Schreib ein Wort, in dem ALLE drei Buchstaben vorkommen – egal wo. Schnell sein!', letPh: 'Dein Wort', letSend: 'Abgeben',
+  letMissing: 'Es fehlt: {x}', letSent: '✅ Abgegeben als Nr. {n} – warte auf die anderen…', letLast: 'Der Letzte bekommt keine Punkte!', letReview: 'Zählt ein Wort nicht? Tippe auf 🚫 (Mehrheit entscheidet). Weiter in {n} s',
+  letOk: '👍 Passt alles', letNo: 'zählt nicht', letNone: 'kein Wort', letOkWait: '👍 Warte auf die anderen…' });
+Object.assign(T.am, { modeLetters: '🔤 የፊደል ሩጫ', letTip: 'ሦስቱንም ፊደላት የያዘ ቃል ይጻፉ – የትም ቦታ ቢሆን። ፍጠኑ!', letPh: 'ቃልዎ', letSend: 'ላክ',
+  letMissing: 'የጎደለው፦ {x}', letSent: '✅ ቁጥር {n} ሆነው ልከዋል – ሌሎችን ይጠብቁ…', letLast: 'የመጨረሻው ነጥብ አያገኝም!', letReview: 'የማይቆጠር ቃል አለ? 🚫ን ይንኩ (አብዛኛው ይወስናል)። በ{n} ሰከንድ ይቀጥላል',
+  letOk: '👍 ሁሉም ልክ ነው', letNo: 'አይቆጠርም', letNone: 'ቃል የለም', letOkWait: '👍 ሌሎችን ይጠብቁ…' });
+function letPick(r, lg) {
+  for (let k = 0; k < 400; k++) {
+    const w = WORDS[sInt(r, WORDS.length)]; if (!w) continue;
+    const keys = [...new Set([...(lg === 'am' ? w[1] : w[0])].map(hangKey).filter(Boolean))];
+    if (keys.length >= 4) return sShuffle(r, keys).slice(0, 3);
+  }
+  return lg === 'am' ? ['ለ', 'መ', 'ሰ'] : ['E', 'R', 'T'];
+}
+function letMissing(word, letters) { const have = new Set([...String(word)].map(hangKey).filter(Boolean)); return letters.filter((l) => !have.has(l)); }
+XG.letters = {
+  phases: ['xlet', 'xlet_rev'],
+  start(h) {
+    const seed = rnd(1e9), r = srng(seed);
+    h.xs = { seed, de: letPick(r, 'de'), am: letPick(r, 'am'), subs: [], ok: new Set() };
+    h.setPhase('xlet', LET_TIME, () => this.review(h));
+  },
+  review(h) {
+    if (h.phase !== 'xlet') return;
+    if (!h.xs.subs.length) { this.end(h); return; }
+    h.setPhase('xlet_rev', LET_REVIEW, () => this.end(h));
+  },
+  isBad(h, sub) { return sub.flags.size * 2 > h.players.filter((p) => p.id !== sub.pid).length; },
+  msg(h, from, m, p) {
+    const s = h.xs;
+    if (m.a === 'word' && h.phase === 'xlet' && !s.subs.some((x) => x.pid === from)) {
+      const w = String(m.w || '').trim().slice(0, 30); if (!w) return;
+      if (letMissing(w, s.de).length && letMissing(w, s.am).length) { sendTo(from, { t: 'sys', key: 'letBad' }); return; }
+      s.subs.push({ pid: from, w, flags: new Set() }); h.pushState();
+      if (h.players.filter((x) => !s.subs.some((y) => y.pid === x.id)).length <= 1) this.review(h);   // nur noch einer übrig → sofort Schluss
+      return;
+    }
+    if (m.a === 'flag' && h.phase === 'xlet_rev') { const sub = s.subs[m.i | 0]; if (!sub || sub.pid === from) return; if (sub.flags.has(from)) sub.flags.delete(from); else sub.flags.add(from); h.pushState(); return; }
+    if (m.a === 'ok' && h.phase === 'xlet_rev') { s.ok.add(from); h.pushState(); if (xAllDone(h, s.ok)) this.end(h); }
+  },
+  done(h, id) { return h.phase === 'xlet' ? h.xs.subs.some((x) => x.pid === id) : h.phase === 'xlet_rev' ? h.xs.ok.has(id) : false; },
+  left(h, id) {
+    const s = h.xs; for (const sub of s.subs) sub.flags.delete(id); s.ok.delete(id);
+    if (h.phase === 'xlet' && h.players.filter((x) => !s.subs.some((y) => y.pid === x.id)).length <= 1) { this.review(h); return true; }
+    if (h.phase === 'xlet_rev' && xAllDone(h, s.ok)) { this.end(h); return true; }
+  },
+  end(h) {
+    if (h.phase !== 'xlet' && h.phase !== 'xlet_rev') return;
+    const g = {}; h.xs.subs.forEach((sub, i) => { if (!this.isBad(h, sub)) g[sub.pid] = LOGO_POINTS[Math.min(i, LOGO_POINTS.length - 1)]; });
+    xFinish(h, g);
+  },
+  pub(h) { const s = h.xs; return { seed: s.seed, de: s.de, am: s.am, subs: s.subs.map((x) => ({ pid: x.pid, w: h.phase === 'xlet' ? null : x.w, f: [...x.flags], bad: this.isBad(h, x) })) }; },
+  tiles: (ls) => `<div class="let-tiles">${ls.map((l) => `<span>${esc(l)}</span>`).join('')}</div>`,
+  render(v, st, stage) {
+    const s = st.xs, ls = lang === 'am' ? s.am : s.de, run = xRun(v, st, () => ({ sent: false, ok: false }));
+    if (st.phase === 'xlet') {
+      stage.innerHTML = `<div class="cat">${t('modeLetters')}</div>${this.tiles(ls)}<div class="hint">${t('letTip')}</div>
+        <form class="g-form" id="let-f"><input id="let-in" maxlength="30" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${t('letPh')}"><button class="btn primary">${t('letSend')}</button></form>
+        <div class="hint" id="let-h"></div><div class="note">${t('letLast')}</div><div class="let-order" id="let-o"></div>`;
+      const f = $('#let-f'), inp = $('#let-in'), hint = $('#let-h');
+      inp.oninput = () => { const miss = letMissing(inp.value, ls); hint.textContent = inp.value ? (miss.length ? t('letMissing', { x: miss.join(' ') }) : '✅') : ''; };
+      f.onsubmit = (e) => { e.preventDefault(); const w = inp.value.trim(); if (!w || letMissing(w, ls).length) { tick(200); inp.classList.remove('bad'); void inp.offsetWidth; inp.classList.add('bad'); return; } run.sent = true; xSend('word', { w }); tick(990); this.update(v, st); };
+      if (!run.sent) setTimeout(() => inp.focus(), 80);
+    } else {
+      clearInterval(v.letTick);
+      stage.innerHTML = `<div class="cat">${t('modeLetters')}</div>${this.tiles(ls)}<div class="hint" id="let-rh"></div><div class="let-list" id="let-l"></div><button class="btn green" id="let-ok">${t('letOk')}</button>`;
+      $('#let-ok').onclick = () => { if (run.ok) return; run.ok = true; xSend('ok'); $('#let-ok').disabled = true; $('#let-ok').textContent = t('letOkWait'); };
+      if (run.ok) { $('#let-ok').disabled = true; $('#let-ok').textContent = t('letOkWait'); }
+      v.letTick = setInterval(() => { const e = $('#let-rh'); if (!e || !v.state || v.state.phase !== 'xlet_rev') { clearInterval(v.letTick); return; } e.textContent = t('letReview', { n: Math.max(0, Math.ceil((v.deadlineLocal - Date.now()) / 1000)) }); }, 400);
+    }
+    this.update(v, st);
+  },
+  update(v, st) {
+    const s = st.xs;
+    if (st.phase === 'xlet') {
+      const run = xRun(v, st, () => ({ sent: false })), me = s.subs.findIndex((x) => x.pid === net.myId);
+      const f = $('#let-f'); if (f && (me >= 0 || run.sent)) { f.classList.add('hidden'); $('#let-h').textContent = me >= 0 ? t('letSent', { n: me + 1 }) : t('xWait'); }
+      const o = $('#let-o'); if (o) o.innerHTML = s.subs.map((x, i) => { const p = st.players.find((y) => y.id === x.pid); return `<span class="ok">${i + 1}. ${esc(p ? p.name : '?')} +${LOGO_POINTS[Math.min(i, 7)]}</span>`; }).join('');
+      return;
+    }
+    const l = $('#let-l'); if (!l) return;
+    const e = $('#let-rh'); if (e) e.textContent = t('letReview', { n: Math.max(0, Math.ceil((v.deadlineLocal - Date.now()) / 1000)) });
+    l.innerHTML = s.subs.map((x, i) => { const p = st.players.find((y) => y.id === x.pid), mine = x.pid === net.myId, on = x.f.includes(net.myId), others = st.players.filter((y) => y.id !== x.pid).length;
+      return `<div class="bw${x.bad ? ' bad' : ''}"><span class="bw-n">${i + 1}. ${esc(p ? p.name : '?')}</span><span class="bw-w">${esc(x.w || '')}</span>${mine ? `<span class="bw-c">${x.f.length ? '🚫 ' + x.f.length : ''}</span>` : `<button class="bw-f${on ? ' on' : ''}" data-i="${i}">🚫 ${x.f.length}/${Math.floor(others / 2) + 1}</button>`}</div>`; }).join('');
+    l.querySelectorAll('.bw-f').forEach((b) => b.onclick = () => { xSend('flag', { i: +b.dataset.i }); b.classList.toggle('on'); });
+  },
+  results(v, st, stage) {
+    const s = st.xs, ls = lang === 'am' ? s.am : s.de, rank = (id) => { const i = s.subs.findIndex((x) => x.pid === id); return i < 0 ? 99 : i; };
+    const sorted = [...st.players].sort((a, b) => rank(a.id) - rank(b.id));
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeLetters')}</div>${this.tiles(ls)}` + xList(st, sorted.map((p, i) => { const sub = s.subs.find((x) => x.pid === p.id);
+      return { p, best: i === 0 && sub && !sub.bad, html: sub ? `${sub.bad ? '❌' : '✅'} <b class="${sub.bad ? 'uniq-res dbl' : ''}">${esc(sub.w || '')}</b>${sub.bad ? ' · ' + t('letNo') : ''}` : '⏳ ' + t('letNone') }; }));
+  },
+};
+Object.assign(T.de, { letBad: 'Da fehlen noch Buchstaben!' }); Object.assign(T.am, { letBad: 'ገና ፊደላት ይጎድላሉ!' });
+
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind', 'dish', 'imposter', 'most', 'hunt', 'uniq', 'photo', 'diff', 'sort', 'geo', 'bomb'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind', 'dish', 'imposter', 'most', 'hunt', 'uniq', 'photo', 'diff', 'sort', 'geo', 'bomb', 'treasure', 'letters'];
 const MODES = [...GAME_MODES, 'mix'];
 // Bluff: [Frage DE, Frage AM, Antwort DE, Antwort AM, [Hausbluffs DE], [Hausbluffs AM]] – „___“ ist die Lücke
 const BLUFF_Q = window.BLUFF_Q || [];
@@ -3252,7 +3461,7 @@ const DISHES = window.DISHES || [];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { hunt: 'modeHunt', uniq: 'modeUniq', photo: 'modePhoto', diff: 'modeDiff', sort: 'modeSort', geo: 'modeGeo', bomb: 'modeBomb', most: 'modeMost', sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', dish: 'modeDish', blind: 'modeBlind', emoji: 'modeEmoji', imposter: 'modeImp', mix: 'modeMix' };
+const MODE_KEY = { treasure: 'modeTreasure', letters: 'modeLetters', hunt: 'modeHunt', uniq: 'modeUniq', photo: 'modePhoto', diff: 'modeDiff', sort: 'modeSort', geo: 'modeGeo', bomb: 'modeBomb', most: 'modeMost', sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', dish: 'modeDish', blind: 'modeBlind', emoji: 'modeEmoji', imposter: 'modeImp', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -3280,7 +3489,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], dish: [[1, 2, 3, 5], 2], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], imposter: [[1, 2, 3, 4, 5], 1], most: [[5, 8, 10, 15, 20], 8], hunt: [[3, 5, 8, 10], 5], uniq: [[5, 8, 10, 15], 8], photo: [[3, 5, 8, 10], 5], diff: [[3, 5, 8], 3], sort: [[3, 5, 8], 3], geo: [[5, 10, 15, 20], 10], bomb: [[3, 5, 8, 10], 5], mix: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], dish: [[1, 2, 3, 5], 2], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], imposter: [[1, 2, 3, 4, 5], 1], most: [[5, 8, 10, 15, 20], 8], hunt: [[3, 5, 8, 10], 5], uniq: [[5, 8, 10, 15], 8], photo: [[3, 5, 8, 10], 5], diff: [[3, 5, 8], 3], sort: [[3, 5, 8], 3], geo: [[5, 10, 15, 20], 10], bomb: [[3, 5, 8, 10], 5], treasure: [[1, 2, 3, 5], 2], letters: [[5, 8, 10, 15], 8], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -3895,7 +4104,7 @@ $('#btn-credits').onclick = () => {
 };
 $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
 window.addEventListener('pagehide', sayBye);
-if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey, OPTS, charEl, validChar, drawStroke , XG, huntSpec, photoSpec, diffSpec, sortSpec };
+if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey, OPTS, charEl, validChar, drawStroke , XG, huntSpec, photoSpec, diffSpec, sortSpec , letPick, letMissing, srng };
 
 const urlCode = cleanCode(new URLSearchParams(location.search).get('code') || '');
 if (urlCode) $('#in-code').value = urlCode;

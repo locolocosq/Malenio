@@ -60,6 +60,15 @@ Details zu den ersten 8 Modi stehen in `README.md`. Die Modi ab `react` hat eine
 - `bluff/bluff.js` (Bluff-Fragen), `dish/dishes.js` (Gerichte), `emoji/emoji.js`, `emoji/halve.js`
 - `../words.js` = Malenio-Wortliste (4089 Wörter `[deutsch, amharisch, schwierigkeit 1–3]`) ← `words/*.txt` + `tools/build-words.js`
 
+### Neue Spiele als Plug-ins (XG) – so baut man weitere
+Seit 21.11. gibt es in `mimic/game.js` den Block „Neue Spiele als Plug-ins (XG)“. Ein Spiel ist ein Objekt `XG.<modus>` mit
+`phases`, `start(h)`, `msg(h, from, msg)`, `done(h, id)`, `pub(h)` (Zustand für alle), `priv(h, p)` (nur für diesen Spieler, kommt als `st.xp` an),
+`left(h, id)`, `render(v, st, stage)`, `update(v, st)`, `results(v, st, stage)`, `hideTimer`. Der Host-Zustand liegt in `h.xs`, beim Client in `st.xs`.
+Aktionen schickt der Client mit `xSend('aktion', {…})` (= `{t:'x', a, r: Runde}`). Helfer: `srng(seed)` (gleicher Zufall auf allen Handys), `xFinish(h, punkte)`,
+`xRank(einträge, kleinerIstBesser)`, `xList(st, zeilen)`, `xRun(v, st, init)` (Zustand pro Runde auf dem Handy), `xCountdown`.
+Texte über `Object.assign(T.de, {…})` / `T.am`. Danach eintragen: `GAME_MODES`, `MODE_KEY`, `ROUND_OPTS`, `<option>` in `mimic/index.html`. So gebaut:
+hunt, uniq, photo, diff, sort, geo, bomb, treasure, letters. Daten: `mimic/xgames/xdata.js` (Dinge, Farben, Sortier-Körbe, Bomben-Themen), `mimic/geo/geo.js` (Karte + 250 Orte).
+
 ## 4. Testen (wichtig, der Nutzer will getestete Änderungen)
 
 - Lokaler Server im Repo-Ordner: `python3 -m http.server 8123` → `http://localhost:8123/mimic/?debug`
@@ -68,6 +77,9 @@ Details zu den ersten 8 Modi stehen in `README.md`. Die Modi ab `react` hat eine
   - `node tools/tests/sound-und-malen.test.js` – Töne aufnehmen + Malen & bewerten (3 Spieler)
   - `node tools/tests/raten.test.js` – Malen & Raten (Tipp im Chat, Zug endet beim ersten Richtigen)
   - `node tools/tests/finger-malen.test.js` – echtes Finger-Malen mit Touch-Events
+  - `node tools/tests/neue-spiele.test.js [spiel …]` – alle Plug-in-Spiele mit 3 Handys (prüft auch Punkte)
+  - `node tools/tests/mix-alle.test.js` – Mix mit allen Spielen, jedes startet einmal
+  - `node tools/tests/wer-wuerde.test.js` – Wer würde am ehesten
   - Mit `URL=https://locolocosq.github.io/Malenio/mimic/?debug node …` gegen die Online-Version testen.
 - Safari-Motor testen: WebKit ist nicht vorinstalliert; geht mit `PLAYWRIGHT_BROWSERS_PATH=<ordner> node /opt/node-tools/node_modules/playwright/cli.js install webkit` und `install-deps webkit` (in einen eigenen Ordner, die vorinstallierte Chromium-Version nicht anfassen). WebKit↔WebKit verbindet in der Cloud nicht, darum Host in Chromium und Spieler in WebKit (oder umgekehrt) mischen.
 - Nach Änderungen auf **doppelte Namen** prüfen (siehe Abschnitt 5): `grep -n "^function " mimic/game.js | sed 's/.*function \([A-Za-z0-9_]*\).*/\1/' | sort | uniq -d` muss leer sein.

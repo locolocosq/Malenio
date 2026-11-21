@@ -67,9 +67,9 @@ const only = process.argv.slice(2);
     await start('geo'); await Promise.all(ALL.map((P) => P.waitForSelector('.geo-map', { timeout: 25000 })));
     const pl = await A.evaluate(() => window.GEO.places[__echo.view.state.xs.i]); console.log('    Ort:', pl[0], '/', pl[1], '(' + pl[4] + ')');
     await shot(B, 'geo');
-    const tapAt = async (P, la, lo) => { const pt = await P.evaluate(([la, lo]) => { const svg = document.querySelector('.geo-map'), p = svg.createSVGPoint(); p.x = (lo + 180) * 4; p.y = (90 - la) * 4; const s = p.matrixTransform(svg.getScreenCTM()); return [s.x, s.y]; }, [la, lo]); await P.mouse.click(pt[0], pt[1]); await P.tap('#geo-ok'); };
+    const tapAt = async (P, la, lo) => { await P.locator('.geo-map').scrollIntoViewIfNeeded(); const pt = await P.evaluate(([la, lo]) => { const svg = document.querySelector('.geo-map'), p = svg.createSVGPoint(); p.x = (lo + 180) * 4; p.y = (90 - la) * 4; const s = p.matrixTransform(svg.getScreenCTM()); return [s.x, s.y]; }, [la, lo]); await P.mouse.click(pt[0], pt[1]); await P.waitForTimeout(200); await P.locator('#geo-ok').scrollIntoViewIfNeeded(); await P.tap('#geo-ok', { timeout: 5000 }); };
     const span = { w: 20, eu: 4, af: 6, as: 8, am: 8, de: 0.6, et: 0.8 }[pl[4]];
-    await tapAt(A, pl[2], pl[3]); await tapAt(B, pl[2] + span, pl[3]); await tapAt(C, pl[2] - span * 2, pl[3] + span);
+    await tapAt(A, pl[2], pl[3]); console.log('    nach Tippen: Knopf aktiv?', await A.evaluate(() => !document.querySelector('#geo-ok').disabled)); await tapAt(B, pl[2] + span, pl[3]); await tapAt(C, pl[2] - span * 2, pl[3] + span);
     await waitPhase(A, 'results'); await A.waitForTimeout(500); await shot(A, 'geo-erg'); console.log('   ', await gains(), '| Liste:', (await A.textContent('.vlist')).replace(/\s+/g, ' ').slice(0, 140));
   });
   await run('bomb', async () => {
@@ -99,6 +99,34 @@ const only = process.argv.slice(2);
     await A.waitForTimeout(600);
     const after = await A.evaluate(() => __echo.view.state.xs.loser);
     console.log('    nach dem Platzen umgestimmt:', before !== h1 && after === h1 ? 'Schuld wandert zum Schreiber ✔' : `prüfen (vorher ${before === h1 ? 'Schreiber' : 'Halter'}, nachher ${after === h1 ? 'Schreiber' : 'Halter'})`);
+  });
+  await run('treasure', async () => {
+    await start('treasure'); await Promise.all(ALL.map((P) => P.waitForSelector('.tr-c', { timeout: 20000 })));
+    for (const [P, cells] of [[A, [0, 1, 2]], [B, [3, 4, 5]], [C, [6, 7, 8]]]) { for (const c of cells) await P.tap(`.tr-c[data-i="${c}"]`); if (P === B) await shot(B, 'treasure-verstecken'); await P.tap('#tr-ok'); }
+    await waitPhase(A, 'xtr_dig'); await Promise.all(ALL.map((P) => P.waitForSelector('.tr-c:not([disabled])')));
+    await A.tap('.tr-c[data-i="3"]'); await B.tap('.tr-c[data-i="0"]'); await C.tap('.tr-c[data-i="20"]');
+    await waitPhase(A, 'xtr_show', 8000); await A.waitForTimeout(400); await shot(A, 'treasure-fund'); console.log('   ', (await A.textContent('#stage')).replace(/\s+/g, ' ').slice(0, 120));
+    for (let turn = 2; turn <= 6; turn++) {
+      const ph = await A.waitForFunction(() => ['xtr_dig', 'results'].includes(__echo.view.state.phase) && __echo.view.state.phase, null, { timeout: 15000 }).then((h) => h.jsonValue());
+      if (ph === 'results') break;
+      for (const P of ALL) { await P.waitForSelector('.tr-c:not([disabled])', { timeout: 8000 }); await P.locator('.tr-c:not([disabled])').last().tap(); }
+      await A.waitForFunction(() => __echo.view.state.phase !== 'xtr_dig', null, { timeout: 15000 });
+    }
+    await waitPhase(A, 'results', 20000); await A.waitForTimeout(400); await shot(A, 'treasure-erg'); console.log('   ', await gains());
+  });
+  await run('letters', async () => {
+    await start('letters'); await Promise.all(ALL.map((P) => P.waitForSelector('#let-in', { timeout: 20000 })));
+    const xs = await A.evaluate(() => __echo.view.state.xs); console.log('    Buchstaben DE:', xs.de.join(' '), '| AM:', xs.am.join(' '));
+    await A.fill('#let-in', 'x'); await A.press('#let-in', 'Enter'); await A.waitForTimeout(200);
+    console.log('    falsches Wort abgelehnt:', await A.isVisible('#let-f') ? 'ja ✔' : 'NEIN ✘');
+    await A.fill('#let-in', 'Wort' + xs.de.join('').toLowerCase()); await A.press('#let-in', 'Enter');
+    await B.fill('#let-in', xs.am.join('')); await shot(B, 'letters'); await B.press('#let-in', 'Enter');
+    await waitPhase(A, 'xlet_rev', 8000); console.log('    Runde sofort beendet, als nur Cem übrig war ✔');
+    await A.waitForSelector('.bw-f'); await A.waitForTimeout(400); await shot(A, 'letters-abstimmung');
+    await A.locator('.bw-f[data-i="1"]').click(); await C.locator('.bw-f[data-i="1"]').click(); await A.waitForTimeout(500);
+    for (const P of ALL) await P.tap('#let-ok');
+    await waitPhase(A, 'results', 8000); await A.waitForTimeout(400); await shot(A, 'letters-erg');
+    const g = await gains(); console.log('   ', g, g === 'Anna:+100 Bob:+0 Cem:+0' ? '(richtig: Bobs Wort zählt nicht)' : '(FALSCH: erwartet Anna 100, Bob 0, Cem 0)');
   });
   console.log(errs.length ? 'JS-FEHLER:\n  ' + [...new Set(errs)].join('\n  ') : 'keine JS-Fehler');
   await b.close();

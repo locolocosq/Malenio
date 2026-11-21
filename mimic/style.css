@@ -663,3 +663,23 @@ body.lang-am .imp-w, body.lang-am .imp-l { font-family: "Noto Sans Ethiopic","Li
 .bw-f.on { background: #ff3b5c; color: #fff; border-color: #ff3b5c; }
 .bw-c { font-size: 12px; color: #c4203e; }
 @keyframes xshake { 0%,100% { translate: 0; } 25% { translate: -5px; } 75% { translate: 5px; } }
+
+/* Schatzsuche */
+.tr-board { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; width: min(92vw, 360px); padding: 6px; border-radius: 14px; background: #e9c98b; box-shadow: inset 0 0 0 3px #b98a3e; }
+.tr-board.small { width: 220px; }
+.tr-c { aspect-ratio: 1; border: none; border-radius: 8px; background: #7bc96f; box-shadow: inset 0 -4px 0 rgba(0,0,0,.15); font-size: clamp(14px, 5vw, 22px); padding: 0; display: grid; place-items: center; line-height: 1; touch-action: manipulation; }
+.tr-board.small .tr-c { font-size: 12px; }
+.tr-c i { font-style: normal; font-size: .8em; }
+.tr-c.dug { background: #c79a5a; box-shadow: inset 0 3px 0 rgba(0,0,0,.2); }
+.tr-c.own { outline: 3px solid #ffd600; outline-offset: -3px; }
+.tr-c.sel { background: #ffe066; }
+.tr-c.new { animation: cdpop .6s ease-out; }
+.tr-c:disabled { cursor: default; }
+.tr-msg { font-weight: 900; font-size: 17px; }
+/* Buchstaben-Jagd */
+.let-tiles { display: flex; gap: 10px; justify-content: center; }
+.let-tiles span { width: 64px; height: 72px; border-radius: 14px; background: #fff6c8; border: 3px solid var(--ink); box-shadow: 0 5px 0 var(--ink); display: grid; place-items: center; font-size: 40px; font-weight: 900; color: var(--ink); }
+#let-in.bad { animation: xshake .25s linear 2; border-color: #ff3b5c; }
+.let-order { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; font-weight: 800; }
+.let-order span { background: #d9f7e5; border-radius: 999px; padding: 3px 10px; }
+.let-list { display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 460px; }
