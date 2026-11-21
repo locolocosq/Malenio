@@ -5,7 +5,7 @@
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const root = path.join(__dirname, '..');
 const PAGES = [
-  ['mimic/index.html', ['game.js', 'score.js', 'style.css', 'sounds/sounds.js', '../words.js', 'logos/logos.js', 'questions/questions.js', 'emoji/emoji.js', 'emoji/halve.js', 'bluff/bluff.js', 'imposter/imposter.js', 'most/most.js', 'dish/dishes.js']],
+  ['mimic/index.html', ['game.js', 'score.js', 'style.css', 'sounds/sounds.js', '../words.js', 'logos/logos.js', 'questions/questions.js', 'emoji/emoji.js', 'emoji/halve.js', 'bluff/bluff.js', 'imposter/imposter.js', 'most/most.js', 'xgames/xdata.js', 'geo/geo.js', 'dish/dishes.js']],
 ];
 for (const [page, files] of PAGES) {
   const pagePath = path.join(root, page);

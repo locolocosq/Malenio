@@ -8,6 +8,8 @@
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const rnd = (n) => Math.floor(Math.random() * n);
+// echter Zufall (Krypto), z. B. für die Wahl des Imposters
+const rndFair = (n) => { try { const b = new Uint32Array(1); crypto.getRandomValues(b); return Math.floor(b[0] / 4294967296 * n); } catch (e) { return rnd(n); } };
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -576,6 +578,8 @@ const host = {
     const p = this.get(from); if (p) p.seen = Date.now();
     if (msg.t === 'hello') { this.hello(from, msg); return; }
     if (!p) return;
+    // neue Spiele (XG): alle Aktionen kommen als {t:'x', …}
+    if (msg.t === 'x') { const g = XG[this.mode]; if (g && g.msg && this.phase !== 'lobby' && this.xOk() && (msg.r == null || msg.r === this.round)) g.msg(this, from, msg, p); return; }
     switch (msg.t) {
       case 'ping': return;
       case 'start':
@@ -587,6 +591,7 @@ const host = {
           const mixHas = (m) => this.mode === 'mix' && this.mixGames.includes(m);
           if (this.mode === 'logo' || mixHas('logo')) need.push(ensureLogos());
           if (this.mode === 'estimate' || mixHas('estimate')) need.push(ensureQuestions());
+          if (this.mode === 'geo' || mixHas('geo')) need.push(ensureGeo());
           if ((this.mode === 'imposter') && this.players.length < 3) { sendTo(from, { t: 'sys', key: 'impNeed3' }); return; }
           Promise.all(need).then(() => { if (this.phase === 'lobby') this.startGame(); }).catch(() => toast(t('netError')));
         } return;
@@ -860,6 +865,7 @@ const host = {
     if (this.phase !== 'lobby') this.departed.set(p.cid, p.score);
     broadcast({ t: 'sys', key: 'left', name: p.name });
     if (this.phase !== 'lobby' && this.phase !== 'end' && this.players.length < 2) { this.toLobby(); broadcast({ t: 'sys', key: 'notEnough' }); return; }
+    if (XG[this.mode] && XG[this.mode].left && this.xOk() && XG[this.mode].phases.includes(this.phase)) { if (XG[this.mode].left(this, id) === true) return; }
     if (this.phase === 'record' && this.players.every((x) => this.recs.has(x.id))) this.startShow();
     if (this.phase === 'draw' && this.players.every((x) => this.recs.has(x.id))) this.startPresent();
     if ((this.phase === 'choose' || this.phase === 'guess' || this.phase === 'hang') && id === this.drawer) { this.endTurn(); return; }
@@ -919,6 +925,7 @@ const host = {
       bopts: this.mode === 'bluff' && (this.phase === 'bvote' || this.phase === 'results') ? this.bopts.map((o) => ({ k: o.k, i: o.i, text: o.text, authors: this.phase === 'results' ? o.authors : undefined })) : null,
       bvotes: this.mode === 'bluff' && this.phase === 'results' ? Object.fromEntries(this.bvotes) : null,
       imp: this.mode === 'imposter' && this.imp ? this.impState() : null,
+      xs: XG[this.mode] && XG[this.mode].pub && this.xOk() ? XG[this.mode].pub(this) : null,
       mq: this.mode === 'most' ? this.mq : null, mvotes: this.mode === 'most' && this.phase === 'results' && this.mvotes ? Object.fromEntries(this.mvotes) : null,
       blindP: this.mode === 'blind' ? Object.assign({}, this.blindP, { goIn: this.phase === 'blind' ? Math.max(0, this.blindGoAt - Date.now()) : 0 }) : null,
       blinds: this.mode === 'blind' && this.phase === 'results' ? Object.fromEntries(this.blinds) : null,
@@ -944,7 +951,10 @@ const host = {
     };
   },
   pushState() { const s = this.state(); for (const p of this.players) sendTo(p.id, this.stateFor(p, s)); },
+  // gehört der gespeicherte Zustand der neuen Spiele (xs) wirklich zum aktuellen Spiel?
+  xOk() { return !!(this.xs && this.xs._m === this.mode); },
   doneOf(id) {
+    if (XG[this.mode] && XG[this.mode].done) return this.xOk() && !!XG[this.mode].done(this, id);
     switch (this.mode) {
       case 'estimate': return this.ests.has(id);
       case 'timer': return this.stops.has(id);
@@ -967,6 +977,7 @@ const host = {
   },
   // Malen & Raten: das Wort sieht nur, wer malt oder es schon erraten hat – alle anderen nur die Striche
   stateFor(p, s) {
+    if (XG[this.mode] && XG[this.mode].priv && this.xOk() && s.phase !== 'lobby') s = Object.assign({}, s, { xp: XG[this.mode].priv(this, p, s) });
     if (s.bopts && s.phase === 'bvote') s = Object.assign({}, s, { bmine: this.bopts.findIndex((o) => o.authors.includes(p.id)) });
     // Imposter Wort: jeder bekommt nur sein Wort – der Imposter nur den Hinweis (als Text, nicht die Nummer des Worts)
     if (this.mode === 'imposter' && this.imp && s.phase !== 'results') { const e = IMP_W[this.imp.w] || []; return Object.assign({}, s, { iMe: p.id === this.imp.imp ? { imp: 1, h: [e[2], e[3]] } : { w: this.imp.w } }); }
@@ -1030,6 +1041,7 @@ const host = {
     this.playRound();
   },
   playRound() {
+    if (XG[this.mode]) { this.gains = {}; this.xs = {}; XG[this.mode].start(this); if (this.xs) this.xs._m = this.mode; return; }
     if (this.mode === 'most') {
       const n = MOST_Q.length; let i = rnd(n); for (let k = 0; k < 600 && this.usedMost.has(i); k++) i = rnd(n);
       if (this.usedMost.size >= n - 1) this.usedMost = new Set();
@@ -1051,9 +1063,8 @@ const host = {
       const n = IMP_W.length; let w = rnd(n); for (let k = 0; k < 900 && this.usedIw.has(w); k++) w = rnd(n);
       if (this.usedIw.size >= n - 1) this.usedIw = new Set();
       this.usedIw.add(w);
-      // Imposter reihum: wer am seltensten dran war, zuerst
-      const ids = shuffle(this.players.map((p) => p.id)).sort((a, b) => (this.impCount[a] || 0) - (this.impCount[b] || 0));
-      const imp = ids[0]; this.impCount[imp] = (this.impCount[imp] || 0) + 1;
+      // Imposter ganz zufällig (auch zweimal hintereinander möglich) – mit echtem Zufall statt Math.random
+      const imp = this.players[rndFair(this.players.length)].id; this.impCount[imp] = (this.impCount[imp] || 0) + 1;
       this.imp = { w, imp, qs: shuffle(IMP_W[w][4].split(' ')), qi: 0, ans: new Map(), votes: new Map(), order: [], hist: [], guess: '', ok: false };
       this.gains = {};
       this.setPhase('iword', 9, () => this.impAsk());
@@ -1577,10 +1588,11 @@ const view = {
     voiceSync(st); applyVoiceMute(st.phase); renderVoiceHeads(st);
     if (st.mode === 'logo' || st.mode === 'mix' || st.mix) ensureLogos().catch(() => {});
     if (st.mode === 'estimate' || st.mode === 'mix' || st.mix) ensureQuestions().catch(() => {});
+    if (st.mode === 'geo' || st.mode === 'mix' || st.mix) ensureGeo().catch(() => {});
     $('#btn-stop').classList.toggle('hidden', !(net.isHost && st.phase !== 'lobby' && st.phase !== 'end'));
     // Figur wird gerade gestaltet: in der Lobby nicht stören; startet das Spiel, geht es automatisch weiter
     if (!$('#screen-creator').classList.contains('hidden')) { if (st.phase === 'lobby') return; toHost({ t: 'char', char: myChar }); }
-    if (st.phase === 'lobby') { this.dBid = null; this.mostRun = null; this.impRun = null; this.bluffRun = null; this.blindRun = null; this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
+    if (st.phase === 'lobby') { this.xr = {}; this.dBid = null; this.mostRun = null; this.impRun = null; this.bluffRun = null; this.blindRun = null; this.colRun = null; this.circRun = null; this.balRun = null; this.halveRun = null; this.timerRun = null; this.myPick = null; this.myEst = null; this.reactRun = null; this.simonRun = null; showScreen('lobby'); this.renderLobby(); this.lastKey = ''; this.toggleEmo(false); return; }
     showScreen('game');
     this.renderStrip();
     const key = [st.phase, st.round, st.showIdx, (st.phase === 'record' || st.phase === 'draw') ? st.players.map((p) => p.done ? 1 : 0).join('') : '', st.present ? st.present.revealed : '', lang, st.turn, st.drawer, st.imp ? st.imp.qi : ''].join('|');
@@ -1595,6 +1607,7 @@ const view = {
     else if (['dbid', 'dwon', 'drate'].includes(st.phase)) this.renderDish();
     else if (st.phase === 'simon') this.updateSimon();
     else if (st.phase === 'emoji') this.updateEmoji();
+    else if (XG[st.mode] && XG[st.mode].phases.includes(st.phase)) { const g = XG[st.mode]; if (g.update) g.update(this, st); else this.updateDone(); }
     this.toggleEmo(['show', 'present', 'results', 'end'].includes(st.phase));
     this.updateTimer();
   },
@@ -1617,7 +1630,7 @@ const view = {
   renderStrip() {
     const st = this.state, dance = st.phase === 'results' || st.phase === 'end';
     const sorted = [...st.players].sort((a, b) => b.score - a.score);
-    const tag = (p) => (['react', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote', 'blind', 'iask', 'ivote', 'most'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
+    const tag = (p) => (XG[st.mode] && XG[st.mode].phases.includes(st.phase) && p.done) || (['react', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote', 'blind', 'iask', 'ivote', 'most'].includes(st.phase) && p.done) || (st.phase === 'record' && p.done) || (st.phase === 'guess' && p.done) || (st.phase === 'timer' && p.done) || (st.phase === 'estimate' && p.done) ? '✅' : (st.phase === 'logo' && p.done ? '🔒' : ((st.phase === 'guess' || st.phase === 'choose' || st.phase === 'hang') && p.id === st.drawer ? '✏️' : (st.phase === 'hang' && st.hang && st.hang.cur === p.id ? '👉' : '')));
     $('#game-players').innerHTML = sorted.map((p) => pcard(p, 56, dance, tag(p))).join('');
   },
   async renderStage(prev) {
@@ -1627,6 +1640,8 @@ const view = {
     stage.classList.toggle('on-stage', onStage);
     if (st.phase !== 'guess') { clearInterval(this.opTimer); this.opTimer = null; }
     $('#game-players').classList.toggle('hidden', onStage);
+    if (XG[st.mode] && XG[st.mode].phases.includes(st.phase)) { XG[st.mode].render(this, st, stage); return; }
+    if (st.phase === 'results' && XG[st.mode] && XG[st.mode].results) { XG[st.mode].results(this, st, stage); return; }
     if (st.phase === 'listen') {
       stage.innerHTML = `<div class="cat">${t('category')}</div><div class="meme-title">${esc(soundName(st.soundIdx))}</div>
         <div class="wave-box"><canvas id="wave" width="640" height="130"></canvas><div class="wave-cd" id="wave-cd"></div></div>
@@ -2688,15 +2703,539 @@ const view = {
   },
   updateTimer() {
     const el = $('#info-timer'), st = this.state;
-    if (!st || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon' || st.phase === 'blind' || st.phase === 'dwon' || st.phase === 'dfill' || st.phase === 'dintro') { el.textContent = ''; el.classList.add('hidden'); return; }
+    if (!st || (XG[st.mode] && XG[st.mode].hideTimer && XG[st.mode].hideTimer.includes(st.phase)) || st.phase === 'lobby' || st.phase === 'end' || st.phase === 'timer' || st.phase === 'react' || st.phase === 'simon' || st.phase === 'blind' || st.phase === 'dwon' || st.phase === 'dfill' || st.phase === 'dintro') { el.textContent = ''; el.classList.add('hidden'); return; }
     el.classList.remove('hidden');
     const s = Math.max(0, Math.ceil((this.deadlineLocal - Date.now()) / 1000));
-    el.textContent = s; el.classList.toggle('low', ['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote', 'most'].includes(st.phase) && s <= 5);
+    el.textContent = s; el.classList.toggle('low', (['record', 'draw', 'guess', 'logo', 'hang', 'estimate', 'simon', 'emoji', 'halve', 'balance', 'color', 'circle', 'bwrite', 'bvote', 'most'].includes(st.phase) || (XG[st.mode] && XG[st.mode].phases.includes(st.phase))) && s <= 5);
     if (st.phase === 'draw' && this.draw && !this.draw.sent && this.deadlineLocal - Date.now() < 1500) this.sendDrawing();
   },
 };
+// ================================================================ Neue Spiele als Plug-ins (XG)
+// Jedes Spiel: phases (eigene Phasen), start(h), msg(h, from, msg, p), done(h, id), pub(h) (öffentlicher Zustand),
+// priv(h, p) (nur für diesen Spieler), left(h, id), render(v, st, stage), update(v, st), results(v, st, stage), hideTimer.
+// Alle Aktionen gehen als {t:'x', a:'…', r: Runde} an den Host.
+const XG = {};
+const XT = {
+  de: {
+    modeHunt: '🔢 Zahlen-Jagd', modeUniq: '🪙 Höchste Einzelzahl', modePhoto: '🕵️ Detektiv-Foto', modeDiff: '🔍 Finde den Unterschied', modeSort: '🧺 Schneller Sortierer', modeGeo: '🗺️ Wo liegt das?', modeBomb: '💣 Wort-Bombe',
+    xReady: 'Mach dich bereit …', xGo: 'LOS!', xWait: '✅ Fertig – warte auf die anderen…', xTime: 'Deine Zeit: {s} s', xNotDone: 'nicht geschafft', xPenalty: '+1 s Strafe',
+    huntTap: 'Tippe die Zahlen der Reihe nach:', huntRev: 'Tippe die Zahlen rückwärts:', huntNext: 'Nächste: {n}',
+    uniqTip: 'Wähle geheim eine Zahl. Die höchste Zahl, die sonst niemand gewählt hat, gewinnt! Jede einzelne Zahl bringt Zahl × 10 Punkte.', uniqPicked: '🔒 Du hast {n} gewählt – warte auf die anderen…', uniqDouble: 'doppelt', uniqWin: 'höchste Einzelzahl!',
+    photoLook: 'Merk dir das Bild gut!', photoQ: 'Was weißt du noch? Beantworte alle 3 Fragen:', photoCount: 'Wie viele {x} waren auf dem Bild?', photoNot: 'Was war NICHT auf dem Bild?', photoColor: 'Welche Farbe hatte das Kärtchen mit {x}?', photoCorner: 'Was war {c}?',
+    cornerTL: 'oben links', cornerTR: 'oben rechts', cornerBL: 'unten links', cornerBR: 'unten rechts', photoRight: '{n}/3 richtig',
+    diffTip: 'Finde die {n} Unterschiede! Tippe im unteren Bild darauf.', diffFound: '{a}/{b} gefunden', diffWrong: 'Daneben! Kurz warten …',
+    sortTip: 'Tippe schnell auf den richtigen Korb!', sortScore: 'Punkte: {n}', sortEnd: 'Zeit vorbei! {n} richtig, {m} falsch',
+    geoQ: 'Wo liegt {x}?', geoTip: 'Tippe auf die Karte und dann auf „Hier!“', geoHere: '📍 Hier!', geoSent: '📍 Gesetzt – warte auf die anderen…', geoKm: '{n} km daneben', geoNear: 'Volltreffer!', geoNone: 'nichts gesetzt',
+    bombTheme: 'Thema:', bombYou: '💣 Du hast die Bombe! Schnell ein passendes Wort!', bombHas: '{name} hat die Bombe …', bombPh: 'Dein Wort', bombSend: 'Weiter!', bombDup: 'Dieses Wort wurde schon gesagt!',
+    bombFlag: 'ungültig', bombBoom: '💥 BUMM! {name} hat verloren!', bombBad: '💥 {name} verliert – „{w}“ war ungültig!', bombReview: 'War ein Wort ungültig? Noch {n} s zum Antippen (🚫). Dann verliert, wer es geschrieben hat.',
+    bombWords: 'Gesagte Wörter:', bombNoWords: 'Noch keine Wörter', bombLoser: 'Verloren', bombValid: 'gültig', bombInvalid: 'ungültig',
+  },
+  am: {
+    modeHunt: '🔢 የቁጥር ፍለጋ', modeUniq: '🪙 ብቸኛው ከፍተኛ ቁጥር', modePhoto: '🕵️ የመርማሪ ፎቶ', modeDiff: '🔍 ልዩነቱን ፈልግ', modeSort: '🧺 ፈጣን መደርደር', modeGeo: '🗺️ የት ነው ያለው?', modeBomb: '💣 የቃል ቦምብ',
+    xReady: 'ተዘጋጁ …', xGo: 'ጀምር!', xWait: '✅ ጨርሰዋል – ሌሎችን ይጠብቁ…', xTime: 'ጊዜዎ፦ {s} ሰከንድ', xNotDone: 'አልጨረሰም', xPenalty: '+1 ሰከንድ ቅጣት',
+    huntTap: 'ቁጥሮቹን በቅደም ተከተል ይንኩ፦', huntRev: 'ቁጥሮቹን ወደ ኋላ ይንኩ፦', huntNext: 'ቀጣዩ፦ {n}',
+    uniqTip: 'በሚስጥር ቁጥር ይምረጡ። ሌላ ማንም ያልመረጠው ከፍተኛ ቁጥር ያሸንፋል! እያንዳንዱ ብቸኛ ቁጥር ቁጥር × 10 ነጥብ ያስገኛል።', uniqPicked: '🔒 {n}ን መርጠዋል – ሌሎችን ይጠብቁ…', uniqDouble: 'ተደጋግሟል', uniqWin: 'ብቸኛው ከፍተኛ ቁጥር!',
+    photoLook: 'ፎቶውን በደንብ ያስታውሱ!', photoQ: 'ምን ያስታውሳሉ? ሦስቱንም ጥያቄዎች ይመልሱ፦', photoCount: 'በፎቶው ላይ ስንት {x} ነበሩ?', photoNot: 'በፎቶው ላይ ያልነበረው የትኛው ነው?', photoColor: '{x} ያለበት ካርድ ምን ዓይነት ቀለም ነበረው?', photoCorner: '{c} ምን ነበር?',
+    cornerTL: 'ከላይ በግራ', cornerTR: 'ከላይ በቀኝ', cornerBL: 'ከታች በግራ', cornerBR: 'ከታች በቀኝ', photoRight: '{n}/3 ትክክል',
+    diffTip: '{n} ልዩነቶችን ይፈልጉ! በታችኛው ሥዕል ላይ ይንኩ።', diffFound: '{a}/{b} ተገኝቷል', diffWrong: 'ተሳስቷል! ትንሽ ይጠብቁ …',
+    sortTip: 'ትክክለኛውን ቅርጫት በፍጥነት ይንኩ!', sortScore: 'ነጥብ፦ {n}', sortEnd: 'ጊዜው አልቋል! {n} ትክክል፣ {m} ስህተት',
+    geoQ: '{x} የት ነው ያለው?', geoTip: 'ካርታውን ይንኩና „እዚህ!“ን ይጫኑ', geoHere: '📍 እዚህ!', geoSent: '📍 ተቀምጧል – ሌሎችን ይጠብቁ…', geoKm: '{n} ኪ.ሜ. ርቋል', geoNear: 'በትክክል!', geoNone: 'ምንም አላስቀመጠም',
+    bombTheme: 'ርዕስ፦', bombYou: '💣 ቦምቡ እርስዎ ጋር ነው! በፍጥነት ተስማሚ ቃል ይጻፉ!', bombHas: 'ቦምቡ {name} ጋር ነው …', bombPh: 'ቃልዎ', bombSend: 'ቀጥል!', bombDup: 'ይህ ቃል አስቀድሞ ተብሏል!',
+    bombFlag: 'ልክ አይደለም', bombBoom: '💥 ቡም! {name} ተሸነፈ!', bombBad: '💥 {name} ተሸነፈ – „{w}“ ልክ አልነበረም!', bombReview: 'ልክ ያልሆነ ቃል ነበር? ለመንካት {n} ሰከንድ ይቀራል (🚫)። ከዚያ የጻፈው ይሸነፋል።',
+    bombWords: 'የተባሉ ቃላት፦', bombNoWords: 'እስካሁን ቃል የለም', bombLoser: 'ተሸናፊ', bombValid: 'ልክ ነው', bombInvalid: 'ልክ አይደለም',
+  },
+};
+Object.assign(T.de, XT.de); Object.assign(T.am, XT.am);
+
+// ---- Helfer
+function srng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let x = Math.imul(a ^ (a >>> 15), 1 | a); x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x; return ((x ^ (x >>> 14)) >>> 0) / 4294967296; }; }
+const sInt = (r, n) => Math.floor(r() * n);
+const sShuffle = (r, a) => { for (let i = a.length - 1; i > 0; i--) { const j = sInt(r, i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const xSend = (a, d) => toHost(Object.assign({ t: 'x', a, r: view.state ? view.state.round : 0 }, d || {}));
+const xNm = (row) => (lang === 'am' && row[2]) || row[1];   // [Emoji, Deutsch, Amharisch]
+const X_ITEMS = window.X_ITEMS || [], X_COLORS = window.X_COLORS || [], X_SORT = window.X_SORT || [], X_THEMES = window.X_THEMES || [];
+// Punkte vergeben und Ergebnis zeigen
+function xFinish(h, gains, sec) {
+  h.stop(); h.gains = {};
+  for (const p of h.players) { const g = Math.max(0, Math.round(gains[p.id] || 0)); p.score += g; h.gains[p.id] = g; }
+  h.setPhase('results', sec || RESULT_TIME + 2, () => h.nextRound());
+}
+// Platzierung: entries = [[id, wert]], besser = kleiner (asc) oder größer; gleich gut = gleiche Punkte
+function xRank(entries, asc) {
+  const out = {}, val = (v) => (asc ? v : -v);
+  for (const [id, v] of entries) { const rank = entries.filter(([, w]) => val(w) < val(v)).length; out[id] = LOGO_POINTS[Math.min(rank, LOGO_POINTS.length - 1)]; }
+  return out;
+}
+// Zustand pro Runde auf diesem Handy (bleibt beim Neu-Zeichnen erhalten)
+function xRun(v, st, init) { const key = st.mode + '|' + st.round + '|' + (st.xs ? st.xs.seed : ''); v.xr = v.xr || {}; if (!v.xr[key]) v.xr[key] = init(); return v.xr[key]; }
+// Ergebnis-Liste: rows = [{p, html, best}]
+function xList(st, rows) {
+  return `<div class="vlist">${rows.map((r) => `<div class="vline${r.best ? ' best' : ''}">${charEl(r.p.char, 26, false)}<span class="vn">${r.best ? '🏆 ' : ''}${esc(r.p.name)}</span><span class="vp">${r.html}</span><b class="vg">+${st.gains[r.p.id] || 0}</b></div>`).join('')}</div>`;
+}
+const xAllDone = (h, m) => h.players.every((x) => m.has(x.id));
+// 3-2-1-LOS auf dem eigenen Handy, dann geht es los
+function xCountdown(el, onGo) {
+  let n = 3; el.innerHTML = `<div class="x-cd">${n}</div>`; tick(520);
+  const iv = setInterval(() => { n--; if (!el.isConnected) { clearInterval(iv); return; } if (n > 0) { el.innerHTML = `<div class="x-cd">${n}</div>`; tick(520); } else { clearInterval(iv); tick(880); onGo(); } }, 700);
+}
+let geoP = null;
+function ensureGeo() {
+  if (window.GEO) return Promise.resolve();
+  if (!geoP) geoP = new Promise((res, rej) => { const el = document.createElement('script'); el.src = $('#geo-src').content; el.onload = res; el.onerror = () => { geoP = null; rej(new Error('geo')); }; document.head.appendChild(el); });
+  return geoP;
+}
+
+// ================================================================ 🔢 Zahlen-Jagd
+function huntSpec(seed) {
+  const r = srng(seed);
+  const variants = [{ n: 16, cols: 4, from: 1, step: 1 }, { n: 20, cols: 4, from: 1, step: 1 }, { n: 25, cols: 5, from: 1, step: 1 }, { n: 25, cols: 5, from: 1, step: 1, rev: 1 },
+    { n: 20, cols: 4, from: 2, step: 2 }, { n: 30, cols: 5, from: 1, step: 1 }, { n: 20, cols: 4, from: 5, step: 5 }, { n: 16, cols: 4, from: 1, step: 1, rev: 1 }];
+  const v = variants[sInt(r, variants.length)];
+  const seq = Array.from({ length: v.n }, (_, i) => v.from + i * v.step); if (v.rev) seq.reverse();
+  const cells = sShuffle(r, seq.slice()).map((n) => ({ n, c: X_COLORS[sInt(r, X_COLORS.length)][0], rot: sInt(r, 21) - 10, s: 0.85 + r() * 0.3 }));
+  return { cols: v.cols, seq, cells, rev: !!v.rev };
+}
+XG.hunt = {
+  phases: ['xhunt'], hideTimer: ['xhunt'],
+  start(h) { h.xs = { seed: rnd(1e9), times: new Map() }; h.setPhase('xhunt', 90, () => this.end(h)); },
+  msg(h, from, m) { if (m.a === 'done' && h.phase === 'xhunt' && !h.xs.times.has(from)) { h.xs.times.set(from, clamp(+m.ms || 0, 500, 600000)); h.pushState(); if (xAllDone(h, h.xs.times)) this.end(h); } },
+  done: (h, id) => h.xs.times.has(id),
+  left(h) { if (h.phase === 'xhunt' && xAllDone(h, h.xs.times)) { this.end(h); return true; } },
+  end(h) { if (h.phase !== 'xhunt') return; xFinish(h, xRank([...h.xs.times], true)); },
+  pub: (h) => ({ seed: h.xs.seed, times: h.phase === 'results' ? Object.fromEntries(h.xs.times) : null }),
+  render(v, st, stage) {
+    const sp = huntSpec(st.xs.seed), run = xRun(v, st, () => ({ idx: 0, t0: 0, pen: 0, ms: null, go: false }));
+    stage.innerHTML = `<div class="cat">${t('modeHunt')}</div><div class="hint">${t(sp.rev ? 'huntRev' : 'huntTap')} <b id="hu-next"></b></div>
+      <div class="x-clock" id="hu-clock"></div><div class="hunt-grid" id="hu-grid" style="grid-template-columns:repeat(${sp.cols},1fr)"></div><div class="done-list" id="done-list"></div>`;
+    const grid = $('#hu-grid'), next = $('#hu-next'), clock = $('#hu-clock');
+    const drawGrid = () => {
+      grid.innerHTML = sp.cells.map((c, i) => `<button class="hunt-c${sp.seq.indexOf(c.n) < run.idx ? ' ok' : ''}" data-i="${i}" style="--c:${c.c};--r:${c.rot}deg;--s:${c.s}">${c.n}</button>`).join('');
+      next.textContent = run.ms != null ? '' : t('huntNext', { n: sp.seq[run.idx] });
+      grid.querySelectorAll('.hunt-c').forEach((b) => b.onpointerdown = (e) => {
+        e.preventDefault(); if (!run.go || run.ms != null) return;
+        const c = sp.cells[+b.dataset.i];
+        if (c.n === sp.seq[run.idx]) { run.idx++; b.classList.add('ok'); tick(700 + run.idx * 15); next.textContent = run.idx < sp.seq.length ? t('huntNext', { n: sp.seq[run.idx] }) : '';
+          if (run.idx >= sp.seq.length) { run.ms = performance.now() - run.t0 + run.pen; xSend('done', { ms: Math.round(run.ms) }); showDone(); } }
+        else if (!b.classList.contains('ok')) { run.pen += 1000; b.classList.remove('bad'); void b.offsetWidth; b.classList.add('bad'); tick(200); toast(t('xPenalty')); }
+      });
+    };
+    const showDone = () => { clock.textContent = t('xTime', { s: fmtSec(run.ms) }); grid.classList.add('fin'); $('#done-list').insertAdjacentHTML('beforebegin', `<div class="hint">${t('xWait')}</div>`); };
+    const live = () => { if (!clock.isConnected || run.ms != null) return; clock.textContent = fmtSec(performance.now() - run.t0 + run.pen) + ' s'; requestAnimationFrame(live); };
+    if (run.go) { drawGrid(); if (run.ms != null) showDone(); else live(); }
+    else { grid.classList.add('wait'); xCountdown(clock, () => { run.go = true; run.t0 = performance.now(); grid.classList.remove('wait'); drawGrid(); live(); }); drawGrid(); }
+    v.updateDone();
+  },
+  results(v, st, stage) {
+    const tm = st.xs.times || {}, sorted = [...st.players].sort((a, b) => (tm[a.id] ?? 1e12) - (tm[b.id] ?? 1e12));
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeHunt')}</div>` + xList(st, sorted.map((p, i) => ({ p, best: i === 0 && tm[p.id] != null, html: tm[p.id] != null ? `<b>${fmtSec(tm[p.id])} s</b>` : '⏳ ' + t('xNotDone') })));
+  },
+};
+
+// ================================================================ 🪙 Höchste Einzelzahl
+XG.uniq = {
+  phases: ['xuniq'],
+  start(h) { h.xs = { seed: rnd(1e9), max: h.players.length <= 5 ? 10 : 15, picks: new Map() }; h.setPhase('xuniq', 25, () => this.end(h)); },
+  msg(h, from, m) {
+    if (m.a !== 'pick' || h.phase !== 'xuniq' || h.xs.picks.has(from)) return;
+    const n = Math.round(+m.n); if (!(n >= 1 && n <= h.xs.max)) return;
+    h.xs.picks.set(from, n); h.pushState(); if (xAllDone(h, h.xs.picks)) this.end(h);
+  },
+  done: (h, id) => h.xs.picks.has(id),
+  left(h) { if (h.phase === 'xuniq' && xAllDone(h, h.xs.picks)) { this.end(h); return true; } },
+  end(h) {
+    if (h.phase !== 'xuniq') return;
+    const cnt = {}; for (const n of h.xs.picks.values()) cnt[n] = (cnt[n] || 0) + 1;
+    const uniq = Object.keys(cnt).filter((n) => cnt[n] === 1).map(Number), top = uniq.length ? Math.max(...uniq) : 0, g = {};
+    for (const [id, n] of h.xs.picks) if (cnt[n] === 1) g[id] = n * 10 + (n === top ? 50 : 0);
+    xFinish(h, g);
+  },
+  pub: (h) => ({ seed: h.xs.seed, max: h.xs.max, picks: h.phase === 'results' ? Object.fromEntries(h.xs.picks) : null }),
+  render(v, st, stage) {
+    const run = xRun(v, st, () => ({ n: null }));
+    stage.innerHTML = `<div class="cat">${t('modeUniq')}</div><div class="hint uniq-tip">${t('uniqTip')}</div><div class="uniq-grid" id="uq"></div><div class="hint" id="uq-h"></div><div class="done-list" id="done-list"></div>`;
+    const draw = () => {
+      $('#uq').innerHTML = Array.from({ length: st.xs.max }, (_, i) => i + 1).map((n) => `<button class="uniq-n${run.n === n ? ' on' : ''}" data-n="${n}"${run.n != null ? ' disabled' : ''}>${n}</button>`).join('');
+      $('#uq-h').textContent = run.n != null ? t('uniqPicked', { n: run.n }) : '';
+      $('#uq').querySelectorAll('.uniq-n').forEach((b) => b.onclick = () => { if (run.n != null) return; run.n = +b.dataset.n; xSend('pick', { n: run.n }); tick(880); draw(); });
+    };
+    draw(); v.updateDone();
+  },
+  results(v, st, stage) {
+    const pk = st.xs.picks || {}, cnt = {}; for (const n of Object.values(pk)) cnt[n] = (cnt[n] || 0) + 1;
+    const uniq = Object.keys(cnt).filter((n) => cnt[n] === 1).map(Number), top = uniq.length ? Math.max(...uniq) : 0;
+    const sorted = [...st.players].sort((a, b) => (pk[b.id] || 0) - (pk[a.id] || 0));
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeUniq')}</div>` + xList(st, sorted.map((p) => { const n = pk[p.id];
+      return { p, best: n != null && n === top, html: n == null ? '⏳' : `<b class="uniq-res${cnt[n] > 1 ? ' dbl' : ''}">${n}</b> ${cnt[n] > 1 ? '❌ ' + t('uniqDouble') : n === top ? '👑 ' + t('uniqWin') : ''}` }; }));
+  },
+};
+
+// ================================================================ 🕵️ Detektiv-Foto
+function photoSpec(seed) {
+  const r = srng(seed), COLS = 4, ROWS = 4, N = COLS * ROWS;
+  const types = sShuffle(r, [...X_ITEMS.keys()]).slice(0, 7), counts = types.map((_, i) => (i === 0 ? 1 : 1 + sInt(r, 3)));
+  const cells = Array(N).fill(null), free = sShuffle(r, [...Array(N).keys()]);
+  types.forEach((ty, i) => { for (let k = 0; k < counts[i] && free.length > 3; k++) cells[free.pop()] = { it: ty, col: sInt(r, X_COLORS.length) }; });
+  for (const c of cells) if (c && c.col == null) c.col = sInt(r, X_COLORS.length);
+  const present = types.filter((ty) => cells.some((c) => c && c.it === ty)), cntOf = (ty) => cells.filter((c) => c && c.it === ty).length;
+  const absent = sShuffle(r, [...X_ITEMS.keys()].filter((i) => !present.includes(i)));
+  const opts4 = (right, pool) => sShuffle(r, [right, ...sShuffle(r, pool.filter((x) => x !== right)).slice(0, 3)]);
+  const qs = [];
+  { const ty = present[sInt(r, present.length)], c = cntOf(ty), nums = sShuffle(r, [0, 1, 2, 3, 4, 5].filter((x) => x !== c)).slice(0, 3);
+    qs.push({ k: 'count', it: ty, opts: sShuffle(r, [c, ...nums]).map(String), ok: null, right: String(c) }); }
+  { const ab = absent[0], opts = sShuffle(r, [ab, ...sShuffle(r, present.slice()).slice(0, 3)]); qs.push({ k: 'not', opts, right: ab }); }
+  const uniqueTy = present.filter((ty) => cntOf(ty) === 1);
+  if (uniqueTy.length && r() < 0.5) { const ty = uniqueTy[sInt(r, uniqueTy.length)], col = cells.find((c) => c && c.it === ty).col;
+    qs.push({ k: 'color', it: ty, opts: opts4(col, [...X_COLORS.keys()]), right: col }); }
+  else { const corners = [[0, 'cornerTL'], [COLS - 1, 'cornerTR'], [N - COLS, 'cornerBL'], [N - 1, 'cornerBR']].filter(([i]) => cells[i]);
+    if (corners.length) { const [ci, key] = corners[sInt(r, corners.length)], it = cells[ci].it; qs.push({ k: 'corner', c: key, opts: opts4(it, present), right: it }); }
+    else { const ty = uniqueTy[0] ?? present[0], col = cells.find((c) => c && c.it === ty).col; qs.push({ k: 'color', it: ty, opts: opts4(col, [...X_COLORS.keys()]), right: col }); } }
+  for (const q of qs) q.ok = q.opts.indexOf(q.right);
+  return { COLS, cells, qs };
+}
+function photoGrid(sp, size) {
+  return `<div class="photo-grid" style="grid-template-columns:repeat(${sp.COLS},1fr);max-width:${size}px">${sp.cells.map((c) => c ? `<div class="pg-c" style="background:${X_COLORS[c.col][0]}">${X_ITEMS[c.it][0]}</div>` : '<div class="pg-c empty"></div>').join('')}</div>`;
+}
+function photoQText(q) {
+  if (q.k === 'count') return t('photoCount', { x: xNm(X_ITEMS[q.it]) });
+  if (q.k === 'not') return t('photoNot');
+  if (q.k === 'color') return t('photoColor', { x: X_ITEMS[q.it][0] + ' ' + xNm(X_ITEMS[q.it]) });
+  return t('photoCorner', { c: t(q.c) });
+}
+function photoOpt(q, o) {
+  if (q.k === 'count') return `<b>${o}</b>`;
+  if (q.k === 'color') return `<i class="col-dot" style="background:${X_COLORS[o][0]}"></i>${esc(xNm(X_COLORS[o]))}`;
+  return `${X_ITEMS[o][0]} ${esc(xNm(X_ITEMS[o]))}`;
+}
+XG.photo = {
+  phases: ['xphoto_show', 'xphoto_q'],
+  start(h) { h.xs = { seed: rnd(1e9), ans: new Map() }; h.setPhase('xphoto_show', 8, () => h.setPhase('xphoto_q', 30, () => this.end(h))); },
+  msg(h, from, m) {
+    if (m.a !== 'ans' || h.phase !== 'xphoto_q' || h.xs.ans.has(from) || !Array.isArray(m.v)) return;
+    h.xs.ans.set(from, m.v.slice(0, 3).map((x) => x | 0)); h.pushState(); if (xAllDone(h, h.xs.ans)) this.end(h);
+  },
+  done: (h, id) => h.phase === 'xphoto_q' && h.xs.ans.has(id),
+  left(h) { if (h.phase === 'xphoto_q' && xAllDone(h, h.xs.ans)) { this.end(h); return true; } },
+  end(h) {
+    if (h.phase !== 'xphoto_q') return;
+    const sp = photoSpec(h.xs.seed), g = {};
+    for (const [id, a] of h.xs.ans) { const n = sp.qs.filter((q, i) => a[i] === q.ok).length; g[id] = n * 40 + (n === sp.qs.length ? 20 : 0); }
+    xFinish(h, g, RESULT_TIME + 5);
+  },
+  pub: (h) => ({ seed: h.xs.seed, ans: h.phase === 'results' ? Object.fromEntries(h.xs.ans) : null }),
+  render(v, st, stage) {
+    const sp = photoSpec(st.xs.seed);
+    if (st.phase === 'xphoto_show') { stage.innerHTML = `<div class="cat">${t('modePhoto')}</div><h2>${t('photoLook')}</h2>${photoGrid(sp, 340)}`; return; }
+    const run = xRun(v, st, () => ({ a: [null, null, null], sent: false }));
+    stage.innerHTML = `<div class="cat">${t('modePhoto')}</div><div class="hint">${t('photoQ')}</div><div class="photo-qs" id="pq"></div><div class="done-list" id="done-list"></div>`;
+    const draw = () => {
+      $('#pq').innerHTML = sp.qs.map((q, qi) => `<div class="pq"><div class="pq-t">${qi + 1}. ${esc(photoQText(q))}</div><div class="pq-o">${q.opts.map((o, oi) =>
+        `<button class="btn small pq-b${run.a[qi] === oi ? ' on' : ''}" data-q="${qi}" data-o="${oi}"${run.sent ? ' disabled' : ''}>${photoOpt(q, o)}</button>`).join('')}</div></div>`).join('') + (run.sent ? `<div class="hint">${t('xWait')}</div>` : '');
+      $('#pq').querySelectorAll('.pq-b').forEach((b) => b.onclick = () => {
+        if (run.sent) return; run.a[+b.dataset.q] = +b.dataset.o; tick(700);
+        if (run.a.every((x) => x != null)) { run.sent = true; xSend('ans', { v: run.a }); }
+        draw();
+      });
+    };
+    draw(); v.updateDone();
+  },
+  results(v, st, stage) {
+    const sp = photoSpec(st.xs.seed), ans = st.xs.ans || {};
+    const right = (id) => (ans[id] ? sp.qs.filter((q, i) => ans[id][i] === q.ok).length : -1);
+    const sorted = [...st.players].sort((a, b) => right(b.id) - right(a.id));
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="photo-res">${photoGrid(sp, 220)}<div class="pr-qs">${sp.qs.map((q, i) => `<div>${i + 1}. ${esc(photoQText(q))} → <b>${photoOpt(q, q.right)}</b></div>`).join('')}</div></div>`
+      + xList(st, sorted.map((p, i) => ({ p, best: i === 0 && right(p.id) > 0, html: ans[p.id] ? sp.qs.map((q, k) => (ans[p.id][k] === q.ok ? '✅' : '❌')).join('') + ' ' + t('photoRight', { n: right(p.id) }) : '⏳' })));
+  },
+};
+
+// ================================================================ 🔍 Finde den Unterschied
+function diffSpec(seed) {
+  const r = srng(seed), COLS = 5, N = 25, K = 5;
+  const pool = sShuffle(r, [...X_ITEMS.keys()]).slice(0, 14);
+  const a = Array.from({ length: N }, () => ({ it: pool[sInt(r, pool.length)], col: sInt(r, X_COLORS.length), rot: (sInt(r, 3) - 1) * 12 }));
+  const b = a.map((c) => Object.assign({}, c)), spots = sShuffle(r, [...Array(N).keys()]).slice(0, K);
+  spots.forEach((i, k) => {
+    const kind = (k + sInt(r, 3)) % 3;
+    if (kind === 0) { let it; do it = X_ITEMS.length * r() | 0; while (it === a[i].it); b[i].it = it; }
+    else if (kind === 1) { let col; do col = sInt(r, X_COLORS.length); while (col === a[i].col); b[i].col = col; }
+    else b[i].gone = true;
+  });
+  return { COLS, a, b, spots };
+}
+function diffGrid(cells, cls, found) {
+  return `<div class="diff-grid ${cls}">${cells.map((c, i) => `<button class="dg-c${found && found.includes(i) ? ' hit' : ''}" data-i="${i}" style="background:${X_COLORS[c.col][0]}">${c.gone ? '' : `<span style="transform:rotate(${c.rot}deg)">${X_ITEMS[c.it][0]}</span>`}</button>`).join('')}</div>`;
+}
+XG.diff = {
+  phases: ['xdiff'],
+  start(h) { h.xs = { seed: rnd(1e9), found: new Map(), fin: new Map() }; h.setPhase('xdiff', 75, () => this.end(h)); },
+  msg(h, from, m) {
+    if (h.phase !== 'xdiff' || h.xs.fin.has(from)) return;
+    if (m.a === 'found') { h.xs.found.set(from, clamp(m.n | 0, 0, 5)); if ((m.n | 0) >= 5) h.xs.fin.set(from, clamp(+m.ms || 0, 500, 600000)); h.pushState(); if (xAllDone(h, h.xs.fin)) this.end(h); }
+  },
+  done: (h, id) => h.xs.fin.has(id),
+  left(h) { if (h.phase === 'xdiff' && xAllDone(h, h.xs.fin)) { this.end(h); return true; } },
+  end(h) {
+    if (h.phase !== 'xdiff') return;
+    const g = {}, bonus = xRank([...h.xs.fin], true);
+    for (const p of h.players) g[p.id] = (h.xs.found.get(p.id) || 0) * 20 + (bonus[p.id] ? Math.round(bonus[p.id] / 2) : 0);
+    xFinish(h, g);
+  },
+  pub: (h) => ({ seed: h.xs.seed, found: h.phase === 'results' ? Object.fromEntries(h.xs.found) : null, fin: h.phase === 'results' ? Object.fromEntries(h.xs.fin) : null }),
+  render(v, st, stage) {
+    const sp = diffSpec(st.xs.seed), run = xRun(v, st, () => ({ found: [], t0: performance.now(), lock: 0, ms: null }));
+    stage.innerHTML = `<div class="cat">${t('modeDiff')}</div><div class="hint" id="df-h"></div><div class="diff-wrap">${diffGrid(sp.a, 'top', run.found)}${diffGrid(sp.b, 'bot', run.found)}</div><div class="done-list" id="done-list"></div>`;
+    const head = () => { $('#df-h').textContent = run.ms != null ? t('xWait') : t('diffTip', { n: sp.spots.length }) + ' · ' + t('diffFound', { a: run.found.length, b: sp.spots.length }); };
+    stage.querySelectorAll('.dg-c').forEach((b) => b.onpointerdown = (e) => {
+      e.preventDefault(); if (run.ms != null || Date.now() < run.lock) return;
+      const i = +b.dataset.i;
+      if (sp.spots.includes(i)) {
+        if (run.found.includes(i)) return;
+        run.found.push(i); stage.querySelectorAll(`.dg-c[data-i="${i}"]`).forEach((x) => x.classList.add('hit')); tick(880);
+        if (run.found.length >= sp.spots.length) run.ms = performance.now() - run.t0;
+        xSend('found', { n: run.found.length, ms: run.ms != null ? Math.round(run.ms) : 0 });
+      } else { run.lock = Date.now() + 1500; b.classList.remove('miss'); void b.offsetWidth; b.classList.add('miss'); tick(200); toast(t('diffWrong')); }
+      head();
+    });
+    head(); v.updateDone();
+  },
+  results(v, st, stage) {
+    const sp = diffSpec(st.xs.seed), fd = st.xs.found || {}, fin = st.xs.fin || {};
+    const key = (id) => (fin[id] != null ? -1e9 + fin[id] : -(fd[id] || 0));
+    const sorted = [...st.players].sort((a, b) => key(a.id) - key(b.id));
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="diff-wrap small">${diffGrid(sp.b, 'bot', sp.spots)}</div>`
+      + xList(st, sorted.map((p, i) => ({ p, best: i === 0 && fin[p.id] != null, html: `${t('diffFound', { a: fd[p.id] || 0, b: sp.spots.length })}${fin[p.id] != null ? ` · <b>${fmtSec(fin[p.id])} s</b>` : ''}` })));
+  },
+};
+
+// ================================================================ 🧺 Schneller Sortierer
+const SORT_TIME = 30;
+function sortSpec(seed) {
+  const r = srng(seed), cats = sShuffle(r, [...X_SORT.keys()]).slice(0, 3);
+  const seq = Array.from({ length: 120 }, () => { const c = sInt(r, 3), list = X_SORT[cats[c]][3].split(' '); return { c, e: list[sInt(r, list.length)] }; });
+  return { cats, seq };
+}
+XG.sort = {
+  phases: ['xsort'], hideTimer: ['xsort'],
+  start(h) { h.xs = { seed: rnd(1e9), sc: new Map() }; h.setPhase('xsort', SORT_TIME + 12, () => this.end(h)); },
+  msg(h, from, m) {
+    if (m.a !== 'score' || h.phase !== 'xsort' || h.xs.sc.has(from)) return;
+    h.xs.sc.set(from, { n: clamp(m.n | 0, -200, 200), ok: clamp(m.ok | 0, 0, 200), bad: clamp(m.bad | 0, 0, 200) }); h.pushState(); if (xAllDone(h, h.xs.sc)) this.end(h);
+  },
+  done: (h, id) => h.xs.sc.has(id),
+  left(h) { if (h.phase === 'xsort' && xAllDone(h, h.xs.sc)) { this.end(h); return true; } },
+  end(h) {
+    if (h.phase !== 'xsort') return;
+    const top = Math.max(0, ...[...h.xs.sc.values()].map((s) => s.n)), g = {};
+    for (const [id, s] of h.xs.sc) g[id] = Math.max(0, s.n) * 5 + (s.n > 0 && s.n === top ? 30 : 0);
+    xFinish(h, g);
+  },
+  pub: (h) => ({ seed: h.xs.seed, sc: h.phase === 'results' ? Object.fromEntries(h.xs.sc) : null }),
+  render(v, st, stage) {
+    const sp = sortSpec(st.xs.seed), run = xRun(v, st, () => ({ i: 0, ok: 0, bad: 0, t0: 0, go: false, sent: false }));
+    stage.innerHTML = `<div class="cat">${t('modeSort')}</div><div class="hint">${t('sortTip')}</div><div class="x-clock" id="so-clock"></div>
+      <div class="sort-item" id="so-item"></div><div class="sort-score" id="so-sc"></div>
+      <div class="sort-bins">${sp.cats.map((c, k) => `<button class="sort-bin" data-k="${k}"><span>${X_SORT[c][0]}</span>${esc(xNm(X_SORT[c]))}</button>`).join('')}</div><div class="done-list" id="done-list"></div>`;
+    const item = $('#so-item'), clock = $('#so-clock'), sc = $('#so-sc');
+    const showItem = () => { item.textContent = sp.seq[run.i % sp.seq.length].e; sc.textContent = t('sortScore', { n: run.ok - run.bad }); };
+    const finish = () => { if (run.sent) return; run.sent = true; xSend('score', { n: run.ok - run.bad, ok: run.ok, bad: run.bad }); item.textContent = '🏁'; sc.textContent = t('sortEnd', { n: run.ok, m: run.bad }); clock.textContent = t('xWait'); stage.querySelectorAll('.sort-bin').forEach((b) => b.disabled = true); };
+    const loop = () => { if (!clock.isConnected || run.sent) return; const left = SORT_TIME - (performance.now() - run.t0) / 1000; if (left <= 0) { finish(); return; } clock.textContent = Math.ceil(left) + ' s'; clock.classList.toggle('low', left <= 5); requestAnimationFrame(loop); };
+    stage.querySelectorAll('.sort-bin').forEach((b) => b.onpointerdown = (e) => {
+      e.preventDefault(); if (!run.go || run.sent) return;
+      const cur = sp.seq[run.i % sp.seq.length];
+      if (+b.dataset.k === cur.c) { run.ok++; tick(760); item.className = 'sort-item good'; } else { run.bad++; tick(200); item.className = 'sort-item wrong'; }
+      run.i++; showItem(); setTimeout(() => { if (item.isConnected) item.className = 'sort-item'; }, 160);
+    });
+    if (run.sent) finish();
+    else if (run.go) { showItem(); loop(); }
+    else { item.textContent = '🧺'; xCountdown(clock, () => { run.go = true; run.t0 = performance.now(); showItem(); loop(); }); }
+    v.updateDone();
+  },
+  results(v, st, stage) {
+    const sc = st.xs.sc || {}, sorted = [...st.players].sort((a, b) => ((sc[b.id] || {}).n ?? -999) - ((sc[a.id] || {}).n ?? -999));
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('modeSort')}</div>` + xList(st, sorted.map((p, i) => { const s = sc[p.id];
+      return { p, best: i === 0 && s && s.n > 0, html: s ? `<b>${s.n}</b> <small>(✅ ${s.ok} · ❌ ${s.bad})</small>` : '⏳' }; }));
+  },
+};
+
+// ================================================================ 🗺️ Wo liegt das?
+const GEO_NEAR = { w: 400, as: 300, am: 300, eu: 150, af: 200, de: 25, et: 30 };
+function geoKm(a, b) { const R = 6371, rad = Math.PI / 180, dLa = (b[0] - a[0]) * rad, dLo = (b[1] - a[1]) * rad; const x = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * rad) * Math.cos(b[0] * rad) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(x)); }
+const geoXY = (la, lo) => [(lo + 180) * 4, (90 - la) * 4];
+function geoSvg(view, inner) {
+  const G = window.GEO, w = +view.split(' ')[2];
+  return `<svg class="geo-map" viewBox="${view}" preserveAspectRatio="xMidYMid meet"><rect x="-50" y="-50" width="1600" height="900" fill="#a9d8ff"/>
+    <path d="${G.land}" fill="#f4e7c6" stroke="#8d7a4f" stroke-width="${w / 400}"/><path d="${G.borders}" fill="none" stroke="#b49a63" stroke-width="${w / 700}"/>${inner || ''}</svg>`;
+}
+function geoPin(x, y, w, color, label) {
+  const r = w / 70;
+  return `<g transform="translate(${x} ${y})"><path d="M0 0 L${-r * .7} ${-r * 1.6} A${r} ${r} 0 1 1 ${r * .7} ${-r * 1.6} Z" fill="${color}" stroke="#fff" stroke-width="${r / 5}"/>${label ? `<text y="${-r * 3}" text-anchor="middle" font-size="${r * 1.6}" font-weight="900" fill="#1d1440" stroke="#fff" stroke-width="${r / 4}" paint-order="stroke">${esc(label)}</text>` : ''}</g>`;
+}
+XG.geo = {
+  phases: ['xgeo'],
+  start(h) {
+    const P = window.GEO.places; h.xmem = h.xmem || {}; const used = h.xmem.geo = h.xmem.geo || new Set();
+    let i = rnd(P.length); for (let k = 0; k < 500 && used.has(i); k++) i = rnd(P.length); if (used.size >= P.length - 1) used.clear(); used.add(i);
+    h.xs = { seed: i + 1, i, pins: new Map() }; h.setPhase('xgeo', 30, () => this.end(h));
+  },
+  msg(h, from, m) {
+    if (m.a !== 'pin' || h.phase !== 'xgeo' || h.xs.pins.has(from)) return;
+    const la = +m.la, lo = +m.lo; if (!isFinite(la) || !isFinite(lo)) return;
+    h.xs.pins.set(from, [clamp(la, -90, 90), clamp(lo, -180, 180)]); h.pushState(); if (xAllDone(h, h.xs.pins)) this.end(h);
+  },
+  done: (h, id) => h.xs.pins.has(id),
+  left(h) { if (h.phase === 'xgeo' && xAllDone(h, h.xs.pins)) { this.end(h); return true; } },
+  end(h) {
+    if (h.phase !== 'xgeo') return;
+    const pl = window.GEO.places[h.xs.i], km = [...h.xs.pins].map(([id, p]) => [id, geoKm([pl[2], pl[3]], p)]), g = xRank(km, true);
+    for (const [id, d] of km) if (d <= GEO_NEAR[pl[4]]) g[id] += 50;
+    xFinish(h, g, RESULT_TIME + 4);
+  },
+  pub: (h) => ({ seed: h.xs.seed, i: h.xs.i, pins: h.phase === 'results' ? Object.fromEntries(h.xs.pins) : null }),
+  async render(v, st, stage) {
+    stage.innerHTML = `<div class="hint">…</div>`;
+    try { await ensureGeo(); } catch (e) { toast(t('netError')); return; }
+    if (!v.state || v.state.phase !== 'xgeo' || v.state.round !== st.round) return;
+    const pl = GEO.places[st.xs.i], view = GEO.views[pl[4]], w = +view.split(' ')[2], run = xRun(v, st, () => ({ pin: null, sent: false }));
+    stage.innerHTML = `<div class="cat">${t('modeGeo')}</div><div class="est-q">${esc(t('geoQ', { x: lang === 'am' ? pl[1] : pl[0] }))}</div>
+      <div class="geo-box" id="geo-box"></div><div class="hint" id="geo-h"></div><button class="btn primary" id="geo-ok" disabled>${t('geoHere')}</button><div class="done-list" id="done-list"></div>`;
+    const box = $('#geo-box'), ok = $('#geo-ok'), hint = $('#geo-h');
+    const draw = () => {
+      box.innerHTML = geoSvg(view, run.pin ? geoPin(run.pin[0], run.pin[1], w, myChar ? validChar(myChar).color : '#e53935') : '');
+      ok.disabled = !run.pin || run.sent; ok.classList.toggle('hidden', run.sent); hint.textContent = run.sent ? t('geoSent') : t('geoTip');
+      const svg = box.querySelector('svg');
+      svg.onpointerdown = (e) => { if (run.sent) return; const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; const q = pt.matrixTransform(svg.getScreenCTM().inverse()); run.pin = [q.x, q.y]; tick(700); draw(); };
+    };
+    ok.onclick = () => { if (!run.pin || run.sent) return; run.sent = true; xSend('pin', { la: 90 - run.pin[1] / 4, lo: run.pin[0] / 4 - 180 }); draw(); };
+    draw(); v.updateDone();
+  },
+  async results(v, st, stage) {
+    try { await ensureGeo(); } catch (e) { return; }
+    if (!v.state || v.state !== st) return;
+    const pl = GEO.places[st.xs.i], view = GEO.views[pl[4]], w = +view.split(' ')[2], pins = st.xs.pins || {}, [tx, ty] = geoXY(pl[2], pl[3]);
+    const km = (id) => (pins[id] ? geoKm([pl[2], pl[3]], pins[id]) : 1e9);
+    const marks = st.players.filter((p) => pins[p.id]).map((p) => { const [x, y] = geoXY(pins[p.id][0], pins[p.id][1]); return `<line x1="${x}" y1="${y}" x2="${tx}" y2="${ty}" stroke="${validChar(p.char).color}" stroke-width="${w / 500}" stroke-dasharray="${w / 150}"/>` + geoPin(x, y, w, validChar(p.char).color, p.name); }).join('')
+      + `<text x="${tx}" y="${ty}" font-size="${w / 18}" text-anchor="middle" dominant-baseline="central">⭐</text>`;
+    const sorted = [...st.players].sort((a, b) => km(a.id) - km(b.id));
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="est-q light">${esc(lang === 'am' ? pl[1] : pl[0])}</div><div class="geo-box res">${geoSvg(view, marks)}</div>`
+      + xList(st, sorted.map((p, i) => { const d = km(p.id); return { p, best: i === 0 && d < 1e9, html: d < 1e9 ? `<b>${t('geoKm', { n: fmtNum(Math.round(d)) })}</b>${d <= GEO_NEAR[pl[4]] ? ' 🎯 ' + t('geoNear') : ''}` : '⏳ ' + t('geoNone') }; }));
+  },
+};
+
+// ================================================================ 💣 Wort-Bombe
+// Reihum ein Wort zum Thema → die Bombe geht weiter. Sie platzt zufällig (25–60 s).
+// Jedes Wort kann als „ungültig“ angetippt werden; stimmt die Mehrheit der anderen zu, verliert der, der es geschrieben hat
+// (während des Spiels sofort, nach dem Platzen noch 12 s lang: dann ist der Schreiber des ungültigen Worts schuld statt des Bombenhalters).
+const bombNorm = (w) => String(w).toLowerCase().normalize('NFC').replace(/[\s.,!?;:'"“„()\-_]/g, '');
+function boomSound() {
+  try { const ctx = ac(), len = ctx.sampleRate * 0.9, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.5);
+    const src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); f.type = 'lowpass'; f.frequency.value = 900; g.gain.value = 0.9;
+    src.buffer = buf; src.connect(f); f.connect(g); g.connect(ctx.destination); src.start(); } catch (e) {}
+}
+XG.bomb = {
+  phases: ['xbomb', 'xboom'], hideTimer: ['xbomb'], done: () => false,
+  start(h) {
+    h.xmem = h.xmem || {}; const used = h.xmem.bomb = h.xmem.bomb || new Set();
+    let th = rnd(X_THEMES.length); for (let k = 0; k < 400 && used.has(th); k++) th = rnd(X_THEMES.length); if (used.size >= X_THEMES.length - 1) used.clear(); used.add(th);
+    const order = shuffle(h.players.map((p) => p.id)), hold = rndFair(order.length);   // zufällig, wer anfängt
+    h.xs = { seed: th + 1, th, order, hold, words: [], loser: null, why: null, heldAtBoom: null };
+    h.setPhase('xbomb', 25 + rndFair(36), () => this.boom(h, null));
+  },
+  holder: (h) => h.xs.order[h.xs.hold % h.xs.order.length],
+  isBad(h, w) { return w.flags.size * 2 > h.players.filter((p) => p.id !== w.pid).length; },
+  // wer ist schuld? das letzte ungültige Wort – sonst wer die Bombe beim Platzen hatte
+  blame(h) { const bad = [...h.xs.words].reverse().find((w) => w.bad); h.xs.loser = bad ? bad.pid : h.xs.heldAtBoom; h.xs.why = bad ? bad.w : null; },
+  boom(h) { if (h.phase !== 'xbomb') return; h.xs.heldAtBoom = this.holder(h); this.blame(h); h.setPhase('xboom', 12, () => this.end(h)); },
+  msg(h, from, m) {
+    const s = h.xs;
+    if (m.a === 'word' && h.phase === 'xbomb' && from === this.holder(h)) {
+      const w = String(m.w || '').trim().replace(/\s+/g, ' ').slice(0, 30); if (!w) return;
+      if (s.words.some((x) => bombNorm(x.w) === bombNorm(w))) { sendTo(from, { t: 'sys', key: 'bombDup' }); return; }
+      s.words.push({ pid: from, w, flags: new Set(), bad: false }); s.hold = (s.hold + 1) % s.order.length; h.pushState(); return;
+    }
+    if (m.a === 'flag' && (h.phase === 'xbomb' || h.phase === 'xboom')) {
+      const w = s.words[m.i | 0]; if (!w || w.pid === from) return;
+      if (w.flags.has(from)) w.flags.delete(from); else w.flags.add(from);
+      const was = w.bad; w.bad = this.isBad(h, w);
+      if (h.phase === 'xbomb' && w.bad && !was) { this.boom(h); return; }   // Mehrheit sagt ungültig → sofort BUMM beim Schreiber
+      if (h.phase === 'xboom') this.blame(h);
+      h.pushState();
+    }
+  },
+  left(h, id) {
+    const s = h.xs, cur = this.holder(h); s.order = s.order.filter((x) => x !== id);
+    if (h.phase === 'xbomb') s.hold = Math.max(0, s.order.indexOf(cur)) % s.order.length;
+    for (const w of s.words) { w.flags.delete(id); w.bad = this.isBad(h, w); }
+    if (h.phase === 'xboom') this.blame(h);
+  },
+  end(h) {
+    if (h.phase !== 'xboom') return;
+    const g = {};
+    for (const p of h.players) if (p.id !== h.xs.loser) g[p.id] = 50 + 10 * h.xs.words.filter((w) => w.pid === p.id && !w.bad).length;
+    xFinish(h, g, RESULT_TIME + 3);
+  },
+  pub: (h) => { const s = h.xs; return { seed: s.seed, th: s.th, order: s.order, holder: h.phase === 'xbomb' ? s.order[s.hold % s.order.length] : null, loser: h.phase === 'xbomb' ? null : s.loser, why: s.why,
+    words: s.words.map((w) => ({ pid: w.pid, w: w.w, f: [...w.flags], bad: w.bad })) }; },
+  ring(st, burnt) {
+    const ids = st.xs.order.filter((id) => st.players.some((p) => p.id === id)), n = ids.length;
+    return `<div class="bomb-ring" id="bomb-ring">${ids.map((id, i) => { const p = st.players.find((x) => x.id === id), a = (i / n) * Math.PI * 2 - Math.PI / 2;
+      return `<div class="br-p${burnt === id ? ' burnt' : ''}" data-id="${esc(id)}" style="left:${50 + Math.cos(a) * 38}%;top:${50 + Math.sin(a) * 36}%">${charEl(p.char, 52, false)}<div class="br-n">${esc(p.name)}</div></div>`; }).join('')}
+      <div class="bomb" id="bomb">💣</div><div class="boom hidden" id="boom">💥</div></div>`;
+  },
+  placeBomb(id) { const b = $('#bomb'), el = id && document.querySelector(`.br-p[data-id="${CSS.escape(id)}"]`); if (!b) return; if (!el) { b.classList.add('hidden'); return; } b.classList.remove('hidden'); b.style.left = el.style.left; b.style.top = el.style.top; },
+  words(st, canFlag) {
+    const ws = st.xs.words; if (!ws.length) return `<div class="hint">${t('bombNoWords')}</div>`;
+    const others = (w) => st.players.filter((p) => p.id !== w.pid).length;
+    return `<div class="bomb-words">${ws.map((w, i) => ({ w, i })).reverse().map(({ w, i }) => { const p = st.players.find((x) => x.id === w.pid) || { name: '?' }, mine = w.pid === net.myId, on = w.f.includes(net.myId);
+      return `<div class="bw${w.bad ? ' bad' : ''}"><span class="bw-n">${esc(p.name)}</span><span class="bw-w">${esc(w.w)}</span>${canFlag && !mine ? `<button class="bw-f${on ? ' on' : ''}" data-i="${i}">🚫 ${w.f.length}/${Math.floor(others(w) / 2) + 1}</button>` : `<span class="bw-c">${w.f.length ? '🚫 ' + w.f.length : ''}</span>`}</div>`; }).join('')}</div>`;
+  },
+  bindFlags(stage) { stage.querySelectorAll('.bw-f').forEach((b) => b.onclick = () => { xSend('flag', { i: +b.dataset.i }); b.classList.toggle('on'); }); },
+  render(v, st, stage) {
+    const th = X_THEMES[st.xs.th] || ['', ''];
+    clearInterval(v.bombTick);
+    if (st.phase === 'xbomb') {
+      stage.innerHTML = `<div class="cat">${t('modeBomb')}</div><div class="bomb-theme">${t('bombTheme')} <b>${esc(lang === 'am' ? th[1] : th[0])}</b></div>${this.ring(st)}
+        <div class="hint" id="bomb-h"></div><form class="g-form hidden" id="bomb-f"><input id="bomb-in" maxlength="30" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${t('bombPh')}"><button class="btn primary">${t('bombSend')}</button></form>
+        <div class="cat">${t('bombWords')}</div><div id="bomb-list"></div>`;
+      $('#bomb-f').onsubmit = (e) => { e.preventDefault(); const i = $('#bomb-in'), w = i.value.trim(); if (!w) return; xSend('word', { w }); i.value = ''; tick(990); };
+      v.bombTick = setInterval(() => { if (!v.state || v.state.phase !== 'xbomb') { clearInterval(v.bombTick); return; } tick(260); }, 650);
+    } else {
+      boomSound();
+      stage.innerHTML = `<div class="cat">${t('modeBomb')}</div><div class="bomb-theme">${t('bombTheme')} <b>${esc(lang === 'am' ? th[1] : th[0])}</b></div>${this.ring(st, st.xs.loser)}
+        <h2 class="bomb-res" id="bomb-res"></h2><div class="hint" id="bomb-h"></div><div class="cat">${t('bombWords')}</div><div id="bomb-list"></div>`;
+      const bm = $('#boom'), el = document.querySelector(`.br-p[data-id="${CSS.escape(st.xs.loser || '')}"]`);
+      if (bm && el) { bm.style.left = el.style.left; bm.style.top = el.style.top; bm.classList.remove('hidden'); }
+      $('#bomb').classList.add('hidden');
+      v.bombTick = setInterval(() => { const hh = $('#bomb-h'); if (!hh || !v.state || v.state.phase !== 'xboom') { clearInterval(v.bombTick); return; } hh.textContent = t('bombReview', { n: Math.max(0, Math.ceil((v.deadlineLocal - Date.now()) / 1000)) }); }, 500);
+    }
+    this.update(v, st);
+  },
+  update(v, st) {
+    if (st.phase === 'xbomb') {
+      this.placeBomb(st.xs.holder);
+      const me = st.xs.holder === net.myId, hp = st.players.find((p) => p.id === st.xs.holder), f = $('#bomb-f');
+      $('#bomb-h').textContent = me ? t('bombYou') : t('bombHas', { name: hp ? hp.name : '?' });
+      $('#bomb-h').classList.toggle('myturn', me);
+      if (f) { const was = !f.classList.contains('hidden'); f.classList.toggle('hidden', !me); if (me && !was) { const i = $('#bomb-in'); i.value = ''; setTimeout(() => i.focus(), 50); } }
+    } else {
+      const lp = st.players.find((p) => p.id === st.xs.loser);
+      $('#bomb-res').textContent = st.xs.why ? t('bombBad', { name: lp ? lp.name : '?', w: st.xs.why }) : t('bombBoom', { name: lp ? lp.name : '?' });
+      $('#bomb-h').textContent = t('bombReview', { n: Math.max(0, Math.ceil((v.deadlineLocal - Date.now()) / 1000)) });
+      document.querySelectorAll('.br-p').forEach((x) => x.classList.toggle('burnt', x.dataset.id === st.xs.loser));
+      const bm = $('#boom'), el = document.querySelector(`.br-p[data-id="${CSS.escape(st.xs.loser || '')}"]`); if (bm && el) { bm.style.left = el.style.left; bm.style.top = el.style.top; }
+    }
+    const list = $('#bomb-list'); if (list) { list.innerHTML = this.words(st, true); this.bindFlags(list); }
+  },
+  results(v, st, stage) {
+    const th = X_THEMES[st.xs.th] || ['', ''], lp = st.players.find((p) => p.id === st.xs.loser);
+    stage.innerHTML = scoreCards(st, null, true) + `<div class="cat light">${t('bombTheme')} ${esc(lang === 'am' ? th[1] : th[0])}</div>
+      <div class="most-top">${lp ? `<div class="most-win"><div class="burnt">${charEl(lp.char, 80, false)}</div><div class="mw-n">💥 ${esc(lp.name)}</div><div class="mw-v">${t('bombLoser')}</div></div>` : ''}</div>
+      <div class="vlist">${st.xs.words.map((w) => { const p = st.players.find((x) => x.id === w.pid) || { name: '?', char: {} };
+        return `<div class="vline${w.bad ? '' : ''}">${charEl(p.char, 22, false)}<span class="vn">${esc(p.name)}</span><span class="vp">${w.bad ? '❌' : '✅'} <b>${esc(w.w)}</b></span></div>`; }).join('')}</div>`;
+  },
+};
+
 // ---- Spielmodi, Logos, Raten
-const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind', 'dish', 'imposter', 'most'];
+const GAME_MODES = ['sound', 'draw', 'guess', 'logo', 'timer', 'hang', 'estimate', 'react', 'simon', 'memory', 'cups', 'emoji', 'halve', 'balance', 'color', 'circle', 'stack', 'bluff', 'blind', 'dish', 'imposter', 'most', 'hunt', 'uniq', 'photo', 'diff', 'sort', 'geo', 'bomb'];
 const MODES = [...GAME_MODES, 'mix'];
 // Bluff: [Frage DE, Frage AM, Antwort DE, Antwort AM, [Hausbluffs DE], [Hausbluffs AM]] – „___“ ist die Lücke
 const BLUFF_Q = window.BLUFF_Q || [];
@@ -2713,7 +3252,7 @@ const DISHES = window.DISHES || [];
 // Emoji-Rätsel: [Emojis, Wort-ID]; das Wort wird über den deutschen Namen in der Wortliste gefunden
 const EMOJI_LIST = (() => { const ids = new Map(WORDS.map((w, i) => [w[0].toLowerCase(), i]));
   return (window.EMOJI_Q || []).map(([e, w]) => [e, ids.get(String(w).toLowerCase())]).filter((x) => x[1] != null); })();
-const MODE_KEY = { most: 'modeMost', sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', dish: 'modeDish', blind: 'modeBlind', emoji: 'modeEmoji', imposter: 'modeImp', mix: 'modeMix' };
+const MODE_KEY = { hunt: 'modeHunt', uniq: 'modeUniq', photo: 'modePhoto', diff: 'modeDiff', sort: 'modeSort', geo: 'modeGeo', bomb: 'modeBomb', most: 'modeMost', sound: 'modeSound', draw: 'modeDraw', guess: 'modeGuess', logo: 'modeLogo', timer: 'modeTimer', hang: 'modeHang', estimate: 'modeEst', react: 'modeReact', simon: 'modeSimon', memory: 'modeMemory', cups: 'modeCups', halve: 'modeHalve', balance: 'modeBal', color: 'modeColor', circle: 'modeCircle', stack: 'modeStack', bluff: 'modeBluff', dish: 'modeDish', blind: 'modeBlind', emoji: 'modeEmoji', imposter: 'modeImp', mix: 'modeMix' };
 // Strichmännchen: Buchstaben. Amharisch: man wählt die Grundform (z. B. ለ) – dann erscheinen alle Formen (ሉ ሊ ላ ሌ ል ሎ)
 const KEYS_DE = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß'];
 const KEYS_AM = [0x1200, 0x1208, 0x1210, 0x1218, 0x1220, 0x1228, 0x1230, 0x1238, 0x1240, 0x1260, 0x1268, 0x1270, 0x1278, 0x1280, 0x1290, 0x1298, 0x12A0, 0x12A8, 0x12B8, 0x12C8, 0x12D0, 0x12D8, 0x12E0, 0x12E8, 0x12F0, 0x1300, 0x1308, 0x1320, 0x1328, 0x1330, 0x1338, 0x1340, 0x1348, 0x1350].map((c) => String.fromCharCode(c));
@@ -2741,7 +3280,7 @@ function stickSVG(n, lost) {
 }
 const TIMER_TARGETS = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 2.5, 4.5, 6.5, 7.5];
 const fmtSec = (ms) => (ms / 1000).toFixed(2).replace('.', lang === 'am' ? '.' : ',');
-const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], dish: [[1, 2, 3, 5], 2], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], imposter: [[1, 2, 3, 4, 5], 1], most: [[5, 8, 10, 15, 20], 8], mix: [[1, 2, 3, 4, 5], 1] };
+const ROUND_OPTS = { sound: [[3, 5, 8, 10, 15], 5], draw: [[3, 5, 8, 10, 15], 5], guess: [[1, 2, 3, 4, 5], 2], logo: [[5, 10, 15, 20, 30], 10], timer: [[3, 5, 8, 10, 15], 5], hang: [[1, 2, 3, 4, 5], 1], estimate: [[5, 10, 15, 20, 30], 10], react: [[3, 5, 8, 10, 15], 5], simon: [[1, 2, 3, 5], 2], memory: [[1, 2, 3, 5], 2], cups: [[1, 2, 3, 5], 2], halve: [[5, 8, 10, 15, 20], 8], balance: [[5, 8, 10, 15, 20], 8], color: [[3, 5, 8, 10, 15], 5], circle: [[2, 3, 5, 8], 3], stack: [[1, 2, 3, 5], 2], bluff: [[3, 5, 8, 10], 5], dish: [[1, 2, 3, 5], 2], blind: [[3, 5, 8, 10, 15], 5], emoji: [[5, 10, 15, 20, 30], 10], imposter: [[1, 2, 3, 4, 5], 1], most: [[5, 8, 10, 15, 20], 8], hunt: [[3, 5, 8, 10], 5], uniq: [[5, 8, 10, 15], 8], photo: [[3, 5, 8, 10], 5], diff: [[3, 5, 8], 3], sort: [[3, 5, 8], 3], geo: [[5, 10, 15, 20], 10], bomb: [[3, 5, 8, 10], 5], mix: [[1, 2, 3, 4, 5], 1] };
 let logosP = null;
 function ensureLogos() {
   if (window.LOGOS) return Promise.resolve();
@@ -3356,7 +3895,7 @@ $('#btn-credits').onclick = () => {
 };
 $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
 window.addEventListener('pagehide', sayBye);
-if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey, OPTS, charEl, validChar, drawStroke };
+if (new URLSearchParams(location.search).has('debug')) window.__echo = { net, host, view, EchoScore, SOUNDS, hangKey, OPTS, charEl, validChar, drawStroke , XG, huntSpec, photoSpec, diffSpec, sortSpec };
 
 const urlCode = cleanCode(new URLSearchParams(location.search).get('code') || '');
 if (urlCode) $('#in-code').value = urlCode;
